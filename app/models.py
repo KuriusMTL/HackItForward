@@ -216,7 +216,11 @@ class Task(models.Model):
     )
     status = models.CharField(max_length=1, verbose_name="Status", help_text="Status of this task.")
     tags = models.ManyToManyField(
-        Tag, blank=True, related_name="tags", verbose_name="Tags", help_text="Tags associated with this task."
+        Tag,
+        blank=True,
+        related_name="tags",
+        verbose_name="Tags",
+        help_text="Tags associated with this task.",
     )
 
     def __str__(self):

@@ -6,8 +6,10 @@ from django.views.generic.edit import FormView
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+
 class IndexView(TemplateView):
     template_name = "index.html"
+
 
 class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "userhome.html"
@@ -18,6 +20,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
         if self.request.user.is_authenticated:
             context["profile"] = self.request.user.profile
         return context
+
 
 class RegisterView(FormView):
     template_name = "register.html"
