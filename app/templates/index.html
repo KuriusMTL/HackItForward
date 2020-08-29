@@ -9,8 +9,71 @@
 	<!-- <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700" rel="stylesheet"> -->
 	<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cirrus-ui@0.5.5/dist/cirrus.min.css" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </head>
 <body>
-	<h1>Hello world</h1>
+	<section class="top-main">
+		<div class="header unselectable header-animated header-clear">
+			<div class="header-brand">
+				<div class="nav-item">
+					<img src="{% static 'img/logo.png' %}" class="logo" alt="Stratus">
+				</div>
+
+				<!-- hamburger menu -->
+				<div class="nav-item nav-btn" id="header-btn">
+		            <span></span>
+		            <span></span>
+		            <span></span>
+		        </div>
+			</div>
+		    <div class="header-nav" id="header-menu">
+				<div class="nav-right">
+					<div class="nav-item">
+						<a href="#">Challenges</a>
+					</div>
+					<div class="nav-item">
+						<a href="#">Projects</a>
+					</div>
+					<div class="nav-item">
+						<a href="#">Gala</a>
+					</div>
+					<div class="nav-item btn-container">
+						<button onclick="document.location='#'" class="btn-primary btn-animated">Login</button>
+					</div>
+				</div>
+		    </div>
+		</div>
+		<br>
+		<div class="land">
+			<div class="left">
+			 	<span class="pre">Make an</span>
+			 	<h1 class="impact">IMPACT</h1>
+			</div>
+			<div class="right">
+			 	<form>
+			 		<label for="username">Username: </label>
+			 		<input type="text" id="username" name="username">
+			 		<br>
+			 		<label for="email">Email: </label>
+			 		<input type="email" id="email" name="email">
+			 		<br>
+			 		<label for="passname">Passname: </label>
+			 		<input type="password" id="passname" name="passname">
+			 		<br>
+			 	</form>
+			</div>
+		</div>
+		<br>
+		<br>
+	</section>
+
+	<section class="gray-bkgd">
+		<br>
+		<span>foo</span>
+		<br>
+		<br>
+	</section>
+
+ 	<script src="https://spiderpig86.github.io/Cirrus/res/js/test.js"></script>
 </body>
 </html>

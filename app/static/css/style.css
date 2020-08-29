@@ -1,1 +1,67 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Nunito+Sans:wght@200;300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700&display=swap');
+
+
+/* colour variables */
+:root {	
+	--orange: #e3af92;
+	--orange-pale: #e3af92;
+	--blue: #499ad6;
+	--blue-pale: #d8e4ed;
+
+	--grey-light: #f2f2f2;
+	--grey-mid: #4d4d4d;
+	--grey-dark: #2e2e2e;
+}
+
+.header-nav a {
+	text-transform: uppercase; 
+}
+
+.logo {
+	height: 60px;
+}
+
+.top-main {
+	background-color: var(--orange);
+}
+
+.land .pre {
+	color: var(--grey-mid);
+	font-family: 'Nunito Sans', sans-serif;
+}
+
+.land .impact { 
+	color: var(--grey-dark);
+}
+
+.land {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	align-items: flex-end;
+}
+
+form > input:not([type=checkbox]):not([type=radio]):not([type=submit]) {
+	box-sizing: border-box;
+	border: none;
+	border-bottom: 3px solid var(--grey-light);
+	background: transparent;
+	padding: .2rem;
+}
+
+form > input:not([type=checkbox]):not([type=radio]):not([type=submit]):focus {
+	border-bottom: 3px solid var(--grey-dark);
+	box-shadow: none;
+
+	transition: border 1s ease-in;
+}
+
+.right > form > label {
+	margin-top: 10px !important;
+}
+
+section.gray-bkgd {
+	background: var(--grey-dark);
+	color: var(--grey-light);
+}
