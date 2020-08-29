@@ -16,7 +16,7 @@ section.block {
 
 .block > h2 {
 	text-transform: uppercase;
-	color: var(--blue);
+	color: var(--cirrus-primary);
 }
 
 
@@ -50,7 +50,7 @@ section.block {
 }
 
 .block > .card > .challenge > h2 {
-	margin: 10px, 5px;
+
 	text-transform: uppercase;
 	color: var(--cirrus-primary-light);
 }
@@ -71,6 +71,11 @@ section.block {
 	margin-top: 10px;
 	border-bottom: 5px solid var(--cirrus-primary-light);
 	width: 100%;
+}
+
+.block > .card > .challenge > .card{
+	margin: 3%; 
+	margin-right: 100px; 
 }
 
 .completion{
