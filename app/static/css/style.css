@@ -6,12 +6,12 @@
 	--grid-grey: #f0eeee;
 	--grey-light: #f1efef;
 	--grey-mid: #6c6c6c;
-	--grey-dark: #2e2e2e;
+	--grey-dark: #242424;
 
-  --cirrus-primary: #499ad6!important;
-  --cirrus-primary-light: #b6cfe3!important;
-  --cirrus-accent-border: #56a0d6!important;
-  --cirrus-accent-hover: #4286b8!important;
+  --cirrus-primary: #3c8cc9 !important;
+  --cirrus-primary-light: #c1d5e3 !important;
+  --cirrus-accent-border: #56a0d6 !important;
+  --cirrus-accent-hover: #4286b8 !important;
 }
 
 * {
