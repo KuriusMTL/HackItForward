@@ -9,6 +9,7 @@
 	--grey-dark: #242424;
 
   --cirrus-primary: #3c8cc9 !important;
+  --cirrus-text: #aacbe3!important;
   --cirrus-primary-light: #c1d5e3 !important;
   --cirrus-accent-border: #56a0d6 !important;
   --cirrus-accent-hover: #4286b8 !important;
@@ -46,4 +47,8 @@ div.header {
 section.gray-bkgd {
 	background: var(--grey-dark);
 	color: var(--grey-light);
+}
+
+.nav-item > a{
+	text-shadow: none !important;
 }
