@@ -204,7 +204,7 @@ class Project(models.Model):
 
 
 class Task(models.Model):
-    project = models.ForeignKey(Task, related_name="tasks", null=True, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, related_name="tasks", null=True, on_delete=models.CASCADE)
 
     STATUS_CHOICES = [
         ("T", "TODO"),
