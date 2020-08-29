@@ -27,6 +27,14 @@
 	color: var(--grey-dark);
 }
 
+.header .header-nav a[class*="btn-primary"] {
+	color: var(--cirrus-bg);
+}
+
+.nav-item.has-sub .nav-dropdown-link.btn-primary::after {
+	border-color: var(--cirrus-bg);
+}
+
 div.header {
 	margin-top: 10px;
 }
