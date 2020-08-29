@@ -16,7 +16,7 @@ section.block {
 
 .block > h2 {
 	text-transform: uppercase;
-	color: var(--blue);
+	color: var(--cirrus-primary);
 }
 
 
@@ -50,7 +50,7 @@ section.block {
 }
 
 .block > .card > .challenge > h2 {
-	margin: 10px, 5px;
+
 	text-transform: uppercase;
 	color: var(--cirrus-primary-light);
 }
@@ -67,10 +67,20 @@ section.block {
 }
 
 .block > .card > .challenge > .card > .challenge-project > .project{
-	padding: 10px;
-	margin-top: 10px;
-	border-bottom: 5px solid var(--cirrus-primary-light);
+	padding: 20px;
+	margin: 10px 0px;
 	width: 100%;
+}
+
+.block > .card > .challenge > .card{
+	margin: 3% 0%;
+	padding-bottom: 4%; 
+}
+
+/* Solid border */
+hr.solid {
+	border-top: 3px solid var(--cirrus-primary-light);
+	margin: 20px; 
 }
 
 .completion{

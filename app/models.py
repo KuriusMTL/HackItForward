@@ -91,18 +91,20 @@ class Tag(models.Model):
 
 
 class Profile(models.Model):
-    user = models.ForeignKey(User, related_name="profile", on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
     description = models.TextField(
         blank=True, verbose_name="Description", help_text="User description."
     )
     badges = models.ManyToManyField(
         Badge,
+        blank=True,
         related_name="profiles",
         verbose_name="Badges",
         help_text="Badges awarded to this user.",
     )
     tags = models.ManyToManyField(
         Tag,
+        blank=True,
         related_name="profiles",
         verbose_name="Tags",
         help_text="Tags associated with this user.",
@@ -125,6 +127,7 @@ class Challenge(models.Model):
     )
     tags = models.ManyToManyField(
         Tag,
+        blank=True,
         related_name="challenges",
         verbose_name="Tags",
         help_text="Tags associated with this challenge.",
@@ -150,6 +153,7 @@ class Challenge(models.Model):
     )
     rewards = models.ManyToManyField(
         Badge,
+        blank=True,
         related_name="challenges",
         verbose_name="Rewards",
         help_text="Badges awareded to users that complete projects for this challenge.",
@@ -170,12 +174,14 @@ class Project(models.Model):
     )
     tags = models.ManyToManyField(
         Tag,
+        blank=True,
         related_name="projects",
         verbose_name="Tags",
         help_text="Tags associated with this project.",
     )
     contributors = models.ManyToManyField(
         Profile,
+        blank=True,
         related_name="contributed_projects",
         verbose_name="Contributors",
         help_text="Those who have completed tasks for this project.",
@@ -210,7 +216,7 @@ class Task(models.Model):
     )
     status = models.CharField(max_length=1, verbose_name="Status", help_text="Status of this task.")
     tags = models.ManyToManyField(
-        Tag, related_name="tags", verbose_name="Tags", help_text="Tags associated with this task."
+        Tag, blank=True, related_name="tags", verbose_name="Tags", help_text="Tags associated with this task."
     )
 
     def __str__(self):
