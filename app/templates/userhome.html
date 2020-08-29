@@ -3,11 +3,7 @@
 {% load static %}
 
 {% block head %}
-	{% comment %} 
-	<!-- {% user.username %} | Home  -->
-	{% endcomment %} 
-
-	<title>Home</title>
+	<title>{{ profile.username }} | Home</title>
 	<link href="{% static 'css/userhome.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
@@ -26,7 +22,7 @@
 			<div class="project">
 				<img src="{% static 'img/logo.png' %}">
 				<div class="info">
-					<h4>Project One</h4>
+					<h4>Project Two</h4>
 					<br>
 					<span>description</span>
 				</div>
@@ -42,7 +38,7 @@
 			<div class="profile-info">
 				<span class="label">Username:</span>
 				<div class="values">
-					<span>Username</span>
+					<span>{{ profile.username }}</span>
 				</div>
 			</div>
 			<div class="profile-info">
@@ -61,7 +57,7 @@
 			<div class="profile-info">
 				<span class="label">Description:</span>
 				<div class="values">
-					<span>Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</span>
+					<span>{{ profile.description }}</span>
 				</div>
 			</div>
 			<div class="profile-info">
@@ -73,8 +69,9 @@
 			<div class="profile-info">
 				<span class="label">Interests:</span>
 				<div class="values">
-					<span class="tag">Feedback</span>
-					<span class="tag">Binder</span>
+					{% for tag in profile.tags.all %}
+					<span class="tag">{{ tag.name }}</span>
+					{% endfor %}
 				</div>
 			</div>
 		</div>
