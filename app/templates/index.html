@@ -1,50 +1,13 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Stratus</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
-	<!-- <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700" rel="stylesheet"> -->
-	<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cirrus-ui@0.5.5/dist/cirrus.min.css" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-</head>
-<body>
-	<section class="top-main">
-		<div class="header unselectable header-animated header-clear">
-			<div class="header-brand">
-				<div class="nav-item">
-					<img src="{% static 'img/logo.png' %}" class="logo" alt="Stratus">
-				</div>
 
-				<!-- hamburger menu -->
-				<div class="nav-item nav-btn" id="header-btn">
-		            <span></span>
-		            <span></span>
-		            <span></span>
-		        </div>
-			</div>
-		    <div class="header-nav" id="header-menu">
-				<div class="nav-right">
-					<div class="nav-item">
-						<a href="#">Challenges</a>
-					</div>
-					<div class="nav-item">
-						<a href="#">Projects</a>
-					</div>
-					<div class="nav-item">
-						<a href="#">Gala</a>
-					</div>
-					<div class="nav-item btn-container">
-						<button onclick="document.location='#'" class="btn-primary btn-animated">Login</button>
-					</div>
-				</div>
-		    </div>
-		</div>
-	</section>
-	<section class="top-main">
+{% block head %}
+	<title>Stratus</title>
+	<link href="{% static 'css/index.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block body %}
+	<section>
 		<br>
 		<div class="land">
 			<div class="left">
@@ -76,16 +39,5 @@
 		<br>
 	</section>
 
-	<script>
-	$(document).ready(() => {
-		// TOGGLE HEADER-NAV
-		// Show dropdown when clicked
-		$('#header-btn').on('click', function(e) {
-		    $('#header-menu').toggleClass('active');
-		    $('.nav-btn').toggleClass('active');
-		});
-	});
-	</script>
- 	<!-- <script src="https://spiderpig86.github.io/Cirrus/res/js/test.js"></script> -->
-</body>
+{% endblock %}
 </html>
