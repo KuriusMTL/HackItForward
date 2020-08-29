@@ -91,7 +91,7 @@ class Tag(models.Model):
 
 
 class Profile(models.Model):
-    user = models.ForeignKey(User, related_name="profile", on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
     description = models.TextField(
         blank=True, verbose_name="Description", help_text="User description."
     )
