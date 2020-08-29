@@ -1,0 +1,84 @@
+<!-- homepage for the user -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+	{% comment %} 
+	<!-- {% user.username %} | Home  -->
+	{% endcomment %} 
+
+	<title>Home</title>
+	<link href="{% static 'css/userhome.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block body %}
+	<section class="block">
+		<h2>Dashboard</h2>
+		<div class="card">
+			<div class="project">
+				<img src="{% static 'img/logo.png' %}">
+				<div class="info">
+					<h4>Project One</h4>
+					<br>
+					<span>description</span>
+				</div>
+			</div>
+			<div class="project">
+				<img src="{% static 'img/logo.png' %}">
+				<div class="info">
+					<h4>Project One</h4>
+					<br>
+					<span>description</span>
+				</div>
+			</div>
+			<div class="more">
+				<p>more...</p>
+			</div>
+		</div>
+	</section>
+	<section class="block">
+		<h2>Profile</h2>
+		<div class="card">
+			<div class="profile-info">
+				<span class="label">Username:</span>
+				<div class="values">
+					<span>Username</span>
+				</div>
+			</div>
+			<div class="profile-info">
+				<span class="label">Badges:</span>
+				<div class="values">
+				</div>
+			</div>
+			<div class="profile-info">
+				<span class="label">Links:</span>
+				<div class="values">
+					<a href="https://github.com/github">https://github.com/github</a>
+					<a href="https://github.com/github">https://github.com/github</a>
+					<a href="https://github.com/github">https://github.com/github</a>
+				</div>
+			</div>
+			<div class="profile-info">
+				<span class="label">Description:</span>
+				<div class="values">
+					<span>Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</span>
+				</div>
+			</div>
+			<div class="profile-info">
+				<span class="label">Activity:</span>
+				<div class="values">
+					<span>Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</span>
+				</div>
+			</div>
+			<div class="profile-info">
+				<span class="label">Interests:</span>
+				<div class="values">
+					<span class="tag">Feedback</span>
+					<span class="tag">Binder</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}
+</html>

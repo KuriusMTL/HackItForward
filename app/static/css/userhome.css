@@ -1,0 +1,76 @@
+body {
+	background-color: var(--grey-light);
+}
+
+body > *:not(.header) {
+	margin: 0 20px;
+}
+
+section.block {
+	margin-top: 40px;
+}
+
+.block > h2 {
+	text-transform: uppercase;
+	color: var(--orange);
+}
+
+.block > .card {
+	padding: 10px;
+	margin-top: 10px;
+	border-left: 5px solid var(--orange);
+	width: 100%;
+}
+
+.block > .card .project {
+	display: flex;
+	flex-direction: row;
+}
+
+.block > .card .project:not(:last-child) {
+	margin-bottom: 10px;
+}
+
+.block > .card .project > .info {
+	margin-left: 10px;
+}
+
+.block > .card .project > .info > h4 {
+	display: inline-block;
+}
+
+.block > .card .project > img {
+	height: 50px;
+}
+
+.block > .card .more {
+	color: var(--orange);
+}
+
+.block > .card .profile-info {
+	display:flex;
+	align-items: flex-start;
+}
+
+.block > .card .profile-info > span.label {
+	font-weight: bold;
+	margin-top: 0;
+	margin-right: 6px;
+}
+
+.block > .card .profile-info > div.values {
+	display: inline-flex;
+	padding: 0;
+	flex-flow: row wrap;
+}
+
+.block > .card .profile-info > div.values > * {
+	margin: 0 3px;
+}
+
+.tag {
+	padding: 5px;
+	background-color: var(--grey-light);
+	color: var(--orange);
+}
+
