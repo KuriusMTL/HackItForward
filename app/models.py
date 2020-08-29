@@ -204,6 +204,8 @@ class Project(models.Model):
 
 
 class Task(models.Model):
+    project = models.ForeignKey(Task, related_name="tasks", null=True, on_delete=models.CASCADE)
+
     STATUS_CHOICES = [
         ("T", "TODO"),
         ("I", "In-Progress"),
@@ -222,6 +224,8 @@ class Task(models.Model):
         verbose_name="Tags",
         help_text="Tags associated with this task.",
     )
+
+    
 
     def __str__(self):
         return self.name
