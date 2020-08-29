@@ -1,36 +1,11 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block head %}
-  <title>Login | Stratus</title>
-  <link href="{% static 'css/login.css' %}" rel="stylesheet" type="text/css">
+  <title>Login</title>
 {% endblock %}
 
 {% block body %}
-  {% if form.errors %}
-  <div class="row ignore-screen level">
-    <div class="toast toast--error">
-      <button class="btn-close"></button>
-      <p>Your username and password didn't match. Please try again.</p>
-    </div>
-  </div>
-  {% endif %}
-
-
-  <form action="{% url 'login' %}" method="post">
-    {% csrf_token %}
-    <div class="row ignore-screen level">
-      <div class="col-3 ignore-screen level-item"><span>{{ form.username.label_tag }}</span></div>
-      <div class="col-9 ignore-screen level-item">{{ form.username }}</div>
-    </div>
-    <div class="row ignore-screen level">
-      <div class="col-3 ignore-screen level-item"><span>{{ form.password.label_tag }}</span></div>
-      <div class="col-9 ignore-screen level-item">{{ form.password }}</div>
-    </div>
-    <div class="row ignore-screen level">
-      <div class="col-3 ignore-screen level-item"><input type="submit" value="login" class="btn-primary btn-animated"></div>
-      <input type="hidden" name="next" value="{{ next }}">
-    </div>
-  </form>
+  {% with type='Login' %}
+    {% include "register_login.html" %}
+  {% endwith %}
 {% endblock %}
-</html>
