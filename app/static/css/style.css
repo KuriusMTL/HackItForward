@@ -57,3 +57,11 @@ div.header {
 	height: 60px;
 }
 
+.tab-container li a {
+	transition: 0.2s !important;
+}
+
+.tab-container:hover li:hover a:hover {
+	border-bottom: 2px solid var(--cirrus-accent-hover);
+	/*background: green;*/
+}
