@@ -25,7 +25,7 @@ resources:
   type: git
   icon: github-circle
   source:
-    uri: git@github.com:concourse/git-resource.git
+    uri: git@github.com:TheAvidDev/stratus.git
     branch: master
     private_key: |
       ((github.sshkey))
