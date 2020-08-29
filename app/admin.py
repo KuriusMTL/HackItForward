@@ -1,3 +1,22 @@
 from django.contrib import admin
+from app.models import (
+    SocialLink,
+    SocialLinkAttachement,
+    Badge,
+    Tag,
+    Profile,
+    Challenge,
+    Project,
+    Task,
+    TaskSubmission,
+)
 
-# Register your models here.
+admin.site.register(SocialLink)
+admin.site.register(SocialLinkAttachement)
+admin.site.register(Badge)
+admin.site.register(Tag)
+admin.site.register(Profile)
+admin.site.register(Challenge)
+admin.site.register(Project)
+admin.site.register(Task)
+admin.site.register(TaskSubmission)
