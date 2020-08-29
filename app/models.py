@@ -237,8 +237,6 @@ class Task(models.Model):
         help_text="Tags associated with this task.",
     )
 
-    
-
     def __str__(self):
         return self.name
 
