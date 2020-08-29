@@ -9,7 +9,9 @@ class SocialLink(models.Model):
     name = models.CharField(
         max_length=24, verbose_name="Name", help_text="Name of this social link."
     )
-    icon = models.ImageField(upload_to="badges/", verbose_name="Image", help_text="Icon of badge.")
+    icon = models.CharField(
+        max_length=32, verbose_name="Icon", help_text="CSS ZMDI icon class without 'zmdi-' prefix."
+    )
     site = models.CharField(
         max_length=2047,
         verbose_name="Site",
