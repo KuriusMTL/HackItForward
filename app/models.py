@@ -162,6 +162,12 @@ class Challenge(models.Model):
         upload_to="challenges/", verbose_name="Image", help_text="Cover image of this challenge."
     )
 
+    @property
+    def short_creators(self):
+        if self.creators.count() == 1:
+            return self.creators.first().username
+        return "%s, et al." % self.creators.first().username
+
     def __str__(self):
         return self.name
 
@@ -198,6 +204,12 @@ class Project(models.Model):
     image = models.ImageField(
         upload_to="challenges/", verbose_name="Image", help_text="Cover image of this project."
     )
+
+    @property
+    def short_creators(self):
+        if self.creators.count() == 1:
+            return self.creators.first().username
+        return "%s, et al." % self.creators.first().username
 
     def __str__(self):
         return self.name

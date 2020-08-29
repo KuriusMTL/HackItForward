@@ -3,98 +3,97 @@
 {% load static %}
 
 {% block head %}
-	{% comment %} 
-	<!-- {% user.username %} | Home  -->
-	{% endcomment %} 
-
-	<title>Home</title>
-	<link href="{% static 'css/userhome.css' %}" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Explore | Stratus</title>
 {% endblock %}
 
 {% block body %}
-	<section class="block">
-		<h2>Explore</h2>
-		<div class="card">
-			<div class="form-group">
-				<input type="text" class="form-group-input" placeholder="Search">
-				<button class="form-group-btn"><i class="fa fa-search"></i></button>
-			</div>
-			<div class="challenge">
-				<h2>CHALLENGE 1</h2>
-				<div class="card">
-					<p>Short description</p>
-					<div class="challenge-projects">
-						<div class="project">
-							<img src="{% static 'img/logo.png' %}">
-							<div class="info">
-								<div class="project-title">
-									<h4>Project One</h4> 
-									<h4 class="completion">63%</h4>
-								</div>
-								<br>
-								<span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </span>
-							</div>
-							
-						</div>
-						<hr class="solid">
-						<div class="project">
-							<img src="{% static 'img/logo.png' %}">
-							<div class="info">
-								<div class="project-title">
-									<h4>Project One</h4> 
-									<h4 class="completion">63%</h4>
-								</div>
-								<br>
-								<span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </span>
-							</div>
-							
-						</div>
-					</div>
-				</div>
+{% if not user.is_authenticated %}
+  <div id="splash-img" class="hero h-70 hero-img parallax-img">
+    <div class="hero-body">
+      <div class="content u-text-center">
+        <h1 class="uppercase title">Stratus</h1>
+        <h3 class="uppercase sub-title faded">Conquer the world's challenges with others</h3>
+      </div>
+    </div>
+  </div>
+{% endif %}
 
-				<h2>CHALLENGE 2</h2>
-				<div class="card">
-					<p>Short description</p>
-					<div class="challenge-projects">
-						<div class="project">
-							<img src="{% static 'img/logo.png' %}">
-							<div class="info">
-								<div class="project-title">
-									<h4>Project One</h4> 
-									<h4 class="completion">63%</h4>
-								</div>
-								<br>
-								<span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </span>
-							</div>
-							
-						</div>
-						<hr class="solid">
-						<div class="project">
-							<img src="{% static 'img/logo.png' %}">
-							<div class="info">
-								<div class="project-title">
-									<h4>Project One</h4> 
-									<h4 class="completion">63%</h4>
-								</div>
-								<br>
-								<span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </span>
-							</div>
-							
-						</div>
-					</div>
-				</div>
-				
-
-			</div>
-
-
-			<div class="more">
-				<p>more...</p>
-			</div>
-		</div>
-	</section>
-	
-
+<div class="content" id="challenges">
+  <div class="row">
+    <h1>Challenges</h1>
+    <div class="col-12">
+      <div class="input-control">
+        <input type="email" class="input-contains-icon" placeholder="Challenge Search"/>
+        <span class="icon"><i class="zmdi zmdi-search" aria-hidden="true"></i></span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    {% for challenge in challenges %}
+      <div class="col-4">
+        <div class="card slide-up">
+          <div class="card-container">
+            <div class="card-image" style="background-image: url({{ challenge.image.url }})"></div>
+          </div>
+          <div class="mobile-title">
+            <div class="content">
+              <div class="tile">
+                <div class="tile__container">
+                  <p class="tile__title">{{ challenge.name }}</p>
+                  <p class="tile__subtitle">By {{ challenge.short_creators }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body content">
+            <p>{{ challenge.description|truncatechars:100 }}</p>
+          </div>
+          <div class="card-footer content">
+            {% for tag in challenge.tags.all|slice:':3' %}
+              <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="row">
+    <h2>Projects</h2>
+    <div class="col-12">
+      <div class="input-control">
+        <input type="email" class="input-contains-icon" placeholder="Project Search"/>
+        <span class="icon"><i class="zmdi zmdi-search" aria-hidden="true"></i></span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    {% for project in projects %}
+      <div class="col-4">
+        <div class="card slide-up">
+          <div class="card-container">
+            <div class="card-image" style="background-image: url({{ project.image.url }})"></div>
+          </div>
+          <div class="mobile-title">
+            <div class="content">
+              <div class="tile">
+                <div class="tile__container">
+                  <p class="tile__title">{{ project.name }}</p>
+                  <p class="tile__subtitle">By {{ project.short_creators }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body content">
+            <p>{{ project.description|truncatechars:100 }}</p>
+          </div>
+          <div class="card-footer content">
+            {% for tag in project.tags.all|slice:':3' %}
+              <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
-</html>
