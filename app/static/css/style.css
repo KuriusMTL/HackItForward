@@ -49,6 +49,10 @@ body {
 	border-color: var(--cirrus-bg);
 }
 
+.nav-item.has-sub .nav-dropdown-link.btn-primary:hover::after {
+	border-color: var(--cirrus-primary);
+}
+
 div.header {
 	margin-top: 10px;
 }
