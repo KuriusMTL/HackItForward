@@ -3,19 +3,19 @@
 
 /* colour variables */
 :root {	
-	--orange: #d77d4d;
-	--orange-pale: #e3af92;
-	--blue: #499ad6;
-	--blue-pale: #d8e4ed;
-
 	--grid-grey: #f0eeee;
 	--grey-light: #f1efef;
 	--grey-mid: #6c6c6c;
 	--grey-dark: #2e2e2e;
+
+  --cirrus-primary: #499ad6!important;
+  --cirrus-primary-light: #b6cfe3!important;
+  --cirrus-accent-border: #56a0d6!important;
+  --cirrus-accent-hover: #4286b8!important;
 }
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .header {
@@ -25,6 +25,14 @@
 .header .header-nav a {
 	text-transform: uppercase; 
 	color: var(--grey-dark);
+}
+
+.header .header-nav a[class*="btn-primary"] {
+	color: var(--cirrus-bg);
+}
+
+.nav-item.has-sub .nav-dropdown-link.btn-primary::after {
+	border-color: var(--cirrus-bg);
 }
 
 div.header {
