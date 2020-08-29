@@ -19,6 +19,14 @@
   box-sizing: border-box;
 }
 
+body {
+	background-color: var(--grey-light);
+}
+
+.placeholder img {
+	height: 100px;
+}
+
 .header {
 	margin-bottom: 0;
 }
@@ -42,11 +50,6 @@ div.header {
 
 .logo {
 	height: 60px;
-}
-
-section.gray-bkgd {
-	background: var(--grey-dark);
-	color: var(--grey-light);
 }
 
 .nav-item > a{
