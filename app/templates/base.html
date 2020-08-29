@@ -8,7 +8,7 @@
 	<!-- <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700" rel="stylesheet"> -->
 	<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cirrus-ui@0.5.5/dist/cirrus.min.css" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 	{% block head %}
 	{% endblock %}
@@ -22,12 +22,12 @@
 
 			<!-- hamburger menu -->
 			<div class="nav-item nav-btn" id="header-btn">
-	            <span></span>
-	            <span></span>
-	            <span></span>
-	        </div>
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
 		</div>
-	    <div class="header-nav" id="header-menu">
+		<div class="header-nav" id="header-menu">
 			<div class="nav-right">
 				<div class="nav-item">
 					<a href="#">Challenges</a>
@@ -43,7 +43,7 @@
 			{% comment %} 
 			{% if user is logged in: add welcome nav-item %} 
 			{% endcomment %} 
-	    </div>
+		</div>
 	</div>
 
 	{% block body %}
@@ -54,11 +54,10 @@
 		// TOGGLE HEADER-NAV
 		// Show dropdown when clicked
 		$('#header-btn').on('click', function(e) {
-		    $('#header-menu').toggleClass('active');
-		    $('.nav-btn').toggleClass('active');
+			$('#header-menu').toggleClass('active');
+			$('.nav-btn').toggleClass('active');
 		});
 	});
 	</script>
- 	<!-- <script src="https://spiderpig86.github.io/Cirrus/res/js/test.js"></script> -->
 </body>
 </html>
