@@ -31,7 +31,7 @@
   <div class="row">
     {% for challenge in challenges %}
       <div class="col-4">
-        <div class="card slide-up">
+        <div class="card u-flex-column h-100 slide-up">
           <div class="card-container">
             <div class="card-image" style="background-image: url({{ challenge.image.url }})"></div>
           </div>
@@ -46,7 +46,7 @@
             </div>
           </div>
           <div class="card-body content">
-            <p>{{ challenge.description|truncatechars:100 }}</p>
+            <p>{{ challenge.description|truncatechars:80 }}</p>
           </div>
           <div class="card-footer content">
             {% for tag in challenge.tags.all|slice:':3' %}
@@ -69,7 +69,7 @@
   <div class="row">
     {% for project in projects %}
       <div class="col-4">
-        <div class="card slide-up">
+        <div class="card u-flex-column h-100 slide-up">
           <div class="card-container">
             <div class="card-image" style="background-image: url({{ project.image.url }})"></div>
           </div>
@@ -84,7 +84,7 @@
             </div>
           </div>
           <div class="card-body content">
-            <p>{{ project.description|truncatechars:100 }}</p>
+            <p>{{ project.description|truncatechars:80 }}</p>
           </div>
           <div class="card-footer content">
             {% for tag in project.tags.all|slice:':3' %}
