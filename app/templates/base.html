@@ -2,63 +2,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
-	<!-- <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700" rel="stylesheet"> -->
-	<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cirrus-ui@0.5.5/dist/cirrus.min.css" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700" rel="stylesheet"> -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet"> -->
+  <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cirrus-ui@0.5.5/dist/cirrus.min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
-	{% block head %}
-	{% endblock %}
+  {% block head %}
+  {% endblock %}
 </head>
 <body>
-	<div class="header unselectable header-animated header-clear">
-		<div class="header-brand">
-			<div class="nav-item">
+  <div class="header unselectable header-animated header-clear">
+    <div class="header-brand">
+      <div class="nav-item">
         <a href="{% url 'index' %}">
           <img src="{% static 'img/logo.png' %}" class="logo" alt="Stratus">
         </a>
-			</div>
+      </div>
 
-			<!-- hamburger menu -->
-			<div class="nav-item nav-btn" id="header-btn">
-				<span></span>
-				<span></span>
-				<span></span>
-			</div>
-		</div>
-		<div class="header-nav" id="header-menu">
-			<div class="nav-right">
-				<div class="nav-item">
-					<a href="#">Challenges</a>
-				</div>
-				<div class="nav-item">
-					<a href="#">Projects</a>
-				</div>
-				{% if request.user.is_authenticated %}
-					<div class="nav-item has-sub btn-container" id="dropdown">
-						<a class="nav-dropdown-link btn-primary">Welcome, {{ request.user.username }}</a>
-						<ul class="dropdown-menu" role="menu">
-							<li role="menu-item"><a href="#">Edit Profile</a></li>
-							<li role="menu-item"><a href="{% url 'logout' %}">Logout</a></li>
-						</ul>
-					</div>
-				{% else %}
-					<div class="nav-item btn-container">
-						<a href="{% url 'login' %}" class="btn-primary btn-animated">Login</a>
-					</div>
-				{% endif %}
-			</div>
+      <!-- hamburger menu -->
+      <div class="nav-item nav-btn" id="header-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="header-nav" id="header-menu">
+      <div class="nav-right">
+        <div class="nav-item">
+          <a href="#">Challenges</a>
+        </div>
+        <div class="nav-item">
+          <a href="#">Projects</a>
+        </div>
+        {% if request.user.is_authenticated %}
+          <div class="nav-item has-sub btn-container" id="dropdown">
+            <a class="nav-dropdown-link btn-primary">Welcome, {{ request.user.username }}</a>
+            <ul class="dropdown-menu" role="menu">
+              <li role="menu-item"><a href="#">Edit Profile</a></li>
+              <li role="menu-item"><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+          </div>
+        {% else %}
+          <div class="nav-item btn-container">
+            <a href="{% url 'login' %}" class="btn-primary btn-animated">Login</a>
+          </div>
+        {% endif %}
+      </div>
 
-		</div>
-	</div>
+    </div>
+  </div>
 
-	{% block body %}
-	{% endblock %}
+  {% block body %}
+  {% endblock %}
 
-	<script src="{% static 'js/base.js' %}"></script>
+  <script src="{% static 'js/base.js' %}"></script>
 </body>
 </html>
