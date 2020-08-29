@@ -23,7 +23,7 @@ body {
 	background-color: var(--grey-light);
 }
 
-frame {
+.frame {
   background-color: white;
 }
 
