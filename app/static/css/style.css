@@ -126,3 +126,7 @@ button:focus, a:focus{
 .card p {
 	word-wrap: break-word;
 }
+
+.row [class^="col-"] {
+    padding: .5rem;
+}
