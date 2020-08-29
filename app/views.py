@@ -10,6 +10,13 @@ from django.views.generic.edit import FormView
 class IndexView(TemplateView):
     template_name = "index.html"
 
+class HomeView(TemplateView):
+    template_name = "userhome.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['profile'] = self.request.user.profile
+        return context
 
 class RegisterView(FormView):
     template_name = "register.html"
