@@ -52,15 +52,6 @@
 	{% block body %}
 	{% endblock %}
 
-	<script>
-	$(document).ready(() => {
-		// TOGGLE HEADER-NAV
-		// Show dropdown when clicked
-		$('#header-btn').on('click', function(e) {
-			$('#header-menu').toggleClass('active');
-			$('.nav-btn').toggleClass('active');
-		});
-	});
-	</script>
+	<script src="{% static 'js/base.js' %}"></script>
 </body>
 </html>
