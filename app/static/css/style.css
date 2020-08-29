@@ -13,7 +13,6 @@
   --cirrus-primary-light: #c1d5e3 !important;
   --cirrus-accent-border: #56a0d6 !important;
   --cirrus-accent-hover: var(--grey-light) !important;
-  --cirrus-accent-hover-dark: #3c759e !important;
   --cirrus-select-bg: #aacbe3 !important;
 }
 
@@ -63,7 +62,7 @@ div.header {
 }
 
 .tab-container:hover li:hover a:hover {
-	border-bottom: 2px solid var(--cirrus-accent-hover-dark);
+	border-bottom: 2px solid var(--cirrus-primary);
 }
 
 .btn-primary{
@@ -72,6 +71,12 @@ div.header {
 }
 
 .btn-primary:hover{
+	background: inherit;
+	color: var(--cirrus-primary) !important;
+}
+
+.frame__body .btn-primary:hover{
+	background: white;
 	color: var(--cirrus-primary) !important;
 }
 
