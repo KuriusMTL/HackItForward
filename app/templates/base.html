@@ -38,14 +38,21 @@
 				<div class="nav-item">
 					<a href="#">Projects</a>
 				</div>
-				<div class="nav-item btn-container">
-					<button onclick="document.location='#'" class="btn-primary btn-animated">Login</button>
-				</div>
+				{% if request.user.is_authenticated %}
+					<div class="nav-item has-sub btn-container" id="dropdown">
+						<a class="nav-dropdown-link btn-primary">Welcome, {{ request.user.username }}</a>
+						<ul class="dropdown-menu" role="menu">
+							<li role="menu-item"><a href="#">Edit Profile</a></li>
+							<li role="menu-item"><a href="{% url 'logout' %}">Logout</a></li>
+						</ul>
+					</div>
+				{% else %}
+					<div class="nav-item btn-container">
+						<a href="{% url 'login' %}" class="btn-primary btn-animated">Login</a>
+					</div>
+				{% endif %}
 			</div>
 
-			{% comment %} 
-			{% if user is logged in: add welcome nav-item %} 
-			{% endcomment %} 
 		</div>
 	</div>
 
