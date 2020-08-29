@@ -1,0 +1,152 @@
+[
+{
+  "model": "app.sociallink",
+  "pk": null,
+  "fields": {
+    "name": "Twitter",
+    "icon": "twitter",
+    "site": "https://twitter.com/%s",
+    "placeholder": "Twitter Username"
+  }
+},
+{
+  "model": "app.sociallink",
+  "pk": null,
+  "fields": {
+    "name": "Facebook",
+    "icon": "facebook",
+    "site": "https://facebook.com/people/%s",
+    "placeholder": "Facebook Username"
+  }
+},
+{
+  "model": "app.sociallink",
+  "pk": null,
+  "fields": {
+    "name": "Github",
+    "icon": "github",
+    "site": "https://github.com/%s",
+    "placeholder": "Username"
+  }
+},
+{
+  "model": "app.sociallink",
+  "pk": null,
+  "fields": {
+    "name": "Reddit User",
+    "icon": "reddit",
+    "site": "https://reddit.com/u/%s",
+    "placeholder": "Username"
+  }
+},
+{
+  "model": "app.sociallink",
+  "pk": null,
+  "fields": {
+    "name": "Steam",
+    "icon": "steam",
+    "site": "https://steamcommunity.com/id/%s",
+    "placeholder": "Steam ID"
+  }
+},
+{
+  "model": "app.sociallink",
+  "pk": null,
+  "fields": {
+    "name": "Subreddit",
+    "icon": "reddit",
+    "site": "https://reddit.com/r/%s",
+    "placeholder": "Subreddit"
+  }
+},
+{
+  "model": "app.sociallink",
+  "pk": null,
+  "fields": {
+    "name": "Generic URL",
+    "icon": "share",
+    "site": "%s",
+    "placeholder": "URL"
+  }
+},
+{
+  "model": "app.sociallink",
+  "pk": null,
+  "fields": {
+    "name": "YouTube",
+    "icon": "youtube-play",
+    "site": "https://youtube.com/channel/",
+    "placeholder": "Youtube Channel ID"
+  }
+},
+{
+  "model": "app.sociallink",
+  "pk": null,
+  "fields": {
+    "name": "Stack Overflow",
+    "icon": "stackoverflow",
+    "site": "https://stackoverflow.com/users/%s",
+    "placeholder": "User ID"
+  }
+},
+{
+  "model": "app.sociallink",
+  "pk": null,
+  "fields": {
+    "name": "Vimeo",
+    "icon": "vimeo",
+    "site": "https://vimeo.com/%s",
+    "placeholder": "Video ID"
+  }
+},
+{
+  "model": "app.sociallink",
+  "pk": null,
+  "fields": {
+    "name": "SoundCloud",
+    "icon": "soundcloud",
+    "site": "https://soundcloud.com/%s",
+    "placeholder": "Soundcloud Username"
+  }
+},
+{
+  "model": "app.sociallink",
+  "pk": null,
+  "fields": {
+    "name": "Instagram",
+    "icon": "instagram",
+    "site": "https://instagram.com/%s",
+    "placeholder": "Instagram Username"
+  }
+},
+{
+  "model": "app.sociallink",
+  "pk": null,
+  "fields": {
+    "name": "Source Code",
+    "icon": "code",
+    "site": "%s",
+    "placeholder": "Generic Source Code URL"
+  }
+},
+{
+  "model": "app.sociallink",
+  "pk": null,
+  "fields": {
+    "name": "Email",
+    "icon": "email",
+    "site": "mailto:%s",
+    "placeholder": "Email"
+  }
+},
+{
+  "model": "app.sociallink",
+  "pk": null,
+  "fields": {
+    "name": "Phone Number",
+    "icon": "phone",
+    "site": "tel:%s",
+    "placeholder": "Phone Number (+18888888888)"
+  }
+}
+]

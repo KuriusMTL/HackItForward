@@ -23,6 +23,9 @@ class SocialLink(models.Model):
         help_text="Placeholder text displayed to the user when creating a link.",
     )
 
+    def __str__(self):
+        return self.name
+
 
 class SocialLinkAttachement(models.Model):
     link = models.ForeignKey(
@@ -43,17 +46,27 @@ class SocialLinkAttachement(models.Model):
     object_id = models.PositiveIntegerField(verbose_name="Linked Item ID")
     linked_item = GenericForeignKey()
 
+    @property
+    def href(self):
+        return self.link.site % self.content
+
+    def __str__(self):
+        return self.href
+
 
 class Badge(models.Model):
     name = models.CharField(max_length=48, verbose_name="name", help_text="Name of this badge.")
     description = models.TextField(
-        verbose_name="Description", help_text="Description of this badge."
+        blank=True, verbose_name="Description", help_text="Description of this badge."
     )
     color = ColorField(help_text="Color", verbose_name="The color of this tag.")
     points = models.PositiveSmallIntegerField(
         verbose_name="Points", help_text="Points awarded for this badge."
     )
     icon = models.ImageField(upload_to="badges/", verbose_name="Image", help_text="Icon of badge.")
+
+    def __str__(self):
+        return self.name
 
 
 class Tag(models.Model):
@@ -73,10 +86,15 @@ class Tag(models.Model):
     )
     color = ColorField(help_text="Color", verbose_name="Color of this tag.")
 
+    def __str__(self):
+        return self.name
+
 
 class Profile(models.Model):
     user = models.ForeignKey(User, related_name="profile", on_delete=models.CASCADE)
-    description = models.TextField(verbose_name="Description", help_text="User description.")
+    description = models.TextField(
+        blank=True, verbose_name="Description", help_text="User description."
+    )
     badges = models.ManyToManyField(
         Badge,
         related_name="profiles",
@@ -90,13 +108,20 @@ class Profile(models.Model):
         help_text="Tags associated with this user.",
     )
 
+    @property
+    def username(self):
+        return self.user.username
+
+    def __str__(self):
+        return self.user.username
+
 
 class Challenge(models.Model):
     name = models.CharField(
         max_length=100, verbose_name="Name", help_text="Name of this challenge."
     )
     description = models.TextField(
-        verbose_name="Description", help_text="Description of this badge."
+        blank=True, verbose_name="Description", help_text="Description of this challenge."
     )
     tags = models.ManyToManyField(
         Tag,
@@ -133,9 +158,16 @@ class Challenge(models.Model):
         upload_to="challenges/", verbose_name="Image", help_text="Cover image of this challenge."
     )
 
+    def __str__(self):
+        return self.name
+
 
 class Project(models.Model):
     challenge = models.ForeignKey(Challenge, null=True, on_delete=models.SET_NULL)
+    name = models.CharField(max_length=100, verbose_name="Name", help_text="Name of this project.")
+    description = models.TextField(
+        blank=True, verbose_name="Description", help_text="Description of this project."
+    )
     tags = models.ManyToManyField(
         Tag,
         related_name="projects",
@@ -161,6 +193,9 @@ class Project(models.Model):
         upload_to="challenges/", verbose_name="Image", help_text="Cover image of this project."
     )
 
+    def __str__(self):
+        return self.name
+
 
 class Task(models.Model):
     STATUS_CHOICES = [
@@ -169,10 +204,17 @@ class Task(models.Model):
         ("C", "Completed"),
     ]
 
+    name = models.CharField(max_length=100, verbose_name="Name", help_text="Name of this task.")
+    description = models.TextField(
+        blank=True, verbose_name="Description", help_text="Description of this task."
+    )
     status = models.CharField(max_length=1, verbose_name="Status", help_text="Status of this task.")
     tags = models.ManyToManyField(
         Tag, related_name="tags", verbose_name="Tags", help_text="Tags associated with this task."
     )
+
+    def __str__(self):
+        return self.name
 
 
 class TaskSubmission(models.Model):
@@ -189,5 +231,8 @@ class TaskSubmission(models.Model):
         max_length=1, verbose_name="Status", help_text="Status of this submission."
     )
     description = models.TextField(
-        verbose_name="Description", help_text="Description of this badge."
+        blank=True, verbose_name="Description", help_text="Description of this submission."
     )
+
+    def __str__(self):
+        return "'%s' submission by '%s'" % (self.task.name, self.user.username)
