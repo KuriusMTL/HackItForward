@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700&display=swap');
 
-
 /* colour variables */
 :root {	
 	--orange: #e3af92;
@@ -14,8 +13,17 @@
 	--grey-dark: #2e2e2e;
 }
 
-.header-nav a {
+* {
+	box-sizing: border-box;
+}
+
+.top-main .header {
+	margin-bottom: 0;
+}
+
+.header .header-nav a {
 	text-transform: uppercase; 
+	color: var(--grey-dark);
 }
 
 .logo {
@@ -40,6 +48,11 @@
 	flex-flow: row nowrap;
 	justify-content: space-around;
 	align-items: flex-end;
+}
+
+form > label:first-child:not(:last-child):not(.form-group-label),
+form > label:not(:first-child):not(:last-child):not(.form-group-label) {
+	margin: 0 .5rem ;
 }
 
 form > input:not([type=checkbox]):not([type=radio]):not([type=submit]) {

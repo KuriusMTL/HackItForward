@@ -43,6 +43,8 @@
 				</div>
 		    </div>
 		</div>
+	</section>
+	<section class="top-main">
 		<br>
 		<div class="land">
 			<div class="left">
@@ -74,6 +76,16 @@
 		<br>
 	</section>
 
- 	<script src="https://spiderpig86.github.io/Cirrus/res/js/test.js"></script>
+	<script>
+	$(document).ready(() => {
+		// TOGGLE HEADER-NAV
+		// Show dropdown when clicked
+		$('#header-btn').on('click', function(e) {
+		    $('#header-menu').toggleClass('active');
+		    $('.nav-btn').toggleClass('active');
+		});
+	});
+	</script>
+ 	<!-- <script src="https://spiderpig86.github.io/Cirrus/res/js/test.js"></script> -->
 </body>
 </html>
