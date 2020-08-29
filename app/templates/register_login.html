@@ -1,0 +1,29 @@
+{% load static %}
+
+<div class="content" style="max-width: 25em;">
+  <div class="frame">
+    <img class="img-cover" src="{% static 'img/register.png' %}">
+    <div class="tab-container tabs-fill">
+      <ul>
+        <li{% if type == 'Login' %} class="selected"{% endif %}><a href="{% url 'login' %}">Login</a></li>
+        <li{% if type == 'Register' %} class="selected"{% endif %}><a href="{% url 'register' %}">Register</a></li>
+      </ul>
+    </div> 
+      <form action="" method="POST">
+        <div class="frame__body">
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="form-section">
+              <label>{{ field.label_tag }}</label>
+              {{ field }}
+            {% for error in field.errors %}
+              <span class="text-primary info">{{ error }}</span>
+            {% endfor %}
+            </div>
+          {% endfor %}
+          <input type="submit" class="btn-primary u-pull-right animated" value="{{ type }}">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

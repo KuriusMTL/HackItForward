@@ -119,6 +119,7 @@ hr.solid {
 .tag {
 	padding: 5px;
 	background-color: var(--grey-light);
-	color: var(--cirrus-primary);
+	color: var(--cirrus-bg);
+	/*color: var(--cirrus-primary);*/
 }
 

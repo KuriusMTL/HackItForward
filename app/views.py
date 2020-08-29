@@ -13,7 +13,7 @@ class IndexView(TemplateView):
 
 class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "userhome.html"
-    login_url = "/login/"
+    login_url = reverse_lazy("login")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -25,7 +25,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
 class RegisterView(FormView):
     template_name = "register.html"
     form_class = UserCreationForm
-    success_url = reverse_lazy("/profile/edit")
+    success_url = reverse_lazy("edit_profile")
 
     def form_valid(self, form):
         form.save()

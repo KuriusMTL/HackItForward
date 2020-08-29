@@ -23,6 +23,10 @@ body {
 	background-color: var(--grey-light);
 }
 
+.frame {
+  background-color: white;
+}
+
 .placeholder img {
 	height: 100px;
 }
@@ -34,6 +38,7 @@ body {
 .header .header-nav a {
 	text-transform: uppercase; 
 	color: var(--grey-dark);
+	text-shadow: none !important;
 }
 
 .header .header-nav a[class*="btn-primary"] {
@@ -52,6 +57,3 @@ div.header {
 	height: 60px;
 }
 
-.nav-item > a{
-	text-shadow: none !important;
-}
