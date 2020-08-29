@@ -1,5 +1,5 @@
 body {
-	background-color: var(--orange-pale);
+	background-color: var(--cirrus-primary-light);
 }
 
 .land .pre {
@@ -35,9 +35,16 @@ form > input:not([type=checkbox]):not([type=radio]):not([type=submit]):focus {
 	border-bottom: 3px solid var(--grey-dark);
 	box-shadow: none;
 
-	transition: border 1s ease-in;
+	transition: border 0.25s ease-in;
 }
 
 .right > form > label {
 	margin-top: 10px !important;
+	font-weight: bold;
+	color: var(--cirrus-primary);
+}
+
+input:not([type=checkbox]):not([type=radio]):not([type=submit]), select {
+	transition: 0.25s;
+	color: var(--grey-dark);
 }
