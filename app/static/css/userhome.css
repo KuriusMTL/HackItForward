@@ -16,7 +16,7 @@ section.block {
 
 .block > h2 {
 	text-transform: uppercase;
-	color: var(--orange);
+	color: var(--blue);
 }
 
 
@@ -24,7 +24,7 @@ section.block {
 .block > .card {
 	padding: 20px;
 	margin-top: 10px;
-	border-left: 5px solid var(--orange);
+	border-left: 5px solid var(--blue);
 	width: 100%;
 }
 
@@ -52,13 +52,13 @@ section.block {
 .block > .card > .challenge > h2 {
 	margin: 10px, 5px;
 	text-transform: uppercase;
-	color: var(--orange-pale);
+	color: var(--blue-pale);
 }
 
 .block > .card > .challenge > .card {
 	padding: 10px;
 	margin-top: 10px;
-	border-left: 5px solid var(--orange-pale);
+	border-left: 5px solid var(--blue-pale);
 	width: 100%;
 }
 
@@ -74,7 +74,19 @@ section.block {
 }
 
 .completion{
-	padding:0px 20px;
+	font-size: 15px;
+	padding-left: 5px;
+	padding-top: 10px;   
+	color: var(--blue);
+}
+
+.project-title h4{
+	float: left; 
+	padding-right: 10px; 
+}
+
+.project-title{
+	display: inline-block; 
 }
 
 .block > .card .more {
