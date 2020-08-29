@@ -10,13 +10,19 @@ section.block {
 	margin-top: 40px;
 }
 
+.block{
+	padding: 0% 7%; 
+}
+
 .block > h2 {
 	text-transform: uppercase;
 	color: var(--orange);
 }
 
+
+
 .block > .card {
-	padding: 10px;
+	padding: 20px;
 	margin-top: 10px;
 	border-left: 5px solid var(--orange);
 	width: 100%;
@@ -41,6 +47,34 @@ section.block {
 
 .block > .card .project > img {
 	height: 50px;
+}
+
+.block > .card > .challenge > h2 {
+	margin: 10px, 5px;
+	text-transform: uppercase;
+	color: var(--orange-pale);
+}
+
+.block > .card > .challenge > .card {
+	padding: 10px;
+	margin-top: 10px;
+	border-left: 5px solid var(--orange-pale);
+	width: 100%;
+}
+
+.block > .card > .challenge {
+	padding:20px; 
+}
+
+.block > .card > .challenge > .card > .challenge-project > .project{
+	padding: 10px;
+	margin-top: 10px;
+	border-bottom: 5px solid var(--orange-pale);
+	width: 100%;
+}
+
+.completion{
+	padding:0px 20px;
 }
 
 .block > .card .more {

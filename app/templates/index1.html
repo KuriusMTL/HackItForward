@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+	<title>Stratus</title>
+	<link href="{% static 'css/index.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block body %}
+	<section>
+		<br>
+		<div class="land">
+			<div class="left">
+				<span class="pre">Make an</span>
+				<h1 class="impact">IMPACT</h1>
+			</div>
+			<div class="right">
+				<form>
+					<label for="username">Username: </label>
+					<input type="text" id="username" name="username">
+					<br>
+					<label for="email">Email: </label>
+					<input type="email" id="email" name="email">
+					<br>
+					<label for="passname">Passname: </label>
+					<input type="password" id="passname" name="passname">
+					<br>
+				</form>
+			</div>
+		</div>
+		<br>
+		<br>
+	</section>
+
+	<section class="gray-bkgd">
+		<br>
+		<span>foo</span>
+		<br>
+		<br>
+	</section>
+
+{% endblock %}
+</html>

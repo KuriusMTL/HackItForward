@@ -1,43 +1,86 @@
+<!-- homepage for the user -->
 {% extends "base.html" %}
 {% load static %}
 
 {% block head %}
-	<title>Stratus</title>
-	<link href="{% static 'css/index.css' %}" rel="stylesheet" type="text/css">
+	{% comment %} 
+	<!-- {% user.username %} | Home  -->
+	{% endcomment %} 
+
+	<title>Home</title>
+	<link href="{% static 'css/userhome.css' %}" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
 {% block body %}
-	<section>
-		<br>
-		<div class="land">
-			<div class="left">
-				<span class="pre">Make an</span>
-				<h1 class="impact">IMPACT</h1>
+	<section class="block">
+		<h2>Explore</h2>
+		<div class="card">
+			<div class="form-group">
+				<input type="text" class="form-group-input" placeholder="Search">
+				<button class="form-group-btn"><i class="fa fa-search"></i></button>
 			</div>
-			<div class="right">
-				<form>
-					<label for="username">Username: </label>
-					<input type="text" id="username" name="username">
-					<br>
-					<label for="email">Email: </label>
-					<input type="email" id="email" name="email">
-					<br>
-					<label for="passname">Passname: </label>
-					<input type="password" id="passname" name="passname">
-					<br>
-				</form>
+			<div class="challenge">
+				<h2>CHALLENGE 1</h2>
+				<div class="card">
+					<p>Short description</p>
+					<div class="challenge-projects">
+						<div class="project">
+							<img src="{% static 'img/logo.png' %}">
+							<div class="info">
+								<h4>Project One</h4>
+								<div class="completion">
+									<p>63%</p>
+								</div>
+								<br>
+								<span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </span>
+							</div>
+							
+						</div>
+						<div class="project">
+							<img src="{% static 'img/logo.png' %}">
+							<div class="info">
+								<h4>Project One</h4>
+								<br>
+								<span>description</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<h2>CHALLENGE 2</h2>
+				<div class="card">
+
+					<p>Short description</p>
+					<div class="challenge-projects">
+						<div class="project">
+							<img src="{% static 'img/logo.png' %}">
+							<div class="info">
+								<h4>Project One</h4>
+								<br>
+								<span>description</span>
+							</div>
+						</div>
+						<div class="project">
+							<img src="{% static 'img/logo.png' %}">
+							<div class="info">
+								<h4>Project One</h4>
+								<br>
+								<span>description</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+
+			<div class="more">
+				<p>more...</p>
 			</div>
 		</div>
-		<br>
-		<br>
 	</section>
-
-	<section class="gray-bkgd">
-		<br>
-		<span>foo</span>
-		<br>
-		<br>
-	</section>
+	
 
 {% endblock %}
 </html>
