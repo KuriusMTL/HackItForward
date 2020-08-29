@@ -1,19 +1,26 @@
+from app.models import Challenge, Project
+
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 
-from django.contrib.auth.mixins import LoginRequiredMixin
-
 
 class IndexView(TemplateView):
-    template_name = "index.html"
+    template_name = "explore.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["challenges"] = Challenge.objects.all()[:3]
+        context["projects"] = Project.objects.all()[:9]
+        return context
 
 
 class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "userhome.html"
-    login_url = reverse_lazy("login")
+    login_url = reverse_lazy("home")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
