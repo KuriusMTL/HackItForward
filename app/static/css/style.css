@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700&display=swap');
 
 /* colour variables */
@@ -12,7 +12,8 @@
   --cirrus-text: #aacbe3 !important;
   --cirrus-primary-light: #c1d5e3 !important;
   --cirrus-accent-border: #56a0d6 !important;
-  --cirrus-accent-hover: #4286b8 !important;
+  --cirrus-accent-hover: var(--grey-light) !important;
+  --cirrus-select-bg: #aacbe3 !important;
 }
 
 * {
@@ -38,7 +39,6 @@ body {
 .header .header-nav a {
 	text-transform: uppercase; 
 	color: var(--grey-dark);
-	text-shadow: none !important;
 }
 
 .header .header-nav a[class*="btn-primary"] {
@@ -62,10 +62,27 @@ div.header {
 }
 
 .tab-container:hover li:hover a:hover {
-	border-bottom: 2px solid var(--cirrus-accent-hover);
-	/*background: green;*/
+	border-bottom: 2px solid var(--cirrus-primary);
 }
 
+.btn-primary{
+	font-weight: bold;
+	border: 2px solid var(--cirrus-primary) !important;
+}
+
+.btn-primary:hover{
+	background: inherit;
+	color: var(--cirrus-primary) !important;
+}
+
+.frame__body .btn-primary:hover{
+	background: white;
+	color: var(--cirrus-primary) !important;
+}
+
+button:focus, a:focus{
+	box-shadow: none !important;
+}
 
 /**
  * Front page banner
