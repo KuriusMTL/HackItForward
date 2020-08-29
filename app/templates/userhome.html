@@ -70,7 +70,7 @@
 				<span class="label">Interests:</span>
 				<div class="values">
 					{% for tag in profile.tags.all %}
-					<span class="tag">{{ tag.name }}</span>
+					<span class="tag" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
 					{% endfor %}
 				</div>
 			</div>
