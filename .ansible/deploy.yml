@@ -1,0 +1,27 @@
+---
+- name: deploy-site
+  hosts: site
+  tasks:
+    - name: "Pull in latest changes"
+      shell:
+        cmd: git pull origin master
+        chdir: /home/main/stratus/
+
+    - name: "Install new packages"
+      pip:
+        requirements: /home/main/stratus/requirements.txt
+        virtualenv: /home/main/stratus/env/
+
+    - name: "Collect static files"
+      shell:
+        cmd: env/bin/python manage.py collectstatic --noinput --settings=stratus.local_settings
+        chdir: /home/main/stratus/
+
+    - name: "Run migrations"
+      shell:
+        cmd: env/bin/python manage.py migrate --noinput --settings=stratus.local_settings
+        chdir: /home/main/stratus/
+
+    - name: "Reload service"
+      shell:
+        cmd: sudo systemctl reload gunicorn-stratus

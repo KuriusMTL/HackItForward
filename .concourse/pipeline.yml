@@ -1,0 +1,94 @@
+---
+resource_types:
+- name: cogito
+  type: registry-image
+  check_every: 1h
+  source:
+    repository: pix4d/cogito
+
+- name: ansible-playbook
+  type: docker-image
+  source:
+    repository: troykinsella/concourse-ansible-playbook-resource
+    tag: latest
+
+resources:
+- name: gh-status
+  type: cogito
+  check_every: 1h
+  source:
+    owner: TheAvidDev
+    repo: stratus
+    access_token: ((github.token))
+
+- name: repo
+  type: git
+  icon: github-circle
+  source:
+    uri: https://github.com/TheAvidDev/stratus
+    branch: master
+    private_key: |
+      ((github.sshkey))
+
+- name: ansible
+  type: ansible-playbook
+  source:
+    debug: false
+    user: ansible
+    ssh_private_key: ((ansible.sshkey))
+    verbose: v
+
+jobs:
+  - name: set-self
+    plan:
+      - get: repo
+        trigger: true
+        inputs: [repo]
+      - set_pipeline: stratus
+        file: repo/.concourse/pipeline.yml
+  - name: lint
+    on_success:
+      put: gh-status
+      inputs: [repo]
+      params: {state: success}
+    on_failure:
+      put: gh-status
+      inputs: [repo]
+      params: {state: failure}
+    on_error:
+      put: gh-status
+      inputs: [repo]
+      params: {state: error}
+    plan:
+      - get: repo
+        trigger: true
+        passed: [set-self]
+      - put: gh-status
+        inputs: [repo]
+        params: {state: pending}
+      - task: black
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source: {repository: alpine}
+          inputs: [{name: repo}]
+          run:
+            path: /bin/sh
+            args:
+              - -c
+              - |
+                apk update
+                apk add --no-progress gcc musl-dev python3-dev py3-pip
+                pip install black
+                black --check --diff repo
+  - name: deploy
+    plan:
+      - get: repo
+        trigger: true
+        passed: [lint]
+      - put: ansible
+        params:
+          inventory: .ansible/hosts.yml
+          playbook: .ansible/deploy.yml
+          path: repo
