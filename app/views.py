@@ -35,34 +35,13 @@ class IndexView(TemplateView):
         return context
 
 
-class HomeView(LoginRequiredMixin, TemplateView):
-    template_name = "userhome.html"
-    login_url = reverse_lazy("home")
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context["projects"] = (
-            Project.objects.filter(
-                Q(creators__in=[self.request.user.profile])
-                | Q(contributors__in=[self.request.user.profile])
-            )
-            .distinct()
-            .order_by("-created")
-        )
-        context["links"] = SocialLinkAttachement.objects.filter(
-            object_id=self.request.user.profile.pk,
-            content_type=ContentType.objects.get_for_model(Profile),
-        )
-        return context
-
-
 class UserView(TemplateView):
     template_name = "userhome.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        pk = self.kwargs["pk"]
+        pk = self.request.user.profile.pk if 'pk' not in self.kwargs else self.kwargs["pk"]
+
         profile = Profile.objects.get(pk=pk)
         context["profile"] = profile
         context["projects"] = (
