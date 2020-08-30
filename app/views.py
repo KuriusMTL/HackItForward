@@ -12,6 +12,7 @@ from django.views.generic.edit import FormView, UpdateView
 
 from django.contrib.contenttypes.models import ContentType
 from django.views.generic.base import ContextMixin
+from django.shortcuts import get_object_or_404
 
 
 class IndexView(TemplateView):
@@ -45,7 +46,7 @@ class UserView(UserPassesTestMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         pk = self.request.user.profile.pk if 'pk' not in self.kwargs else self.kwargs["pk"]
 
-        profile = Profile.objects.get(pk=pk)
+        profile = get_object_or_404(Profile, pk=pk)
         context["profile"] = profile
         context["projects"] = (
             Project.objects.filter(
