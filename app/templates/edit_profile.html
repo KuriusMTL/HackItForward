@@ -67,11 +67,20 @@
             <span class="text-primary info">{{ error }}</span>
           {% endfor %}
         </div>
-        <script src="..\static\js\map.js"></script>
-        <div id="map"></div>
+        
+          <style>
+            #map { position: absolute; padding-left:7%; margin-right:7%; width: 100vw; height: auto; }
+          </style>
+          <div id="map">Map should be here</div>
+          <pre id="coordinates" class="coordinates"></pre>
+          <script src="{% static 'js/map.js' %}"></script>
+
+        
         <input type="submit" class="btn-primary u-pull-right animated" value="Save">
       </div>
+        
     </form>
+    
   </div>
 </div>
 <script>
