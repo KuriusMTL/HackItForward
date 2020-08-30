@@ -70,26 +70,11 @@
             <span class="text-primary info">{{ error }}</span>
           {% endfor %}
         </div>
-        <style>
-          .map-container > #map{
-              width: 100vh; 
-              height: 50vh;
-          }
-
-          .map-container {
-              width: 100vh; 
-              height: 50%; 
-              padding-left: 5%;
-              
-          }
-        </style>
-
         <div class="form-section" style="justify-items: center;">
           <p>Where are you from? Click and drag the marker. </p>
           <div class="map-container">
             <div id="map">Map should be here</div>
             <!-- <pre id="coordinates" class="coordinates"></pre> -->
-            <script src="{% static 'js/map.js' %}"></script>
           </div>
         </div>
         
@@ -100,6 +85,7 @@
     
   </div>
 </div>
+<script src="{% static 'js/map.js' %}"></script>
 <script>
   var simplemde = new SimpleMDE({ element: document.getElementById("id_description") });
 </script>
