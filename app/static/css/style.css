@@ -199,13 +199,17 @@ footer{
   border-left: 5px solid var(--cirrus-primary);
   padding: 3%;
 }
-/*
+
 .content > #challenge-frame > .row > p {
   border-top: 2px solid var(--grey-light);
   padding-top: 15px;
   margin-top: 20px;
 }
-*/
+
+#challenge-frame img.img-upload {
+  width: 70%;
+}
+
 .frame {
   padding-top: 25px;
   padding-bottom: 25px;

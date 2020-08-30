@@ -12,19 +12,12 @@
     <h2>{{ initiative.name }}</h2>
   </div>
   <div class="frame" id="challenge-frame">
-    {% if not initiative.challenge %}
-      <div class="row u-margin-auto">
-        <img src="{{ initiative.image.url }}">
+      <div class="row">
+        <img class="img-upload u-margin-auto" src="{{ initiative.image.url }}">
       </div>
       <div class="row">
         <p>{{ initiative.description }}</p>
       </div>
-    {% else %}
-    <div class="row" style="display:block">
-        <img src="{{ initiative.image.url }}" class="u-pull-right" style="max-width: 200px">
-        <p>{{ initiative.description }}</p>
-    </div>
-    {% endif %}
 
     <div class="row">
       <div class="col-12">
