@@ -151,7 +151,7 @@ footer{
 }
 
 .header-margin{
-	margin-top: 25px !important;
+	margin-top: 30px !important;
 }
 
 
@@ -211,8 +211,8 @@ footer{
 
 .content > #challenge-frame > .row > p {
   border-top: 2px solid var(--grey-light);
-  padding-top: 15px;
-  margin-top: 20px;
+  padding-top: 17px;
+  margin-top: 18px;
 }
 
 #challenge-frame img.img-upload {
