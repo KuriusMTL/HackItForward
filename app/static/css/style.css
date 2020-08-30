@@ -135,3 +135,7 @@ button:focus, a:focus{
   position: relative;
   z-index: 1;
 }
+
+.pointer-cursor {
+	cursor: pointer;
+}

@@ -1,5 +1,5 @@
 from app.forms import ProfileUpdateForm
-from app.models import Challenge, Profile, Project
+from app.models import Challenge, Profile, Project, SocialLinkAttachement, Task
 
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -9,6 +9,7 @@ from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView, UpdateView
 
+from django.contrib.contenttypes.models import ContentType
 
 class IndexView(TemplateView):
     template_name = "explore.html"
@@ -44,3 +45,27 @@ class RegisterView(FormView):
         login(self.request, form.instance)
         Profile.objects.create(user=form.instance)
         return super().form_valid(form)
+
+
+class ChallengeView(TemplateView):
+    template_name = "challenge.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs['pk']
+        challenge = Challenge.objects.get(pk=pk)
+        context["challenge"] = challenge
+        context["projects"] = Project.objects.filter(challenge=challenge)
+        context["links"] = SocialLinkAttachement.objects.filter(object_id=pk, content_type=ContentType.objects.get_for_model(Challenge))
+        return context
+
+class ProjectView(TemplateView):
+    template_name = "project.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs['pk']
+        project = Project.objects.get(pk=pk)
+        context["project"] = project
+        context["links"] = SocialLinkAttachement.objects.filter(object_id=pk, content_type=ContentType.objects.get_for_model(Project))
+        return context
