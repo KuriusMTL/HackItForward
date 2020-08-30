@@ -71,7 +71,7 @@ class Badge(models.Model):
 
 class Tag(models.Model):
     CATEGORY_CHOICES = [
-        ("S", "Skill"),
+        ("S", "Skill Level"),
         ("L", "Location"),
         ("K", "Knowledge"),
         ("I", "Importance"),
