@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'app',
 
     'colorfield',
+
+    'mistune',
 ]
 
 MIDDLEWARE = [

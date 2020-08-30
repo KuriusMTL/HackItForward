@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% get_media_prefix %}
+{% load mistune %}
 
 {% block head %}
 <title>{{ initiative.name }} | Stratus</title>
@@ -15,8 +16,8 @@
       <div class="row">
         <img class="img-upload u-margin-auto" src="{{ initiative.image.url }}">
       </div>
-      <div class="row">
-        <p>{{ initiative.description }}</p>
+      <div>
+        {{ initiative.description|mistune }}
       </div>
 
     <div class="row">
