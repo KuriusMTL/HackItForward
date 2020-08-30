@@ -1,14 +1,15 @@
 {% extends "initiative.html" %}
+{% load static %}
 {% block frames %}
 <div class="map-container" style="justify-items: center;">
-            <div id="map"></div>
-              <script src="{% static 'js/map2.js' %}"></script>
-          </div>
+  <div id="map"></div>
+  <script src="{% static 'js/map2.js' %}"></script>
+</div>
 <div class="row">
   <h3>Projects posted to this challenge</h3>
 </div>
 <div class="row">
-{% for project in projects %}
+  {% for project in projects %}
   <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'project' pk=project.pk %}`">
     <div class="card u-flex-column h-100 slide-up">
       <div class="card-container">
@@ -29,11 +30,11 @@
       </div>
       <div class="card-footer content">
         {% for tag in project.tags.all|slice:':3' %}
-          <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
+        <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
         {% endfor %}
       </div>
     </div>
   </div>
-{% endfor %}
+  {% endfor %}
 </div>
 {% endblock %}
