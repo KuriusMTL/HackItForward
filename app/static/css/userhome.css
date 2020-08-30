@@ -37,6 +37,7 @@ section.block {
 
 .block > .card .project > .info > h4 {
 	display: inline-block;
+	color: var(--grey-dark);
 }
 
 .block > .card .project > img {
@@ -120,6 +121,4 @@ hr.solid {
 	padding: 5px;
 	background-color: var(--grey-light);
 	color: var(--cirrus-bg);
-	/*color: var(--cirrus-primary);*/
 }
-

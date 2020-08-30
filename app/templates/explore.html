@@ -46,7 +46,7 @@
             </div>
           </div>
           <div class="card-body content">
-            <p>{{ challenge.description|truncatechars:64 }}</p>
+            <p>{{ challenge.description|truncatechars:48 }}</p>
           </div>
           <div class="card-footer content">
             {% for tag in challenge.tags.all|slice:':3' %}
