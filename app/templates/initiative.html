@@ -12,8 +12,10 @@
     <h2>{{ initiative.name }}</h2>
   </div>
   <div class="frame" id="challenge-frame">
+    <div class="row u-margin-auto">
+      <img src="{{ initiative.image.url }}">
+    </div>
     <div class="row">
-      <img class="img-cover" src="{{ initiative.image.url }}">
       <p>{{ initiative.description }}</p>
     </div>
     <div class="row">
