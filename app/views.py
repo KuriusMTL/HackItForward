@@ -22,11 +22,6 @@ class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "userhome.html"
     login_url = reverse_lazy("home")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if self.request.user.is_authenticated:
-            context["profile"] = self.request.user.profile
-        return context
 
 
 class RegisterView(FormView):
