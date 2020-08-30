@@ -13,6 +13,13 @@
   <h2>Dashboard</h2>
   <br>
   <h4>Projects involved in</h4>
+  {% if not projects %}
+  <div class="card">
+    <div class="u-text-left">
+      <p>No projects yet! Check out <a href="{% url 'index' %}">Explore</a> for some challenges to submit to and projects to contribute to.</p>
+    </div>
+  </div>
+  {% else %}
   <div class="row">
     {% for project in projects %}
     <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'project' pk=project.pk %}`">
@@ -27,7 +34,7 @@
               <p class="tile__subtitle">
                 {% if profile in project.creators.all %}
                 Creator
-                {% elif profile in project.contributors.all %}
+                {% else %}
                 Contributor
                 {% endif %}
               </p>
@@ -43,7 +50,9 @@
     </div>
     {% endfor %}
   </div>
+  {% endif %}
 </section>
+<br>
 <section class="block">
   <h2>Profile</h2>
   <div class="card">
@@ -56,39 +65,39 @@
     <div class="profile-info">
       <span class="label">Badges:</span>
       <div class="values">
-      {% for badge in profile.badges.all %}
-      <a href="#badge-{{ badge.pk }}" class="tooltip" data-tooltip="{{ badge.name }}">
-        <img class="badge" src="{{ badge.icon.url }}">
-      </a>
-      <div class="modal modal-animated--zoom-in" id="badge-{{ badge.pk }}">
-        <a href="#" class="modal-overlay close-btn" aria-label="Close"></a>
-        <div class="modal-content">
-          <div class="modal-body">
-            <br>
-            <h4 class="modal-title">{{ badge.name }}</h4>
-            <p>{{ badge.description }}</p>
-            <img style="height:100px" src="{{ badge.icon.url }}">
-          </div>
-          <div class="modal-footer">
-            <div class="u-flex">
-              <div class="level-right level-content">
-                <a href="#" style="display:inline-block">
-                  <button class="btn-small">Cancel</button>
-                </a>
+        {% for badge in profile.badges.all %}
+        <a href="#badge-{{ badge.pk }}" class="tooltip" data-tooltip="{{ badge.name }}">
+          <img class="badge" src="{{ badge.icon.url }}">
+        </a>
+        <div class="modal modal-animated--zoom-in" id="badge-{{ badge.pk }}">
+          <a href="#" class="modal-overlay close-btn" aria-label="Close"></a>
+          <div class="modal-content">
+            <div class="modal-body">
+              <br>
+              <h4 class="modal-title">{{ badge.name }}</h4>
+              <p>{{ badge.description }}</p>
+              <img style="height:100px" src="{{ badge.icon.url }}">
+            </div>
+            <div class="modal-footer">
+              <div class="u-flex">
+                <div class="level-right level-content">
+                  <a href="#" style="display:inline-block">
+                    <button class="btn-small">Cancel</button>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      {% endfor %}
+        {% endfor %}
       </div>
     </div>
     <div class="profile-info">
       <span class="label">Links:</span>
       <div class="values">
-      {% for link in links.all %}
+        {% for link in links.all %}
         <a href="{{ link.href }}" class="tooltip" data-tooltip="{{ link.link.placeholder }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
-      {% endfor %}
+        {% endfor %}
       </div>
     </div>
     <div class="profile-info">
