@@ -175,6 +175,10 @@ footer{
 	font-weight: bold;
 }
 
+.row [class^=col-] {
+    padding: 0 .5rem !important;
+}
+
 
 /**
  * Challenge
