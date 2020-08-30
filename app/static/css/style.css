@@ -128,5 +128,10 @@ button:focus, a:focus{
 }
 
 .row [class^="col-"] {
-    padding: .5rem;
+  padding: .5rem;
+}
+
+.card-body .content {
+  position: relative;
+  z-index: 1;
 }
