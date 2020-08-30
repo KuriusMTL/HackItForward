@@ -215,6 +215,16 @@ footer{
   width: 100%;
   height: 50%; 
 }
-.map-container > #map{
+
+.map-container > #map {
   height: 50vh;
+}
+
+.form-section > label {
+  font-weight: bold;
+}
+
+.form-section > label + p {
+  margin-bottom: 6px;
+  margin-top: 0;
 }
