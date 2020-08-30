@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+{% get_media_prefix %}
+
+{% block head %}
+<title>{{ challenge.name }} | Stratus</title>
+<link href="{% static 'css/userhome.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/challenge.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block body %}
+<section class="block challenge">
+  <h2>{{ challenge.name }}</h2>
+  <div class="card">
+    <img src="{{ challenge.image.url }}">
+    <p>{{ challenge.description }}</p>
+    <div class="profile-info">
+      <span class="label">Tags:</span>
+      <div class="values">
+        {% for tag in challenge.tags.all %}
+        <span class="tag" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="profile-info">
+      <span class="label">Creators:</span>
+      <div class="values">
+        {% for creator in challenge.creators.all %}
+        <span>{{ creator.username }}</span>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="profile-info">
+      <span class="label">Start Time:</span>
+      <div class="values">
+        <span>{{ challenge.start }}</span>
+      </div>
+    </div>
+    <div class="profile-info">
+      <span class="label">End Time:</span>
+      <div class="values">
+        <span>{{ challenge.end }}</span>
+      </div>
+    </div>
+    <div class="profile-info">
+      <div class="values">
+        {% for link in links.all %}
+          <a href="{{ link.href }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+<section class="block">
+  <h2>Projects</h2>
+  <div class="row">
+    {% for project in projects %}
+    <div class="col-4 pointer-cursor">
+      <div class="card u-flex-column h-100">
+        <div class="card-container">
+          <div class="card-image" style="background-image: url({{ project.image.url }})"></div>
+        </div>
+        <div class="content">
+          <div class="tile__container">
+            <p class="tile__title">{{ project.name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+<section class="block">
+  <div class="heatmap">
+    <h2>Heat Map</h2>
+  </div>
+</section>
+{% endblock %}
