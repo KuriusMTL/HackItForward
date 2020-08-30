@@ -14,12 +14,8 @@
         <h2>{{ challenge.name }}</h2>
       </div>
       <div class="row">
-        <div class="col-9">
-          <p class="">{{ challenge.description }}</p>
-        </div>
-        <div class="col-3">
-          <img src="{{ challenge.image.url }}">
-        </div>
+        <img src="{{ challenge.image.url }}">
+        <p class="">{{ challenge.description }}</p>
       </div>
       <div class="row">
         <div class="col-12">
@@ -93,6 +89,7 @@
       </div>
     </div>
   </div>
+  <br>
   <div class="row">
     {% for project in projects %}
       <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'project' pk=project.pk %}`">
