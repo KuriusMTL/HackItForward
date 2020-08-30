@@ -5,10 +5,7 @@
 <p align=center>
     <img alt="AGPL License" src="https://img.shields.io/github/license/theaviddev/stratus">
     <a target="_blank" href="https://www.python.org/downloads/" title="Python version"><img alt="Python >= 3.6" src="https://img.shields.io/badge/python-%3E=_3.6-green.svg"></a>
-    <img alt="Website" src="https://img.shields.io/website?down_color=red&down_message=offline&up_color=green&up_message=online&url=https%3A%2F%2Fstratus.theavid.dev%2F">
     <img alt="GitHub stars" src="https://img.shields.io/github/stars/theaviddev/cloak">
-    <br>
-    <a href="#about">About</a> | <a href="#features">Features</a>
 </p>
 
 # About
