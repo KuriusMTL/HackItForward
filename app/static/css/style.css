@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700&display=swap');
 
 /* colour variables */
@@ -39,6 +39,9 @@ body {
 .header .header-nav a {
 	text-transform: uppercase; 
 	color: var(--grey-dark);
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 600 !important;
+	color: var(--cirrus-primary);
 }
 
 .header .header-nav a[class*="btn-primary"] {
@@ -70,8 +73,8 @@ div.header {
 }
 
 .btn-primary{
-	font-weight: bold;
 	border: 2px solid var(--cirrus-primary) !important;
+	border-radius: 2px
 }
 
 .btn-primary:hover{
@@ -84,8 +87,12 @@ div.header {
 	color: var(--cirrus-primary) !important;
 }
 
-button:focus, a:focus{
+button:focus, a:focus, input:focus{
 	box-shadow: none !important;
+}
+
+footer{
+	background-color: var(--grey-dark) !important;
 }
 
 /**
