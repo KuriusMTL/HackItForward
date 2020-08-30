@@ -144,10 +144,12 @@ class Challenge(models.Model):
         help_text="Date this challenge was created.",
     )
     start = models.DateTimeField(
+        blank=True,
         verbose_name="Challenge Start",
         help_text="Start date and time when projects can be created for this challenge.",
     )
     end = models.DateTimeField(
+        blank=True,
         verbose_name="Challenge End",
         help_text="End date and time when projects can no longer be created for this challenge.",
     )
