@@ -55,11 +55,15 @@ class ChallengeView(TemplateView):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs["pk"]
         challenge = Challenge.objects.get(pk=pk)
-        context["challenge"] = challenge
+        context["initiative"] = challenge
         context["projects"] = Project.objects.filter(challenge=challenge)
         context["links"] = SocialLinkAttachement.objects.filter(
             object_id=pk, content_type=ContentType.objects.get_for_model(Challenge)
         )
+        context["time_labels"] = [
+            {"label": "Start Time", "time": challenge.start},
+            {"label": "End Time", "time": challenge.end},
+        ]
         return context
 
 
@@ -70,8 +74,10 @@ class ProjectView(TemplateView):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs["pk"]
         project = Project.objects.get(pk=pk)
-        context["project"] = project
+        context["initiative"] = project
+        context["tasks"] = Task.objects.filter(project=project)
         context["links"] = SocialLinkAttachement.objects.filter(
             object_id=pk, content_type=ContentType.objects.get_for_model(Project)
         )
+        context["time_labels"] = [{"label": "Creation Time", "time": project.created}]
         return context

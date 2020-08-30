@@ -21,7 +21,3 @@
       shell:
         cmd: env/bin/python manage.py migrate --noinput --settings=stratus.local_settings
         chdir: /home/main/stratus/
-
-    - name: "Reload service"
-      shell:
-        cmd: sudo systemctl reload gunicorn-stratus

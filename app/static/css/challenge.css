@@ -1,0 +1,7 @@
+.challenge img {
+	height: 300px;
+}
+
+.task-status i {
+	color: var(--cirrus-primary);
+}

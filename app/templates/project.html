@@ -1,63 +1,33 @@
-{% extends "base.html" %}
-{% load static %}
-{% get_media_prefix %}
-
-{% block head %}
-<title>{{ project.name }} | Stratus</title>
-<link href="{% static 'css/userhome.css' %}" rel="stylesheet" type="text/css">
-<link href="{% static 'css/challenge.css' %}" rel="stylesheet" type="text/css">
-{% endblock %}
-
-{% block body %}
-<section class="block challenge">
-  <h2>{{ project.name }}</h2>
-  <div class="card">
-    <img src="{{ project.image.url }}">
-    <p>{{ project.description }}</p>
-    {# echo if ongoing, coming soon, has ended #}
-    <div class="profile-info">
-      <span class="label">Challenge:</span>
-      <div class="values">
-        <a href="{% url 'challenge' pk=project.challenge.pk %}" class="tag" style="color: var(--cirrus-primary)">{{ project.challenge.name }}</a>
-      </div>
-    </div>
-    <div class="profile-info">
-      <span class="label">Tags:</span>
-      <div class="values">
-        {% for tag in project.tags.all %}
-        <span class="tag" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
+{% extends "initiative.html" %}
+{% block frames %}
+<h3>Tasks</h3>
+<div class="frame" id="challenge-frame">
+  <div class="content">
+    <div class="row">
+      <div class="col-12">
+      {% if not tasks %}
+        <span>No tasks here!</span>
+      {% else %}
+        {% for task in tasks %}
+        <div class="tile">
+          <div class="tile__title task-status">
+            {% if task.status == "T" %}
+            <i class="zmdi zmdi-circle-o"></i>
+            {% elif task.status == "I" %}
+            <i class="zmdi zmdi-dot-circle"></i>
+            {% elif task.status == "C" %}
+            <i class="zmdi zmdi-circle"></i>
+            {% endif %}
+          </div>
+          <div class="tile__container">
+            <p class="tile__title u-no-margin">{{ task.name }}</p>
+            <p class="tile__subtitle u-no-margin">{{ task.description }}</p>
+          </div>
+        </div>
         {% endfor %}
-      </div>
-    </div>
-    <div class="profile-info">
-      <span class="label">Creators:</span>
-      <div class="values">
-        {% for creator in project.creators.all %}
-        <span>{{ creator.username }}</span>
-        {% endfor %}
-      </div>
-    </div>
-    <div class="profile-info">
-      <span class="label">Contributors:</span>
-      <div class="values">
-        {% for contributor in project.contributors.all %}
-        <span>{{ contributor.username }}</span>
-        {% endfor %}
-      </div>
-    </div>
-    <div class="profile-info">
-      <span class="label">Creation Time:</span>
-      <div class="values">
-        <span>{{ project.created }}</span>
-      </div>
-    </div>
-    <div class="profile-info">
-      <div class="values">
-        {% for link in links.all %}
-        <a href="{{ link.href }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
-        {% endfor %}
+      {% endif %}
       </div>
     </div>
   </div>
-</section>
+</div>
 {% endblock %}
