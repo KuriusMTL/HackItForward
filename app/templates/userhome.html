@@ -12,7 +12,11 @@
 <div class="content">
   <div class="row">
     <div class="col-12">
+      {% if profile != request.user.profile %}
+      <h2 class="header-margin">{{ profile.username }}'s Projects</h2>
+      {% else %}
       <h2 class="header-margin">Your Projects</h2>
+      {% endif %}
     </div>
     {% if not projects %}
     <p>No projects yet! Check out <a href="{% url 'index' %}">Explore</a> for some challenges to submit to and projects to contribute to.</p>
@@ -49,7 +53,14 @@
   </div>
   <br>
   <div class="row">
-    <h2 class="header-margin">Profile</h2>
+    <div class="col-12">
+      {% if profile != request.user.profile %}
+      <h2 class="header-margin">{{ profile.username }}</h2>
+      {% else %}
+      <h2 class="header-margin">Profile</h2>
+      {% endif %}
+    </div>
+
     <div class="card col-12" id="profile-block">
       <div class="col-12">
         <div class="tile level r">
