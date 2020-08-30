@@ -4,75 +4,123 @@
 
 {% block head %}
 <title>{{ challenge.name }} | Stratus</title>
-<link href="{% static 'css/userhome.css' %}" rel="stylesheet" type="text/css">
-<link href="{% static 'css/challenge.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block body %}
-<section class="block challenge">
-  <h2>{{ challenge.name }}</h2>
-  <div class="card">
-    <img src="{{ challenge.image.url }}">
-    <p>{{ challenge.description }}</p>
-    <div class="profile-info">
-      <span class="label">Tags:</span>
-      <div class="values">
-        {% for tag in challenge.tags.all %}
-        <span class="tag" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
-        {% endfor %}
+<div class="content">
+  <div class="frame">
+    <div class="content">
+      <div class="row u-center">
+        <h2>{{ challenge.name }}</h2>
       </div>
-    </div>
-    <div class="profile-info">
-      <span class="label">Creators:</span>
-      <div class="values">
-        {% for creator in challenge.creators.all %}
-        <span>{{ creator.username }}</span>
-        {% endfor %}
-      </div>
-    </div>
-    <div class="profile-info">
-      <span class="label">Start Time:</span>
-      <div class="values">
-        <span>{{ challenge.start }}</span>
-      </div>
-    </div>
-    <div class="profile-info">
-      <span class="label">End Time:</span>
-      <div class="values">
-        <span>{{ challenge.end }}</span>
-      </div>
-    </div>
-    <div class="profile-info">
-      <div class="values">
-        {% for link in links.all %}
-          <a href="{{ link.href }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-</section>
-<section class="block">
-  <h2>Projects</h2>
-  <div class="row">
-    {% for project in projects %}
-    <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'project' pk=project.pk %}`">
-      <div class="card u-flex-column h-100">
-        <div class="card-container">
-          <div class="card-image" style="background-image: url({{ project.image.url }})"></div>
+      <div class="row">
+        <div class="col-9">
+          <p class="">{{ challenge.description }}</p>
         </div>
-        <div class="content">
-          <div class="tile__container">
-            <p class="tile__title">{{ project.name }}</p>
+        <div class="col-3">
+          <img src="{{ challenge.image.url }}">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="tile level r">
+            <div class="tile-avatar">
+              <span class="icon">
+                <i class="zmdi zmdi-tag" aria-hidden="true"></i>
+              </span>
+            </div>
+            <div class="tile__container">
+              <p class="tile__title">Tags:
+                {% for tag in challenge.tags.all %}
+                <span class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
+                {% endfor %}
+              </p>
+            </div>
+          </div>
+          <div class="tile level r">
+            <div class="tile-avatar">
+              <span class="icon">
+                <i class="zmdi zmdi-accounts-list" aria-hidden="true"></i>
+              </span>
+            </div>
+            <div class="tile__container">
+              <p class="tile__title">Creators:
+                {% for creator in challenge.creators.all %}
+                  <span>{{ creator.username }}</span>
+                {% endfor %}
+              </p>
+            </div>
+          </div>
+          <div class="tile level r">
+            <div class="tile-avatar">
+              <span class="icon">
+                <i class="zmdi zmdi-calendar-check" aria-hidden="true"></i>
+              </span>
+            </div>
+            <div class="tile__container">
+              <p class="tile__title">Start Time:
+                <span>{{ challenge.start }}</span>
+              </p>
+            </div>
+          </div>
+          <div class="tile level r">
+            <div class="tile-avatar">
+              <span class="icon">
+                <i class="zmdi zmdi-calendar-close" aria-hidden="true"></i>
+              </span>
+            </div>
+            <div class="tile__container">
+              <p class="tile__title">End Time:
+                <span>{{ challenge.end }}</span>
+              </p>
+            </div>
+          </div>
+          <div class="tile level r">
+            <div class="tile-avatar">
+              <span class="icon">
+                <i class="zmdi zmdi-link" aria-hidden="true"></i>
+              </span>
+            </div>
+            <div class="tile__container">
+              <p class="tile__title">Links:
+              {% for link in links.all %}
+                <a href="{{ link.href }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
+              {% endfor %}
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <div class="row">
+    {% for project in projects %}
+      <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'project' pk=project.pk %}`">
+        <div class="card u-flex-column h-100 slide-up">
+          <div class="card-container">
+            <div class="card-image" style="background-image: url({{ project.image.url }})"></div>
+          </div>
+          <div class="mobile-title">
+            <div class="content">
+              <div class="tile">
+                <div class="tile__container">
+                  <p class="tile__title">{{ project.name }}</p>
+                  <p class="tile__subtitle">By {{ project.short_creators }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body content">
+            <p>{{ project.description|truncatechars:80 }}</p>
+          </div>
+          <div class="card-footer content">
+            {% for tag in project.tags.all|slice:':3' %}
+              <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
     {% endfor %}
   </div>
-</section>
-<section class="block">
-  <div class="heatmap">
-    <h2>Heat Map</h2>
-  </div>
-</section>
+</div>
 {% endblock %}
