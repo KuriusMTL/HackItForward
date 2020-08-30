@@ -8,14 +8,14 @@
 
 {% block body %}
 <div class="content">
-  <div class="frame">
+  <div class="frame" id="challenge-frame">
     <div class="content">
       <div class="row u-center">
         <h2>{{ challenge.name }}</h2>
       </div>
       <div class="row">
-        <img src="{{ challenge.image.url }}">
-        <p class="">{{ challenge.description }}</p>
+        <img class="img-cover" src="{{ challenge.image.url }}">
+        <p>{{ challenge.description }}</p>
       </div>
       <div class="row">
         <div class="col-12">
