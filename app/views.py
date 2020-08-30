@@ -39,7 +39,7 @@ class UserView(UserPassesTestMixin, TemplateView):
     template_name = "userhome.html"
 
     def test_func(self):
-        return not self.request.user.is_anonymous
+        return not self.request.user.is_anonymous or 'pk' in self.kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
