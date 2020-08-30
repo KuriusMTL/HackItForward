@@ -33,7 +33,7 @@
       <div class="col-4">
         <div class="card u-flex-column h-100 slide-up">
           <div class="card-container">
-            <div class="card-image" style="background-image: url({{challenge.image.url}})"></div>
+            <div class="card-image" style="background-image: url({{ challenge.image.url }})"></div>
           </div>
           <div class="mobile-title">
             <div class="content">
@@ -50,7 +50,7 @@
           </div>
           <div class="card-footer content">
             {% for tag in challenge.tags.all|slice:':3' %}
-              <div class="tag white" style="background-color: url({{tag.color}})">{{ tag.name }}</div>
+              <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
             {% endfor %}
           </div>
         </div>
@@ -71,7 +71,7 @@
       <div class="col-4">
         <div class="card u-flex-column h-100 slide-up">
           <div class="card-container">
-            <div class="card-image" style="background-image: url({{project.image.url}})"></div>
+            <div class="card-image" style="background-image: url({{ project.image.url }})"></div>
           </div>
           <div class="mobile-title">
             <div class="content">
@@ -88,7 +88,7 @@
           </div>
           <div class="card-footer content">
             {% for tag in project.tags.all|slice:':3' %}
-              <div class="tag white" style="background-color: url({{tag.color}})">{{ tag.name }}</div>
+              <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
             {% endfor %}
           </div>
         </div>
