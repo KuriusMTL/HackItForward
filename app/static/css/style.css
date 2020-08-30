@@ -245,3 +245,8 @@ footer{
 .frame > .row > p{
   width: 100%;
 }
+
+.frame > .row > .img-upload{
+	max-height: 40vh;
+	width: auto;
+}
