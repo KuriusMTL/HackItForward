@@ -2,32 +2,32 @@
 {% block frames %}
 <h3>Tasks</h3>
 <div class="frame" id="challenge-frame">
-  <div class="content">
-    <div class="row">
-      <div class="col-12">
-      {% if not tasks %}
-        <span>No tasks here!</span>
-      {% else %}
-        {% for task in tasks %}
-        <div class="tile">
-          <div class="tile__title task-status">
-            {% if task.status == "T" %}
-            <i class="zmdi zmdi-circle-o"></i>
-            {% elif task.status == "I" %}
-            <i class="zmdi zmdi-dot-circle"></i>
-            {% elif task.status == "C" %}
-            <i class="zmdi zmdi-circle"></i>
-            {% endif %}
-          </div>
-          <div class="tile__container">
-            <p class="tile__title u-no-margin">{{ task.name }}</p>
-            <p class="tile__subtitle u-no-margin">{{ task.description }}</p>
-          </div>
+  {% if not tasks %}
+  <div class="u-text-left">
+    <span>No tasks here!</span>
+  </div>
+  {% else %}
+  <div class="row">
+    <div class="col-12">
+      {% for task in tasks %}
+      <div class="tile">
+        <div class="tile__title task-status">
+          {% if task.status == "C" %}
+          <i class="zmdi zmdi-circle"></i>
+          {% elif task.status == "I" %}
+          <i class="zmdi zmdi-dot-circle"></i>
+          {% else %}
+          <i class="zmdi zmdi-circle-o"></i>
+          {% endif %}
         </div>
-        {% endfor %}
-      {% endif %}
+        <div class="tile__container">
+          <p class="tile__title u-no-margin">{{ task.name }}</p>
+          <p class="tile__subtitle u-no-margin">{{ task.description }}</p>
+        </div>
       </div>
+      {% endfor %}
     </div>
   </div>
+  {% endif %}
 </div>
 {% endblock %}
