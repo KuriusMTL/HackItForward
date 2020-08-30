@@ -1,68 +1,92 @@
 <!-- homepage for the user -->
 {% extends "base.html" %}
 {% load static %}
+{% get_media_prefix %}
 
 {% block head %}
-	<title>{{ profile.username }}'s Home | Stratus</title>
-	<link href="{% static 'css/userhome.css' %}" rel="stylesheet" type="text/css">
+<title>{{ profile.username }}'s Home | Stratus</title>
+<link href="{% static 'css/userhome.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block body %}
-	<section class="block">
-		<h2>Dashboard</h2>
-		<div class="card">
-			<div class="project">
-				{% for project in projects %
-				<img src="{%project.image%}">
-				<div class="info">
-					
-					<h4>{%project.name%}</h4>
-					<br>
-					<span>{%project.name%}</span>
+<section class="block">
+	<h2>Dashboard</h2>
+	<br>
+	<h4>Projects involved in</h4>
+	<div class="row">
+		{% for project in projects %}
+		<div class="col-4 pointer-cursor" onclick="location.href=`{% url 'project' pk=project.pk %}`">
+			<div class="card u-flex-column h-100">
+				<div class="card-container">
+					<div class="card-image" style="background-image: url({{ project.image.url }})"></div>
 				</div>
-				{% endfor %}
-			</div>
-		</div>
-	</section>
-	<section class="block">
-		<h2>Profile</h2>
-		<div class="card">
-			<div class="profile-info">
-				<span class="label">Username:</span>
-				<div class="values">
-					<span>{{ profile.username }}</span>
+				<div class="content">
+					<div class="tile">
+						<div class="tile__container">
+							<p class="tile__title">{{ project.name }}</p>
+							<p class="tile__subtitle">
+								{% if profile in project.creators.all %}
+								Creator
+								{% elif profile in project.contributors.all %}
+								Contributor
+								{% endif %}
+							</p>
+						</div>
+					</div>
+						<br>
 				</div>
-			</div>
-			<div class="profile-info">
-				<span class="label">Badges:</span>
-				<div class="values">
-					
-				</div>
-			</div>
-			<div class="profile-info">
-				<span class="label">Links:</span>
-				<div class="values">
-					<a href="https://github.com/github">https://github.com/github</a>
-					<a href="https://github.com/github">https://linkedin.com/profile</a>
-					<a href="https://github.com/github">https://personalWebsite.com/</a>
-				</div>
-			</div>
-			<div class="profile-info">
-				<span class="label">Description:</span>
-				<div class="values">
-					<span>{{ profile.description }}</span>
-				</div>
-			</div>
-			<div class="profile-info">
-				<span class="label">Interests:</span>
-				<div class="values">
-					{% for tag in profile.tags.all %}
-					<span class="tag" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
+				<div class="card-footer content">
+					{% for tag in project.tags.all|slice:':3' %}
+					<div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
 					{% endfor %}
 				</div>
 			</div>
 		</div>
-	</section>
+		{% endfor %}
+	</div>
+</section>
+<section class="block">
+	<h2>Profile</h2>
+	<div class="card">
+		<div class="profile-info">
+			<span class="label">Username:</span>
+			<div class="values">
+				<span>{{ profile.username }}</span>
+			</div>
+		</div>
+		<div class="profile-info">
+			<span class="label">Badges:</span>
+			<div class="values">
+				<img class="badge" src="{{ badge.icon.url }}">
+				</div>
+			</div>
+			{% endfor %}
+			</div>
+		</div>
+		<div class="profile-info">
+			<span class="label">Links:</span>
+			<div class="values">
+			{% for link in links.all %}
+			  <a href="{{ link.href }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
+			{% endfor %}
+			</div>
+		</div>
+		<div class="profile-info">
+			<span class="label">Description:</span>
+			<div class="values">
+				<span>{{ profile.description }}</span>
+			</div>
+		</div>
+		<div class="profile-info">
+			<span class="label">Interests:</span>
+			<div class="values">
+				{% for tag in profile.tags.all %}
+				<span class="tag" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</section>
 
 {% endblock %}
 </html>

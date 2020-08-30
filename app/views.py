@@ -39,6 +39,15 @@ class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "userhome.html"
     login_url = reverse_lazy("home")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        context["projects"] = Project.objects.filter(creators__in=[self.request.user.profile])
+        context["links"] = SocialLinkAttachement.objects.filter(
+            object_id=self.request.user.profile.pk, content_type=ContentType.objects.get_for_model(Profile)
+        )
+        return context
+
 
 class EditProfileView(LoginRequiredMixin, UpdateView):
     template_name = "edit_profile.html"

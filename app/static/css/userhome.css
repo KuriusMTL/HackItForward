@@ -123,3 +123,7 @@ hr.solid {
 	background-color: var(--grey-light);
 	color: var(--cirrus-bg);
 }
+
+.badge {
+	height: 25px;
+}
