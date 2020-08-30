@@ -43,6 +43,7 @@
           <div class="nav-item has-sub btn-container" id="dropdown">
             <a class="nav-dropdown-link btn-primary">Welcome, {{ request.user.username }}</a>
             <ul class="dropdown-menu" role="menu">
+              <li role="menu-item"><a href="{% url 'home' %}">Dashboard</a></li>
               <li role="menu-item"><a href="#">Edit Profile</a></li>
               <li role="menu-item"><a href="{% url 'logout' %}">Logout</a></li>
             </ul>
