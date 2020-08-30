@@ -9,6 +9,7 @@ class ProfileUpdateForm(ModelForm):
     class Meta:
         model = Profile
         fields = ["description", "tags"]
+        hidden_fields = ["longitude", "latitude"]
 
     def __init__(self, *args, **kwargs):
         super(ProfileUpdateForm, self).__init__(*args, **kwargs)
