@@ -57,7 +57,28 @@
 		<div class="profile-info">
 			<span class="label">Badges:</span>
 			<div class="values">
+			{% for badge in profile.badges.all %}
+			<a href="#badge-{{badge.pk}}">
 				<img class="badge" src="{{ badge.icon.url }}">
+			</a>
+			<div class="modal modal-animated--zoom-in" id="badge-{{badge.pk}}">
+				<a href="#" class="modal-overlay close-btn" aria-label="Close"></a>
+				<div class="modal-content">
+					<div class="modal-body">
+						<br>
+						<h4 class="modal-title">{{ badge.name }}</h4>
+						<p>{{ badge.description }}</p>
+						<img style="height:100px" src="{{ badge.icon.url }}">
+					</div>
+					<div class="modal-footer">
+						<div class="u-flex">
+							<div class="level-right level-content">
+								<a href="#" style="display:inline-block">
+									<button class="btn-small">Cancel</button>
+								</a>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			{% endfor %}
