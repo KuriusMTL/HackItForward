@@ -54,3 +54,13 @@ class ChallengeView(TemplateView):
         context["links"] = SocialLinkAttachement.objects.filter(object_id=pk, content_type=ContentType.objects.get_for_model(Challenge))
         return context
 
+class ProjectView(TemplateView):
+    template_name = "project.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs['pk']
+        project = Project.objects.get(pk=pk)
+        context["project"] = project
+        context["links"] = SocialLinkAttachement.objects.filter(object_id=pk, content_type=ContentType.objects.get_for_model(Project))
+        return context
