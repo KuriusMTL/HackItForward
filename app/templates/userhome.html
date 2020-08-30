@@ -20,7 +20,7 @@
 				<div class="card-container">
 					<div class="card-image" style="background-image: url({{ project.image.url }})"></div>
 				</div>
-				<div class="content">
+				<div class="content" style="margin-top:10px;margin-bottom:10px !important">
 					<div class="tile">
 						<div class="tile__container">
 							<p class="tile__title">{{ project.name }}</p>
@@ -33,7 +33,6 @@
 							</p>
 						</div>
 					</div>
-						<br>
 				</div>
 				<div class="card-footer content">
 					{% for tag in project.tags.all|slice:':3' %}
