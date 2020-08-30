@@ -151,7 +151,7 @@ footer{
 }
 
 .header-margin{
-	margin-top: 25px !important;
+	margin-top: 30px !important;
 }
 
 
@@ -160,6 +160,10 @@ footer{
  */
 .card p {
 	word-wrap: break-word;
+}
+
+.card-container{
+	min-height: 230px !important;
 }
 
 .card-body .content {
@@ -173,6 +177,11 @@ footer{
 
 .tile__title{
 	font-weight: bold;
+	color: var(--cirrus-primary);
+}
+
+.tile__title{
+	color: var(--grey-mid);
 }
 
 .row [class^=col-]:not(.col-12){
@@ -202,8 +211,8 @@ footer{
 
 .content > #challenge-frame > .row > p {
   border-top: 2px solid var(--grey-light);
-  padding-top: 15px;
-  margin-top: 20px;
+  padding-top: 17px;
+  margin-top: 18px;
 }
 
 #challenge-frame img.img-upload {
