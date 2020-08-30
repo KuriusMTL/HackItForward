@@ -175,8 +175,20 @@ footer{
 	font-weight: bold;
 }
 
-.row [class^=col-] {
-    padding: 0 .5rem !important;
+.row [class^=col-]:not(.col-12){
+    padding: 0.5rem !important;
+}
+
+.row .col-12{
+	padding: 0 !important;
+}
+
+.tile.level.r{
+	padding: 0.5rem 0px;
+}
+
+.tile__container > .tile__title > span {
+    font-weight: 300;
 }
 
 
@@ -185,10 +197,13 @@ footer{
  */
 #challenge-frame {
   border-left: 5px solid var(--cirrus-primary);
+  padding: 3%;
 }
 
-#challenge-frame > .content > .row > .img-cover {
-  border-bottom: 3px solid var(--grey-mid);
+.content > #challenge-frame > .row > p {
+  border-top: 2px solid var(--grey-light);
+  padding-top: 15px;
+  margin-top: 20px;
 }
 
 .frame {

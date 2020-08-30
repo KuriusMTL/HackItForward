@@ -12,30 +12,14 @@
     <h2>{{ initiative.name }}</h2>
   </div>
   <div class="frame" id="challenge-frame">
-    <div class="content">
-      <div class="row">
-        <img class="img-cover" src="{{ initiative.image.url }}">
-        <p>{{ initiative.description }}</p>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <!-- challenge tag -->
-          {% if initiative.challenge %}
-            <div class="tile level r">
-              <div class="tile-avatar">
-                <span class="icon">
-                  <i class="zmdi zmdi-tag" aria-hidden="true"></i>
-                </span>
-              </div>
-              <div class="tile__container">
-                <p class="tile__title">Challenge:
-                  <a href="{% url 'challenge' pk=initiative.challenge.pk %}" class="tag black">{{ initiative.challenge.name }}</a>
-                </p>
-              </div>
-            </div>
-          {% endif %}
-
-          <!-- tags -->
+    <div class="row">
+      <img class="img-cover" src="{{ initiative.image.url }}">
+      <p>{{ initiative.description }}</p>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <!-- challenge tag -->
+        {% if initiative.challenge %}
           <div class="tile level r">
             <div class="tile-avatar">
               <span class="icon">
@@ -43,15 +27,47 @@
               </span>
             </div>
             <div class="tile__container">
-              <p class="tile__title">Tags:
-                {% for tag in initiative.tags.all %}
-                <span class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
-                {% endfor %}
+              <p class="tile__title">Challenge:
+                <a href="{% url 'challenge' pk=initiative.challenge.pk %}" class="tag black">{{ initiative.challenge.name }}</a>
               </p>
             </div>
           </div>
+        {% endif %}
 
-          <!-- creators -->
+        <!-- tags -->
+        <div class="tile level r">
+          <div class="tile-avatar">
+            <span class="icon">
+              <i class="zmdi zmdi-tag" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="tile__container">
+            <p class="tile__title">Tags:
+              {% for tag in initiative.tags.all %}
+              <span class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
+              {% endfor %}
+            </p>
+          </div>
+        </div>
+
+        <!-- creators -->
+        <div class="tile level r">
+          <div class="tile-avatar">
+            <span class="icon">
+              <i class="zmdi zmdi-accounts-list" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="tile__container">
+            <p class="tile__title">Creators:
+              {% for creator in initiative.creators.all %}
+                <span>{{ creator.username }}</span>
+              {% endfor %}
+            </p>
+          </div>
+        </div>
+
+        <!-- contributors -->
+        {% if initiative.contributors %}
           <div class="tile level r">
             <div class="tile-avatar">
               <span class="icon">
@@ -59,64 +75,46 @@
               </span>
             </div>
             <div class="tile__container">
-              <p class="tile__title">Creators:
-                {% for creator in initiative.creators.all %}
-                  <span>{{ creator.username }}</span>
+              <p class="tile__title">Contributors:
+                {% for contributor in initiative.contributors.all %}
+                  <span>{{ contributor.username }}</span>
                 {% endfor %}
               </p>
             </div>
           </div>
+        {% endif %}
 
-          <!-- contributors -->
-          {% if initiative.contributors %}
-            <div class="tile level r">
-              <div class="tile-avatar">
-                <span class="icon">
-                  <i class="zmdi zmdi-accounts-list" aria-hidden="true"></i>
-                </span>
-              </div>
-              <div class="tile__container">
-                <p class="tile__title">Contributors:
-                  {% for contributor in initiative.contributors.all %}
-                    <span>{{ contributor.username }}</span>
-                  {% endfor %}
-                </p>
-              </div>
-            </div>
-          {% endif %}
-
-          {% for timestamp in time_labels %}
-          <div class="tile level r">
-            <div class="tile-avatar">
-              <span class="icon">
-                <i class="zmdi zmdi-calendar-check" aria-hidden="true"></i>
-              </span>
-            </div>
-            <div class="tile__container">
-              <p class="tile__title">{{ timestamp.label }}:
-                <span>{{ timestamp.time }}</span>
-              </p>
-            </div>
+        {% for timestamp in time_labels %}
+        <div class="tile level r">
+          <div class="tile-avatar">
+            <span class="icon">
+              <i class="zmdi zmdi-calendar-check" aria-hidden="true"></i>
+            </span>
           </div>
-          {% endfor %}
-
-          <!-- links -->
-          <div class="tile level r">
-            <div class="tile-avatar">
-              <span class="icon">
-                <i class="zmdi zmdi-link" aria-hidden="true"></i>
-              </span>
-            </div>
-            <div class="tile__container">
-              <p class="tile__title">Links:
-              {% for link in links.all %}
-                <a href="{{ link.href }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
-              {% endfor %}
-              </p>
-            </div>
+          <div class="tile__container">
+            <p class="tile__title">{{ timestamp.label }}:
+              <span>{{ timestamp.time }}</span>
+            </p>
           </div>
-
         </div>
+        {% endfor %}
+
+        <!-- links -->
+        <div class="tile level r">
+          <div class="tile-avatar">
+            <span class="icon">
+              <i class="zmdi zmdi-link" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="tile__container">
+            <p class="tile__title">Links:
+            {% for link in links.all %}
+              <a href="{{ link.href }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
+            {% endfor %}
+            </p>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
