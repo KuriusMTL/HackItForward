@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+<div class="content">
+  <div class="frame">
+    <div class="row">
+      <div class="col-5">
+        <img class="img-cover" src="{% static 'img/edit_profile.png' %}">
+      </div>
+      <div class="col-7">
+        <div class="tile level r">
+          <div class="tile-avatar">
+            <span class="icon">
+              <i class="zmdi zmdi-account" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="tile__container">
+            <p class="tile__title">Username</p>
+            <p class="tile__subtitle">{{ user.username }}</p>
+          </div>
+        </div>
+        <div class="tile level r">
+          <div class="tile-avatar">
+            <span class="icon">
+              <i class="zmdi zmdi-email" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="tile__container">
+            <p class="tile__title">Email</p>
+            <p class="tile__subtitle">{{ user.email }}</p>
+          </div>
+        </div>
+        <div class="tile level r">
+          <div class="tile-avatar">
+            <span class="icon">
+              <i class="zmdi zmdi-lock" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div class="tile__container">
+            <p class="tile__title">Password</p>
+            <p class="tile__subtitle">•••••••••••••••</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form action="" method="POST">
+      <div class="frame__body">
+        {% csrf_token %}
+        <div class="form-section">
+          <label>{{ form.description.label_tag }}</label>
+          {{ form.description }}
+          {% for error in form.description.errors %}
+            <span class="text-primary info">{{ error }}</span>
+          {% endfor %}
+        </div>
+        <div class="form-section">
+          <label>Skills:</label>
+          <div class="row">
+            {% for tag in form.tags %}
+            <div class="col-2">
+              {{ tag }}
+            </div>
+            {% endfor %}
+          </div>
+          {% for error in form.tags.errors %}
+            <span class="text-primary info">{{ error }}</span>
+          {% endfor %}
+        </div>
+        <input type="submit" class="btn-primary u-pull-right animated" value="Save">
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+  var simplemde = new SimpleMDE({ element: document.getElementById("id_description") });
+</script>
+{% endblock %}

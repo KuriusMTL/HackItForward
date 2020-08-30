@@ -1,5 +1,6 @@
 from app.models import Profile
 
+
 def profile(request):
     if not request.user.is_authenticated:
         return {}
