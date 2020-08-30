@@ -64,7 +64,7 @@
           <div class="tile__container">
             <p class="tile__title">Creators:
               {% for creator in initiative.creators.all %}
-                <span>{{ creator.username }}</span>
+                <a href="{% url 'user' pk=creator.pk %}" class="tag black">{{ creator.username }}</a>
               {% endfor %}
             </p>
           </div>
