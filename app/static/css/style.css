@@ -250,3 +250,17 @@ footer{
 #profile-block.card {
    padding: 15px;
 }
+
+.badges > a {
+  display: inline;
+}
+
+.badges .modal img {
+   height: 100px;
+}
+
+.badges a img {
+  height: 25px;
+  position: relative;
+  top: 5px;  
+}
