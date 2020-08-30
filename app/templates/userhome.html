@@ -12,23 +12,15 @@
 		<h2>Dashboard</h2>
 		<div class="card">
 			<div class="project">
-				<img src="{% static 'img/logo.png' %}">
+				{% for project in projects %
+				<img src="{%project.image%}">
 				<div class="info">
-					<h4>Project One</h4>
+					
+					<h4>{%project.name%}</h4>
 					<br>
-					<span>description</span>
+					<span>{%project.name%}</span>
 				</div>
-			</div>
-			<div class="project">
-				<img src="{% static 'img/logo.png' %}">
-				<div class="info">
-					<h4>Project Two</h4>
-					<br>
-					<span>description</span>
-				</div>
-			</div>
-			<div class="more">
-				<p>more...</p>
+				{% endfor %}
 			</div>
 		</div>
 	</section>
@@ -44,26 +36,21 @@
 			<div class="profile-info">
 				<span class="label">Badges:</span>
 				<div class="values">
+					
 				</div>
 			</div>
 			<div class="profile-info">
 				<span class="label">Links:</span>
 				<div class="values">
 					<a href="https://github.com/github">https://github.com/github</a>
-					<a href="https://github.com/github">https://github.com/github</a>
-					<a href="https://github.com/github">https://github.com/github</a>
+					<a href="https://github.com/github">https://linkedin.com/profile</a>
+					<a href="https://github.com/github">https://personalWebsite.com/</a>
 				</div>
 			</div>
 			<div class="profile-info">
 				<span class="label">Description:</span>
 				<div class="values">
 					<span>{{ profile.description }}</span>
-				</div>
-			</div>
-			<div class="profile-info">
-				<span class="label">Activity:</span>
-				<div class="values">
-					<span>Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</span>
 				</div>
 			</div>
 			<div class="profile-info">
