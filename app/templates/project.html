@@ -14,7 +14,6 @@
   <div class="card">
     <img src="{{ project.image.url }}">
     <p>{{ project.description }}</p>
-    {# echo if ongoing, coming soon, has ended #}
     <div class="profile-info">
       <span class="label">Challenge:</span>
       <div class="values">
@@ -58,6 +57,32 @@
         {% endfor %}
       </div>
     </div>
+  </div>
+</section>
+<section class="block">
+  <h4>Tasks</h4>
+  <div class="card">
+    {% if not tasks %}
+      <span>No tasks here!</span>
+    {% else %}
+      {% for task in tasks %}
+      <div class="tile">
+        <div class="tile__icon task-status">
+          {% if task.status == "T" %}
+          <i class="zmdi zmdi-circle-o"></i>
+          {% elif task.status == "I" %}
+          <i class="zmdi zmdi-dot-circle"></i>
+          {% elif task.status == "C" %}
+          <i class="zmdi zmdi-circle"></i>
+          {% endif %}
+        </div>
+        <div class="tile__container">
+            <p class="tile__title u-no-margin">{{ task.name }}</p>
+            <p class="tile__subtitle u-no-margin">{{ task.description }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    {% endif %}
   </div>
 </section>
 {% endblock %}
