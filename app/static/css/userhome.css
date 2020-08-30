@@ -1,4 +1,4 @@
-body > *:not(.header) {
+body > *:not(.header):not(footer) {
 	margin: 0 20px;
 }
 
