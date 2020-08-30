@@ -162,6 +162,10 @@ footer{
 	word-wrap: break-word;
 }
 
+.card-container{
+	min-height: 230px !important;
+}
+
 .card-body .content {
   position: relative;
   z-index: 1;
@@ -173,6 +177,11 @@ footer{
 
 .tile__title{
 	font-weight: bold;
+	color: var(--cirrus-primary);
+}
+
+.tile__title{
+	color: var(--grey-mid);
 }
 
 .row [class^=col-]:not(.col-12){
