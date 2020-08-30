@@ -111,7 +111,7 @@
           <div class="tile__container">
             <p class="tile__title">Links:
             {% for link in links.all %}
-              <a href="{{ link.href }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
+              <a href="{{ link.href }}" class="tooltip" data-tooltip="{{ link.link.placeholder }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
             {% endfor %}
             </p>
           </div>
