@@ -41,10 +41,11 @@ class HomeView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+
         context["projects"] = Project.objects.filter(creators__in=[self.request.user.profile])
         context["links"] = SocialLinkAttachement.objects.filter(
-            object_id=self.request.user.profile.pk, content_type=ContentType.objects.get_for_model(Profile)
+            object_id=self.request.user.profile.pk,
+            content_type=ContentType.objects.get_for_model(Profile),
         )
         return context
 
