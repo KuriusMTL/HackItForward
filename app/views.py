@@ -7,11 +7,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
 from django.forms.widgets import CheckboxSelectMultiple
 from django.urls import reverse_lazy
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.edit import FormView, UpdateView
 
 from django.contrib.contenttypes.models import ContentType
-from django.views.generic.base import ContextMixin
 from django.shortcuts import get_object_or_404
 
 
@@ -44,7 +43,7 @@ class UserView(UserPassesTestMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        pk = self.request.user.profile.pk if 'pk' not in self.kwargs else self.kwargs["pk"]
+        pk = self.kwargs.get("pk", self.request.user.profile.pk)
 
         profile = get_object_or_404(Profile, pk=pk)
         context["profile"] = profile
