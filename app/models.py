@@ -230,7 +230,12 @@ class Task(models.Model):
     description = models.TextField(
         blank=True, verbose_name="Description", help_text="Description of this task."
     )
-    status = models.CharField(max_length=1, verbose_name="Status", choices=STATUS_CHOICES, help_text="Status of this task.")
+    status = models.CharField(
+        max_length=1,
+        verbose_name="Status",
+        choices=STATUS_CHOICES,
+        help_text="Status of this task.",
+    )
     tags = models.ManyToManyField(
         Tag,
         blank=True,
@@ -254,7 +259,10 @@ class TaskSubmission(models.Model):
     task = models.ForeignKey(Task, related_name="submissions", on_delete=models.CASCADE)
     user = models.ForeignKey(Profile, related_name="submissions", on_delete=models.CASCADE)
     status = models.CharField(
-        max_length=1, verbose_name="Status", choices=STATUS_CHOICES, help_text="Status of this submission."
+        max_length=1,
+        verbose_name="Status",
+        choices=STATUS_CHOICES,
+        help_text="Status of this submission.",
     )
     description = models.TextField(
         blank=True, verbose_name="Description", help_text="Description of this submission."

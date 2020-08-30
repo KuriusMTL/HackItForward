@@ -74,5 +74,5 @@ class ProjectView(TemplateView):
         context["links"] = SocialLinkAttachement.objects.filter(
             object_id=pk, content_type=ContentType.objects.get_for_model(Project)
         )
-        context['tasks'] = Task.objects.filter(project=project)
+        context["tasks"] = Task.objects.filter(project=project)
         return context
