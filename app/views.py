@@ -35,23 +35,21 @@ class IndexView(TemplateView):
         return context
 
 
+# TODO: Change to DetailView
 class UserView(UserPassesTestMixin, TemplateView):
     template_name = "userhome.html"
 
     def test_func(self):
-        return not self.request.user.is_anonymous or 'pk' in self.kwargs
+        return not self.request.user.is_anonymous or "pk" in self.kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        pk = self.request.user.profile.pk if 'pk' not in self.kwargs else self.kwargs["pk"]
+        pk = self.request.user.profile.pk if "pk" not in self.kwargs else self.kwargs["pk"]
 
         profile = get_object_or_404(Profile, pk=pk)
         context["profile"] = profile
         context["projects"] = (
-            Project.objects.filter(
-                Q(creators__in=[profile])
-                | Q(contributors__in=[profile])
-            )
+            Project.objects.filter(Q(creators__in=[profile]) | Q(contributors__in=[profile]))
             .distinct()
             .order_by("-created")
         )
