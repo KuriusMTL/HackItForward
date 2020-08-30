@@ -3,7 +3,7 @@ from app.models import Challenge, Profile, Project, SocialLinkAttachement, Task
 
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q
 from django.forms.widgets import CheckboxSelectMultiple
 from django.urls import reverse_lazy
@@ -35,8 +35,11 @@ class IndexView(TemplateView):
         return context
 
 
-class UserView(TemplateView):
+class UserView(UserPassesTestMixin, TemplateView):
     template_name = "userhome.html"
+
+    def test_func(self):
+        return not self.request.user.is_anonymous
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
