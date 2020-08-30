@@ -22,54 +22,6 @@ section.block {
 	width: 100%;
 }
 
-.block > .card .project {
-	display: flex;
-	flex-direction: row;
-}
-
-.block > .card .project:not(:last-child) {
-	margin-bottom: 10px;
-}
-
-.block > .card .project > .info {
-	margin-left: 10px;
-}
-
-.block > .card .project > .info > h4 {
-	display: inline-block;
-	color: var(--grey-dark);
-}
-
-.block > .card .project > img {
-	height: 50px;
-}
-
-.block > .card > .challenge > h2 {
-	text-transform: uppercase;
-	color: var(--cirrus-primary-light);
-}
-
-.block > .card > .challenge > .card {
-	padding: 0 10px;
-	margin-top: 10px;
-	border-left: 5px solid var(--cirrus-primary-light);
-	width: 100%;
-}
-
-.block > .card > .challenge {
-	padding:20px; 
-}
-
-.block > .card > .challenge > .card > .challenge-project > .project {
-	padding: 20px;
-	margin: 10px 0px;
-	width: 100%;
-}
-
-.block > .card > .challenge > .card{
-	padding-bottom: 4%; 
-}
-
 /* Solid border */
 hr.solid {
 	border-top: 3px solid var(--cirrus-primary-light);
@@ -81,15 +33,6 @@ hr.solid {
 	padding-left: 5px;
 	padding-top: 10px;   
 	color: var(--cirrus-text);
-}
-
-.project-title h4{
-	float: left; 
-	padding-right: 10px; 
-}
-
-.project-title{
-	display: inline-block; 
 }
 
 .block > .card .more {
