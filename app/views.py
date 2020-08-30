@@ -4,6 +4,7 @@ from app.models import Challenge, Profile, Project, SocialLinkAttachement, Task
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.forms.widgets import CheckboxSelectMultiple
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
@@ -17,8 +18,19 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["challenges"] = Challenge.objects.all()[:3]
-        context["projects"] = Project.objects.all()[:9]
+        if "type" not in self.request.GET or "q" not in self.request.GET:
+            context["challenges"] = Challenge.objects.all()[:3]
+            context["projects"] = Project.objects.all()[:9]
+            return context
+        query = self.request.GET["q"]
+        if self.request.GET["type"] == "challenge":
+            context["challenges"] = Challenge.objects.all().filter(
+                Q(name__contains=query) | Q(description__contains=query)
+            )
+        elif self.request.GET["type"] == "project":
+            context["projects"] = Project.objects.all().filter(
+                Q(name__contains=query) | Q(description__contains=query)
+            )
         return context
 
 

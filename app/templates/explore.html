@@ -19,12 +19,16 @@
 {% endif %}
 
 <div class="content" id="challenges">
+  {% if challenges %}
   <div class="row">
     <h1 class="header-margin">Challenges</h1>
     <div class="col-12">
       <div class="input-control">
-        <input type="email" class="input-contains-icon" placeholder="Challenge Search"/>
-        <span class="icon"><i class="zmdi zmdi-search" aria-hidden="true"></i></span>
+        <form action=".">
+          <input type="text" name="q" class="input-contains-icon" placeholder="Challenge Search">
+          <input type="hidden" name="type" value="challenge">
+          <span class="icon"><i class="zmdi zmdi-search" aria-hidden="true"></i></span>
+        </form>
       </div>
     </div>
   </div>
@@ -57,12 +61,17 @@
       </div>
     {% endfor %}
   </div>
+  {% endif %}
+  {% if projects %}
   <div class="row">
     <h1 class="header-margin">Projects</h1>
     <div class="col-12">
       <div class="input-control">
-        <input type="email" class="input-contains-icon" placeholder="Project Search"/>
-        <span class="icon"><i class="zmdi zmdi-search" aria-hidden="true"></i></span>
+        <form action=".">
+          <input type="text" name="q" class="input-contains-icon" placeholder="Project Search">
+          <input type="hidden" name="type" value="project">
+          <span class="icon"><i class="zmdi zmdi-search" aria-hidden="true"></i></span>
+        </form>
       </div>
     </div>
   </div>
@@ -95,5 +104,6 @@
       </div>
     {% endfor %}
   </div>
+  {% endif %}
 </div>
 {% endblock %}
