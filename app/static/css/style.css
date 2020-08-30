@@ -168,7 +168,7 @@ footer{
 }
 
 .pointer-cursor {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .tile__title{
@@ -189,4 +189,9 @@ footer{
 
 #challenge-frame > .content > .row > .img-cover {
   border-bottom: 3px solid var(--grey-mid);
+}
+
+.frame {
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
