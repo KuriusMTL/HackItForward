@@ -9,20 +9,19 @@
         <li{% if type == 'Register' %} class="selected"{% endif %}><a href="{% url 'register' %}">Register</a></li>
       </ul>
     </div> 
-      <form action="" method="POST">
-        <div class="frame__body">
-          {% csrf_token %}
-          {% for field in form %}
-            <div class="form-section">
-              <label>{{ field.label_tag }}</label>
-              {{ field }}
-            {% for error in field.errors %}
-              <span class="text-primary info">{{ error }}</span>
-            {% endfor %}
-            </div>
+    <form action="" method="POST">
+      <div class="frame__body">
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="form-section">
+            <label>{{ field.label_tag }}</label>
+            {{ field }}
+          {% for error in field.errors %}
+            <span class="text-primary info">{{ error }}</span>
           {% endfor %}
-          <input type="submit" class="btn-primary u-pull-right animated" value="{{ type }}">
-        </div>
+          </div>
+        {% endfor %}
+        <input type="submit" class="btn-primary u-pull-right animated" value="{{ type }}">
       </div>
     </form>
   </div>

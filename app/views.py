@@ -1,11 +1,13 @@
-from app.models import Challenge, Project, SocialLinkAttachement, Task
+from app.forms import ProfileUpdateForm
+from app.models import Challenge, Profile, Project, SocialLinkAttachement, Task
 
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.forms.widgets import CheckboxSelectMultiple
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, UpdateView
 
 from django.contrib.contenttypes.models import ContentType
 
@@ -23,11 +25,14 @@ class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "userhome.html"
     login_url = reverse_lazy("home")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        if self.request.user.is_authenticated:
-            context["profile"] = self.request.user.profile
-        return context
+
+class EditProfileView(LoginRequiredMixin, UpdateView):
+    template_name = "edit_profile.html"
+    form_class = ProfileUpdateForm
+    success_url = reverse_lazy("edit_profile")
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
 
 
 class RegisterView(FormView):

@@ -10,6 +10,8 @@
   <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cirrus-ui@0.5.5/dist/cirrus.min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
   {% block head %}
@@ -44,7 +46,7 @@
             <a class="nav-dropdown-link btn-primary">Welcome, {{ request.user.username }}</a>
             <ul class="dropdown-menu" role="menu">
               <li role="menu-item"><a href="{% url 'home' %}">Dashboard</a></li>
-              <li role="menu-item"><a href="#">Edit Profile</a></li>
+              <li role="menu-item"><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
               <li role="menu-item"><a href="{% url 'logout' %}">Logout</a></li>
             </ul>
           </div>
