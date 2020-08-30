@@ -175,8 +175,16 @@ footer{
 	font-weight: bold;
 }
 
-.row [class^=col-] {
+.row [class^=col-]:not(.col-12){
     padding: 0 .5rem !important;
+}
+
+.row .col-12{
+	padding: 0 !important;
+}
+
+.tile.level.r{
+	padding: 0.5rem 0px;
 }
 
 
