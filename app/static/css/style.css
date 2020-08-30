@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;600;700&display=swap');
 
 /* colour variables */
-:root {	
+:root {
 	--grid-grey: #f0eeee;
 	--grey-light: #f1efef;
 	--grey-mid: #6c6c6c;
@@ -38,7 +38,7 @@ body {
 }
 
 .header .header-nav a {
-	text-transform: uppercase; 
+	text-transform: uppercase;
 	color: var(--grey-dark);
 	font-family: 'Montserrat', sans-serif;
 	font-weight: 600 !important;
@@ -215,10 +215,6 @@ footer{
   margin-top: 18px;
 }
 
-#challenge-frame img.img-upload {
-  width: 70%;
-}
-
 .frame {
   padding-top: 25px;
   padding-bottom: 25px;
@@ -226,7 +222,7 @@ footer{
 
 .map-container {
   width: 100%;
-  height: 50%; 
+  height: 50%;
 }
 
 .map-container > #map {
@@ -244,6 +240,11 @@ footer{
 
 .frame > .row > p{
   width: 100%;
+}
+
+.frame > .row > .img-upload{
+	max-height: 40vh;
+	width: auto;
 }
 
 #profile-block.card {
