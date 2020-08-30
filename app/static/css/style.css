@@ -187,6 +187,10 @@ footer{
 	padding: 0.5rem 0px;
 }
 
+.tile__container > .tile__title > span {
+    font-weight: 300;
+}
+
 
 /**
  * Challenge
