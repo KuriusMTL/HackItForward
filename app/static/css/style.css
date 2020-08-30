@@ -241,3 +241,7 @@ footer{
   margin-bottom: 6px;
   margin-top: 0;
 }
+
+.frame > .row > p{
+  width: 100%;
+}
