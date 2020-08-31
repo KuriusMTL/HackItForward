@@ -13,7 +13,7 @@ Stratus is a Web Platform that aims to connect organizations directly with devel
 
 The driving functionality of Stratus are the challenge pages. If an organization is in need of a piece of software, a website, or maybe even some ideas, they can post a challenge prompt on a Challenge page, tag all the nessary skills, difficulties, and urgencies that relate to the challenge. Developers will then be able to view these challenges and make projects according to the organization's needs. This way, the organization can connect with developers looking to make an impact, and the developers will get the experience they need to build their skills and progress in their career.
 
-*This project was made for KuriusHacks 2020 by [TheAvidDev](https://github.com/TheAvidDev/), [dulldesk](https://github.com/dulldesk/), [skyflaren](https://github.com/skyflaren/), and [aavaSapkota](https://github.com/aavaSapkota).*
+*This project was made for KuriusHacks 2020 by [TheAvidDev](https://github.com/TheAvidDev/), [dulldesk](https://github.com/dulldesk/), [skyflaren](https://github.com/skyflaren/), and [aavaSapkota](https://github.com/aavaSapkota) where we won the first place award..*
 
 # Features
  - Challenge pages where organizations post challenge prompts.
