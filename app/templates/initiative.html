@@ -81,7 +81,7 @@
             <div class="tile__container">
               <p class="tile__title">Contributors:
                 {% for contributor in initiative.contributors.all %}
-                  <span>{{ contributor.username }}</span>
+                  <a href="{% url 'user' pk=contributor.pk %}" class="tag black">{{ contributor.username }}</a>
                 {% endfor %}
               </p>
             </div>
