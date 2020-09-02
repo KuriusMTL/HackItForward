@@ -1,5 +1,5 @@
 from app.forms import ProfileUpdateForm
-from app.models import Challenge, Profile, Project, SocialLinkAttachement, Task
+from app.models import Challenge, Profile, Project, SocialLinkAttachement
 
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -118,5 +118,4 @@ class ProjectView(InitiativeMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["time_labels"] = [{"label": "Creation Time", "time": self.initiative.created}]
-        context["tasks"] = Task.objects.filter(project=self.initiative)
         return context
