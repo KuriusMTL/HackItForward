@@ -4,4 +4,5 @@ from app.models import Profile
 def profile(request):
     if not request.user.is_authenticated:
         return {}
-    return {"profile": request.user.profile}
+    profile = Profile.objects.get_or_create(user=request.user)[0]
+    return {"profile": profile}
