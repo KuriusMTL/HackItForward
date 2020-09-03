@@ -192,7 +192,7 @@ class Project(models.Model):
         blank=True,
         related_name="contributed_projects",
         verbose_name="Contributors",
-        help_text="Those who have completed tasks for this project.",
+        help_text="Those who have contributed to this project.",
     )
     creators = models.ManyToManyField(
         Profile,
