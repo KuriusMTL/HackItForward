@@ -69,7 +69,7 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("edit_profile")
 
     def get_object(self, queryset=None):
-        return self.request.user.profile
+        return Profile.objects.get_or_create(user=self.request.user)[0]
 
 
 class RegisterView(FormView):
