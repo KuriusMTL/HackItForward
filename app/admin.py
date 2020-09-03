@@ -7,8 +7,6 @@ from app.models import (
     Profile,
     Challenge,
     Project,
-    Task,
-    TaskSubmission,
 )
 
 admin.site.register(SocialLink)
@@ -18,5 +16,3 @@ admin.site.register(Tag)
 admin.site.register(Profile)
 admin.site.register(Challenge)
 admin.site.register(Project)
-admin.site.register(Task)
-admin.site.register(TaskSubmission)
