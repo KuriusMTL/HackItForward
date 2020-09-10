@@ -18,9 +18,7 @@
       <h2 class="header-margin">Your Projects</h2>
       {% endif %}
     </div>
-    {% if not projects %}
-    <p>No projects yet! Check out <a href="{% url 'index' %}">Explore</a> for some challenges to submit to and projects to contribute to.</p>
-    {% else %}
+
     {% for project in projects %}
     <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'project' pk=project.pk %}`">
       <div class="card u-flex-column h-100">
@@ -48,8 +46,15 @@
         </div>
       </div>
     </div>
+    {% empty %}
+    <div class="col-12">
+      {% if profile != request.user.profile %}
+      <p>{{ profile.username }} has not created or contributed to any projects yet.</p>
+      {% else %}
+      <p>No projects yet! Check out <a href="{% url 'index' %}">Explore</a> for some challenges to submit to and projects to contribute to.</p>
+      {% endif %}
+    </div>
     {% endfor %}
-    {% endif %}
   </div>
   <br>
   <div class="row">
@@ -61,8 +66,19 @@
       {% endif %}
     </div>
 
+    {# TODO: Replace hardcoding in the line below #}
+    {% if not profile.description and not profile.badges.all and not links.all and not profile.tags.all %}
+    <div class="col-12">
+      {% if profile != request.user.profile %}
+      <p>{{ profile.username }} has not given any user details.</p>
+      {% else %}
+      <p>No user details! Go to <a href="{% url 'edit_profile' %}">Edit Profile</a> to add something about yourself.</p>
+      {% endif %}
+    </div>
+    {% else %}
     <div class="card col-12" id="profile-block">
       <div class="col-12">
+        {% if profile.description %}
         <div class="tile level r">
           <div class="tile-avatar">
             <span class="icon">
@@ -73,8 +89,10 @@
             <p class="tile__title">About Me:</p>
           </div>
         </div>
+        {% endif %}
 
         {{ profile.description|mistune }}
+        {% if profile.badges.all %}
         <div class="tile level r">
           <div class="tile-avatar">
             <span class="icon">
@@ -111,7 +129,9 @@
             </span>
           </div>
         </div>
+        {% endif %}
 
+        {% if links.all %}
         <div class="tile level r">
           <div class="tile-avatar">
             <span class="icon">
@@ -126,7 +146,9 @@
             </p>
           </div>
         </div>
+        {% endif %}
 
+        {% if profile.tags.all %}
         <div class="tile level r">
           <div class="tile-avatar">
             <span class="icon">
@@ -141,8 +163,10 @@
             </p>
           </div>
         </div>
+        {% endif %}
       </div>
     </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}
