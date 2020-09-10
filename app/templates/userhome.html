@@ -80,21 +80,29 @@
       <div class="col-12">
         {% if profile.description %}
         <div class="tile level r">
-          <div class="tile-avatar">
+          <div class="tile__icon">
             <span class="icon">
-              <i class="zmdi zmdi-link" aria-hidden="true"></i>
+              <i class="zmdi zmdi-account-box" aria-hidden="true"></i>
             </span>
           </div>
           <div class="tile__container">
             <p class="tile__title">About Me:</p>
           </div>
         </div>
+        <div class="tile level">
+          <div class="tile__icon">
+            <span class="icon">
+            </span>
+          </div>
+          <div class="tile__container">
+            {{ profile.description|mistune }}
+          </div>
+        </div>
         {% endif %}
 
-        {{ profile.description|mistune }}
         {% if profile.badges.all %}
         <div class="tile level r">
-          <div class="tile-avatar">
+          <div class="tile__icon">
             <span class="icon">
               <i class="zmdi zmdi-group-work" aria-hidden="true"></i>
             </span>
@@ -133,7 +141,7 @@
 
         {% if links.all %}
         <div class="tile level r">
-          <div class="tile-avatar">
+          <div class="tile__icon">
             <span class="icon">
               <i class="zmdi zmdi-link" aria-hidden="true"></i>
             </span>
@@ -150,7 +158,7 @@
 
         {% if profile.tags.all %}
         <div class="tile level r">
-          <div class="tile-avatar">
+          <div class="tile__icon">
             <span class="icon">
               <i class="zmdi zmdi-tag" aria-hidden="true"></i>
             </span>
