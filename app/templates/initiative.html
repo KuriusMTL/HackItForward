@@ -40,20 +40,20 @@
 
         <!-- tags -->
         {% if initiative.tags.exists %}
-        <div class="tile level r">
-          <div class="tile-avatar">
-            <span class="icon">
-              <i class="zmdi zmdi-tag" aria-hidden="true"></i>
-            </span>
+          <div class="tile level r">
+            <div class="tile-avatar">
+              <span class="icon">
+                <i class="zmdi zmdi-tag" aria-hidden="true"></i>
+              </span>
+            </div>
+            <div class="tile__container">
+              <p class="tile__title">Tags:
+                {% for tag in initiative.tags.all %}
+                  <span class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
+                {% endfor %}
+              </p>
+            </div>
           </div>
-          <div class="tile__container">
-            <p class="tile__title">Tags:
-              {% for tag in initiative.tags.all %}
-              <span class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
-              {% endfor %}
-            </p>
-          </div>
-        </div>
         {% endif %}
 
         <!-- creators -->
@@ -91,36 +91,36 @@
         {% endif %}
 
         {% for timestamp in time_labels %}
-        <div class="tile level r">
-          <div class="tile-avatar">
-            <span class="icon">
-              <i class="zmdi zmdi-calendar-check" aria-hidden="true"></i>
-            </span>
+          <div class="tile level r">
+            <div class="tile-avatar">
+              <span class="icon">
+                <i class="zmdi zmdi-calendar-check" aria-hidden="true"></i>
+              </span>
+            </div>
+            <div class="tile__container">
+              <p class="tile__title">{{ timestamp.label }}:
+                <span>{{ timestamp.time }}</span>
+              </p>
+            </div>
           </div>
-          <div class="tile__container">
-            <p class="tile__title">{{ timestamp.label }}:
-              <span>{{ timestamp.time }}</span>
-            </p>
-          </div>
-        </div>
         {% endfor %}
 
         <!-- links -->
         {% if links.exists %}
-        <div class="tile level r">
-          <div class="tile-avatar">
-            <span class="icon">
-              <i class="zmdi zmdi-link" aria-hidden="true"></i>
-            </span>
+          <div class="tile level r">
+            <div class="tile-avatar">
+              <span class="icon">
+                <i class="zmdi zmdi-link" aria-hidden="true"></i>
+              </span>
+            </div>
+            <div class="tile__container">
+              <p class="tile__title">Links:
+              {% for link in links.all %}
+                <a href="{{ link.href }}" class="tooltip" data-tooltip="{{ link.link.placeholder }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
+              {% endfor %}
+              </p>
+            </div>
           </div>
-          <div class="tile__container">
-            <p class="tile__title">Links:
-            {% for link in links.all %}
-              <a href="{{ link.href }}" class="tooltip" data-tooltip="{{ link.link.placeholder }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
-            {% endfor %}
-            </p>
-          </div>
-        </div>
         {% endif %}
 
       </div>
