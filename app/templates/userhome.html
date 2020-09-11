@@ -66,7 +66,6 @@
       {% endif %}
     </div>
 
-    {# TODO: Replace hardcoding in the line below #}
     {% if not profile.description and not profile.badges.exists and not links.exists and not profile.tags.exists %}
       <div class="col-12">
         {% if profile != request.user.profile %}
