@@ -133,7 +133,7 @@ class Challenge(models.Model):
         help_text="Tags associated with this challenge.",
     )
     creators = models.ManyToManyField(
-        User,
+        Profile,
         related_name="created_challenges",
         verbose_name="Creators",
         help_text="Creators of this challenge which can edit its properties.",
