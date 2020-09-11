@@ -13,136 +13,167 @@
   <div class="row">
     <div class="col-12">
       {% if profile != request.user.profile %}
-      <h2 class="header-margin">{{ profile.username }}'s Projects</h2>
+        <h2 class="header-margin">{{ profile.username }}'s Projects</h2>
       {% else %}
-      <h2 class="header-margin">Your Projects</h2>
+        <h2 class="header-margin">Your Projects</h2>
       {% endif %}
     </div>
-    {% if not projects %}
-    <p>No projects yet! Check out <a href="{% url 'index' %}">Explore</a> for some challenges to submit to and projects to contribute to.</p>
-    {% else %}
+
     {% for project in projects %}
-    <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'project' pk=project.pk %}`">
-      <div class="card u-flex-column h-100">
-        <div class="card-container">
-          <div class="card-image" style="background-image: url({{ project.image.url }})"></div>
-        </div>
-        <div class="content" style="margin-top:10px;margin-bottom:10px !important">
-          <div class="tile">
-            <div class="tile__container">
-              <p class="tile__title">{{ project.name }}</p>
-              <p class="tile__subtitle">
-                {% if profile in project.creators.all %}
-                Creator
-                {% else %}
-                Contributor
-                {% endif %}
-              </p>
+      <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'project' pk=project.pk %}`">
+        <div class="card u-flex-column h-100">
+          <div class="card-container">
+            <div class="card-image" style="background-image: url({{ project.image.url }})"></div>
+          </div>
+          <div class="content" style="margin-top:10px;margin-bottom:10px !important">
+            <div class="tile">
+              <div class="tile__container">
+                <p class="tile__title">{{ project.name }}</p>
+                <p class="tile__subtitle">
+                  {% if profile in project.creators.all %}
+                    Creator
+                  {% else %}
+                    Contributor
+                  {% endif %}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="card-footer content">
-          {% for tag in project.tags.all|slice:':3' %}
-          <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
-          {% endfor %}
+          <div class="card-footer content">
+            {% for tag in project.tags.all|slice:':3' %}
+              <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
+            {% endfor %}
+          </div>
         </div>
       </div>
-    </div>
+    {% empty %}
+      <div class="col-12">
+        {% if profile != request.user.profile %}
+          <p>{{ profile.username }} has not created or contributed to any projects yet.</p>
+        {% else %}
+          <p>No projects yet! Check out <a href="{% url 'index' %}">Explore</a> for some challenges to submit to and projects to contribute to.</p>
+        {% endif %}
+      </div>
     {% endfor %}
-    {% endif %}
   </div>
   <br>
   <div class="row">
     <div class="col-12">
       {% if profile != request.user.profile %}
-      <h2 class="header-margin">{{ profile.username }}</h2>
+        <h2 class="header-margin">{{ profile.username }}</h2>
       {% else %}
-      <h2 class="header-margin">Profile</h2>
+        <h2 class="header-margin">Profile</h2>
       {% endif %}
     </div>
 
-    <div class="card col-12" id="profile-block">
+    {% if not profile.description and not profile.badges.exists and not links.exists and not profile.tags.exists %}
       <div class="col-12">
-        <div class="tile level r">
-          <div class="tile-avatar">
-            <span class="icon">
-              <i class="zmdi zmdi-link" aria-hidden="true"></i>
-            </span>
-          </div>
-          <div class="tile__container">
-            <p class="tile__title">About Me:</p>
-          </div>
-        </div>
+        {% if profile != request.user.profile %}
+          <p>{{ profile.username }} has not given any user details.</p>
+        {% else %}
+          <p>No user details! Go to <a href="{% url 'edit_profile' %}">Edit Profile</a> to add something about yourself.</p>
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="card col-12" id="profile-block">
+        <div class="col-12">
+          {% if profile.description %}
+            <div class="tile level r">
+              <div class="tile__icon">
+                <span class="icon">
+                  <i class="zmdi zmdi-account-box" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="tile__container">
+                <p class="tile__title">About Me:</p>
+              </div>
+            </div>
+            <div class="tile level">
+              <div class="tile__icon">
+                <span class="icon">
+                </span>
+              </div>
+              <div class="tile__container">
+                {{ profile.description|mistune }}
+              </div>
+            </div>
+          {% endif %}
 
-        {{ profile.description|mistune }}
-        <div class="tile level r">
-          <div class="tile-avatar">
-            <span class="icon">
-              <i class="zmdi zmdi-group-work" aria-hidden="true"></i>
-            </span>
-          </div>
-          <div class="tile__container">
-            <span class="tile__title badges">Badges:
-              {% for badge in profile.badges.all %}
-              <a href="#badge-{{ badge.pk }}" class="tooltip" data-tooltip="{{ badge.name }}">
-                <img src="{{ badge.icon.url }}">
-              </a>
-              <div class="modal modal-animated--zoom-in" id="badge-{{ badge.pk }}">
-                <a href="#Profile" class="modal-overlay close-btn" aria-label="Close"></a>
-                <div class="modal-content">
-                  <div class="modal-body">
-                    <br>
-                    <h4 class="modal-title">{{ badge.name }}</h4>
-                    <p>{{ badge.description }}</p>
-                    <img src="{{ badge.icon.url }}">
-                  </div>
-                  <div class="modal-footer">
-                    <div class="u-flex">
-                      <div class="level-right level-content">
-                        <a href="#Profile" style="display:inline-block">
-                          <button class="btn-small">Cancel</button>
-                        </a>
+          {% if profile.badges.exists %}
+            <div class="tile level r">
+              <div class="tile__icon">
+                <span class="icon">
+                  <i class="zmdi zmdi-group-work" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="tile__container">
+                <span class="tile__title badges">Badges:
+                  {% for badge in profile.badges.all %}
+                    <a href="#badge-{{ badge.pk }}" class="tooltip" data-tooltip="{{ badge.name }}">
+                      <img src="{{ badge.icon.url }}">
+                    </a>
+                    <div class="modal modal-animated--zoom-in" id="badge-{{ badge.pk }}">
+                      <a href="#Profile" class="modal-overlay close-btn" aria-label="Close"></a>
+                      <div class="modal-content">
+                        <div class="modal-body">
+                          <br>
+                          <h4 class="modal-title">{{ badge.name }}</h4>
+                          <p>{{ badge.description }}</p>
+                          <img src="{{ badge.icon.url }}">
+                        </div>
+                        <div class="modal-footer">
+                          <div class="u-flex">
+                            <div class="level-right level-content">
+                              <a href="#Profile" style="display:inline-block">
+                                <button class="btn-small">Cancel</button>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  {% endfor %}
+                </span>
               </div>
-              {% endfor %}
-            </span>
-          </div>
-        </div>
+            </div>
+          {% endif %}
 
-        <div class="tile level r">
-          <div class="tile-avatar">
-            <span class="icon">
-              <i class="zmdi zmdi-link" aria-hidden="true"></i>
-            </span>
-          </div>
-          <div class="tile__container">
-            <p class="tile__title">Links:
-              {% for link in links.all %}
-              <a href="{{ link.href }}" class="tooltip" data-tooltip="{{ link.link.placeholder }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
-              {% endfor %}
-            </p>
-          </div>
-        </div>
+          {% if links.exists %}
+            <div class="tile level r">
+              <div class="tile__icon">
+                <span class="icon">
+                  <i class="zmdi zmdi-link" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="tile__container">
+                <p class="tile__title">Links:
+                  {% for link in links.all %}
+                    <a href="{{ link.href }}" class="tooltip" data-tooltip="{{ link.link.placeholder }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
+                  {% endfor %}
+                </p>
+              </div>
+            </div>
+          {% endif %}
 
-        <div class="tile level r">
-          <div class="tile-avatar">
-            <span class="icon">
-              <i class="zmdi zmdi-tag" aria-hidden="true"></i>
-            </span>
-          </div>
-          <div class="tile__container">
-            <p class="tile__title">Interests:
-              {% for tag in profile.tags.all %}
-              <span class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
-              {% endfor %}
-            </p>
-          </div>
+          {% if profile.tags.exists %}
+            <div class="tile level r">
+              <div class="tile__icon">
+                <span class="icon">
+                  <i class="zmdi zmdi-tag" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="tile__container">
+                <p class="tile__title">Interests:
+                  {% for tag in profile.tags.all %}
+                    <span class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
+                  {% endfor %}
+                </p>
+              </div>
+            </div>
+          {% endif %}
         </div>
       </div>
-    </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}

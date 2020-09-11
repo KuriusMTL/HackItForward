@@ -1,44 +1,44 @@
 {% extends "initiative.html" %}
 {% load static %}
 {% block frames %}
-<h3>Heat map</h3>
-<p>Contributions by region</p>
+  <h3>Heat map</h3>
+  <p>Contributions by region</p>
 
-<div class="map-container frame w-100 h-50" id="challenge-frame">
-  <div id="map"></div>
-  <script src="{% static 'js/heatmap.js' %}"></script>
-</div>
-<br>
+  <div class="map-container frame w-100 h-50" id="challenge-frame">
+    <div id="map"></div>
+    <script src="{% static 'js/heatmap.js' %}"></script>
+  </div>
+  <br>
 
-<br>
-<h3>Projects posted to this challenge</h3>
-<div class="row">
-  {% for project in projects %}
-  <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'project' pk=project.pk %}`">
-    <div class="card u-flex-column h-100 slide-up">
-      <div class="card-container">
-        <div class="card-image" style="background-image: url({{ project.image.url }})"></div>
-      </div>
-      <div class="mobile-title">
-        <div class="content">
-          <div class="tile">
-            <div class="tile__container">
-              <p class="tile__title">{{ project.name }}</p>
-              <p class="tile__subtitle">By {{ project.short_creators }}</p>
+  <br>
+  <h3>Projects posted to this challenge</h3>
+  <div class="row">
+    {% for project in projects %}
+      <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'project' pk=project.pk %}`">
+        <div class="card u-flex-column h-100 slide-up">
+          <div class="card-container">
+            <div class="card-image" style="background-image: url({{ project.image.url }})"></div>
+          </div>
+          <div class="mobile-title">
+            <div class="content">
+              <div class="tile">
+                <div class="tile__container">
+                  <p class="tile__title">{{ project.name }}</p>
+                  <p class="tile__subtitle">By {{ project.short_creators }}</p>
+                </div>
+              </div>
             </div>
+          </div>
+          <div class="card-body content">
+            <p>{{ project.description|truncatechars:80 }}</p>
+          </div>
+          <div class="card-footer content">
+            {% for tag in project.tags.all|slice:':3' %}
+              <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
+            {% endfor %}
           </div>
         </div>
       </div>
-      <div class="card-body content">
-        <p>{{ project.description|truncatechars:80 }}</p>
-      </div>
-      <div class="card-footer content">
-        {% for tag in project.tags.all|slice:':3' %}
-        <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
-        {% endfor %}
-      </div>
-    </div>
+    {% endfor %}
   </div>
-  {% endfor %}
-</div>
 {% endblock %}
