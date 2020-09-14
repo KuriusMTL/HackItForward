@@ -8,6 +8,7 @@ from django.db.models import Q
 from django.forms.widgets import CheckboxSelectMultiple
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView, ContextMixin
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView, UpdateView
 
 from django.contrib.contenttypes.models import ContentType
@@ -35,26 +36,28 @@ class IndexView(TemplateView):
         return context
 
 
-# TODO: Change to DetailView
-class UserView(UserPassesTestMixin, TemplateView):
+class UserView(DetailView):
     template_name = "userhome.html"
+    model = Profile
+    context_object_name = "profile"
 
-    def test_func(self):
-        return not self.request.user.is_anonymous or "pk" in self.kwargs
+    def get_object(self, queryset=None):
+        try:
+            return super().get_object(queryset)
+        except AttributeError:
+            return self.request.user.profile
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        pk = self.request.user.profile.pk if "pk" not in self.kwargs else self.kwargs["pk"]
-
-        profile = get_object_or_404(Profile, pk=pk)
-        context["profile"] = profile
         context["projects"] = (
-            Project.objects.filter(Q(creators__in=[profile]) | Q(contributors__in=[profile]))
+            Project.objects.filter(
+                Q(creators__in=[self.object.pk]) | Q(contributors__in=[self.object.pk])
+            )
             .distinct()
             .order_by("-created")
         )
         context["links"] = SocialLinkAttachement.objects.filter(
-            object_id=pk,
+            object_id=self.object.pk,
             content_type=ContentType.objects.get_for_model(Profile),
         )
         return context
@@ -77,7 +80,6 @@ class RegisterView(FormView):
     def form_valid(self, form):
         form.save()
         login(self.request, form.instance)
-        Profile.objects.create(user=form.instance)
         return super().form_valid(form)
 
 
