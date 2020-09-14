@@ -50,6 +50,7 @@ class IndexView(TemplateView):
 
             if "q" in self.request.GET:
                 query = self.request.GET["q"]
+                context["q"] = query
 
                 queryset = queryset.filter(
                     Q(name__icontains=query) | Q(description__icontains=query)
