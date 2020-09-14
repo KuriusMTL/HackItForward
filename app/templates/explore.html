@@ -5,6 +5,34 @@
   <title>Explore | Stratus</title>
   <link rel="stylesheet" href="{% static 'vendor/chosen/chosen.min.css' %}">
   <script src="{% static 'vendor/chosen/chosen.jquery.min.js' %}"></script>
+  <style>
+    /* override chosen css and cirrus transition */
+    .chosen-container-multi {
+      height: 100%;
+    }
+    .chosen-container-multi .chosen-choices {
+      background-image: none;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      border: 1px solid #ddd;
+    }
+    .chosen-container li.search-choice {
+      background-image: none;
+    }
+    .chosen-container-multi .chosen-choices li.search-field input[type=text] {
+      font-family: "Nunito Sans";
+      transition: none;
+    }
+    .chosen-container-multi .chosen-choices li.search-choice a.search-choice-close {
+      transition: none;
+    }
+    .chosen-container ul.chosen-results li.highlighted {
+      background-image: none;
+      background-color: var(--cirrus-primary);
+    }
+  </style>  
 {% endblock %}
 
 {% block body %}
