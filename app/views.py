@@ -45,7 +45,7 @@ class UserView(DetailView):
         try:
             return super().get_object(queryset)
         except AttributeError:
-            return Profile.objects.get_or_create(user=self.request.user)[0]
+            return self.request.user.profile
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -69,7 +69,7 @@ class EditProfileView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("edit_profile")
 
     def get_object(self, queryset=None):
-        return Profile.objects.get_or_create(user=self.request.user)[0]
+        return self.request.user.profile
 
 
 class RegisterView(FormView):
@@ -80,7 +80,6 @@ class RegisterView(FormView):
     def form_valid(self, form):
         form.save()
         login(self.request, form.instance)
-        Profile.objects.create(user=form.instance)
         return super().form_valid(form)
 
 
