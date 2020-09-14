@@ -20,19 +20,18 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context["type"] = ["challenge", "project"]
-
         context["tags"] = Tag.objects.all()
         context["selected_tags"] = []
 
         if "type" not in self.request.GET or (
             "q" not in self.request.GET and "tag" not in self.request.GET
         ):
-            context["challenges"] = Challenge.objects.all()[:3]
-            context["projects"] = Project.objects.all()[:9]
+            context["objects"] = {
+                "challenge": Challenge.objects.all()[:3],
+                "project": Project.objects.all()[:9],
+            }
         else:
             initiative = self.request.GET["type"]
-            context["type"] = [initiative]
 
             if initiative == "challenge":
                 queryset = Challenge.objects.all()
@@ -55,7 +54,7 @@ class IndexView(TemplateView):
                     Q(name__icontains=query) | Q(description__icontains=query)
                 )
 
-            context[initiative + "s"] = queryset.distinct()
+            context["objects"] = {initiative: queryset.distinct()}
 
         return context
 

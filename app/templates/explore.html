@@ -3,6 +3,7 @@
 
 {% block head %}
   <title>Explore | Stratus</title>
+
   <link rel="stylesheet" href="{% static 'vendor/chosen/chosen.min.css' %}">
   <script src="{% static 'vendor/chosen/chosen.jquery.min.js' %}"></script>
   <style>
@@ -48,7 +49,7 @@
 {% endif %}
 
 <div class="content" id="challenges">
-  {% for name in type %}
+  {% for name, object_list in objects.items %}
     {# searching options #}
     <form action=".">
       <input type="hidden" name="type" value="{{ name }}">
@@ -78,68 +79,33 @@
 
     {# submission display #}
     <div class="row">
-      {% if name == "challenge" %}
-        {% for challenge in challenges %}
-          <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'challenge' pk=challenge.pk %}`">
-            <div class="card u-flex-column h-100 slide-up">
-              <div class="card-container">
-                <div class="card-image" style="background-image: url({{ challenge.image.url }})"></div>
-              </div>
-              <div class="mobile-title">
-                <div class="content">
-                  <div class="tile">
-                    <div class="tile__container">
-                      <p class="tile__title">{{ challenge.name }}</p>
-                      <p class="tile__subtitle">By {{ challenge.short_creators }}</p>
-                    </div>
+      {% for object in object_list %}
+        <div class="col-4 pointer-cursor" onclick="location.href=`{% url name pk=object.pk %}`">
+          <div class="card u-flex-column h-100 slide-up">
+            <div class="card-container">
+              <div class="card-image" style="background-image: url({{ object.image.url }})"></div>
+            </div>
+            <div class="mobile-title">
+              <div class="content">
+                <div class="tile">
+                  <div class="tile__container">
+                    <p class="tile__title">{{ object.name }}</p>
+                    <p class="tile__subtitle">By {{ object.short_creators }}</p>
                   </div>
                 </div>
               </div>
-              <div class="card-body content">
-                <p>{{ challenge.description|truncatechars:48 }}</p>
-              </div>
-              <div class="card-footer content">
-                {% for tag in challenge.tags.all|slice:':3' %}
-                  <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
-                {% endfor %}
-              </div>
+            </div>
+            <div class="card-body content">
+              <p>{{ object.description|truncatechars:48 }}</p>
+            </div>
+            <div class="card-footer content">
+              {% for tag in object.tags.all|slice:':3' %}
+                <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
+              {% endfor %}
             </div>
           </div>
-        {% endfor %}
-      {% endif %}
-
-      {% if name == "project" %}
-        {% for project in projects %}
-          <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'project' pk=project.pk %}`">
-            <div class="card u-flex-column h-100 slide-up">
-              <div class="card-container">
-                <div class="card-image" style="background-image: url({{ project.image.url }})"></div>
-              </div>
-              <div class="mobile-title">
-                <div class="content">
-                  <div class="tile">
-                    <div class="tile__container">
-                      <p class="tile__title">{{ project.name }}</p>
-                      <p class="tile__subtitle">By {{ project.short_creators }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body content">
-                <p>{{ project.description|truncatechars:80 }}</p>
-              </div>
-              <div class="card-footer content">
-                {% for tag in project.tags.all|slice:':3' %}
-                  <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-        {% endfor %}
-      {% endif %}
-
-      {# default message when empty #}
-      {% if name == "project" and not projects or name == "challenge" and not challenges %}
+        </div>
+      {% empty %}
         <div class="col-12">
           {% if q or selected_tags %}
             <p>No {{ name }}s matching your query have been found. Perhaps try {{ selected_tags|yesno:"selecting less tags,broadening your search" }}?</p>
@@ -147,10 +113,10 @@
             <p>No {{ name }}s have been published yet.</p>
           {% endif %}
         </div>
-      {% endif %}
+      {% endfor %}
     </div>
   {% endfor %}
-</div>
+</div> 
 <script>
   $(window).on('load', () => {
     $('.custom-multiple').chosen({
