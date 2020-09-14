@@ -110,7 +110,16 @@
         {% endfor %}
       {% endif %}
 
+      {# default message when empty #}
+      {% if name == "project" and not projects or name == "challenge" and not challenges %}
+        <div class="col-12">
+          {% if q or selected_tags %}
+            <p>No {{ name }}s matching your query have been found. Perhaps try {{ selected_tags|yesno:"selecting less tags,broadening your search" }}?</p>
+          {% else %}
+            <p>No {{ name }}s have been published yet.</p>
+          {% endif %}
         </div>
+      {% endif %}
     </div>
   {% endfor %}
 </div>
