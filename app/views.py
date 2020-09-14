@@ -1,5 +1,5 @@
 from app.forms import ProfileUpdateForm
-from app.models import Challenge, Profile, Project, SocialLinkAttachement
+from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag
 
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -19,19 +19,44 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if "type" not in self.request.GET or "q" not in self.request.GET:
+
+        context["type"] = ["challenge", "project"]
+
+        context["tags"] = Tag.objects.all()
+        context["selected_tags"] = []
+
+        if "type" not in self.request.GET or (
+            "q" not in self.request.GET and "tag" not in self.request.GET
+        ):
             context["challenges"] = Challenge.objects.all()[:3]
             context["projects"] = Project.objects.all()[:9]
-            return context
-        query = self.request.GET["q"]
-        if self.request.GET["type"] == "challenge":
-            context["challenges"] = Challenge.objects.all().filter(
-                Q(name__contains=query) | Q(description__contains=query)
-            )
-        elif self.request.GET["type"] == "project":
-            context["projects"] = Project.objects.all().filter(
-                Q(name__contains=query) | Q(description__contains=query)
-            )
+        else:
+            initiative = self.request.GET["type"]
+            context["type"] = [initiative]
+
+            if initiative == "challenge":
+                queryset = Challenge.objects.all()
+
+            elif initiative == "project":
+                queryset = Project.objects.all()
+
+            if "tag" in self.request.GET:
+                query = self.request.GET.getlist("tag")
+
+                for tag in query:
+                    currtags = Tag.objects.filter(name__iexact=tag)
+                    queryset = queryset.filter(Q(tags__in=currtags))
+                    context["selected_tags"] += currtags
+
+            if "q" in self.request.GET:
+                query = self.request.GET["q"]
+
+                queryset = queryset.filter(
+                    Q(name__icontains=query) | Q(description__icontains=query)
+                )
+
+            context[initiative + "s"] = queryset.distinct()
+
         return context
 
 

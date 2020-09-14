@@ -2,7 +2,9 @@
 {% load static %}
 
 {% block head %}
-	<title>Explore | Stratus</title>
+  <title>Explore | Stratus</title>
+  <link rel="stylesheet" href="{% static 'vendor/chosen/chosen.min.css' %}">
+  <script src="{% static 'vendor/chosen/chosen.jquery.min.js' %}"></script>
 {% endblock %}
 
 {% block body %}
@@ -18,91 +20,105 @@
 {% endif %}
 
 <div class="content" id="challenges">
-  {% if challenges %}
-  <div class="row">
-    <h1 class="header-margin">Challenges</h1>
-    <div class="col-12">
-      <div class="input-control">
-        <form action=".">
-          <input type="text" name="q" class="input-contains-icon" placeholder="Challenge Search">
-          <input type="hidden" name="type" value="challenge">
-          <span class="icon"><i class="zmdi zmdi-search" aria-hidden="true"></i></span>
-        </form>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    {% for challenge in challenges %}
-        <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'challenge' pk=challenge.pk %}`">
-        <div class="card u-flex-column h-100 slide-up">
-          <div class="card-container">
-            <div class="card-image" style="background-image: url({{ challenge.image.url }})"></div>
-          </div>
-          <div class="mobile-title">
-            <div class="content">
-              <div class="tile">
-                <div class="tile__container">
-                  <p class="tile__title">{{ challenge.name }}</p>
-                  <p class="tile__subtitle">By {{ challenge.short_creators }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="card-body content">
-            <p>{{ challenge.description|truncatechars:48 }}</p>
-          </div>
-          <div class="card-footer content">
-            {% for tag in challenge.tags.all|slice:':3' %}
-              <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
-            {% endfor %}
+  {% for name in type %}
+    {# searching options #}
+    <form action=".">
+      <input type="hidden" name="type" value="{{ name }}">
+      <div class="row">
+        <h1 class="header-margin">{{ name|title }}s</h1>
+        <div class="col-12">
+          <div class="input-control">
+            <input type="text" name="q" class="input-contains-icon" placeholder="{{ name|title }} Search">
+            <span class="icon"><i class="zmdi zmdi-search" aria-hidden="true"></i></span>
           </div>
         </div>
       </div>
-    {% endfor %}
-  </div>
-  {% endif %}
-  {% if projects %}
-  <div class="row">
-    <h1 class="header-margin">Projects</h1>
-    <div class="col-12">
-      <div class="input-control">
-        <form action=".">
-          <input type="text" name="q" class="input-contains-icon" placeholder="Project Search">
-          <input type="hidden" name="type" value="project">
-          <span class="icon"><i class="zmdi zmdi-search" aria-hidden="true"></i></span>
-        </form>
+      <div class="row">
+        <div class="col-4 w-40 ignore-screen level-item input-control form-group">
+          <select class="form-group-input custom-multiple" name="tag" data-placeholder="Filter by Tags" multiple>
+            {% for tag in tags %}
+              <option value="{{ tag.name }}"
+                {% if tag in selected_tags %} selected {% endif %}
+                >{{ tag.name }}</option>
+            {% endfor %}
+          </select>
+          <button class="form-group-btn btn-small" type="submit"><span class="icon"><i class="zmdi zmdi-search" aria-hidden="true"></i></span></button>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="row">
-    {% for project in projects %}
-      <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'project' pk=project.pk %}`">
-        <div class="card u-flex-column h-100 slide-up">
-          <div class="card-container">
-            <div class="card-image" style="background-image: url({{ project.image.url }})"></div>
-          </div>
-          <div class="mobile-title">
-            <div class="content">
-              <div class="tile">
-                <div class="tile__container">
-                  <p class="tile__title">{{ project.name }}</p>
-                  <p class="tile__subtitle">By {{ project.short_creators }}</p>
+    </form>
+
+    {# submission display #}
+    <div class="row">
+      {% if name == "challenge" %}
+        {% for challenge in challenges %}
+          <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'challenge' pk=challenge.pk %}`">
+            <div class="card u-flex-column h-100 slide-up">
+              <div class="card-container">
+                <div class="card-image" style="background-image: url({{ challenge.image.url }})"></div>
+              </div>
+              <div class="mobile-title">
+                <div class="content">
+                  <div class="tile">
+                    <div class="tile__container">
+                      <p class="tile__title">{{ challenge.name }}</p>
+                      <p class="tile__subtitle">By {{ challenge.short_creators }}</p>
+                    </div>
+                  </div>
                 </div>
+              </div>
+              <div class="card-body content">
+                <p>{{ challenge.description|truncatechars:48 }}</p>
+              </div>
+              <div class="card-footer content">
+                {% for tag in challenge.tags.all|slice:':3' %}
+                  <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
+                {% endfor %}
               </div>
             </div>
           </div>
-          <div class="card-body content">
-            <p>{{ project.description|truncatechars:80 }}</p>
+        {% endfor %}
+      {% endif %}
+
+      {% if name == "project" %}
+        {% for project in projects %}
+          <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'project' pk=project.pk %}`">
+            <div class="card u-flex-column h-100 slide-up">
+              <div class="card-container">
+                <div class="card-image" style="background-image: url({{ project.image.url }})"></div>
+              </div>
+              <div class="mobile-title">
+                <div class="content">
+                  <div class="tile">
+                    <div class="tile__container">
+                      <p class="tile__title">{{ project.name }}</p>
+                      <p class="tile__subtitle">By {{ project.short_creators }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body content">
+                <p>{{ project.description|truncatechars:80 }}</p>
+              </div>
+              <div class="card-footer content">
+                {% for tag in project.tags.all|slice:':3' %}
+                  <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
+                {% endfor %}
+              </div>
+            </div>
           </div>
-          <div class="card-footer content">
-            {% for tag in project.tags.all|slice:':3' %}
-              <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
-            {% endfor %}
-          </div>
+        {% endfor %}
+      {% endif %}
+
         </div>
-      </div>
-    {% endfor %}
-  </div>
-  {% endif %}
+    </div>
+  {% endfor %}
 </div>
+<script>
+  $(window).on('load', () => {
+    $('.custom-multiple').chosen({
+      width: '100%',
+      no_results_text: 'No such tag:'
+    });
+  });
+</script>
 {% endblock %}
