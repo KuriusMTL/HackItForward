@@ -36,7 +36,6 @@ class IndexView(TemplateView):
 
             if initiative == "challenge":
                 queryset = Challenge.objects.all()
-
             elif initiative == "project":
                 queryset = Project.objects.all()
 
