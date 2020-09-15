@@ -58,7 +58,7 @@
         <div class="col-12">
           <div class="input-control">
             <input type="text" name="q" class="input-contains-icon" placeholder="{{ name|title }} Search"
-              {% if q %} value="{{ q }}" {% endif %} >
+              value="{{ q|default:"" }}">
             <span class="icon"><i class="zmdi zmdi-search" aria-hidden="true"></i></span>
           </div>
         </div>
