@@ -115,5 +115,21 @@
       1
     ]
   }
+},
+{
+  "model": "app.project",
+  "pk": 5,
+  "fields": {
+    "challenge": 2,
+    "name": "empty project",
+    "description": "",
+    "created": "2020-09-13",
+    "image": "",
+    "tags": [],
+    "contributors": [],
+    "creators": [
+      1
+    ]
+  }
 }
 ]

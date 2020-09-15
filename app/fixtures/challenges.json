@@ -71,11 +71,11 @@
   "pk": 5,
   "fields": {
     "name": "Empty challenge",
-    "description": "Vestibulum iaculis massa efficitur, rutrum dui nec, semper velit. Praesent viverra, quam non vestibulum porta, quam ipsum fermentum leo, vel aliquam ante augue eu nisi. Phasellus ac nisl eleifend, tempor magna at, facilisis nulla. Vivamus sit amet massa sollicitudin, sollicitudin ligula eu, rutrum libero. Integer lorem augue, vehicula eget metus ut, imperdiet tincidunt nibh. In nec purus libero. Sed semper laoreet lorem a efficitur. Suspendisse porttitor purus sed turpis tincidunt, quis sodales velit finibus. Etiam dictum ligula elit, et lobortis lorem viverra in. Vivamus finibus vulputate lacus, sit amet semper nulla. Aliquam tincidunt libero vel diam imperdiet eleifend. Nunc faucibus tempus volutpat. Sed in mi eu velit egestas pulvinar. Donec porttitor quam massa, id ullamcorper nunc commodo id.",
+    "description": "",
     "created": "2020-09-13",
     "start": "2020-09-14T02:42:18Z",
     "end": "2020-09-14T02:42:19Z",
-    "image": "default",
+    "image": "",
     "tags": [],
     "creators": [
       1

@@ -17,7 +17,11 @@
       <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'project' pk=project.pk %}`">
         <div class="card u-flex-column h-100 slide-up">
           <div class="card-container">
+            {% if project.image %}
             <div class="card-image" style="background-image: url({{ project.image.url }})"></div>
+            {% else %}
+            <div class="card-image" style="background-image: url({{% static 'img/logo.png' %})"></div>
+            {% endif %}
           </div>
           <div class="mobile-title">
             <div class="content">
