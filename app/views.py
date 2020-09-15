@@ -4,13 +4,12 @@ from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.forms.widgets import CheckboxSelectMultiple
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.edit import FormView, UpdateView
-
-from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404, redirect
 
 
@@ -35,32 +34,25 @@ class IndexView(TemplateView):
                 "challenge": Challenge.objects.all()[:3],
                 "project": Project.objects.all()[:9],
             }
-        else:
-            initiative = self.request.GET["type"]
+            return context
 
-            if initiative == "challenge":
-                queryset = Challenge.objects.all()
-            elif initiative == "project":
-                queryset = Project.objects.all()
+        initiative = self.request.GET["type"]
 
-            if "tag" in self.request.GET:
-                query = self.request.GET.getlist("tag")
+        if initiative == "challenge":
+            queryset = Challenge.objects.all()
+        elif initiative == "project":
+            queryset = Project.objects.all()
 
-                for tag in query:
-                    currtags = Tag.objects.filter(name__iexact=tag)
-                    queryset = queryset.filter(Q(tags__in=currtags))
-                    context["selected_tags"] += currtags
+        for tag in self.request.GET.getlist("tag"):
+            currtags = Tag.objects.filter(name__iexact=tag)
+            queryset = queryset.filter(Q(tags__in=currtags))
+            context["selected_tags"] += currtags
 
-            if "q" in self.request.GET:
-                query = self.request.GET["q"]
-                context["q"] = query
+        if "q" in self.request.GET:
+            query = context["q"] = self.request.GET["q"]
+            queryset = queryset.filter(Q(name__icontains=query) | Q(description__icontains=query))
 
-                queryset = queryset.filter(
-                    Q(name__icontains=query) | Q(description__icontains=query)
-                )
-
-            context["objects"] = {initiative: queryset.distinct()}
-
+        context["objects"] = {initiative: queryset.distinct()}
         return context
 
 
