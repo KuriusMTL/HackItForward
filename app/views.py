@@ -11,11 +11,16 @@ from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.edit import FormView, UpdateView
 
 from django.contrib.contenttypes.models import ContentType
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 
 
 class IndexView(TemplateView):
     template_name = "explore.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.GET.get("type") not in ["challenge", "project", None]:
+            return redirect("index")
+        return super(IndexView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
