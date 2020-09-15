@@ -2,6 +2,7 @@
 {% load static %}
 {% get_media_prefix %}
 {% load mistune %}
+{% load class_name %}
 
 {% block head %}
 <title>{{ initiative.name }} | Stratus</title>
@@ -49,7 +50,7 @@
             <div class="tile__container">
               <p class="tile__title">Tags:
                 {% for tag in initiative.tags.all %}
-                  <span class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
+                  <a href="{% url 'index' %}?type={{ initiative|class_name|lower }}&tag={{ tag.name }}" class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</a>
                 {% endfor %}
               </p>
             </div>
