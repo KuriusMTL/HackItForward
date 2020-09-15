@@ -48,9 +48,8 @@ class IndexView(TemplateView):
             queryset = queryset.filter(Q(tags__in=currtags))
             context["selected_tags"] += currtags
 
-        if "q" in self.request.GET:
-            query = context["q"] = self.request.GET["q"]
-            queryset = queryset.filter(Q(name__icontains=query) | Q(description__icontains=query))
+        search = context["q"] = self.request.GET.get("q", "")
+        queryset = queryset.filter(Q(name__icontains=search) | Q(description__icontains=search))
 
         context["objects"] = {initiative: queryset.distinct()}
         return context
