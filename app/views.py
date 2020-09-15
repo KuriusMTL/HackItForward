@@ -43,10 +43,10 @@ class IndexView(TemplateView):
         elif initiative == "project":
             queryset = Project.objects.all()
 
-        for tag in self.request.GET.getlist("tag"):
-            currtags = Tag.objects.filter(name__iexact=tag)
-            queryset = queryset.filter(Q(tags__in=currtags))
-            context["selected_tags"] += currtags
+        context["selected_tags"] = Tag.objects.filter(name__in=self.request.GET.getlist("tag"))
+
+        for tag in context["selected_tags"]:
+            queryset = queryset.filter(tags__in=[tag])
 
         search = context["q"] = self.request.GET.get("q", "")
         queryset = queryset.filter(Q(name__icontains=search) | Q(description__icontains=search))
