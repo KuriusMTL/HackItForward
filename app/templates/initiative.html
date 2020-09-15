@@ -14,7 +14,11 @@
   </div>
   <div class="frame" id="challenge-frame">
       <div class="row">
-        <img class="img-upload u-margin-auto" src="{{ initiative.image.url }}">
+        {% if initiative.image %}
+          <img class="img-upload u-margin-auto" src="{{ initiative.image.url }}">
+        {% else %}
+          <img class="img-upload u-margin-auto" src="{% static 'img/logo.png' %}">
+        {% endif %}
       </div>
       <div>
         {{ initiative.description|mistune }}
