@@ -6,34 +6,7 @@
 
   <link rel="stylesheet" href="{% static 'vendor/chosen/chosen.min.css' %}">
   <script src="{% static 'vendor/chosen/chosen.jquery.min.js' %}"></script>
-  <style>
-    /* override chosen css and cirrus transition */
-    .chosen-container-multi {
-      height: 100%;
-    }
-    .chosen-container-multi .chosen-choices {
-      background-image: none;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      padding: 0 10px;
-      border: 1px solid #ddd;
-    }
-    .chosen-container li.search-choice {
-      background-image: none;
-    }
-    .chosen-container-multi .chosen-choices li.search-field input[type=text] {
-      font-family: "Nunito Sans";
-      transition: none;
-    }
-    .chosen-container-multi .chosen-choices li.search-choice a.search-choice-close {
-      transition: none;
-    }
-    .chosen-container ul.chosen-results li.highlighted {
-      background-image: none;
-      background-color: var(--cirrus-primary);
-    }
-  </style>  
+  <link rel="stylesheet" href="{% static 'css/explore.css' %}">
 {% endblock %}
 
 {% block body %}
@@ -55,24 +28,31 @@
       <input type="hidden" name="type" value="{{ name }}">
       <div class="row">
         <h1 class="header-margin">{{ name|title }}s</h1>
-        <div class="col-12">
+      </div>
+      <div class="row">
+        <div class="col-7">
           <div class="input-control">
             <input type="text" name="q" class="input-contains-icon" placeholder="{{ name|title }} Search"
               value="{{ q|default:"" }}">
             <span class="icon"><i class="zmdi zmdi-search" aria-hidden="true"></i></span>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-4 w-40 ignore-screen level-item input-control form-group">
-          <select class="form-group-input custom-multiple" name="tag" data-placeholder="Filter by Tags" multiple>
-            {% for tag in tags %}
-              <option value="{{ tag.name }}"
-                {% if tag in selected_tags %} selected {% endif %}
-                >{{ tag.name }}</option>
-            {% endfor %}
-          </select>
-          <button class="form-group-btn btn-small" type="submit"><span class="icon"><i class="zmdi zmdi-search" aria-hidden="true"></i></span></button>
+        <div class="col-4">
+          <div class="input-control">
+            <select class="custom-multiple input-contains-icon" name="tag" data-placeholder="Filter by Tags" multiple>
+              {% for tag in tags %}
+                <option value="{{ tag.name }}"
+                  {% if tag in selected_tags %} selected {% endif %}
+                  >{{ tag.name }}</option>
+              {% endfor %}
+            </select>
+            <span class="icon"><i class="zmdi zmdi-tag" aria-hidden="true"></i></span>
+          </div>
+        </div>
+        <div class="col-1">
+          <div class="input-control">
+            <button class="btn" type="submit" style="margin-bottom: 0"><span class="icon"><i class="zmdi zmdi-search zmdi-hc-lg" aria-hidden="true"></i></span></button>
+          </div>
         </div>
       </div>
     </form>
