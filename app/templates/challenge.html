@@ -20,7 +20,7 @@
             {% if project.image %}
               <div class="card-image" style="background-image: url({{ project.image.url }})"></div>
             {% else %}
-              <div class="card-image" style="background-image: url({{% static 'img/logo.png' %})"></div>
+              <div class="card-image" style="background-image: url({% static 'img/logo.png' %})"></div>
             {% endif %}
           </div>
           <div class="mobile-title">
