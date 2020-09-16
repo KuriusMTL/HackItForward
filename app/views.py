@@ -10,7 +10,7 @@ from django.forms.widgets import CheckboxSelectMultiple
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import FormView, UpdateView
+from django.views.generic.edit import CreateView, FormView, UpdateView
 from django.shortcuts import get_object_or_404, redirect
 
 
@@ -116,6 +116,23 @@ class InitiativeMixin(ContextMixin):
         return context
 
 
+class GenericFormMixin(ContextMixin):
+    template_name = "base_form.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["header"] = ("Edit %s" if self.object else "Create %s") % self.model.__name__
+        context["submit"] = "Save" if self.object else "Create"
+        return context
+
+class ChallengeCreateView(GenericFormMixin, CreateView):
+    model = Challenge
+    fields = ["name", "image", "description", "creators", "start", "end", "tags"]
+
+class ChallengeUpdateView(GenericFormMixin, UpdateView):
+    model = Challenge
+    fields = ["name", "image", "description", "creators", "start", "end", "tags"]
+
 class ChallengeView(InitiativeMixin, TemplateView):
     template_name = "challenge.html"
     classname = Challenge
@@ -129,6 +146,14 @@ class ChallengeView(InitiativeMixin, TemplateView):
         context["projects"] = Project.objects.filter(challenge=self.initiative)
         return context
 
+
+class ProjectCreateView(GenericFormMixin, CreateView):
+    model = Project
+    fields = ["name", "image", "description", "creators", "contributors", "tags"]
+
+class ProjectUpdateView(GenericFormMixin, UpdateView):
+    model = Project
+    fields = ["name", "image", "description", "creators", "contributors", "tags"]
 
 class ProjectView(InitiativeMixin, TemplateView):
     template_name = "project.html"

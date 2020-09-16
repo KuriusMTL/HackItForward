@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+<title>{{ header }} | Stratus</title>
+
+<link rel="stylesheet" href="{% static 'vendor/chosen/chosen.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/explore.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="content">
+  <div class="frame">
+    <div class="content">
+      <h2 class="text-primary">{{ header }}</h2>
+      {% if form.errors %}
+        <p class="text-danger">There were errors in your form. Please correct them.</p>
+      {% endif %}
+      {% for error in form.non_field_errors %}
+        <p class="text-danger">{{ error }}</p>
+      {% endfor %}
+    </div>
+    <form action="." method="POST">
+      {% csrf_token %}
+      <div class="frame__body">
+        {% for field in form %}
+          <div class="row">
+            <div class="col-2 u-text-right{% if field.field.required %} text-primary{% endif %}">
+              {{ field.label_tag }}
+            </div>
+            <div class="col-10">
+              <div class="form-selection">
+                {{ field }}
+                {% if field.help_text %}
+                  <div class="faded font-thin">
+                    {{ field.help_text }}
+                  </div>
+                {% endif %}
+                {% for error in field.errors %}
+                  <div class="text-danger">
+                    {{ error }}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="content">
+        <input class="btn btn-primary u-pull-right" type="submit" value="{{ submit }}">
+      </div>
+    </form>
+  </div>
+</div>
+<script src="{% static 'vendor/chosen/chosen.jquery.min.js' %}"></script>
+<script>
+  var simplemde = new SimpleMDE({ element: $("#id_description")[0] });
+  $('select[multiple]').chosen({width: '100%', placeholder_text_multiple: ' ', placeholder_text_single: ' '});
+</script>
+{% endblock %}
