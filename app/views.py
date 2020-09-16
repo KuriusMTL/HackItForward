@@ -1,38 +1,55 @@
 from app.forms import ProfileUpdateForm
-from app.models import Challenge, Profile, Project, SocialLinkAttachement
+from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag
 
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.forms.widgets import CheckboxSelectMultiple
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView, UpdateView
-
-from django.contrib.contenttypes.models import ContentType
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 
 
 class IndexView(TemplateView):
     template_name = "explore.html"
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.GET.get("type") not in ["challenge", "project", None]:
+            return redirect("index")
+        return super(IndexView, self).dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if "type" not in self.request.GET or "q" not in self.request.GET:
-            context["challenges"] = Challenge.objects.all()[:3]
-            context["projects"] = Project.objects.all()[:9]
+
+        context["tags"] = Tag.objects.all()
+
+        if "type" not in self.request.GET or (
+            "q" not in self.request.GET and "tag" not in self.request.GET
+        ):
+            context["objects"] = {
+                "challenge": Challenge.objects.all()[:3],
+                "project": Project.objects.all()[:9],
+            }
             return context
-        query = self.request.GET["q"]
-        if self.request.GET["type"] == "challenge":
-            context["challenges"] = Challenge.objects.all().filter(
-                Q(name__contains=query) | Q(description__contains=query)
-            )
-        elif self.request.GET["type"] == "project":
-            context["projects"] = Project.objects.all().filter(
-                Q(name__contains=query) | Q(description__contains=query)
-            )
+
+        initiative = self.request.GET["type"]
+        if initiative == "challenge":
+            queryset = Challenge.objects.all()
+        elif initiative == "project":
+            queryset = Project.objects.all()
+
+        context["selected_tags"] = Tag.objects.filter(name__in=self.request.GET.getlist("tag"))
+        for tag in context["selected_tags"]:
+            queryset = queryset.filter(tags__in=[tag])
+
+        search = context["q"] = self.request.GET.get("q", "")
+        queryset = queryset.filter(Q(name__icontains=search) | Q(description__icontains=search))
+
+        context["objects"] = {initiative: queryset.distinct()}
         return context
 
 
