@@ -127,7 +127,7 @@ class GenericFormMixin(LoginRequiredMixin, ContextMixin):
         return context
 
 
-class ChallengeCreateView(GenericFormMixin, CreateView):
+class ChallengeFormView(GenericFormMixin):
     model = Challenge
     fields = ["name", "image", "description", "creators", "start", "end", "tags"]
 
@@ -135,17 +135,15 @@ class ChallengeCreateView(GenericFormMixin, CreateView):
         return reverse("challenge", args=[self.object.pk])
 
 
-class ChallengeUpdateView(GenericFormMixin, UpdateView):
-    model = Challenge
-    fields = ["name", "image", "description", "creators", "start", "end", "tags"]
+class ChallengeCreateView(ChallengeFormView, CreateView):
+    pass
 
+
+class ChallengeUpdateView(ChallengeFormView, UpdateView):
     def dispatch(self, request, *args, **kwargs):
         if not self.get_object().can_edit(request.user):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
-
-    def get_success_url(self):
-        return reverse("challenge", args=[self.object.pk])
 
 
 class ChallengeView(InitiativeMixin, TemplateView):
@@ -162,7 +160,7 @@ class ChallengeView(InitiativeMixin, TemplateView):
         return context
 
 
-class ProjectCreateView(GenericFormMixin, CreateView):
+class ProjectFormView(GenericFormMixin):
     model = Project
     fields = ["name", "image", "description", "creators", "contributors", "tags"]
 
@@ -170,17 +168,15 @@ class ProjectCreateView(GenericFormMixin, CreateView):
         return reverse("project", args=[self.object.pk])
 
 
-class ProjectUpdateView(GenericFormMixin, UpdateView):
-    model = Project
-    fields = ["name", "image", "description", "creators", "contributors", "tags"]
+class ProjectCreateView(ProjectFormView, CreateView):
+    pass
 
+
+class ProjectUpdateView(ProjectFormView, UpdateView):
     def dispatch(self, request, *args, **kwargs):
         if not self.get_object().can_edit(request.user):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
-
-    def get_success_url(self):
-        return reverse("project", args=[self.object.pk])
 
 
 class ProjectView(InitiativeMixin, TemplateView):
