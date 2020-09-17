@@ -5,6 +5,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.urls import reverse
 
 
 class SocialLink(models.Model):
@@ -172,6 +173,14 @@ class Challenge(models.Model):
             return self.creators.first().username
         return "%s, et al." % self.creators.first().username
 
+    def can_edit(self, user):
+        if not user.is_authenticated:
+            return False
+        return self.creators.all().filter(id=user.profile.id).exists()
+
+    def get_edit_url(self):
+        return reverse("challenge_edit", args=[self.pk])
+
     def __str__(self):
         return self.name
 
@@ -214,6 +223,14 @@ class Project(models.Model):
         if self.creators.count() == 1:
             return self.creators.first().username
         return "%s, et al." % self.creators.first().username
+
+    def can_edit(self, user):
+        if not user.is_authenticated:
+            return False
+        return self.creators.all().filter(id=user.profile.id).exists()
+
+    def get_edit_url(self):
+        return reverse("project_edit", args=[self.pk])
 
     def __str__(self):
         return self.name

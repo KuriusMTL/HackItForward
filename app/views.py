@@ -1,6 +1,7 @@
 from app.forms import ProfileUpdateForm
 from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag
 
+from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -116,7 +117,7 @@ class InitiativeMixin(ContextMixin):
         return context
 
 
-class GenericFormMixin(ContextMixin):
+class GenericFormMixin(LoginRequiredMixin, ContextMixin):
     template_name = "base_form.html"
 
     def get_context_data(self, **kwargs):
@@ -125,13 +126,21 @@ class GenericFormMixin(ContextMixin):
         context["submit"] = "Save" if self.object else "Create"
         return context
 
+
 class ChallengeCreateView(GenericFormMixin, CreateView):
     model = Challenge
     fields = ["name", "image", "description", "creators", "start", "end", "tags"]
 
+
 class ChallengeUpdateView(GenericFormMixin, UpdateView):
     model = Challenge
     fields = ["name", "image", "description", "creators", "start", "end", "tags"]
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.get_object().can_edit(request.user):
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
+
 
 class ChallengeView(InitiativeMixin, TemplateView):
     template_name = "challenge.html"
@@ -151,9 +160,16 @@ class ProjectCreateView(GenericFormMixin, CreateView):
     model = Project
     fields = ["name", "image", "description", "creators", "contributors", "tags"]
 
+
 class ProjectUpdateView(GenericFormMixin, UpdateView):
     model = Project
     fields = ["name", "image", "description", "creators", "contributors", "tags"]
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.get_object().can_edit(request.user):
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
+
 
 class ProjectView(InitiativeMixin, TemplateView):
     template_name = "project.html"
