@@ -3,35 +3,7 @@
   "model": "app.tag",
   "pk": null,
   "fields": {
-    "name": "Low",
-    "category": "I",
-    "color": "#0DD157"
-  }
-},
-{
-  "model": "app.tag",
-  "pk": null,
-  "fields": {
-    "name": "Medium",
-    "category": "I",
-    "color": "#FAB633"
-  }
-},
-{
-  "model": "app.tag",
-  "pk": null,
-  "fields": {
-    "name": "High",
-    "category": "I",
-    "color": "#FB4143"
-  }
-},
-{
-  "model": "app.tag",
-  "pk": null,
-  "fields": {
     "name": "Beginner",
-    "category": "S",
     "color": "#0DD157"
   }
 },
@@ -40,7 +12,6 @@
   "pk": null,
   "fields": {
     "name": "Intermediate",
-    "category": "S",
     "color": "#FAB633"
   }
 },
@@ -49,7 +20,6 @@
   "pk": null,
   "fields": {
     "name": "Advanced",
-    "category": "S",
     "color": "#FB4143"
   }
 },
@@ -58,7 +28,6 @@
   "pk": null,
   "fields": {
     "name": "Special",
-    "category": "K",
     "color": "#363636"
   }
 },
@@ -67,7 +36,6 @@
   "pk": null,
   "fields": {
     "name": "BASIC",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -76,7 +44,6 @@
   "pk": null,
   "fields": {
     "name": "Business",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -85,7 +52,6 @@
   "pk": null,
   "fields": {
     "name": "C",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -94,7 +60,6 @@
   "pk": null,
   "fields": {
     "name": "C#",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -103,7 +68,6 @@
   "pk": null,
   "fields": {
     "name": "C++",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -112,7 +76,6 @@
   "pk": null,
   "fields": {
     "name": "COBOL",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -121,7 +84,6 @@
   "pk": null,
   "fields": {
     "name": "CSS",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -130,7 +92,6 @@
   "pk": null,
   "fields": {
     "name": "CyberSec",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -139,7 +100,6 @@
   "pk": null,
   "fields": {
     "name": "D",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -148,7 +108,6 @@
   "pk": null,
   "fields": {
     "name": "Design",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -157,7 +116,6 @@
   "pk": null,
   "fields": {
     "name": "Electron",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -166,7 +124,6 @@
   "pk": null,
   "fields": {
     "name": "F#",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -175,7 +132,6 @@
   "pk": null,
   "fields": {
     "name": "GTK",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -184,7 +140,6 @@
   "pk": null,
   "fields": {
     "name": "Go",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -193,7 +148,6 @@
   "pk": null,
   "fields": {
     "name": "HTML",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -202,7 +156,6 @@
   "pk": null,
   "fields": {
     "name": "Haskell",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -211,7 +164,6 @@
   "pk": null,
   "fields": {
     "name": "JS",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -220,7 +172,6 @@
   "pk": null,
   "fields": {
     "name": "Java",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -229,7 +180,6 @@
   "pk": null,
   "fields": {
     "name": "Lisp",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -238,7 +188,6 @@
   "pk": null,
   "fields": {
     "name": "Lua",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -247,7 +196,6 @@
   "pk": null,
   "fields": {
     "name": "Networking",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -256,7 +204,6 @@
   "pk": null,
   "fields": {
     "name": "OCaml",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -265,7 +212,6 @@
   "pk": null,
   "fields": {
     "name": "PHP",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -274,7 +220,6 @@
   "pk": null,
   "fields": {
     "name": "Pascal",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -283,7 +228,6 @@
   "pk": null,
   "fields": {
     "name": "Perl",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -292,7 +236,6 @@
   "pk": null,
   "fields": {
     "name": "Photoshop",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -301,7 +244,6 @@
   "pk": null,
   "fields": {
     "name": "Python",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -310,7 +252,6 @@
   "pk": null,
   "fields": {
     "name": "Racket",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -319,7 +260,6 @@
   "pk": null,
   "fields": {
     "name": "Ruby",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -328,7 +268,6 @@
   "pk": null,
   "fields": {
     "name": "Rust",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -337,7 +276,6 @@
   "pk": null,
   "fields": {
     "name": "Scala",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -346,7 +284,6 @@
   "pk": null,
   "fields": {
     "name": "Turing",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -355,7 +292,6 @@
   "pk": null,
   "fields": {
     "name": "Wayland",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -364,7 +300,6 @@
   "pk": null,
   "fields": {
     "name": "X11",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -373,7 +308,6 @@
   "pk": null,
   "fields": {
     "name": "Zig",
-    "category": "K",
     "color": "#2972fa"
   }
 },
@@ -381,8 +315,7 @@
   "model": "app.tag",
   "pk": null,
   "fields": {
-    "name": "assembly",
-    "category": "K",
+    "name": "Assembly",
     "color": "#2972fa"
   }
 }

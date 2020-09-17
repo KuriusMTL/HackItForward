@@ -14,4 +14,4 @@ class ProfileUpdateForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProfileUpdateForm, self).__init__(*args, **kwargs)
         self.fields["tags"].widget = CheckboxSelectMultiple()
-        self.fields["tags"].queryset = Tag.objects.all().filter(category="K")
+        self.fields["tags"].queryset = Tag.objects.all()
