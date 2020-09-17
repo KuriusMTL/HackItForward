@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.forms.widgets import CheckboxSelectMultiple
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView, UpdateView
@@ -131,6 +131,9 @@ class ChallengeCreateView(GenericFormMixin, CreateView):
     model = Challenge
     fields = ["name", "image", "description", "creators", "start", "end", "tags"]
 
+    def get_success_url(self):
+        return reverse("challenge", args=[self.object.pk])
+
 
 class ChallengeUpdateView(GenericFormMixin, UpdateView):
     model = Challenge
@@ -140,6 +143,9 @@ class ChallengeUpdateView(GenericFormMixin, UpdateView):
         if not self.get_object().can_edit(request.user):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse("challenge", args=[self.object.pk])
 
 
 class ChallengeView(InitiativeMixin, TemplateView):
@@ -160,6 +166,9 @@ class ProjectCreateView(GenericFormMixin, CreateView):
     model = Project
     fields = ["name", "image", "description", "creators", "contributors", "tags"]
 
+    def get_success_url(self):
+        return reverse("project", args=[self.object.pk])
+
 
 class ProjectUpdateView(GenericFormMixin, UpdateView):
     model = Project
@@ -169,6 +178,9 @@ class ProjectUpdateView(GenericFormMixin, UpdateView):
         if not self.get_object().can_edit(request.user):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse("project", args=[self.object.pk])
 
 
 class ProjectView(InitiativeMixin, TemplateView):
