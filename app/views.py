@@ -131,6 +131,12 @@ class ChallengeFormView(GenericFormMixin):
     model = Challenge
     fields = ["name", "image", "description", "creators", "start", "end", "tags"]
 
+    def get_form_class(self, *args, **kwargs):
+        form_class = super().get_form_class(*args, **kwargs)
+        form_class.base_fields["start"].widget.attrs["placeholder"] = "YYYY-MM-DD HH:MM"
+        form_class.base_fields["end"].widget.attrs["placeholder"] = "YYYY-MM-DD HH:MM"
+        return form_class
+
     def get_success_url(self):
         return reverse("challenge", args=[self.object.pk])
 
