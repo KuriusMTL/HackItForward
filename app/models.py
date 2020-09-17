@@ -6,6 +6,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
+from django.utils import timezone
 
 
 class SocialLink(models.Model):
@@ -180,6 +181,9 @@ class Challenge(models.Model):
 
     def get_edit_url(self):
         return reverse("challenge_edit", args=[self.pk])
+
+    def is_open(self):
+        return self.start <= timezone.now() <= self.end
 
     def __str__(self):
         return self.name

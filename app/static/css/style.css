@@ -264,6 +264,8 @@ footer{
   top: 5px;  
 }
 
-#edit-button {
-  position: absolute;
+@media only screen and (min-width: 769px) {
+  .buttons {
+    position: absolute;
+  }
 }

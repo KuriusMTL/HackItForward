@@ -178,6 +178,25 @@ class ProjectCreateView(ProjectFormView, CreateView):
     pass
 
 
+class ProjectChallengeCreateView(ProjectCreateView):
+    def dispatch(self, *args, **kwargs):
+        self.challenge = get_object_or_404(Challenge, pk=kwargs["pk"])
+        if not self.challenge.is_open():
+            raise PermissionDenied
+        return super().dispatch(*args, **kwargs)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["header"] = "Create Project for '%s'" % self.challenge.name
+        return context
+
+    def form_valid(self, form):
+        project = form.save(commit=False)
+        project.challenge = self.challenge
+        project.save()
+        return get_success_url(self)
+
+
 class ProjectUpdateView(ProjectFormView, UpdateView):
     def dispatch(self, request, *args, **kwargs):
         if not self.get_object().can_edit(request.user):

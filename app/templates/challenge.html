@@ -1,5 +1,14 @@
 {% extends "initiative.html" %}
 
+{% block buttons %}
+{% if initiative.is_open() %}
+  <a class="btn btn-primary" href="{{ url('project_challenge_create', pk=initiative.pk) }}">
+    <i class="zmdi zmdi-plus"></i> Create Project
+  </a>
+{% endif %}
+{{ super() }}
+{% endblock %}
+
 {% block frames %}
 <h3>Heat map</h3>
 <p>Contributions by region</p>

@@ -10,9 +10,13 @@
     <h2>{{ initiative.name }}</h2>
   </div>
   <div class="frame" id="challenge-frame">
-    {% if initiative.can_edit(request.user) %}
-      <a class="btn btn-primary" id="edit-button" href="{{ initiative.get_edit_url() }}"><i class="zmdi zmdi-edit"></i> Edit</a>
-    {% endif %}
+    <div class="buttons">
+      {% block buttons %}
+        {% if initiative.can_edit(request.user) %}
+          <a class="btn btn-primary" href="{{ initiative.get_edit_url() }}"><i class="zmdi zmdi-edit"></i> Edit</a>
+        {% endif %}
+      {% endblock %}
+    </div>
     <div class="row">
       {% if initiative.image %}
         <img class="img-upload u-margin-auto" src="{{ initiative.image.url }}">
