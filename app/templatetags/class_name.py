@@ -1,7 +1,6 @@
-from django import template
+from django_jinja import library
 
-register = template.Library()
 
-@register.filter(name="class_name")
+@library.filter
 def get_class_name(model):
-	return model.__class__.__name__
+    return model.__class__.__name__

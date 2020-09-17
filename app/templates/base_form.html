@@ -1,11 +1,10 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block head %}
 <title>{{ header }} | Stratus</title>
 
-<link rel="stylesheet" href="{% static 'vendor/chosen/chosen.min.css' %}">
-<link rel="stylesheet" href="{% static 'css/explore.css' %}">
+<link rel="stylesheet" href="{{ static('vendor/chosen/chosen.min.css') }}">
+<link rel="stylesheet" href="{{ static('css/explore.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -16,7 +15,7 @@
       {% if form.errors %}
         <p class="text-danger">There were errors in your form. Please correct them.</p>
       {% endif %}
-      {% for error in form.non_field_errors %}
+      {% for error in form.non_field_errors() %}
         <p class="text-danger">{{ error }}</p>
       {% endfor %}
     </div>
@@ -26,7 +25,7 @@
         {% for field in form %}
           <div class="row">
             <div class="col-2 u-text-right{% if field.field.required %} text-primary{% endif %}">
-              {{ field.label_tag }}
+              {{ field.label_tag() }}
             </div>
             <div class="col-10">
               <div class="form-selection">
@@ -52,7 +51,7 @@
     </form>
   </div>
 </div>
-<script src="{% static 'vendor/chosen/chosen.jquery.min.js' %}"></script>
+<script src="{{ static('vendor/chosen/chosen.jquery.min.js') }}"></script>
 <script>
   var simplemde = new SimpleMDE({ element: $("#id_description")[0] });
   $('select[multiple]').chosen({width: '100%', placeholder_text_multiple: ' ', placeholder_text_single: ' '});
