@@ -57,7 +57,7 @@
             <div class="tile__container">
               <p class="tile__title">Tags:
                 {% for tag in initiative.tags.all() %}
-                <a href="{{ url('index') }}?type={{ initiative|class_name|lower }}&tag={{ tag.name }}" class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</a>
+                  <a href="{{ url('index') }}?type={{ initiative|class_name|lower }}&tag={{ tag.name }}" class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</a>
                 {% endfor %}
               </p>
             </div>
