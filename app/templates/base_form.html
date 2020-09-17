@@ -21,7 +21,7 @@
     </div>
     <form action="." method="POST">
       {% csrf_token %}
-      <div class="frame__body">
+      <div class="frame__body" style="overflow-y: initial">
         {% for field in form %}
           <div class="row">
             <div class="col-2 u-text-right{% if field.field.required %} text-primary{% endif %}">
