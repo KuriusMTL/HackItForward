@@ -137,6 +137,12 @@ class Challenge(models.Model):
         help_text="Creators of this challenge which can edit its properties. Removing yourself "
         + "will make it impossible to edit this challenge.",
     )
+    followers = models.ManyToManyField(
+        Profile,
+        related_name="followed_challenges",
+        verbose_name="Followers",
+        help_text="Followers of this project who will receive notifications about it.",
+    )
     created = models.DateField(
         auto_now_add=True,
         verbose_name="Creation Date",
@@ -235,6 +241,12 @@ class Project(models.Model):
         help_text="Creators of this project which can edit its properties. Removing yourself will "
         + "make it impossible for you to edit this project.",
     )
+    followers = models.ManyToManyField(
+        Profile,
+        related_name="followed_projects",
+        verbose_name="Followers",
+        help_text="Followers of this project who will receive notifications about it.",
+    )
     created = models.DateField(
         auto_now_add=True, verbose_name="Creation Date", help_text="Date this project was created."
     )
@@ -270,3 +282,34 @@ class Project(models.Model):
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+
+
+class Notification(models.Model):
+    message = models.CharField(
+        max_length=255, verbose_name="Message", help_text="Notification message."
+    )
+    content_type = models.ForeignKey(
+        ContentType, null=True, verbose_name="Linked Item Type", on_delete=models.CASCADE
+    )
+    object_id = models.PositiveIntegerField(null=True, verbose_name="Linked Item ID")
+    linked_item = GenericForeignKey()
+    created = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Creation Date",
+        help_text="Date this notification was sent.",
+    )
+
+    def get_link_url(self):
+        if self.linked_item:
+            return self.linked_item.get_absolute_url()
+        return "#"
+
+
+class NotificationInstance(models.Model):
+    notification = models.ForeignKey(
+        Notification, related_name="notifications", on_delete=models.CASCADE
+    )
+    user = models.ForeignKey(Profile, related_name="notifications", on_delete=models.CASCADE)
+    is_read = models.BooleanField(
+        default=False, verbose_name="Is Read", help_text="Whether this notification has been read."
+    )
