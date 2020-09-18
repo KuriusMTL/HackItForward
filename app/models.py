@@ -72,20 +72,7 @@ class Badge(models.Model):
 
 
 class Tag(models.Model):
-    CATEGORY_CHOICES = [
-        ("S", "Skill Level"),
-        ("L", "Location"),
-        ("K", "Knowledge"),
-        ("I", "Importance"),
-    ]
-
     name = models.CharField(max_length=24, verbose_name="Name", help_text="Name of this tag.")
-    category = models.CharField(
-        max_length=1,
-        choices=CATEGORY_CHOICES,
-        verbose_name="Category",
-        help_text="Category of this tag which determines where it is available and presented.",
-    )
     color = ColorField(help_text="Color", verbose_name="Color of this tag.")
 
     def __str__(self):
