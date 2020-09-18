@@ -150,7 +150,10 @@ class Challenge(models.Model):
         help_text="Badges awareded to users that complete projects for this challenge.",
     )
     image = models.ImageField(
-        blank=True, upload_to="challenges/", verbose_name="Image", help_text="Cover image of this challenge."
+        blank=True,
+        upload_to="challenges/",
+        verbose_name="Image",
+        help_text="Cover image of this challenge.",
     )
 
     @property
@@ -193,7 +196,10 @@ class Project(models.Model):
         auto_now_add=True, verbose_name="Creation Date", help_text="Date this project was created."
     )
     image = models.ImageField(
-        blank=True, upload_to="challenges/", verbose_name="Image", help_text="Cover image of this project."
+        blank=True,
+        upload_to="challenges/",
+        verbose_name="Image",
+        help_text="Cover image of this project.",
     )
 
     @property
