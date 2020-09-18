@@ -1,6 +1,6 @@
 $(document).ready(() => {
 	// Show / Hide menu when clicked
-	$('.has-sub').on('click', function(e) { 
+	$('.has-sub').on('click', function(e) {
 		$('.dropdown-menu').not($(this).children('.dropdown-menu')).removeClass('dropdown-shown'); // Hide other menus
 		$('.has-sub').not($(this)).removeClass('active');
 		$(this).children('.dropdown-menu').toggleClass('dropdown-shown');
@@ -16,5 +16,10 @@ $(document).ready(() => {
 	// Remove parent upon clicking close button
 	$('.btn-close').on('click', function() {
 		$(this).closest('div').remove();
-	});
+  });
+
+	function toggleForm() {
+    var popup = document.getElementById("form-popup");
+    popup.classList.toggle("show");
+  }
 });

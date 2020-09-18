@@ -11,19 +11,21 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
   <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  
+
   <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
   <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
-  
+
   {% block head %}
   {% endblock %}
 </head>
 <body>
+      <!-- <iframe class="airtable-embed" src="https://airtable.com/embed/shro1W9DcSXja7K5r?backgroundColor=blue" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe> -->
+
   <div class="header unselectable header-animated header-clear">
     <div class="header-brand">
       <div class="nav-item">
         <a href="{% url 'index' %}">
-          <img src="{% static 'img/logo.png' %}" class="logo" alt="Stratus">
+          <img src="{% static 'img/newlogo.png' %}" class="logo" alt="HackItForward">
         </a>
       </div>
 
@@ -60,6 +62,8 @@
 
     </div>
   </div>
+  <div class="form-popup">Center of screen</div>
+
 
   {% block body %}
   {% endblock %}
@@ -67,28 +71,20 @@
   <footer>
     <!-- <h6 class="uppercase white">STRATUS</h6> -->
     <div class="footer-title-par">
-      <span class="bold-footer uppercase white" style="">STRATUS</span>
-      <span class="thin-footer white"> - KuriusHacks2020</span>
+      <span class="bold-footer uppercase white" style="">HackItForward</span>
     </div>
     <div class="content">
       <div class="divider"></div>
       <div class="row u-center">
         <div class="col">
-          <a href="https://youtu.be/G5uDEDriXFc">
-            <span class="icon">
-              <i class="zmdi zmdi-youtube-play zmdi-hc-2x" aria-hidden="true"></i>
-            </span>
-          </a>
+
         </div>
         <div class="col">
-          <a href="https://devpost.com/software/tbd-7yxgu1">
-            <span class="icon">
-              <i class="zmdi zmdi-album zmdi-hc-2x" aria-hidden="true"></i>
-            </span>
-          </a>
+        <button class="toggle-form" onclick="toggleForm()">Submit a bug</button>
+
         </div>
         <div class="col">
-          <a href="https://github.com/TheAvidDev/stratus">
+          <a href="https://github.com/KuriusMTL/HackItForward">
             <span class="icon">
               <i class="zmdi zmdi-github zmdi-hc-2x" aria-hidden="true"></i>
             </span>
@@ -96,6 +92,8 @@
         </div>
       </div>
     </div>
+    <p>Powered by <a href="http://kurius.ca" target="_blank">Kurius</a>
+    </p>
   </footer>
 
   <script src="{% static 'js/base.js' %}"></script>
