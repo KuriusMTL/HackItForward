@@ -121,7 +121,7 @@
 },
 {
   "model": "app.project",
-  "pk": 5,
+  "pk": 1,
   "fields": {
     "challenge": 2,
     "name": "empty project",
