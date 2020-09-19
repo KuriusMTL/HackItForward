@@ -42,7 +42,9 @@
           <div class="nav-item has-sub btn-container" id="dropdown">
             <a class="nav-dropdown-link">Create</a>
             <ul class="dropdown-menu" role="menu">
-              <li role="menu-item"><a href="{{ url('challenge_create') }}">Challenge</a></li>
+              {% if request.user.has_perm('app.add_challenge') %}
+                <li role="menu-item"><a href="{{ url('challenge_create') }}">Challenge</a></li>
+              {% endif %}
               <li role="menu-item"><a href="{{ url('project_create') }}">Project</a></li>
             </ul>
           </div>

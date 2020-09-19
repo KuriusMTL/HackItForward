@@ -4,7 +4,11 @@ from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UserPassesTestMixin,
+)
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.http import Http404
@@ -142,8 +146,8 @@ class ChallengeFormView(GenericFormMixin):
         return reverse("challenge", args=[self.object.pk])
 
 
-class ChallengeCreateView(ChallengeFormView, CreateView):
-    pass
+class ChallengeCreateView(PermissionRequiredMixin, ChallengeFormView, CreateView):
+    permission_required = "app.add_challenge"
 
 
 class ChallengeUpdateView(ChallengeFormView, UpdateView):
