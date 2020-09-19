@@ -169,7 +169,6 @@ class Challenge(models.Model):
     )
 
     def clean(self):
-        super().clean()
         if self.start and not self.end:
             raise ValidationError("An end date must be provided if you have a start date.")
         if not self.start and self.end:
