@@ -6,12 +6,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
-from django.forms.widgets import CheckboxSelectMultiple
+from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView, UpdateView
-from django.shortcuts import get_object_or_404, redirect
 
 
 class IndexView(TemplateView):
@@ -59,10 +59,11 @@ class UserView(DetailView):
     context_object_name = "profile"
 
     def get_object(self, queryset=None):
-        try:
+        if "pk" in self.kwargs:
             return super().get_object(queryset)
-        except AttributeError:
+        if self.request.user.is_authenticated:
             return self.request.user.profile
+        raise Http404
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
