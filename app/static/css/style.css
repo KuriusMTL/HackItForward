@@ -16,22 +16,14 @@
   --cirrus-link-dark: var(--cirrus-primary) !important;
 }
 
-* {
-  box-sizing: border-box;
-  word-wrap: break-word;
-}
-
 body {
   background-color: var(--grey-light);
+  box-sizing: border-box;
 }
 
 .frame {
   background-color: white;
   padding-top: 25px 0;
-}
-
-.placeholder img {
-  height: 100px;
 }
 
 .header {
@@ -61,7 +53,9 @@ body {
 }
 
 div.header {
-  margin-top: 10px;
+  margin: 10px 0 0;
+  transition: border-color var(--animation-duration);
+  border-color: var(--cirrus-bg);
 }
 
 .logo {
@@ -99,6 +93,20 @@ footer {
   background-color: var(--grey-dark) !important;
 }
 
+.bold-footer {
+  margin-block-start: 2.33em;
+  margin-block-end: 2.33em;
+  letter-spacing: 2px;
+}
+
+.thin-footer {
+  letter-spacing: 0.5px;
+}
+
+.pointer-cursor {
+  cursor: pointer;
+}
+
 .footer-title-par {
   font-size: 1.5rem;
 }
@@ -107,18 +115,37 @@ footer {
   margin-bottom: 0px !important;
 }
 
-.bold-footer {
-  font-weight: bold;
-  margin-block-start: 2.33em;
-  margin-block-end: 2.33em;
-  letter-spacing: 3px;
+.btn-primary {
+  border: 2px solid var(--cirrus-primary) !important;
+  border-radius: 2px
 }
 
-.thin-footer {
-  font-family:'Nunito-Sans', sans-serif;
-  font-weight: 100;
-  letter-spacing: 0.5px;
-  color: var(--grey-mid);
+.btn-primary:hover {
+  background: inherit;
+  color: var(--cirrus-primary) !important;
+  background: white;
+}
+
+button:focus, a:focus, input:focus {
+  box-shadow: none !important;
+}
+
+
+
+/**
+ * Register / Login / Logout
+ */
+
+.tab-container li a {
+  transition: var(--animation-duration);
+}
+
+.tab-container:hover li:hover a:hover {
+  border-bottom: 2px solid var(--cirrus-primary);
+}
+
+.placeholder img {
+  height: 100px;
 }
 
 
@@ -156,14 +183,18 @@ footer {
 }
 
 .header-margin {
-  margin-top: 30px !important;
+  margin-top: 50px !important;
 }
 
 
 
 /**
- * Front Page Cards
+ * Cards
  */
+
+.card p {
+  word-wrap: break-word;
+}
 
 .card-container {
   min-height: 230px !important;
@@ -183,10 +214,6 @@ footer {
   color: var(--cirrus-primary);
 }
 
-.tile__title > span{
-  color: var(--grey-dark);
-}
-
 .card.u-flex-column.h-100.slide-up {
   padding-bottom: 1.5em;
 }
@@ -199,14 +226,23 @@ footer {
   padding: 0.5rem 0px;
 }
 
-.tile__container > .tile__title > span {
-  font-weight: 300;
+.tile__title > span {
+  font-weight: 400;
+  color: var(--grey-mid);
+}
+
+.row:not(.no-space) [class^=col-]:not(.col-12) {
+  padding: 0.5rem !important;
+}
+
+.tile.level.r {
+  padding: 0.5rem 0px;
 }
 
 
 
 /**
- * Challenge
+ * Challenge / Userhome
  */
 
 #challenge-frame {
@@ -218,6 +254,10 @@ footer {
   border-top: 2px solid var(--grey-light);
   padding-top: 17px;
   margin-top: 18px;
+}
+
+.frame {
+  padding-top: 25px 0;
 }
 
 .map-container {
@@ -233,8 +273,7 @@ footer {
 }
 
 .form-section > label + p {
-  margin-bottom: 6px;
-  margin-top: 0;
+  margin-bottom: 0 0 6px;
 }
 
 .frame > .row > p {
@@ -246,8 +285,8 @@ footer {
   width: auto;
 }
 
-#profile-block.card {
-  padding: 15px;
+#profile-block {
+   padding: 15px;
 }
 
 .badges > a {
