@@ -52,9 +52,13 @@
     </form>
   </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
 <script src="{{ static('vendor/chosen/chosen.jquery.min.js') }}"></script>
 <script>
   var simplemde = new SimpleMDE({ element: $("#id_description")[0] });
+  $("#id_creators option[value='{{ request.user.profile.pk }}']").attr('selected', 'selected');
   $('select[multiple]').chosen({width: '100%', placeholder_text_multiple: ' ', placeholder_text_single: ' '});
 </script>
 {% endblock %}
