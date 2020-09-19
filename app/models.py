@@ -127,7 +127,8 @@ class Challenge(models.Model):
         Profile,
         related_name="created_challenges",
         verbose_name="Creators",
-        help_text="Creators of this challenge which can edit its properties.",
+        help_text="Creators of this challenge which can edit its properties. Removing yourself "
+        + "will make it impossible to edit this challenge.",
     )
     created = models.DateField(
         auto_now_add=True,
@@ -203,7 +204,8 @@ class Project(models.Model):
         Profile,
         related_name="created_projects",
         verbose_name="Creators",
-        help_text="Creators of this project which can edit its properties.",
+        help_text="Creators of this project which can edit its properties. Removing yourself will "
+        + "make it impossible for you to edit this project.",
     )
     created = models.DateField(
         auto_now_add=True, verbose_name="Creation Date", help_text="Date this project was created."
