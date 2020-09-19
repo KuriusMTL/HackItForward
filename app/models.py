@@ -2,6 +2,7 @@ from colorfield.fields import ColorField
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -167,6 +168,15 @@ class Challenge(models.Model):
         help_text="Cover image of this challenge.",
     )
 
+    def clean(self):
+        super().clean()
+        if self.start and not self.end:
+            raise ValidationError("An end date must be provided if you have a start date.")
+        if not self.start and self.end:
+            raise ValidationError("An start date must be provided if you have an end date.")
+        if self.start and self.end and self.start >= self.end:
+            raise ValidationError("The end date must be after the start date.")
+
     @property
     def short_creators(self):
         if self.creators.count() == 1:
@@ -185,6 +195,8 @@ class Challenge(models.Model):
         return reverse("challenge_edit", args=[self.pk])
 
     def is_open(self):
+        if not self.start or not self.end:
+            return True
         return self.start <= timezone.now() <= self.end
 
     def __str__(self):
