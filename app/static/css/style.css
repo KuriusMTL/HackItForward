@@ -264,16 +264,16 @@ footer{
   top: 5px;
 }
 
-.btn-grey {
-  --btn-color: var(--grey-mid);
-  --btn-border-color: var(--grey-mid);
+.btn.btn-grey, button.btn-grey {
+  background-color: var(--grey-mid);
+  border-color: var(--grey-mid);
   /*--btn-color: var(--cirrus-gray);*/
   /*--btn-border-color: var(--cirrus-gray);*/
-  --btn-fg: var(--cirrus-light);
+  color: var(--cirrus-light);
 }
 
-.btn-grey:hover {
-  --btn-fg: var(--cirrus-dark);
+.btn.btn-grey:hover, button.btn-grey:hover {
+  color: var(--cirrus-dark);
 }
 
 @media only screen and (min-width: 769px) {
