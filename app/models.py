@@ -128,7 +128,10 @@ class Challenge(models.Model):
         blank=True, verbose_name="Description", help_text="Description of this challenge."
     )
     one_liner = models.CharField(
-        default='',verbose_name="One Line Description", help_text="A one line description of the Challenge",max_length= 50
+        default="",
+        verbose_name="One Line Description",
+        help_text="A one line description of the Challenge",
+        max_length=50,
     )
     tags = models.ManyToManyField(
         Tag,
@@ -168,7 +171,10 @@ class Challenge(models.Model):
         help_text="Badges awareded to users that complete projects for this challenge.",
     )
     image = models.ImageField(
-        blank=True, upload_to="challenges/", verbose_name="Image", help_text="Cover image of this challenge."
+        blank=True,
+        upload_to="challenges/",
+        verbose_name="Image",
+        help_text="Cover image of this challenge.",
     )
 
     @property
@@ -195,7 +201,10 @@ class Project(models.Model):
         help_text="Tags associated with this project.",
     )
     one_liner = models.CharField(
-        default='',verbose_name="One Line Description", help_text="A one line description of the Challenge",max_length= 50
+        default="",
+        verbose_name="One Line Description",
+        help_text="A one line description of the Challenge",
+        max_length=50,
     )
     contributors = models.ManyToManyField(
         Profile,
@@ -214,7 +223,10 @@ class Project(models.Model):
         auto_now_add=True, verbose_name="Creation Date", help_text="Date this project was created."
     )
     image = models.ImageField(
-        blank=True, upload_to="challenges/", verbose_name="Image", help_text="Cover image of this project."
+        blank=True,
+        upload_to="challenges/",
+        verbose_name="Image",
+        help_text="Cover image of this project.",
     )
 
     @property
