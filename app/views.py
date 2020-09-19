@@ -142,9 +142,6 @@ class ChallengeFormView(GenericFormMixin):
         form_class.base_fields["end"].widget.attrs["placeholder"] = "YYYY-MM-DD HH:MM"
         return form_class
 
-    def get_success_url(self):
-        return reverse("challenge", args=[self.object.pk])
-
 
 class ChallengeCreateView(PermissionRequiredMixin, ChallengeFormView, CreateView):
     permission_required = "app.add_challenge"
@@ -175,9 +172,6 @@ class ProjectFormView(GenericFormMixin):
     model = Project
     fields = ["name", "image", "description", "creators", "contributors", "tags"]
 
-    def get_success_url(self):
-        return reverse("project", args=[self.object.pk])
-
 
 class ProjectCreateView(ProjectFormView, CreateView):
     pass
@@ -196,10 +190,10 @@ class ProjectChallengeCreateView(ProjectCreateView):
         return context
 
     def form_valid(self, form):
-        project = form.save(commit=False)
-        project.challenge = self.challenge
-        project.save()
-        return get_success_url(self)
+        self.object = form.save(commit=False)
+        self.object.challenge = self.challenge
+        self.object.save()
+        return super().form_valid(form)
 
 
 class ProjectUpdateView(ProjectFormView, UpdateView):

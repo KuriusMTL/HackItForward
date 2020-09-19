@@ -170,6 +170,9 @@ class Challenge(models.Model):
             return False
         return self.creators.all().filter(id=user.profile.id).exists()
 
+    def get_absolute_url(self):
+        return reverse("challenge", args=[self.pk])
+
     def get_edit_url(self):
         return reverse("challenge_edit", args=[self.pk])
 
@@ -227,6 +230,9 @@ class Project(models.Model):
         if not user.is_authenticated:
             return False
         return self.creators.all().filter(id=user.profile.id).exists()
+
+    def get_absolute_url(self):
+        return reverse("project", args=[self.pk])
 
     def get_edit_url(self):
         return reverse("project_edit", args=[self.pk])
