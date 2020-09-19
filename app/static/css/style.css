@@ -184,7 +184,7 @@ footer{
 	color: var(--grey-mid);
 }
 
-.row:not(.no-space) [class^=col-]:not(.col-12) {
+.row [class^=col-]:not(.col-12) {
     padding: 0.5rem !important;
 }
 /*
