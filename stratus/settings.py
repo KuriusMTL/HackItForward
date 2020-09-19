@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'app',
 
     'colorfield',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -124,6 +125,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.github.GithubOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -150,3 +157,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL = '/home/'
 LOGIN_URL = '/login/'
+
+try:
+    from local_settings import *
+except ImportError:
+    pass

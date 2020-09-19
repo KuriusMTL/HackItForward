@@ -184,7 +184,7 @@ footer{
 	color: var(--grey-mid);
 }
 
-.row [class^=col-]:not(.col-12){
+.row:not(.no-space) [class^=col-]:not(.col-12) {
     padding: 0.5rem !important;
 }
 /*
@@ -261,7 +261,19 @@ footer{
 .badges a img {
   height: 25px;
   position: relative;
-  top: 5px;  
+  top: 5px;
+}
+
+.btn-grey {
+  --btn-color: var(--grey-mid);
+  --btn-border-color: var(--grey-mid);
+  /*--btn-color: var(--cirrus-gray);*/
+  /*--btn-border-color: var(--cirrus-gray);*/
+  --btn-fg: var(--cirrus-light);
+}
+
+.btn-grey:hover {
+  --btn-fg: var(--cirrus-dark);
 }
 
 @media only screen and (min-width: 769px) {
