@@ -264,18 +264,20 @@ footer{
   top: 5px;
 }
 
-.btn.btn-grey, button.btn-grey {
-  background-color: var(--grey-mid);
-  border-color: var(--grey-mid);
-  /*--btn-color: var(--cirrus-gray);*/
-  /*--btn-border-color: var(--cirrus-gray);*/
-  color: var(--cirrus-light);
+.frame .form-section {
+  padding-bottom: 1.5rem !important;
 }
 
-.btn.btn-grey:hover, button.btn-grey:hover {
-  color: var(--cirrus-dark);
+.btn-grey {
+  background-color: var(--grid-grey) !important;
+  border-color: var(--grid-grey) !important;
+  color: var(--grey-mid) !important;
 }
 
+.btn-grey:hover {
+  background-color: white !important;
+  color: var(--cirrus-primary) !important;
+}
 @media only screen and (min-width: 769px) {
   .buttons {
     position: absolute;
