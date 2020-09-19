@@ -72,7 +72,7 @@ div.header {
 
 .btn-primary {
   border: 2px solid var(--cirrus-primary) !important;
-  border-radius: 2px
+  border-radius: 2px;
 }
 
 .btn-primary:hover {
