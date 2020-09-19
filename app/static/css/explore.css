@@ -1,4 +1,4 @@
-/* override chosen css and cirrus transition */
+/* Override chosen css and cirrus transition */
 .chosen-container-multi .chosen-choices:focus, .chosen-container-multi.chosen-container-active .chosen-choices {
   border-color: #3dabf0;
   -webkit-box-shadow: none;
