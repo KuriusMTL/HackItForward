@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0012_remove_tag_category'),
+        ('app', '0013_auto_20200918_2317'),
     ]
 
     operations = [
