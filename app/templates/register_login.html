@@ -29,12 +29,12 @@
       <label>Or {{ type|lower }} with:</label>
       <div class="row">
         <div class="col"> 
-          <a href="{% url "social:begin" "google-oauth2" %}?next={{ next }}" class="btn btn-grey u-no-margin w-100">
+          <a href="{{ url('social:begin','google-oauth2') }}?next={{ next }}" class="btn btn-grey u-no-margin w-100">
             <i class="zmdi zmdi-google"></i>&nbsp;<span>Google</span>
           </a>
         </div>
         <div class="col"> 
-          <a href="{% url "social:begin" "github" %}?next={{ next }}" class="btn btn-grey u-no-margin w-100">
+          <a href="{{ url('social:begin','github') }}?next={{ next }}" class="btn btn-grey u-no-margin w-100">
             <i class="zmdi zmdi-github"></i>&nbsp;<span>GitHub</span>
           </a>
         </div>
