@@ -74,20 +74,7 @@ class Badge(models.Model):
 
 
 class Tag(models.Model):
-    CATEGORY_CHOICES = [
-        ("S", "Skill Level"),
-        ("L", "Location"),
-        ("K", "Knowledge"),
-        ("I", "Importance"),
-    ]
-
     name = models.CharField(max_length=24, verbose_name="Name", help_text="Name of this tag.")
-    category = models.CharField(
-        max_length=1,
-        choices=CATEGORY_CHOICES,
-        verbose_name="Category",
-        help_text="Category of this tag which determines where it is available and presented.",
-    )
     color = ColorField(help_text="Color", verbose_name="Color of this tag.")
 
     def __str__(self):
@@ -165,7 +152,10 @@ class Challenge(models.Model):
         help_text="Badges awareded to users that complete projects for this challenge.",
     )
     image = models.ImageField(
-        blank=True, upload_to="challenges/", verbose_name="Image", help_text="Cover image of this challenge."
+        blank=True,
+        upload_to="challenges/",
+        verbose_name="Image",
+        help_text="Cover image of this challenge.",
     )
 
     @property
@@ -219,7 +209,10 @@ class Project(models.Model):
         auto_now_add=True, verbose_name="Creation Date", help_text="Date this project was created."
     )
     image = models.ImageField(
-        blank=True, upload_to="challenges/", verbose_name="Image", help_text="Cover image of this project."
+        blank=True,
+        upload_to="challenges/",
+        verbose_name="Image",
+        help_text="Cover image of this project.",
     )
 
     @property
