@@ -127,6 +127,9 @@ class Challenge(models.Model):
     description = models.TextField(
         blank=True, verbose_name="Description", help_text="Description of this challenge."
     )
+    one_liner = models.CharField(
+        default='',verbose_name="One Line Description", help_text="A one line description of the Challenge",max_length= 50
+    )
     tags = models.ManyToManyField(
         Tag,
         blank=True,
@@ -147,11 +150,13 @@ class Challenge(models.Model):
     )
     start = models.DateTimeField(
         blank=True,
+        null=True,
         verbose_name="Challenge Start",
         help_text="Start date and time when projects can be created for this challenge.",
     )
     end = models.DateTimeField(
         blank=True,
+        null=True,
         verbose_name="Challenge End",
         help_text="End date and time when projects can no longer be created for this challenge.",
     )
@@ -188,6 +193,9 @@ class Project(models.Model):
         related_name="projects",
         verbose_name="Tags",
         help_text="Tags associated with this project.",
+    )
+    one_liner = models.CharField(
+        default='',verbose_name="One Line Description", help_text="A one line description of the Challenge",max_length= 50
     )
     contributors = models.ManyToManyField(
         Profile,
