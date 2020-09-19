@@ -8,6 +8,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.utils import timezone
+from mptt import models as mptt_models
 
 
 class SocialLink(models.Model):
@@ -270,3 +271,32 @@ class Project(models.Model):
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+
+
+class Message(models.Model):
+    from_user = models.ForeignKey(Profile, related_name="messages_sent", on_delete=models.CASCADE)
+    to_user = models.ForeignKey(Profile, related_name="messages_received", on_delete=models.CASCADE)
+    message = models.TextField(
+        blank=True, verbose_name="Description", help_text="Description of this project."
+    )
+    created = models.DateTimeField(
+        auto_now_add=True, verbose_name="Creation Date", help_text="Date this project was created."
+    )
+
+
+class Comment(mptt_models.TreeForeignKey):
+    author = models.ForeignKey(Profile, related_name="comments", on_delete=models.CASCADE)
+    parent = mptt_models.TreeForeignKey(
+        "self", on_delete=models.CASCADE, null=True, blank=True, related_name="children"
+    )
+    message = models.TextField(
+        blank=True, verbose_name="Description", help_text="Description of this project."
+    )
+    created = models.DateTimeField(
+        auto_now_add=True, verbose_name="Creation Date", help_text="Date this project was created."
+    )
+    content_type = models.ForeignKey(
+        ContentType, verbose_name="Linked Item Type", on_delete=models.CASCADE
+    )
+    object_id = models.PositiveIntegerField(verbose_name="Linked Item ID")
+    linked_item = GenericForeignKey()
