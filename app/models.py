@@ -173,7 +173,7 @@ class Challenge(models.Model):
         if self.start and not self.end:
             raise ValidationError("An end date must be provided if you have a start date.")
         if not self.start and self.end:
-            raise ValidationError("An start date must be provided if you have an end date.")
+            raise ValidationError("A start date must be provided if you have an end date.")
         if self.start and self.end and self.start >= self.end:
             raise ValidationError("The end date must be after the start date.")
 
