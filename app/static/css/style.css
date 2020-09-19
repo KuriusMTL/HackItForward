@@ -263,3 +263,9 @@ footer{
   position: relative;
   top: 5px;  
 }
+
+@media only screen and (min-width: 769px) {
+  .buttons {
+    position: absolute;
+  }
+}

@@ -1,11 +1,10 @@
-{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
-  <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+  <link href="{{ static('css/style.css') }}" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="{{ static('img/favicon.ico') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cirrus-ui@0.5.5/dist/cirrus.min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
@@ -22,8 +21,8 @@
   <div class="header unselectable header-animated header-clear">
     <div class="header-brand">
       <div class="nav-item">
-        <a href="{% url 'index' %}">
-          <img src="{% static 'img/logo.png' %}" class="logo" alt="Stratus">
+        <a href="{{ url('index') }}">
+          <img src="{{ static('img/logo.png') }}" class="logo" alt="Stratus">
         </a>
       </div>
 
@@ -39,21 +38,27 @@
         <div class="nav-item">
           <a href="/#challenges">Explore</a>
         </div>
-        <div class="nav-item">
-          <a href="#">Create</a>
-        </div>
         {% if request.user.is_authenticated %}
+          <div class="nav-item has-sub btn-container" id="dropdown">
+            <a class="nav-dropdown-link">Create</a>
+            <ul class="dropdown-menu" role="menu">
+              {% if request.user.has_perm('app.add_challenge') %}
+                <li role="menu-item"><a href="{{ url('challenge_create') }}">Challenge</a></li>
+              {% endif %}
+              <li role="menu-item"><a href="{{ url('project_create') }}">Project</a></li>
+            </ul>
+          </div>
           <div class="nav-item has-sub btn-container" id="dropdown">
             <a class="nav-dropdown-link btn-primary">Welcome, {{ request.user.username }}</a>
             <ul class="dropdown-menu" role="menu">
-              <li role="menu-item"><a href="{% url 'home' %}">Dashboard</a></li>
-              <li role="menu-item"><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
-              <li role="menu-item"><a href="{% url 'logout' %}">Logout</a></li>
+              <li role="menu-item"><a href="{{ url('home') }}">Dashboard</a></li>
+              <li role="menu-item"><a href="{{ url('edit_profile') }}">Edit Profile</a></li>
+              <li role="menu-item"><a href="{{ url('logout') }}">Logout</a></li>
             </ul>
           </div>
-        {% else %}
+          {% else %}
           <div class="nav-item btn-container">
-            <a href="{% url 'login' %}" class="btn-primary btn-animated">Login</a>
+            <a href="{{ url('login') }}" class="btn-primary btn-animated">Login</a>
           </div>
         {% endif %}
       </div>
@@ -98,6 +103,8 @@
     </div>
   </footer>
 
-  <script src="{% static 'js/base.js' %}"></script>
+  <script src="{{ static('js/base.js') }}"></script>
+  {% block scripts %}
+  {% endblock %}
 </body>
 </html>

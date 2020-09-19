@@ -1,17 +1,22 @@
 from app.forms import ProfileUpdateForm
 from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag
 
+from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UserPassesTestMixin,
+)
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import FormView, UpdateView
+from django.views.generic.edit import CreateView, FormView, UpdateView
 
 
 class IndexView(TemplateView):
@@ -117,6 +122,38 @@ class InitiativeMixin(ContextMixin):
         return context
 
 
+class GenericFormMixin(LoginRequiredMixin, ContextMixin):
+    template_name = "base_form.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["header"] = ("Edit %s" if self.object else "Create %s") % self.model.__name__
+        context["submit"] = "Save" if self.object else "Create"
+        return context
+
+
+class ChallengeFormView(GenericFormMixin):
+    model = Challenge
+    fields = ["name", "image", "description", "creators", "start", "end", "tags"]
+
+    def get_form_class(self, *args, **kwargs):
+        form_class = super().get_form_class(*args, **kwargs)
+        form_class.base_fields["start"].widget.attrs["placeholder"] = "YYYY-MM-DD HH:MM"
+        form_class.base_fields["end"].widget.attrs["placeholder"] = "YYYY-MM-DD HH:MM"
+        return form_class
+
+
+class ChallengeCreateView(PermissionRequiredMixin, ChallengeFormView, CreateView):
+    permission_required = "app.add_challenge"
+
+
+class ChallengeUpdateView(ChallengeFormView, UpdateView):
+    def dispatch(self, request, *args, **kwargs):
+        if not self.get_object().can_edit(request.user):
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
+
+
 class ChallengeView(InitiativeMixin, TemplateView):
     template_name = "challenge.html"
     classname = Challenge
@@ -129,6 +166,41 @@ class ChallengeView(InitiativeMixin, TemplateView):
         ]
         context["projects"] = Project.objects.filter(challenge=self.initiative)
         return context
+
+
+class ProjectFormView(GenericFormMixin):
+    model = Project
+    fields = ["name", "image", "description", "creators", "contributors", "tags"]
+
+
+class ProjectCreateView(ProjectFormView, CreateView):
+    pass
+
+
+class ProjectChallengeCreateView(ProjectCreateView):
+    def dispatch(self, *args, **kwargs):
+        self.challenge = get_object_or_404(Challenge, pk=kwargs["pk"])
+        if not self.challenge.is_open():
+            raise PermissionDenied
+        return super().dispatch(*args, **kwargs)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["header"] = "Create Project for '%s'" % self.challenge.name
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.challenge = self.challenge
+        self.object.save()
+        return super().form_valid(form)
+
+
+class ProjectUpdateView(ProjectFormView, UpdateView):
+    def dispatch(self, request, *args, **kwargs):
+        if not self.get_object().can_edit(request.user):
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
 
 class ProjectView(InitiativeMixin, TemplateView):
