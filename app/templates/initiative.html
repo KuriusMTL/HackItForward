@@ -47,7 +47,7 @@
         {% endif %}
 
         <!-- tags -->
-        {% if initiative.tags.exists %}
+        {% if initiative.tags.exists() %}
           <div class="tile level r">
             <div class="tile-avatar">
               <span class="icon">
@@ -81,7 +81,7 @@
         </div>
 
         <!-- contributors -->
-        {% if initiative.contributors %}
+        {% if initiative.contributors and initiative.contributors.exists() %}
           <div class="tile level r">
             <div class="tile-avatar">
               <span class="icon">
@@ -114,7 +114,7 @@
         {% endfor %}
 
         <!-- links -->
-        {% if links.exists %}
+        {% if links.exists() %}
           <div class="tile level r">
             <div class="tile-avatar">
               <span class="icon">
