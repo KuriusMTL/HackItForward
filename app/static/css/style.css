@@ -156,38 +156,6 @@ footer{
 	margin-top: 30px !important;
 }
 
-
-/* Form will open as a popup */
-.form-popup {
-  /* display: none; */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 100vh;
-}
-
-
-/* Toggle this class when clicking on the popup container (hide and show the popup) */
-.form-popup .show {
-  display: block;
-  visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s
-}
-
-/* Add animation (fade in the popup) */
-@-webkit-keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity:1 ;}
-}
-
 /**
  * Front page cards
  */

@@ -17,9 +17,4 @@ $(document).ready(() => {
 	$('.btn-close').on('click', function() {
 		$(this).closest('div').remove();
   });
-
-	function toggleForm() {
-    var popup = document.getElementById("form-popup");
-    popup.classList.toggle("show");
-  }
 });

@@ -18,13 +18,11 @@
   {% endblock %}
 </head>
 <body>
-      <!-- <iframe class="airtable-embed" src="https://airtable.com/embed/shro1W9DcSXja7K5r?backgroundColor=blue" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe> -->
-
   <div class="header unselectable header-animated header-clear">
     <div class="header-brand">
       <div class="nav-item">
-        <a href="{% url 'index' %}">
-          <img src="{% static 'img/newlogo.png' %}" class="logo" alt="HackItForward">
+        <a href="{{ url('index') }}">
+          <img src="{{ static('img/newlogo.png') }}" class="logo" alt="HackItForward">
         </a>
       </div>
 
@@ -67,11 +65,27 @@
 
     </div>
   </div>
-  <div class="form-popup">Center of screen</div>
+
+
+
+
+
 
 
   {% block body %}
   {% endblock %}
+
+  <div class="modal modal-large modal-animated--zoom-in" id="bugForm">
+    <a href="#target" class="modal-overlay close-btn" aria-label="Close"></a>
+    <div class="modal-content" role="document" style="width: 60rem; height: 60vh; border-radius: 15px;">
+        <div class="modal-header">
+            <!-- <a href="#components" class="pull-right" aria-label="Close"><span class="icon">X</span></a> -->
+        </div>
+        <div class="modal-body">
+          <iframe class="airtable-embed" src="https://airtable.com/embed/shro1W9DcSXja7K5r?backgroundColor=blue" frameborder="0" onmousewheel="" width="100%" height="750" style="background: transparent; border: 1px solid #ccc;"></iframe>
+        </div>
+    </div>
+</div>
 
   <footer>
     <!-- <h6 class="uppercase white">STRATUS</h6> -->
@@ -82,10 +96,12 @@
       <div class="divider"></div>
       <div class="row u-center">
         <div class="col">
+          <a href="#bugForm">
+            Report a bug
+          </a>
 
         </div>
         <div class="col">
-        <button class="toggle-form" onclick="toggleForm()">Submit a bug</button>
 
         </div>
         <div class="col">
