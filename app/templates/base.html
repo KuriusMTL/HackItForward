@@ -87,35 +87,54 @@
     </div>
 </div>
 
-  <footer>
-    <!-- <h6 class="uppercase white">STRATUS</h6> -->
-    <div class="footer-title-par">
-      <span class="bold-footer uppercase white" style="">HackItForward</span>
-    </div>
-    <div class="content">
-      <div class="divider"></div>
-      <div class="row u-center">
-        <div class="col">
-          <a href="#bugForm">
-            Report a bug
-          </a>
 
-        </div>
-        <div class="col">
+<footer>
+  <div class="content">
+      <a href="{{ url('index') }}">
+        <img src="{{ static('img/newlogo.png') }}" class="logo" alt="HackItForward">
+      </a>
+      <div class="row">
+          <div class="col-3 offset-3">
+              <ul class="no-bullets">
+                  <p class="footer-list-title">About</p>
+                  <a href="#">
+                      <li class="list-item">FAQ</li>
+                  </a>
+                  <a href="#">
+                      <li class="list-item">Explore</li>
+                  </a>
+              </ul>
+          </div>
+          <div class="col-3">
+              <ul class="no-bullets">
+                  <p class="footer-list-title">More</p>
+                  <a href="#bugForm">
+                      <li class="list-item">Report a bug</li>
+                  </a>
+                  <a href="#">
+                    <li class="list-item">Terms &amp; Conditions</li>
+                </a>
 
-        </div>
-        <div class="col">
+              </ul>
+          </div>
+      </div>
+      <space class="large"></space>
+      <div class="row u-center" id="social">
           <a href="https://github.com/KuriusMTL/HackItForward">
             <span class="icon">
               <i class="zmdi zmdi-github zmdi-hc-2x" aria-hidden="true"></i>
             </span>
           </a>
-        </div>
       </div>
-    </div>
-    <p>Powered by <a href="http://kurius.ca" target="_blank">Kurius</a>
-    </p>
-  </footer>
+      <space></space>
+      <p class="white font-bold">
+        <span class="faded">© 2020</span>
+        HackItForward
+      </p>
+        <p>Powered by <a href="http://kurius.ca" target="_blank">Kurius</a></p>
+  </div>
+</footer>
+
 
   <script src="{{ static('js/base.js') }}"></script>
   {% block scripts %}
