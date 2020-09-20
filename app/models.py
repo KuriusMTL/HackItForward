@@ -2,9 +2,12 @@ from colorfield.fields import ColorField
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.urls import reverse
+from django.utils import timezone
 
 
 class SocialLink(models.Model):
@@ -114,6 +117,12 @@ class Challenge(models.Model):
     description = models.TextField(
         blank=True, verbose_name="Description", help_text="Description of this challenge."
     )
+    one_liner = models.CharField(
+        default="",
+        verbose_name="One Line Description",
+        help_text="A one line description of the Challenge",
+        max_length=50,
+    )
     tags = models.ManyToManyField(
         Tag,
         blank=True,
@@ -125,7 +134,8 @@ class Challenge(models.Model):
         Profile,
         related_name="created_challenges",
         verbose_name="Creators",
-        help_text="Creators of this challenge which can edit its properties.",
+        help_text="Creators of this challenge which can edit its properties. Removing yourself "
+        + "will make it impossible to edit this challenge.",
     )
     created = models.DateField(
         auto_now_add=True,
@@ -134,11 +144,13 @@ class Challenge(models.Model):
     )
     start = models.DateTimeField(
         blank=True,
+        null=True,
         verbose_name="Challenge Start",
         help_text="Start date and time when projects can be created for this challenge.",
     )
     end = models.DateTimeField(
         blank=True,
+        null=True,
         verbose_name="Challenge End",
         help_text="End date and time when projects can no longer be created for this challenge.",
     )
@@ -156,11 +168,35 @@ class Challenge(models.Model):
         help_text="Cover image of this challenge.",
     )
 
+    def clean(self):
+        if self.start and not self.end:
+            raise ValidationError("An end date must be provided if you have a start date.")
+        if not self.start and self.end:
+            raise ValidationError("A start date must be provided if you have an end date.")
+        if self.start and self.end and self.start >= self.end:
+            raise ValidationError("The end date must be after the start date.")
+
     @property
     def short_creators(self):
         if self.creators.count() == 1:
             return self.creators.first().username
         return "%s, et al." % self.creators.first().username
+
+    def can_edit(self, user):
+        if not user.is_authenticated:
+            return False
+        return self.creators.all().filter(id=user.profile.id).exists()
+
+    def get_absolute_url(self):
+        return reverse("challenge", args=[self.pk])
+
+    def get_edit_url(self):
+        return reverse("challenge_edit", args=[self.pk])
+
+    def is_open(self):
+        if not self.start or not self.end:
+            return True
+        return self.start <= timezone.now() <= self.end
 
     def __str__(self):
         return self.name
@@ -179,6 +215,12 @@ class Project(models.Model):
         verbose_name="Tags",
         help_text="Tags associated with this project.",
     )
+    one_liner = models.CharField(
+        default="",
+        verbose_name="One Line Description",
+        help_text="A one line description of the Challenge",
+        max_length=50,
+    )
     contributors = models.ManyToManyField(
         Profile,
         blank=True,
@@ -190,7 +232,8 @@ class Project(models.Model):
         Profile,
         related_name="created_projects",
         verbose_name="Creators",
-        help_text="Creators of this project which can edit its properties.",
+        help_text="Creators of this project which can edit its properties. Removing yourself will "
+        + "make it impossible for you to edit this project.",
     )
     created = models.DateField(
         auto_now_add=True, verbose_name="Creation Date", help_text="Date this project was created."
@@ -207,6 +250,17 @@ class Project(models.Model):
         if self.creators.count() == 1:
             return self.creators.first().username
         return "%s, et al." % self.creators.first().username
+
+    def can_edit(self, user):
+        if not user.is_authenticated:
+            return False
+        return self.creators.all().filter(id=user.profile.id).exists()
+
+    def get_absolute_url(self):
+        return reverse("project", args=[self.pk])
+
+    def get_edit_url(self):
+        return reverse("project_edit", args=[self.pk])
 
     def __str__(self):
         return self.name
