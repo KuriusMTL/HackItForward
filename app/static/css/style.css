@@ -20,7 +20,6 @@
 
 * {
   box-sizing: border-box;
-  font-family: 'Inter';
 }
 
 body {
@@ -42,7 +41,7 @@ body {
 .header .header-nav a {
 	text-transform: uppercase;
 	color: var(--grey-dark);
-	font-family: 'Inter','Montserrat', sans-serif;
+	font-family: 'Montserrat', sans-serif;
 	font-weight: 600 !important;
 	color: var(--cirrus-primary);
 }
@@ -107,7 +106,7 @@ footer{
 }
 
 .bold-footer{
-	font-family:'Inter','Montserrat', sans-serif;
+	font-family: 'Montserrat', sans-serif;
 	font-weight:bold;
 	margin-block-start: 2.33em;
 	margin-block-end: 2.33em;
@@ -115,7 +114,7 @@ footer{
 }
 
 .thin-footer{
-	font-family:'Inter','Nunito-Sans', sans-serif;
+	font-family: 'Nunito-Sans', sans-serif;
 	font-weight: 100;
 	letter-spacing: 2px;
 }
@@ -286,4 +285,3 @@ footer{
     position: absolute;
   }
 }
->>>>>>> 58bdd679792c97a035cacf09e2c7ffcc18475f47

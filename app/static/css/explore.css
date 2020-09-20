@@ -16,7 +16,7 @@ select[multiple].input-contains-icon + .chosen-container > .chosen-choices {
   padding-left: 2.75rem;
 }
 .chosen-container-multi .chosen-choices li.search-field input[type=text] {
-  font-family: "Inter", "Nunito Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-family: "Nunito Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
   transition: none;
 }
 .chosen-container .chosen-choices li.search-choice {
