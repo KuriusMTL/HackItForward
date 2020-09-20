@@ -1,7 +1,7 @@
 [
 {
   "model": "auth.user",
-  "pk": 5,
+  "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$216000$POj2zR0yKZQS$mcUhC9gNnucxwm+NKt2hsyJyyYtLNP/Gb+Lgs0D9kto=",
     "last_login": "2020-09-16T01:45:38.627Z",
@@ -19,7 +19,7 @@
 },
 {
   "model": "auth.user",
-  "pk": 6,
+  "pk": 2,
   "fields": {
     "password": "pbkdf2_sha256$216000$FfORCEOBUW0L$Mm8QEYRpl92/COJ9rJuXMpWgegkWgbW6Oa8SxUT+P2o=",
     "last_login": null,

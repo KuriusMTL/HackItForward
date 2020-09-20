@@ -72,7 +72,7 @@ div.header {
 
 .btn-primary {
   border: 2px solid var(--cirrus-primary) !important;
-  border-radius: 2px
+  border-radius: 2px;
 }
 
 .btn-primary:hover {
@@ -197,9 +197,14 @@ button:focus, a:focus, input:focus {
   padding: 0.5rem !important;
 }
 
+<<<<<<< HEAD
 .tile__title {
   font-weight: bold;
   color: var(--cirrus-primary);
+=======
+.row [class^=col-]:not(.col-12) {
+    padding: 0.5rem !important;
+>>>>>>> 58bdd679792c97a035cacf09e2c7ffcc18475f47
 }
 
 .tile.level.r {
@@ -282,3 +287,26 @@ button:focus, a:focus, input:focus {
   position: relative;
   top: 5px;
 }
+<<<<<<< HEAD
+=======
+
+.frame .form-section {
+  padding-bottom: 1.5rem !important;
+}
+
+.btn-grey {
+  background-color: var(--grid-grey) !important;
+  border-color: var(--grid-grey) !important;
+  color: var(--grey-mid) !important;
+}
+
+.btn-grey:hover {
+  background-color: white !important;
+  color: var(--cirrus-primary) !important;
+}
+@media only screen and (min-width: 769px) {
+  .buttons {
+    position: absolute;
+  }
+}
+>>>>>>> 58bdd679792c97a035cacf09e2c7ffcc18475f47
