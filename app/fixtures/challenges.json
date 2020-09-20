@@ -71,7 +71,7 @@
 },
 {
   "model": "app.challenge",
-  "pk": 5,
+  "pk": 1,
   "fields": {
     "name": "Empty challenge",
     "description": "",

@@ -1,11 +1,9 @@
 import mistune
-from django import template
+from django_jinja import library
 from django.utils.safestring import mark_safe
 
-register = template.Library()
 
-
-@register.filter(name="mistune", is_safe=True)
+@library.filter
 def mistune_html_no_highlight(text):
     markdown = mistune.create_markdown(
         plugins=["strikethrough", "footnotes", "table"],

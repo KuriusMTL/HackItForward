@@ -1,8 +1,4 @@
 {% extends "base.html" %}
-{% load static %}
-{% get_media_prefix %}
-{% load mistune %}
-{% load class_name %}
 
 {% block head %}
 <title>{{ initiative.name }} | HackItForward</title>
@@ -14,16 +10,23 @@
     <h2>{{ initiative.name }}</h2>
   </div>
   <div class="frame" id="challenge-frame">
-      <div class="row">
-        {% if initiative.image %}
-          <img class="img-upload u-margin-auto" src="{{ initiative.image.url }}">
-        {% else %}
-          <img class="img-upload u-margin-auto" src="{% static 'img/logo.png' %}">
+    <div class="buttons">
+      {% block buttons %}
+        {% if initiative.can_edit(request.user) %}
+          <a class="btn btn-primary" href="{{ initiative.get_edit_url() }}"><i class="zmdi zmdi-edit"></i> Edit</a>
         {% endif %}
-      </div>
-      <div>
-        {{ initiative.description|mistune }}
-      </div>
+      {% endblock %}
+    </div>
+    <div class="row">
+      {% if initiative.image %}
+        <img class="img-upload u-margin-auto" src="{{ initiative.image.url }}">
+      {% else %}
+        <img class="img-upload u-margin-auto" src="{{ static('img/logo.png') }}">
+      {% endif %}
+    </div>
+    <div>
+      {{ initiative.description|mistune }}
+    </div>
 
     <div class="row">
       <div class="col-12">
@@ -37,7 +40,7 @@
             </div>
             <div class="tile__container">
               <p class="tile__title">Challenge:
-                <a href="{% url 'challenge' pk=initiative.challenge.pk %}" class="tag black">{{ initiative.challenge.name }}</a>
+                <a href="{{ url('challenge', pk=initiative.challenge.pk) }}" class="tag black">{{ initiative.challenge.name }}</a>
               </p>
             </div>
           </div>
@@ -53,8 +56,8 @@
             </div>
             <div class="tile__container">
               <p class="tile__title">Tags:
-                {% for tag in initiative.tags.all %}
-                  <a href="{% url 'index' %}?type={{ initiative|class_name|lower }}&tag={{ tag.name }}" class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</a>
+                {% for tag in initiative.tags.all() %}
+                  <a href="{{ url('index') }}?type={{ initiative|class_name|lower }}&tag={{ tag.name }}" class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</a>
                 {% endfor %}
               </p>
             </div>
@@ -70,15 +73,15 @@
           </div>
           <div class="tile__container">
             <p class="tile__title">Creators:
-              {% for creator in initiative.creators.all %}
-                <a href="{% url 'user' pk=creator.pk %}" class="tag black">{{ creator.username }}</a>
+              {% for creator in initiative.creators.all() %}
+                <a href="{{ url('user', pk=creator.pk) }}" class="tag black">{{ creator.username }}</a>
               {% endfor %}
             </p>
           </div>
         </div>
 
         <!-- Contributors -->
-        {% if initiative.contributors.exists %}
+        {% if initiative.contributors %}
           <div class="tile level r">
             <div class="tile-avatar">
               <span class="icon">
@@ -87,8 +90,8 @@
             </div>
             <div class="tile__container">
               <p class="tile__title">Contributors:
-                {% for contributor in initiative.contributors.all %}
-                  <a href="{% url 'user' pk=contributor.pk %}" class="tag black">{{ contributor.username }}</a>
+                {% for contributor in initiative.contributors.all() %}
+                  <a href="{{ url('user', pk=contributor.pk) }}" class="tag black">{{ contributor.username }}</a>
                 {% endfor %}
               </p>
             </div>
@@ -120,7 +123,7 @@
             </div>
             <div class="tile__container">
               <p class="tile__title">Links:
-              {% for link in links.all %}
+              {% for link in links.all() %}
                 <a href="{{ link.href }}" class="tooltip" data-tooltip="{{ link.link.placeholder }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
               {% endfor %}
               </p>

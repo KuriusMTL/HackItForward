@@ -19,8 +19,7 @@
       24,
       28,
       33,
-      34,
-      43
+      34
     ],
     "contributors": [
       1,
@@ -122,7 +121,7 @@
 },
 {
   "model": "app.project",
-  "pk": 5,
+  "pk": 1,
   "fields": {
     "challenge": 2,
     "name": "empty project",
