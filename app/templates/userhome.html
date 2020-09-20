@@ -100,7 +100,7 @@
             </div>
           {% endif %}
 
-          {% if profile.badges.exists %}
+          {% if profile.badges.exists() %}
             <div class="tile level r">
               <div class="tile__icon">
                 <span class="icon">
@@ -139,7 +139,7 @@
             </div>
           {% endif %}
 
-          {% if links.exists %}
+          {% if links.exists() %}
             <div class="tile level r">
               <div class="tile__icon">
                 <span class="icon">
@@ -156,7 +156,7 @@
             </div>
           {% endif %}
 
-          {% if profile.tags.exists %}
+          {% if profile.tags.exists() %}
             <div class="tile level r">
               <div class="tile__icon">
                 <span class="icon">
