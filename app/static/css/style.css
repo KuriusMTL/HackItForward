@@ -197,14 +197,9 @@ button:focus, a:focus, input:focus {
   padding: 0.5rem !important;
 }
 
-<<<<<<< HEAD
 .tile__title {
   font-weight: bold;
   color: var(--cirrus-primary);
-=======
-.row [class^=col-]:not(.col-12) {
-    padding: 0.5rem !important;
->>>>>>> 58bdd679792c97a035cacf09e2c7ffcc18475f47
 }
 
 .tile.level.r {
@@ -287,8 +282,6 @@ button:focus, a:focus, input:focus {
   position: relative;
   top: 5px;
 }
-<<<<<<< HEAD
-=======
 
 .frame .form-section {
   padding-bottom: 1.5rem !important;
@@ -309,4 +302,3 @@ button:focus, a:focus, input:focus {
     position: absolute;
   }
 }
->>>>>>> 58bdd679792c97a035cacf09e2c7ffcc18475f47
