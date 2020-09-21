@@ -9,11 +9,22 @@
 </p>
 
 # About
-Stratus is a Web Platform that aims to connect organizations directly with developers to find solutions and make real world impact. It was built in response to the year 2020... what a year. This year has revealed the most vurnable out of all of us, and has left the rest of us with much stronger will to HELP, and MAKE AN IMPACT. With the world shifting online, developers are becoming a nessecity in any organization. However, it is often the organizations with the least reasources, that are in need of developers. Stratus, was created to directly link these organizations with up and coming developers, who are in need of experience, and who's skill's could level up any organization.  
+HackItForward is a Web Platform that aims to connect organizations directly with developers to find solutions and make real world impact. It was built in response to the year 2020... what a year. This year has revealed the most vurnable out of all of us, and has left the rest of us with much stronger will to HELP, and MAKE AN IMPACT. With the world shifting online, developers are becoming a nessecity in any organization. However, it is often the organizations with the least reasources, that are in need of developers. Stratus, was created to directly link these organizations with up and coming developers, who are in need of experience, and who's skill's could level up any organization.
 
-The driving functionality of Stratus are the challenge pages. If an organization is in need of a piece of software, a website, or maybe even some ideas, they can post a challenge prompt on a Challenge page, tag all the nessary skills, difficulties, and urgencies that relate to the challenge. Developers will then be able to view these challenges and make projects according to the organization's needs. This way, the organization can connect with developers looking to make an impact, and the developers will get the experience they need to build their skills and progress in their career.
+The driving functionality of HackItForward are the challenge pages. If an organization is in need of a piece of software, a website, or maybe even some ideas, they can post a challenge prompt on a Challenge page, tag all the nessary skills, difficulties, and urgencies that relate to the challenge. Developers will then be able to view these challenges and make projects according to the organization's needs. This way, the organization can connect with developers looking to make an impact, and the developers will get the experience they need to build their skills and progress in their career.
 
-*This project was made for KuriusHacks 2020 by [TheAvidDev](https://github.com/TheAvidDev/), [dulldesk](https://github.com/dulldesk/), [skyflaren](https://github.com/skyflaren/), and [aavaSapkota](https://github.com/aavaSapkota) where we won the first place award.*
+# Running the project locally
+1. Installing the required packages and setting up the local database
+```
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py loaddata users
+python manage.py loaddata tags
+python manage.py loaddata social_links
+python manage.py loaddata challenges
+python manage.py loaddata projects
+```
+2. To start the Django server, run `python manage.py runserver` and access it at [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 # Features
  - Challenge pages where organizations post challenge prompts.
@@ -23,3 +34,5 @@ The driving functionality of Stratus are the challenge pages. If an organization
  - Badges awarded to developers for completing challenges.
  - Community heatmap where developers can see other contributors in their area, fostering a sense of community.
  - And so much more!
+
+ *This project was made for KuriusHacks 2020 by [TheAvidDev](https://github.com/TheAvidDev/), [dulldesk](https://github.com/dulldesk/), [skyflaren](https://github.com/skyflaren/), and [aavaSapkota](https://github.com/aavaSapkota) where we won the first place award.*
