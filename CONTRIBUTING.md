@@ -23,7 +23,7 @@ python manage.py loaddata social_links
 python manage.py loaddata challenges
 python manage.py loaddata projects
 ```
-6. To start the Django server, run `python manage.py runserver` and access it at [http://127.0.0.1:8080](http://127.0.0.1:8080)
+6. To start the Django server, run `python manage.py runserver`.
 7. Contribute!
 8. If you get things working, add your changed files with `git add .` and run `git commit -m "insert message here"` to commit your messages
 9. Push your changes to your fork with `git push origin <branch-name>`
