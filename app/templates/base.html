@@ -5,18 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="{{ static('css/style.css') }}" rel="stylesheet" type="text/css">
   <link rel="shortcut icon" href="{{ static('img/favicon.ico') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ static('img/favicon/favicon-16x16.png') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ static('img/favicon/favicon-32x32.png') }}">
+  <link rel="icon" type="image/png" sizes="192x192" href="{{ static('img/favicon/android-chrome-192x192.png') }}">
+  <link rel="icon" type="image/png" sizes="512x512" href="{{ static('img/favicon/android-chrome-512x512') }}">
+  <link rel="apple-touch-icon" type="image/png" href="{{ static('img/favicon/apple-touch-icon.png') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cirrus-ui@0.5.5/dist/cirrus.min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
   <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-
   <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
   <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
 
   {% block head %}
   {% endblock %}
 </head>
+
 <body>
   <div class="header unselectable header-animated header-clear">
     <div class="header-brand">
@@ -39,105 +44,88 @@
           <a href="/#challenges">Explore</a>
         </div>
         {% if request.user.is_authenticated %}
-          <div class="nav-item has-sub btn-container" id="dropdown">
-            <a class="nav-dropdown-link">Create</a>
-            <ul class="dropdown-menu" role="menu">
-              {% if request.user.has_perm('app.add_challenge') %}
-                <li role="menu-item"><a href="{{ url('challenge_create') }}">Challenge</a></li>
-              {% endif %}
-              <li role="menu-item"><a href="{{ url('project_create') }}">Project</a></li>
-            </ul>
-          </div>
-          <div class="nav-item has-sub btn-container" id="dropdown">
-            <a class="nav-dropdown-link btn-primary">Welcome, {{ request.user.username }}</a>
-            <ul class="dropdown-menu" role="menu">
-              <li role="menu-item"><a href="{{ url('home') }}">Dashboard</a></li>
-              <li role="menu-item"><a href="{{ url('edit_profile') }}">Edit Profile</a></li>
-              <li role="menu-item"><a href="{{ url('logout') }}">Logout</a></li>
-            </ul>
-          </div>
-          {% else %}
-          <div class="nav-item btn-container">
-            <a href="{{ url('login') }}" class="btn-primary btn-animated">Login</a>
-          </div>
+        <div class="nav-item has-sub btn-container" id="dropdown">
+          <a class="nav-dropdown-link">Create</a>
+          <ul class="dropdown-menu" role="menu">
+            {% if request.user.has_perm('app.add_challenge') %}
+            <li role="menu-item"><a href="{{ url('challenge_create') }}">Challenge</a></li>
+            {% endif %}
+            <li role="menu-item"><a href="{{ url('project_create') }}">Project</a></li>
+          </ul>
+        </div>
+        <div class="nav-item has-sub btn-container" id="dropdown">
+          <a class="nav-dropdown-link btn-primary">Welcome, {{ request.user.username }}</a>
+          <ul class="dropdown-menu" role="menu">
+            <li role="menu-item"><a href="{{ url('home') }}">Dashboard</a></li>
+            <li role="menu-item"><a href="{{ url('edit_profile') }}">Edit Profile</a></li>
+            <li role="menu-item"><a href="{{ url('logout') }}">Logout</a></li>
+          </ul>
+        </div>
+        {% else %}
+        <div class="nav-item btn-container">
+          <a href="{{ url('login') }}" class="btn-primary btn-animated">Login</a>
+        </div>
         {% endif %}
       </div>
 
     </div>
   </div>
 
-
-
-
-
-
-
   {% block body %}
   {% endblock %}
 
-  <div class="modal modal-large modal-animated--zoom-in" id="bugForm">
-    <a href="#target" class="modal-overlay close-btn" aria-label="Close"></a>
-    <div class="modal-content" role="document" style="width: 60rem; height: 60vh; border-radius: 15px;">
-        <div class="modal-header">
-            <!-- <a href="#components" class="pull-right" aria-label="Close"><span class="icon">X</span></a> -->
-        </div>
-        <div class="modal-body">
-          <iframe class="airtable-embed" src="https://airtable.com/embed/shro1W9DcSXja7K5r?backgroundColor=blue" frameborder="0" onmousewheel="" width="100%" height="750" style="background: transparent; border: 1px solid #ccc;"></iframe>
-        </div>
-    </div>
-</div>
-
-
-<footer>
-  <div class="content">
+  <footer>
+    <div class="content">
       <a href="{{ url('index') }}">
         <img src="{{ static('img/logo.png') }}" class="logo" alt="HackItForward">
       </a>
-      <div class="row">
-          <div class="col-3 offset-3">
-              <ul class="no-bullets">
-                  <p class="footer-list-title">About</p>
-                  <a href="#">
-                      <li class="list-item">FAQ</li>
-                  </a>
-                  <a href="#">
-                      <li class="list-item">Explore</li>
-                  </a>
-              </ul>
-          </div>
-          <div class="col-3">
-              <ul class="no-bullets">
-                  <p class="footer-list-title">More</p>
-                  <a href="#bugForm">
-                      <li class="list-item">Report a bug</li>
-                  </a>
-                  <a href="#">
-                    <li class="list-item">Terms &amp; Conditions</li>
-                </a>
+      <div class="row u-center">
+        <div class="col-3">
+          <ul class="no-bullets">
+            <p class="footer-list-title">About</p>
+            <a href="#">
+              <li class="list-item">FAQ</li>
+            </a>
+            <a href="#">
+              <li class="list-item">Explore</li>
+            </a>
+          </ul>
+        </div>
+        <div class="col-3">
+          <ul class="no-bullets">
+            <p class="footer-list-title">More</p>
+            <a href="https://github.com/KuriusMTL/HackItForward/issues/new?labels=bug&template=bug_report.md">
+              <li class="list-item">Report a bug</li>
+            </a>
+            <a href="#">
+              <li class="list-item">Terms &amp; Conditions</li>
+            </a>
 
-              </ul>
-          </div>
+          </ul>
+        </div>
       </div>
       <space class="large"></space>
       <div class="row u-center" id="social">
-          <a href="https://github.com/KuriusMTL/HackItForward">
-            <span class="icon">
-              <i class="zmdi zmdi-github zmdi-hc-2x" aria-hidden="true"></i>
-            </span>
-          </a>
+        <a href="https://github.com/KuriusMTL/HackItForward">
+          <span class="icon">
+            <i class="zmdi zmdi-github zmdi-hc-2x" aria-hidden="true"></i>
+          </span>
+        </a>
       </div>
       <space></space>
       <p class="white font-bold">
         <span class="faded">© 2020</span>
         HackItForward
       </p>
-        <p>Powered by <a href="http://kurius.ca" target="_blank">Kurius</a></p>
-  </div>
-</footer>
+      <p>Powered by <a href="http://kurius.ca" target="_blank" rel="noopener">Kurius</a></p>
+    </div>
+  </footer>
 
 
   <script src="{{ static('js/base.js') }}"></script>
+
   {% block scripts %}
   {% endblock %}
+
 </body>
 </html>
