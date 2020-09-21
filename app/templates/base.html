@@ -7,8 +7,8 @@
   <link rel="shortcut icon" href="{{ static('img/favicon.ico') }}">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ static('img/favicon/favicon-16x16.png') }}">
   <link rel="icon" type="image/png" sizes="32x32" href="{{ static('img/favicon/favicon-32x32.png') }}">
-  <link rel="icon" type="image/png" sizes="192x192" href="{{ static('img/favicon/android-chrome-192x192.png') }}">
-  <link rel="icon" type="image/png" sizes="512x512" href="{{ static('img/favicon/android-chrome-512x512') }}">
+  <link rel="icon" type="image/png" sizes="192x192" href="{{ static('img/favicon/favicon-192x192.png') }}">
+  <link rel="icon" type="image/png" sizes="512x512" href="{{ static('img/favicon/favicon-512x512.png') }}">
   <link rel="apple-touch-icon" type="image/png" href="{{ static('img/favicon/apple-touch-icon.png') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cirrus-ui@0.5.5/dist/cirrus.min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
@@ -44,27 +44,27 @@
           <a href="/#challenges">Explore</a>
         </div>
         {% if request.user.is_authenticated %}
-        <div class="nav-item has-sub btn-container" id="dropdown">
-          <a class="nav-dropdown-link">Create</a>
-          <ul class="dropdown-menu" role="menu">
-            {% if request.user.has_perm('app.add_challenge') %}
-            <li role="menu-item"><a href="{{ url('challenge_create') }}">Challenge</a></li>
-            {% endif %}
-            <li role="menu-item"><a href="{{ url('project_create') }}">Project</a></li>
-          </ul>
-        </div>
-        <div class="nav-item has-sub btn-container" id="dropdown">
-          <a class="nav-dropdown-link btn-primary">Welcome, {{ request.user.username }}</a>
-          <ul class="dropdown-menu" role="menu">
-            <li role="menu-item"><a href="{{ url('home') }}">Dashboard</a></li>
-            <li role="menu-item"><a href="{{ url('edit_profile') }}">Edit Profile</a></li>
-            <li role="menu-item"><a href="{{ url('logout') }}">Logout</a></li>
-          </ul>
-        </div>
+          <div class="nav-item has-sub btn-container" id="dropdown">
+            <a class="nav-dropdown-link">Create</a>
+            <ul class="dropdown-menu" role="menu">
+              {% if request.user.has_perm('app.add_challenge') %}
+                <li role="menu-item"><a href="{{ url('challenge_create') }}">Challenge</a></li>
+              {% endif %}
+                <li role="menu-item"><a href="{{ url('project_create') }}">Project</a></li>
+            </ul>
+          </div>
+          <div class="nav-item has-sub btn-container" id="dropdown">
+            <a class="nav-dropdown-link btn-primary">Welcome, {{ request.user.username }}</a>
+            <ul class="dropdown-menu" role="menu">
+              <li role="menu-item"><a href="{{ url('home') }}">Dashboard</a></li>
+              <li role="menu-item"><a href="{{ url('edit_profile') }}">Edit Profile</a></li>
+              <li role="menu-item"><a href="{{ url('logout') }}">Logout</a></li>
+            </ul>
+          </div>
         {% else %}
-        <div class="nav-item btn-container">
-          <a href="{{ url('login') }}" class="btn-primary btn-animated">Login</a>
-        </div>
+          <div class="nav-item btn-container">
+            <a href="{{ url('login') }}" class="btn-primary btn-animated">Login</a>
+          </div>
         {% endif %}
       </div>
 
