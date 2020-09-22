@@ -35,6 +35,7 @@ All Python code is formatted with [Black](https://github.com/psf/black).
 ### HTML Style Guide
 
 * Indent with 2 spaces
+* Indent Jinja template blocks (like `{% if ... %}` as well).
 
 
 ## Code of Conduct
