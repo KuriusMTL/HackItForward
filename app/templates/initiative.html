@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-<title>{{ initiative.name }} | Stratus</title>
+<title>{{ initiative.name }} | HackItForward</title>
 {% endblock %}
 
 {% block body %}
@@ -30,7 +30,7 @@
 
     <div class="row">
       <div class="col-12">
-        <!-- challenge tag -->
+        <!-- Challenge Tag -->
         {% if initiative.challenge %}
           <div class="tile level r">
             <div class="tile-avatar">
@@ -46,7 +46,7 @@
           </div>
         {% endif %}
 
-        <!-- tags -->
+        <!-- Tags -->
         {% if initiative.tags.exists() %}
           <div class="tile level r">
             <div class="tile-avatar">
@@ -64,7 +64,7 @@
           </div>
         {% endif %}
 
-        <!-- creators -->
+        <!-- Creators -->
         <div class="tile level r">
           <div class="tile-avatar">
             <span class="icon">
@@ -80,7 +80,7 @@
           </div>
         </div>
 
-        <!-- contributors -->
+        <!-- Contributors -->
         {% if initiative.contributors and initiative.contributors.exists() %}
           <div class="tile level r">
             <div class="tile-avatar">
@@ -113,7 +113,7 @@
           </div>
         {% endfor %}
 
-        <!-- links -->
+        <!-- Links -->
         {% if links.exists() %}
           <div class="tile level r">
             <div class="tile-avatar">
