@@ -1,8 +1,4 @@
-<!-- homepage for the user -->
 {% extends "base.html" %}
-{% load static %}
-{% load mistune %}
-{% get_media_prefix %}
 
 {% block head %}
 <title>{{ profile.username }}'s Home | HackItForward</title>
@@ -20,13 +16,13 @@
     </div>
 
     {% for project in projects %}
-      <div class="col-4 pointer-cursor" onclick="location.href=`{% url 'project' pk=project.pk %}`">
+      <div class="col-4 pointer-cursor" onclick="location.href=`{{ url('project', pk=project.pk) }}`">
         <div class="card u-flex-column h-100">
           <div class="card-container">
             {% if project.image %}
               <div class="card-image" style="background-image: url({{ project.image.url }})"></div>
             {% else %}
-              <div class="card-image" style="background-image: url({% static 'img/logo.png' %})"></div>
+            <div class="card-image" style="background-image: url({{ static('img/logo.png') }})"></div>
             {% endif %}
           </div>
           <div class="content" style="margin-top:10px;margin-bottom:10px !important">
@@ -34,7 +30,7 @@
               <div class="tile__container">
                 <p class="tile__title">{{ project.name }}</p>
                 <p class="tile__subtitle">
-                  {% if profile in project.creators.all %}
+                  {% if profile in project.creators.all() %}
                     Creator
                   {% else %}
                     Contributor
@@ -44,21 +40,22 @@
             </div>
           </div>
           <div class="card-footer content">
-            {% for tag in project.tags.all|slice:':3' %}
+            {% for tag in project.tags.all()[:3] %}
               <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
             {% endfor %}
           </div>
         </div>
       </div>
-    {% empty %}
+    {% endfor %}
+    {% if not projects %} 
       <div class="col-12">
         {% if profile != request.user.profile %}
           <p>{{ profile.username }} has not created or contributed to any projects yet.</p>
         {% else %}
-          <p>No projects yet! Check out <a href="{% url 'index' %}">Explore</a> for some challenges to submit to and projects to contribute to.</p>
+        <p>No projects yet! Check out <a href="{{ url('index') }}">Explore</a> for some challenges to submit to and projects to contribute to.</p>
         {% endif %}
       </div>
-    {% endfor %}
+    {% endif %}
   </div>
   <br>
   <div class="row">
@@ -75,7 +72,7 @@
         {% if profile != request.user.profile %}
           <p>{{ profile.username }} has not given any user details.</p>
         {% else %}
-          <p>No user details! Go to <a href="{% url 'edit_profile' %}">Edit Profile</a> to add something about yourself.</p>
+          <p>No user details! Go to <a href="{{ url('edit_profile') }}">Edit Profile</a> to add something about yourself.</p>
         {% endif %}
       </div>
     {% else %}
@@ -103,7 +100,7 @@
             </div>
           {% endif %}
 
-          {% if profile.badges.exists %}
+          {% if profile.badges.exists() %}
             <div class="tile level r">
               <div class="tile__icon">
                 <span class="icon">
@@ -112,7 +109,7 @@
               </div>
               <div class="tile__container">
                 <span class="tile__title badges">Badges:
-                  {% for badge in profile.badges.all %}
+                  {% for badge in profile.badges.all() %}
                     <a href="#badge-{{ badge.pk }}" class="tooltip" data-tooltip="{{ badge.name }}">
                       <img src="{{ badge.icon.url }}">
                     </a>
@@ -142,7 +139,7 @@
             </div>
           {% endif %}
 
-          {% if links.exists %}
+          {% if links.exists() %}
             <div class="tile level r">
               <div class="tile__icon">
                 <span class="icon">
@@ -151,7 +148,7 @@
               </div>
               <div class="tile__container">
                 <p class="tile__title">Links:
-                  {% for link in links.all %}
+                  {% for link in links.all() %}
                     <a href="{{ link.href }}" class="tooltip" data-tooltip="{{ link.link.placeholder }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
                   {% endfor %}
                 </p>
@@ -159,7 +156,7 @@
             </div>
           {% endif %}
 
-          {% if profile.tags.exists %}
+          {% if profile.tags.exists() %}
             <div class="tile level r">
               <div class="tile__icon">
                 <span class="icon">
@@ -168,7 +165,7 @@
               </div>
               <div class="tile__container">
                 <p class="tile__title">Interests:
-                  {% for tag in profile.tags.all %}
+                  {% for tag in profile.tags.all() %}
                     <span class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
                   {% endfor %}
                 </p>

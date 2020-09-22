@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'app',
 
     'colorfield',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +57,26 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'stratus.urls'
 
 TEMPLATES = [
+    {
+        "BACKEND": "django_jinja.backend.Jinja2",
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "match_extension": ".html",
+            "match_regex": r"^(?!admin/).*",
+            "app_dirname": "templates",
+            # Don't introduce whitespace because of tags
+            "trim_blocks": True,
+            "lstrip_blocks": True,
+            "filters": {
+                'mistune': 'app.templatetags.mistune.mistune_html_no_highlight',
+                'class_name': 'app.templatetags.class_name.get_class_name',
+            },
+            "context_processors": [
+                "app.context_processors.profile",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
@@ -102,6 +123,12 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.github.GithubOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 
