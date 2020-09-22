@@ -29,6 +29,7 @@ All Python code is formatted with [Black](https://github.com/psf/black).
 
 * Cut off lines at 100 characters
 * Indent with 2 spaces
+* You can run `black .` in the root of the project to format everything for you.
 
 
 ### HTML Style Guide
