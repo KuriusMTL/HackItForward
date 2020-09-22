@@ -33,6 +33,8 @@ python manage.py loaddata projects
 ```
 2. To start the Django server, run `python manage.py runserver`
 
+**Note**: You should do this in a Python [virtualenv](https://virtualenv.pypa.io/en/stable/) or similar alternative.
+
 # Features
 
  - Challenge pages where organizations post challenge prompts.
