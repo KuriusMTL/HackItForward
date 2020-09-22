@@ -1,20 +1,19 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block head %}
-  <title>Explore | Stratus</title>
+<title>Explore | HackItForward</title>
 
-  <link rel="stylesheet" href="{% static 'vendor/chosen/chosen.min.css' %}">
-  <script src="{% static 'vendor/chosen/chosen.jquery.min.js' %}"></script>
-  <link rel="stylesheet" href="{% static 'css/explore.css' %}">
+<link rel="stylesheet" href="{{ static('vendor/chosen/chosen.min.css') }}">
+<script src="{{ static('vendor/chosen/chosen.jquery.min.js') }}"></script>
+<link rel="stylesheet" href="{{ static('css/explore.css') }}">
 {% endblock %}
 
 {% block body %}
-{% if not user.is_authenticated %}
+{% if not request.user.is_authenticated %}
   <div id="splash-img" class="hero h-70 hero-img parallax-img">
     <div class="hero-body">
       <div class="content u-text-center">
-        <h1 class="uppercase title">Stratus</h1>
+        <h1 class="uppercase title">Hack It Forward</h1>
         <h3 class="sub-title faded">Conquer the world's challenges - together</h3>
       </div>
     </div>
@@ -22,7 +21,7 @@
 {% endif %}
 
 <div class="content" id="challenges">
-  {% for name, object_list in objects.items %}
+  {% for name, object_list in objects.items() %}
     {# searching options #}
     <form action=".">
       <input type="hidden" name="type" value="{{ name }}">
@@ -33,7 +32,7 @@
         <div class="col-7">
           <div class="input-control">
             <input type="text" name="q" class="input-contains-icon" placeholder="{{ name|title }} Search"
-              value="{{ q|default:"" }}">
+              value="{{ q|default("") }}">
             <span class="icon"><i class="zmdi zmdi-search" aria-hidden="true"></i></span>
           </div>
         </div>
@@ -60,13 +59,13 @@
     {# submission display #}
     <div class="row">
       {% for object in object_list %}
-        <div class="col-4 pointer-cursor" onclick="location.href=`{% url name pk=object.pk %}`">
+        <div class="col-4 pointer-cursor" onclick="location.href=`{{ url(name, pk=object.pk) }}`">
           <div class="card u-flex-column h-100 slide-up">
             <div class="card-container">
               {% if object.image %}
                 <div class="card-image" style="background-image: url({{ object.image.url }})"></div>
               {% else %}
-                <div class="card-image" style="background-image: url({% static 'img/logo.png' %})"></div>
+              <div class="card-image" style="background-image: url({{ static('img/logo.png') }})"></div>
               {% endif %}
             </div>
             <div class="mobile-title">
@@ -80,24 +79,25 @@
               </div>
             </div>
             <div class="card-body content">
-              <p>{{ object.description|truncatechars:48 }}</p>
+              <p>{{ object.description|truncatechars(48) }}</p>
             </div>
             <div class="card-footer content">
-              {% for tag in object.tags.all|slice:':3' %}
+              {% for tag in object.tags.all()[:3] %}
                 <div class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</div>
               {% endfor %}
             </div>
           </div>
         </div>
-      {% empty %}
+      {% endfor %}
+      {% if not object_list %}
         <div class="col-12">
           {% if q or selected_tags %}
-            <p>No {{ name }}s matching your query have been found. Perhaps try {{ selected_tags|yesno:"selecting less tags,broadening your search" }}?</p>
+            <p>No {{ name }}s matching your query have been found. Perhaps try {{ "selecting less tags" if selected_tags else "broadening your search" }}?</p>
           {% else %}
             <p>No {{ name }}s have been published yet.</p>
           {% endif %}
         </div>
-      {% endfor %}
+      {% endif %}
     </div>
   {% endfor %}
 </div> 

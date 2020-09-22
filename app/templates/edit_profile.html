@@ -1,12 +1,11 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block body %}
 <div class="content">
   <div class="frame">
     <div class="row">
       <div class="col-5">
-        <img class="img-cover" src="{% static 'img/edit_profile.png' %}">
+        <img class="img-cover" src="{{ static('img/edit_profile.png') }}">
       </div>
       <div class="col-7">
         <div class="tile level r">
@@ -17,7 +16,7 @@
           </div>
           <div class="tile__container">
             <p class="tile__title">Username</p>
-            <p class="tile__subtitle">{{ user.username }}</p>
+            <p class="tile__subtitle">{{ request.user.username }}</p>
           </div>
         </div>
         <div class="tile level r">
@@ -28,7 +27,7 @@
           </div>
           <div class="tile__container">
             <p class="tile__title">Email</p>
-            <p class="tile__subtitle">{{ user.email }}</p>
+            <p class="tile__subtitle">{{ request.user.email }}</p>
           </div>
         </div>
         <div class="tile level r">
@@ -47,11 +46,11 @@
     <form action="" method="POST">
       <div class="frame__body">
         {% csrf_token %}
-        {% for error in form.non_field_errors %}
+        {% for error in form.non_field_errors() %}
           <span class="text-primary info">{{ error }}</span>
         {% endfor %}
         <div class="form-section">
-          {{ form.description.label_tag }}
+          {{ form.description.label_tag() }}
           {{ form.description }}
           {% for error in form.description.errors %}
             <span class="text-primary info">{{ error }}</span>
@@ -75,7 +74,6 @@
           <p>Click and drag the marker. </p>
           <div class="map-container w-100 h-50">
             <div id="map">Map should be here</div>
-            <!-- <pre id="coordinates" class="coordinates"></pre> -->
           </div>
         </div>
         <br>
@@ -84,7 +82,7 @@
     </form>
   </div>
 </div>
-<script src="{% static 'js/map.js' %}"></script>
+<script src="{{ static('js/map.js') }}"></script>
 <script>
   var simplemde = new SimpleMDE({ element: document.getElementById("id_description") });
 </script>

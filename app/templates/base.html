@@ -1,35 +1,35 @@
-{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
   <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cirrus-ui@0.5.5/dist/cirrus.min.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-  <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
 
   <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   
   <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
   <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
-  
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cirrus-ui@0.5.5/dist/cirrus.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+
   {% block head %}
   {% endblock %}
+
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
   <div class="header unselectable header-animated header-clear">
     <div class="header-brand">
       <div class="nav-item">
-        <a href="{% url 'index' %}">
-          <img src="{% static 'img/logo.png' %}" class="logo" alt="Stratus">
+        <a href="{{ url('index') }}">
+          <img src="{{ static('img/logo.png') }}" class="logo" alt="Stratus">
         </a>
       </div>
 
-      <!-- hamburger menu -->
+      <!-- Hambuger Menu -->
       <div class="nav-item nav-btn" id="header-btn">
         <span></span>
         <span></span>
@@ -41,21 +41,27 @@
         <div class="nav-item">
           <a href="/#challenges">Explore</a>
         </div>
-        <div class="nav-item">
-          <a href="#">Create</a>
-        </div>
         {% if request.user.is_authenticated %}
+          <div class="nav-item has-sub btn-container" id="dropdown">
+            <a class="nav-dropdown-link">Create</a>
+            <ul class="dropdown-menu" role="menu">
+              {% if request.user.has_perm('app.add_challenge') %}
+                <li role="menu-item"><a href="{{ url('challenge_create') }}">Challenge</a></li>
+              {% endif %}
+              <li role="menu-item"><a href="{{ url('project_create') }}">Project</a></li>
+            </ul>
+          </div>
           <div class="nav-item has-sub btn-container" id="dropdown">
             <a class="nav-dropdown-link btn-primary">Welcome, {{ request.user.username }}</a>
             <ul class="dropdown-menu" role="menu">
-              <li role="menu-item"><a href="{% url 'home' %}">Dashboard</a></li>
-              <li role="menu-item"><a href="{% url 'edit_profile' %}">Edit Profile</a></li>
-              <li role="menu-item"><a href="{% url 'logout' %}">Logout</a></li>
+              <li role="menu-item"><a href="{{ url('home') }}">Dashboard</a></li>
+              <li role="menu-item"><a href="{{ url('edit_profile') }}">Edit Profile</a></li>
+              <li role="menu-item"><a href="{{ url('logout') }}">Logout</a></li>
             </ul>
           </div>
-        {% else %}
+          {% else %}
           <div class="nav-item btn-container">
-            <a href="{% url 'login' %}" class="btn-primary btn-animated">Login</a>
+            <a href="{{ url('login') }}" class="btn-primary btn-animated">Login</a>
           </div>
         {% endif %}
       </div>
@@ -68,8 +74,8 @@
 
   <footer>
     <div class="footer-title-par">
-      <span class="bold-footer uppercase white font-alt" style="">HackItForward</span>
-      <span class="thin-footer white"> - powered by Kurius</span>
+      <span class="bold-footer white font-alt font-bold" style="">HackItForward</span>
+      <span class="white font-thin"> - powered by Kurius</span>
     </div>
     <div class="content">
       <div class="divider"></div>
@@ -99,6 +105,8 @@
     </div>
   </footer>
 
-  <script src="{% static 'js/base.js' %}"></script>
+  <script src="{{ static('js/base.js') }}"></script>
+  {% block scripts %}
+  {% endblock %}
 </body>
 </html>

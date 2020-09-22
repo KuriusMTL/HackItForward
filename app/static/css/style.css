@@ -263,3 +263,24 @@ footer {
   position: relative;
   top: 5px;
 }
+
+.frame .form-section {
+  padding-bottom: 1.5rem !important;
+}
+
+.btn-grey {
+  background-color: var(--grid-grey) !important;
+  border-color: var(--grid-grey) !important;
+  color: var(--grey-mid) !important;
+}
+
+.btn-grey:hover {
+  background-color: white !important;
+  color: var(--cirrus-primary) !important;
+}
+
+@media only screen and (min-width: 769px) {
+  .buttons {
+    position: absolute;
+  }
+}
