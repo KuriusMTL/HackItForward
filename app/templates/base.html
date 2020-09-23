@@ -3,32 +3,35 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="{{ static('css/style.css') }}" rel="stylesheet" type="text/css">
+
   <link rel="shortcut icon" href="{{ static('img/favicon.ico') }}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cirrus-ui@0.5.5/dist/cirrus.min.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ static('img/favicon/favicon-16x16.png') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ static('img/favicon/favicon-32x32.png') }}">
+  <link rel="icon" type="image/png" sizes="192x192" href="{{ static('img/favicon/favicon-192x192.png') }}">
+  <link rel="icon" type="image/png" sizes="512x512" href="{{ static('img/favicon/favicon-512x512.png') }}">
+  <link rel="apple-touch-icon" type="image/png" href="{{ static('img/favicon/apple-touch-icon.png') }}">
+
   <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   
-  <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cirrus-ui@0.5.5/dist/cirrus.min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
 
   {% block head %}
   {% endblock %}
 
-  <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+  <link href="{{ static('css/style.css') }}" rel="stylesheet" type="text/css">
 </head>
+
 <body>
   <div class="header unselectable header-animated header-clear">
     <div class="header-brand">
       <div class="nav-item">
         <a href="{{ url('index') }}">
-          <img src="{{ static('img/logo.png') }}" class="logo" alt="Stratus">
+          <img src="{{ static('img/logo.png') }}" class="logo" alt="HackItForward">
         </a>
       </div>
 
@@ -76,40 +79,55 @@
   {% endblock %}
 
   <footer>
-    <div class="footer-title-par">
-      <span class="bold-footer white font-alt font-bold" style="">HackItForward</span>
-      <span class="white font-thin"> - powered by Kurius</span>
-    </div>
     <div class="content">
-      <div class="divider"></div>
+      <a href="{{ url('index') }}">
+        <img src="{{ static('img/logo.png') }}" class="logo" alt="HackItForward">
+      </a>
       <div class="row u-center">
-        <div class="col">
-          <a href="https://youtu.be/G5uDEDriXFc">
-            <span class="icon">
-              <i class="zmdi zmdi-youtube-play zmdi-hc-2x" aria-hidden="true"></i>
-            </span>
-          </a>
+        <div class="col-3">
+          <ul class="no-bullets">
+            <p class="footer-list-title">About</p>
+            <a href="/faq">
+              <li class="list-item">FAQ</li>
+            </a>
+            <a href="{{ url('index') }}">
+              <li class="list-item">Explore</li>
+            </a>
+          </ul>
         </div>
-        <div class="col">
-          <a href="https://devpost.com/software/tbd-7yxgu1">
-            <span class="icon">
-              <i class="zmdi zmdi-album zmdi-hc-2x" aria-hidden="true"></i>
-            </span>
-          </a>
-        </div>
-        <div class="col">
-          <a href="https://github.com/TheAvidDev/stratus">
-            <span class="icon">
-              <i class="zmdi zmdi-github zmdi-hc-2x" aria-hidden="true"></i>
-            </span>
-          </a>
+        <div class="col-3">
+          <ul class="no-bullets">
+            <p class="footer-list-title">More</p>
+            <a href="https://github.com/KuriusMTL/HackItForward/issues/new?labels=bug&template=bug_report.md" target="_blank" rel="noopener">
+              <li class="list-item">Report a bug</li>
+            </a>
+            <a href="/tos">
+              <li class="list-item">Terms &amp; Conditions</li>
+            </a>
+          </ul>
         </div>
       </div>
+      <space class="large"></space>
+      <div class="row u-center">
+        <a href="https://github.com/KuriusMTL/HackItForward">
+          <span class="icon">
+            <i class="zmdi zmdi-github zmdi-hc-2x" aria-hidden="true"></i>
+          </span>
+        </a>
+      </div>
+      <space></space>
+      <p class="white">
+        <span class="faded">&copy; 2020</span>
+        HackItForward
+      </p>
+      <p>Powered by <a href="http://kurius.ca" target="_blank" rel="noopener">Kurius</a></p>
     </div>
   </footer>
 
   <script src="{{ static('js/base.js') }}"></script>
+
   {% block scripts %}
   {% endblock %}
+
 </body>
 </html>

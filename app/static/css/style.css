@@ -7,13 +7,13 @@
   --grey-mid: #6c6c6c;
   --grey-dark: #242424;
 
-  --cirrus-primary: #3c8cc9 !important;
-  --cirrus-text: #aacbe3 !important;
-  --cirrus-primary-light: #c1d5e3 !important;
-  --cirrus-accent-border: #56a0d6 !important;
-  --cirrus-accent-hover: var(--grey-light) !important;
-  --cirrus-select-bg: #aacbe3 !important;
-  --cirrus-link-dark: var(--cirrus-primary) !important;
+  --cirrus-primary: #3c8cc9;
+  --cirrus-text: #aacbe3;
+  --cirrus-primary-light: #c1d5e3;
+  --cirrus-accent-border: #56a0d6;
+  --cirrus-accent-hover: var(--grey-light);
+  --cirrus-select-bg: #aacbe3;
+  --cirrus-link-dark: var(--cirrus-primary);
 }
 
 * {
@@ -42,7 +42,7 @@ body {
   text-transform: uppercase;
   color: var(--grey-dark);
   font-family: 'Montserrat', sans-serif;
-  font-weight: 600 !important;
+  font-weight: 600;
   color: var(--cirrus-primary);
 }
 
@@ -65,11 +65,11 @@ div.header {
 }
 
 .logo {
-  height: 60px;
+  height: 50px;
 }
 
 .tab-container li a {
-  transition: var(--animation-duration); !important;
+  transition: var(--animation-duration);
 }
 
 .tab-container:hover li:hover a:hover {
@@ -77,26 +77,26 @@ div.header {
 }
 
 .btn-primary {
-  border: 2px solid var(--cirrus-primary) !important;
+  border: 2px solid var(--cirrus-primary);
   border-radius: 2px;
 }
 
 .btn-primary:hover {
   background: inherit;
-  color: var(--cirrus-primary) !important;
+  color: var(--cirrus-primary);
 }
 
 .frame__body .btn-primary:hover {
   background: white;
-  color: var(--cirrus-primary) !important;
+  color: var(--cirrus-primary);
 }
 
 button:focus, a:focus, input:focus {
-  box-shadow: none !important;
+  box-shadow: none;
 }
 
 footer {
-  background-color: var(--grey-dark) !important;
+  background-color: var(--grey-dark);
 }
 
 .footer-title-par {
@@ -104,7 +104,7 @@ footer {
 }
 
 .content {
-  margin-bottom: 0px !important;
+  margin-bottom: 0px;
 }
 
 .bold-footer {
@@ -156,7 +156,7 @@ footer {
 }
 
 .header-margin {
-  margin-top: 30px !important;
+  margin-top: 30px;
 }
 
 
@@ -166,7 +166,7 @@ footer {
  */
 
 .card-container {
-  min-height: 230px !important;
+  min-height: 230px;
 }
 
 .card-body .content {
@@ -192,7 +192,7 @@ footer {
 }
 
 .row [class^=col-]:not(.col-12) {
-  padding: 0.5rem !important;
+  padding: 0.5rem;
 }
 
 .tile.level.r {
@@ -265,18 +265,18 @@ footer {
 }
 
 .frame .form-section {
-  padding-bottom: 1.5rem !important;
+  padding-bottom: 1.5rem;
 }
 
 .btn-grey {
-  background-color: var(--grid-grey) !important;
-  border-color: var(--grid-grey) !important;
-  color: var(--grey-mid) !important;
+  background-color: var(--grid-grey);
+  border-color: var(--grid-grey);
+  color: var(--grey-mid);
 }
 
 .btn-grey:hover {
-  background-color: white !important;
-  color: var(--cirrus-primary) !important;
+  background-color: white;
+  color: var(--cirrus-primary);
 }
 
 @media only screen and (min-width: 769px) {
