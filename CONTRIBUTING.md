@@ -10,7 +10,7 @@ Please follow our [Code of Conduct](./CODE_OF_CONDUCT.md) in all your interactio
 2. Clone your fork
 3. Create a branch by running `git checkout -b <branch-name>`
 4. Write code!
-5. If you get things working, add your changed files with `git add` and run `git commit -m "insert message here"` to commit your messages
+5. If you get things working, add your changed files with `git add` and then commit them with `git commit`
 6. Push your changes to your fork with `git push origin <branch-name>`
 7. Create a pull request
 8. Iterate on the solution
