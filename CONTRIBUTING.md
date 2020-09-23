@@ -31,7 +31,6 @@ All Python code is formatted with [Black](https://github.com/psf/black).
 * Indent with 4 spaces
 * You can run `black .` in the root of the project to format everything for you.
 
-
 ### HTML Style Guide
 
 * Indent with 2 spaces
