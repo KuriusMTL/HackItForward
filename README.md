@@ -12,7 +12,7 @@
 
 With the world shifting online as a result of the pandemic, developers are becoming an increasing necessity in any organization. However, during this period, many organizations with limited resources, most often nonprofits, are struggling with this difficult transition. HackItForward was created to help these organizations tackle their problems, by offering up-and-coming developers a platform to work on real-world projects and make a meaningful impact on society.
 
-The driving functionality of HackItForward are the challenges. These come is varying levels of difficulties and requirements. As a general guideline, there are two main types of challenges, tutorial challenges and real-world challenges:
+The driving functionality of HackItForward are the challenges. These come in varying levels of difficulty and requirements. As a general guideline, there are two main types of challenges, tutorial challenges and real-world challenges:
 
 1. With the intent of being beginner-friendly, tutorial challenges displayed on the platform are permanent, learning-focused and have the primary purpose of educating programmers. They act as tutorials to walk developers through the creation of a project from start to finish.
 
