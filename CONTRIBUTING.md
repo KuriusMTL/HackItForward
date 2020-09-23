@@ -2,7 +2,7 @@
 
 When contributing to this repository, please first discuss the change you wish to make via [issues](https://github.com/KuriusMTL/HackItForward/issues).
 
-Please note we have a [Code of Conduct](./CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
+Please follow our [Code of Conduct](./CODE_OF_CONDUCT.md) in all your interactions with the project.
 
 ## Pull Request Process
 
