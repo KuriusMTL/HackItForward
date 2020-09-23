@@ -9,6 +9,4 @@ This document provides community guidelines for a safe, respectful, productive, 
 
 ### Attribution
 
-This Code of Conduct is adapted from the [The Ruby Community Conduct Guideline][homepage].
-
-[homepage]: https://www.ruby-lang.org/en/conduct/
+This Code of Conduct is adapted from the [The Ruby Community Conduct Guideline](https://www.ruby-lang.org/en/conduct/).
