@@ -11,4 +11,4 @@ This document provides community guidelines for a safe, respectful, productive, 
 
 This Code of Conduct is adapted from the [The Ruby Community Conduct Guideline][homepage].
 
-[homepage]: http://contributor-covenant.org
+[homepage]: https://www.ruby-lang.org/en/conduct/
