@@ -1,6 +1,6 @@
 # Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via [issues](https://github.com/KuriusMTL/HackItForward/issues).
+When contributing to this repository, first discuss the change you wish to make via [issues](https://github.com/KuriusMTL/HackItForward/issues), if the change is large enough to warrant such discussion.
 
 Please follow our [Code of Conduct](./CODE_OF_CONDUCT.md) in all your interactions with the project.
 
