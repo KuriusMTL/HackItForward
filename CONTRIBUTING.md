@@ -28,7 +28,7 @@ Please follow our [Code of Conduct](./CODE_OF_CONDUCT.md) in all your interactio
 All Python code is formatted with [Black](https://github.com/psf/black).
 
 * Cut off lines at 100 characters
-* Indent with 2 spaces
+* Indent with 4 spaces
 * You can run `black .` in the root of the project to format everything for you.
 
 
