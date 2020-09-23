@@ -3,9 +3,9 @@
     <h3 align=center>Conquer the World's Challenges together</h3>
 </p>
 <p align=center>
-    <img alt="AGPL License" src="https://img.shields.io/github/license/theaviddev/stratus">
+    <img alt="AGPL License" src="https://img.shields.io/github/license/KuriusMTL/HackItForward">
     <a target="_blank" href="https://www.python.org/downloads/" title="Python version"><img alt="Python >= 3.6" src="https://img.shields.io/badge/python-%3E=_3.6-green.svg"></a>
-    <img alt="GitHub stars" src="https://img.shields.io/github/stars/theaviddev/cloak">
+    <img alt="GitHub stars" src="https://img.shields.io/github/stars/KuriusMTL/HackItForward">
 </p>
 
 # About
