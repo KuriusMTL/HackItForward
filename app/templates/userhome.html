@@ -67,7 +67,7 @@
       {% endif %}
     </div>
 
-    {% if not profile.description and not profile.badges.exists and not links.exists and not profile.tags.exists %}
+    {% if not profile.description and not profile.badges.exists() and not links.exists() and not profile.tags.exists() %}
       <div class="col-12">
         {% if profile != request.user.profile %}
           <p>{{ profile.username }} has not given any user details.</p>
