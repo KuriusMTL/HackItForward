@@ -299,11 +299,6 @@ class Notification(models.Model):
         help_text="Date this notification was sent.",
     )
 
-    def get_link_url(self):
-        if self.linked_item:
-            return self.linked_item.get_absolute_url()
-        return "#"
-
 
 class NotificationInstance(models.Model):
     notification = models.ForeignKey(
@@ -313,3 +308,17 @@ class NotificationInstance(models.Model):
     is_read = models.BooleanField(
         default=False, verbose_name="Is Read", help_text="Whether this notification has been read."
     )
+
+    def get_link_url(self):
+        item = self.notification.linked_item
+        if item:
+            return item.get_absolute_url()
+        return "#"
+
+    @property
+    def message(self):
+        return self.notification.message
+
+    @property
+    def created(self):
+        return self.notification.created
