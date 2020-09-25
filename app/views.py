@@ -1,5 +1,5 @@
 from app.forms import ProfileUpdateForm
-from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag
+from app.models import Challenge, NotificationInstance, Profile, Project, SocialLinkAttachement, Tag
 
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login
@@ -17,6 +17,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView, UpdateView
+from django.views.generic.list import ListView
 
 
 class IndexView(TemplateView):
@@ -84,6 +85,14 @@ class UserView(DetailView):
             content_type=ContentType.objects.get_for_model(Profile),
         )
         return context
+
+class NotificationListView(LoginRequiredMixin, ListView):
+    template_name = "notifications.html"
+    model = NotificationInstance
+    context_object_name = "notifications"
+
+    def get_queryset(self):
+        return super().get_queryset().filter(user=self.request.user.profile)
 
 
 class EditProfileView(LoginRequiredMixin, UpdateView):

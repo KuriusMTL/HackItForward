@@ -10,6 +10,7 @@ urlpatterns = [
     # TODO: Rename this to fit in line with project and challenge style.
     path("home/", views.UserView.as_view(), name="home"),
     path("home/<int:pk>", views.UserView.as_view(), name="user"),
+    path("notifications/", views.NotificationListView.as_view(), name="notifications"),
     path("profile/edit", views.EditProfileView.as_view(), name="edit_profile"),
     path("challenge/create/", views.ChallengeCreateView.as_view(), name="challenge_create"),
     path("challenge/<int:pk>/", views.ChallengeView.as_view(), name="challenge"),
