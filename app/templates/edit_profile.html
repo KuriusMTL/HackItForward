@@ -71,9 +71,15 @@
         </div>
         <div class="form-section">
           <label>Where are you from?</label>
-          <p>Click and drag the marker. </p>
           <div class="map-container w-100 h-50">
-            <div id="map">Map should be here</div>
+            <div class="input-control">
+              <input type="text" name="location-country" class="input-contains-icon" placeholder="Enter a Country">
+              <span class="icon"><i class="zmdi zmdi-search" aria-hidden="true"></i></span>
+            </div>
+            <div class="input-control">
+              <input type="text" name="location-city" class="input-contains-icon" placeholder="Enter a City">
+              <span class="icon"><i class="zmdi zmdi-search" aria-hidden="true"></i></span>
+            </div>
           </div>
         </div>
         <br>
@@ -82,7 +88,7 @@
     </form>
   </div>
 </div>
-<script src="{{ static('js/map.js') }}"></script>
+<script src="{{ static('js/edit_profile_map.js') }}"></script>
 <script>
   var simplemde = new SimpleMDE({ element: document.getElementById("id_description") });
 </script>
