@@ -87,6 +87,8 @@ class Profile(models.Model):
     description = models.TextField(
         blank=True, verbose_name="Description", help_text="User description."
     )
+    country = models.CharField(blank=True, null=True, max_length=30, verbose_name="country", help_text="Country of origin of user")
+    city = models.CharField(blank=True, null=True,max_length=30, verbose_name="city", help_text="City of origin of user")
     badges = models.ManyToManyField(
         Badge,
         blank=True,
@@ -101,13 +103,6 @@ class Profile(models.Model):
         verbose_name="Tags",
         help_text="Tags associated with this user.",
     )
-    location = models.ManyToManyField(
-        Location, 
-        blank=True, 
-        related_name="challenges", 
-        verbose_name="Location",
-        help_text="Locations of user"
-    )
 
     @property
     def username(self):
@@ -115,14 +110,6 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
-
-class Location(models.Model):
-    name = models.CharField(max_length=24, verbose_name="Name", help_text="Name of this tag.")
-    longitude = models.DecimalField(max_digits=9, decimal_places=6)
-    latitude = models.DecimalField(max_digits=9, decimal_places=6)
-
-    def __str__(self):
-        return self.name
 
 class Challenge(models.Model):
     name = models.CharField(
@@ -143,13 +130,6 @@ class Challenge(models.Model):
         related_name="challenges",
         verbose_name="Tags",
         help_text="Tags associated with this challenge.",
-    )
-    location = models.ManyToManyField(
-        Location, 
-        blank=True, 
-        related_name="challenges", 
-        verbose_name="Location",
-        help_text="Locations of users appart of challenge"
     )
     creators = models.ManyToManyField(
         Profile,
