@@ -18,7 +18,7 @@ from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView, UpdateView
 from django.views.generic.list import ListView
-
+import struct
 
 class IndexView(TemplateView):
     template_name = "explore.html"
@@ -85,6 +85,7 @@ class UserView(DetailView):
             content_type=ContentType.objects.get_for_model(Profile),
         )
         return context
+
 
 class NotificationListView(LoginRequiredMixin, ListView):
     template_name = "notifications.html"

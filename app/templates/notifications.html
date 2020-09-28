@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>{{ profile.username }}'s Notification | HackItForward</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="header-margin">Notifications</h2>
+    </div>
+    <div class="card col-12" id="challenge-frame">
+      {% for notif in notifications %}
+        {% if notif != notifications[0] and notif.notification.linked_item.__str__() != notifications[0].notification.linked_item.__str__() %}
+          <hr>
+        {% endif %}
+        <a class="font-alt font-bold" href="{{ notif.get_link_url() }}">{{ notif.notification.linked_item.__str__() }}</a>
+        <span class="font-light">{{ notif.message }}</span><br>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+</html>

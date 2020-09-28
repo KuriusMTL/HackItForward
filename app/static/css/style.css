@@ -118,6 +118,13 @@ footer{
 	letter-spacing: 2px;
 }
 
+hr{
+  margin: 1.5em 0;
+  background-color: var(--grey-light);
+  border: none;
+  height: 2px;
+}
+
 
 /**
  * Front page banner
@@ -247,7 +254,7 @@ footer{
 }
 
 #profile-block.card {
-   padding: 15px;
+  padding: 15px;
 }
 
 .badges > a {
@@ -255,7 +262,7 @@ footer{
 }
 
 .badges .modal img {
-   height: 100px;
+  height: 100px;
 }
 
 .badges a img {

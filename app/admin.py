@@ -7,6 +7,8 @@ from app.models import (
     Profile,
     Challenge,
     Project,
+    Notification,
+    NotificationInstance,
 )
 
 admin.site.register(SocialLink)
@@ -16,3 +18,5 @@ admin.site.register(Tag)
 admin.site.register(Profile)
 admin.site.register(Challenge)
 admin.site.register(Project)
+admin.site.register(Notification)
+admin.site.register(NotificationInstance)
