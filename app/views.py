@@ -20,6 +20,7 @@ from django.views.generic.edit import CreateView, FormView, UpdateView
 from django.views.generic.list import ListView
 import struct
 
+
 class IndexView(TemplateView):
     template_name = "explore.html"
 
