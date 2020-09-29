@@ -86,8 +86,6 @@ class UserView(DetailView):
         return context
 
 
-
-
 class SocialLinkFormMixin(FormMixin):
     def get_class_name(self):
         return self.model if self.model else self.classname
@@ -135,12 +133,9 @@ class SocialLinkFormMixin(FormMixin):
             for social in new_socials:
                 social.save()
 
-            # print(new_socials)
             return resp
         except Exception:
             return Exception
-
-
 
 
 class EditProfileView(LoginRequiredMixin, SocialLinkFormMixin, UpdateView):
