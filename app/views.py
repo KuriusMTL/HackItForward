@@ -113,7 +113,6 @@ class SocialLinkFormMixin(FormMixin):
             social_contents = self.request.POST.getlist("social-content")
             pk = self.object.pk
             new_socials = []
-            # SocialLinkAttachement.objects.update_or_create
             for ind in range(len(social_types)):
                 new_socials.append(
                     SocialLinkAttachement(
