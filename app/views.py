@@ -1,5 +1,5 @@
 from app.forms import ProfileUpdateForm
-from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag
+from app.models import Challenge, Profile, Project, SocialLink, SocialLinkAttachement, Tag
 
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login
@@ -16,7 +16,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, FormView, UpdateView
+from django.views.generic.edit import CreateView, FormMixin, FormView, UpdateView
 
 
 class IndexView(TemplateView):
@@ -87,6 +87,61 @@ class UserView(DetailView):
 
 
 class EditProfileView(LoginRequiredMixin, UpdateView):
+
+
+class SocialLinkFormMixin(FormMixin):
+    def get_class_name(self):
+        return self.model if self.model else self.classname
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(self.object)
+        context["default_social_links"] = SocialLink.objects.all()
+        context["has_social_links_form"] = True
+        context["social_links"] = (
+            []
+            if self.object is None
+            else SocialLinkAttachement.objects.filter(
+                object_id=self.object.pk,
+                content_type=ContentType.objects.get_for_model(self.get_class_name()),
+            )
+        )
+        return context
+
+    def form_valid(self, form):
+        try:
+            resp = super().form_valid(form)
+            CLASS = ContentType.objects.get_for_model(self.get_class_name())
+            social_types = self.request.POST.getlist("social-type")
+            social_contents = self.request.POST.getlist("social-content")
+            pk = self.object.pk
+            new_socials = []
+            # SocialLinkAttachement.objects.update_or_create
+            for ind in range(len(social_types)):
+                new_socials.append(
+                    SocialLinkAttachement(
+                        link=SocialLink.objects.get(name=social_types[ind]),
+                        content=social_contents[ind],
+                        content_type=CLASS,
+                        object_id=pk,
+                    )
+                )
+
+            for social in SocialLinkAttachement.objects.filter(content_type=CLASS, object_id=pk):
+                if social not in new_socials:
+                    social.delete()
+                else:
+                    new_socials.remove(social)
+
+            for social in new_socials:
+                social.save()
+
+            # print(new_socials)
+            return resp
+        except Exception:
+            return Exception
+
+
     template_name = "edit_profile.html"
     form_class = ProfileUpdateForm
     success_url = reverse_lazy("edit_profile")

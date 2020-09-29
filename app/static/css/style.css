@@ -282,3 +282,15 @@ footer {
     position: absolute;
   }
 }
+
+.social-inputs .form-group select {
+  width: revert;
+}
+.social-inputs .form-group select.btn-grey {
+  background: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%204%205'%3E%3Cpath%20fill='%23667189'%20d='M2%200L0%202h4zm0%205L0%203h4z'/%3E%3C/svg%3E") right .85rem center/.5rem .6rem no-repeat no-repeat, var(--grid-grey);
+  border: 1px solid #ddd;
+}
+
+.social-inputs .form-group select:focus {
+  z-index: 10;
+}
