@@ -108,7 +108,7 @@ class SocialLinkFormMixin(FormMixin):
     def form_valid(self, form):
         try:
             resp = super().form_valid(form)
-            CLASS = ContentType.objects.get_for_model(self.get_class_name())
+            CLASS_TYPE = ContentType.objects.get_for_model(self.get_class_name())
             social_types = self.request.POST.getlist("social-type")
             social_contents = self.request.POST.getlist("social-content")
             pk = self.object.pk
@@ -118,12 +118,12 @@ class SocialLinkFormMixin(FormMixin):
                     SocialLinkAttachement(
                         link=SocialLink.objects.get(name=social_types[ind]),
                         content=social_contents[ind],
-                        content_type=CLASS,
+                        content_type=CLASS_TYPE,
                         object_id=pk,
                     )
                 )
 
-            for social in SocialLinkAttachement.objects.filter(content_type=CLASS, object_id=pk):
+            for social in SocialLinkAttachement.objects.filter(content_type=CLASS_TYPE, object_id=pk):
                 if social not in new_socials:
                     social.delete()
                 else:
