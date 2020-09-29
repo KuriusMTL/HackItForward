@@ -86,7 +86,6 @@ class UserView(DetailView):
         return context
 
 
-class EditProfileView(LoginRequiredMixin, UpdateView):
 
 
 class SocialLinkFormMixin(FormMixin):
@@ -142,9 +141,13 @@ class SocialLinkFormMixin(FormMixin):
             return Exception
 
 
+
+
+class EditProfileView(LoginRequiredMixin, SocialLinkFormMixin, UpdateView):
     template_name = "edit_profile.html"
     form_class = ProfileUpdateForm
     success_url = reverse_lazy("edit_profile")
+    classname = Profile
 
     def get_object(self, queryset=None):
         return self.request.user.profile
