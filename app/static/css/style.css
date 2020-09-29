@@ -207,6 +207,14 @@ hr{
     font-weight: 300;
 }
 
+.notification-link{
+  color: var(--cirrus-primary);
+}
+
+.notification-link:hover{
+  color: var(--grey-mid);
+}
+
 
 /**
  * Challenge

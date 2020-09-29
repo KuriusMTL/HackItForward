@@ -15,7 +15,7 @@
         {% if notif != notifications[0] and notif.notification.linked_item.__str__() != notifications[0].notification.linked_item.__str__() %}
           <hr>
         {% endif %}
-        <a class="font-alt font-bold" href="{{ notif.get_link_url() }}">{{ notif.notification.linked_item.__str__() }}</a>
+        <a class="notification-link font-alt font-bold" href="{{ notif.get_link_url() }}">{{ notif.notification.linked_item.__str__() }}</a>
         <span class="font-light">{{ notif.message }}</span><br>
       {% endfor %}
     </div>
