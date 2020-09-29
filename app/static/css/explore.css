@@ -1,16 +1,16 @@
-/* override chosen css and cirrus transition */
+/* Override chosen css and cirrus transition */
 .chosen-container-multi .chosen-choices:focus, .chosen-container-multi.chosen-container-active .chosen-choices {
   border-color: #3dabf0;
   -webkit-box-shadow: none;
   box-shadow: none;
-  transition: .3s;
+  transition: var(--animation-duration);
 }
 .chosen-container-multi .chosen-choices {
   background-image: none;
   border: 1px solid #ddd;
   padding: .6rem 1.1rem;
   border-radius: 3px;
-  transition: .3s;
+  transition: var(--animation-duration);
 }
 select[multiple].input-contains-icon + .chosen-container > .chosen-choices {
   padding-left: 2.75rem;
