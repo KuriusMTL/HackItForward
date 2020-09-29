@@ -164,7 +164,7 @@ class RegisterView(FormView):
         return super().form_valid(form)
 
 
-class InitiativeMixin(ContextMixin):
+class InitiativeViewMixin(ContextMixin):
     classname = None
     initiative = None
 
@@ -190,7 +190,11 @@ class GenericFormMixin(LoginRequiredMixin, ContextMixin):
         return context
 
 
-class ChallengeFormView(GenericFormMixin):
+class InitiativeFormView(GenericFormMixin, SocialLinkFormMixin):
+    pass
+
+
+class ChallengeFormView(InitiativeFormView):
     model = Challenge
     fields = ["name", "image", "description", "creators", "start", "end", "tags"]
 
@@ -212,7 +216,7 @@ class ChallengeUpdateView(ChallengeFormView, UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class ChallengeView(InitiativeMixin, TemplateView):
+class ChallengeView(InitiativeViewMixin, TemplateView):
     template_name = "challenge.html"
     classname = Challenge
 
@@ -227,7 +231,7 @@ class ChallengeView(InitiativeMixin, TemplateView):
         return context
 
 
-class ProjectFormView(GenericFormMixin):
+class ProjectFormView(InitiativeFormView):
     model = Project
     fields = ["name", "image", "description", "creators", "contributors", "tags"]
 
@@ -262,7 +266,7 @@ class ProjectUpdateView(ProjectFormView, UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class ProjectView(InitiativeMixin, TemplateView):
+class ProjectView(InitiativeViewMixin, TemplateView):
     template_name = "project.html"
     classname = Project
 

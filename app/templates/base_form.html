@@ -45,6 +45,13 @@
             </div>
           </div>
         {% endfor %}
+        {% if has_social_links_form %}
+          <div class="row">
+            {% with col_class=True %}
+              {% include "social_link_form.html" %}
+            {% endwith %}
+          </div>
+        {% endif %}
       </div>
       <div class="content">
         <input class="btn btn-primary u-pull-right" type="submit" value="{{ submit }}">
