@@ -1,21 +1,42 @@
 <p align=center>
-    <img alt="Cloak Logo" src="app/static/img/logo.png" width="200px" height="200px">
+    <img alt="Cloak Logo" src="app/static/img/logo-with-name-horizontal.png" height="200px">
     <h3 align=center>Conquer the World's Challenges together</h3>
 </p>
 <p align=center>
-    <img alt="AGPL License" src="https://img.shields.io/github/license/theaviddev/stratus">
+    <img alt="AGPL License" src="https://img.shields.io/github/license/KuriusMTL/HackItForward">
     <a target="_blank" href="https://www.python.org/downloads/" title="Python version"><img alt="Python >= 3.6" src="https://img.shields.io/badge/python-%3E=_3.6-green.svg"></a>
-    <img alt="GitHub stars" src="https://img.shields.io/github/stars/theaviddev/cloak">
+    <img alt="GitHub stars" src="https://img.shields.io/github/stars/KuriusMTL/HackItForward">
 </p>
 
 # About
-Stratus is a Web Platform that aims to connect organizations directly with developers to find solutions and make real world impact. It was built in response to the year 2020... what a year. This year has revealed the most vurnable out of all of us, and has left the rest of us with much stronger will to HELP, and MAKE AN IMPACT. With the world shifting online, developers are becoming a nessecity in any organization. However, it is often the organizations with the least reasources, that are in need of developers. Stratus, was created to directly link these organizations with up and coming developers, who are in need of experience, and who's skill's could level up any organization.  
 
-The driving functionality of Stratus are the challenge pages. If an organization is in need of a piece of software, a website, or maybe even some ideas, they can post a challenge prompt on a Challenge page, tag all the nessary skills, difficulties, and urgencies that relate to the challenge. Developers will then be able to view these challenges and make projects according to the organization's needs. This way, the organization can connect with developers looking to make an impact, and the developers will get the experience they need to build their skills and progress in their career.
+With the world shifting online as a result of the pandemic, developers are becoming an increasing necessity in any organization. However, during this period, many organizations with limited resources, most often nonprofits, are struggling with this difficult transition. HackItForward was created to help these organizations tackle their problems, by offering up-and-coming developers a platform to work on real-world projects and make a meaningful impact on society.
 
-*This project was made for KuriusHacks 2020 by [TheAvidDev](https://github.com/TheAvidDev/), [dulldesk](https://github.com/dulldesk/), [skyflaren](https://github.com/skyflaren/), and [aavaSapkota](https://github.com/aavaSapkota) where we won the first place award.*
+The driving functionality of HackItForward are the challenges. These come in varying levels of difficulty and requirements. As a general guideline, there are two main types of challenges, tutorial challenges and real-world challenges:
+
+1. With the intent of being beginner-friendly, tutorial challenges displayed on the platform are permanent, learning-focused and have the primary purpose of educating programmers. They act as tutorials to walk developers through the creation of a project from start to finish.
+
+2. On the other hand, real-world challenges are impact-focused and time-constrained. They give an opportunity for developers to build their programming skills, obtain real-world experience, progress in their careers and help society along the way. The best projects submitted for these challenges are likely to be implemented by the organizations.
+
+
+# Running the project locally
+
+1. Installing the required packages and setting up the local database
+```
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py loaddata users
+python manage.py loaddata tags
+python manage.py loaddata social_links
+python manage.py loaddata challenges
+python manage.py loaddata projects
+```
+2. To start the Django server, run `python manage.py runserver`
+
+**Note**: You should do this in a Python [virtualenv](https://virtualenv.pypa.io/en/stable/) or similar alternative.
 
 # Features
+
  - Challenge pages where organizations post challenge prompts.
  - Project postings where developers can join projects.
  - Tasks associated with each project which act as a to-do list for contributing developers.
@@ -23,3 +44,5 @@ The driving functionality of Stratus are the challenge pages. If an organization
  - Badges awarded to developers for completing challenges.
  - Community heatmap where developers can see other contributors in their area, fostering a sense of community.
  - And so much more!
+
+ *This project was initially made for [KuriusHacks 2020](https://www.kurius.ca/kuriushacks) by [TheAvidDev](https://github.com/TheAvidDev/), [dulldesk](https://github.com/dulldesk/), [skyflaren](https://github.com/skyflaren/), and [aavaSapkota](https://github.com/aavaSapkota), and was awarded first place at the end of the hackathon.*
