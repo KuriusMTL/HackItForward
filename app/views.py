@@ -92,7 +92,6 @@ class SocialLinkFormMixin(FormMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        print(self.object)
         context["default_social_links"] = SocialLink.objects.all()
         context["has_social_links_form"] = True
         context["social_links"] = (
@@ -133,8 +132,8 @@ class SocialLinkFormMixin(FormMixin):
                 social.save()
 
             return resp
-        except Exception:
-            return Exception
+        except Exception as err:
+            return err
 
 
 class EditProfileView(LoginRequiredMixin, SocialLinkFormMixin, UpdateView):
