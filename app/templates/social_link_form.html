@@ -12,7 +12,7 @@
               <option value="{{ type.name }}" {% if type == link.link %}selected{% endif %}>{{ type.name }}</option>
             {% endfor %}
           </select>
-          <input type="text" class="form-group-input" placeholder="URL, username, or text to be used in the link" value="{{ link.content }}" name="social-content" required>
+          <input type="text" class="form-group-input" placeholder="{{ link.link.placeholder }}" value="{{ link.content }}" name="social-content" required>
           <button class="form-group-btn social-del" disabled>x</button>
         </div>
       {% endfor %}
