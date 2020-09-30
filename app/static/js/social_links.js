@@ -1,8 +1,8 @@
-$(window).on('load', () => {
-	$('.social-del').click(deleteSocialInput);
+$(window).on("load", () => {
+	$(".social-del").click(deleteSocialInput);
 
-	$('.social-add').click(evt => {
-		evt.preventDefault();
+	$(".social-add").click(e => {
+		e.preventDefault();
 		
 		const newSelect = $("<select></select>")
 			.prop("name", "social-type")
@@ -32,17 +32,16 @@ $(window).on('load', () => {
 
 		const newField = $("<div></div>")
 			.addClass("form-group")
-	    	    	.append(newSelect, newInput, newBtn);
+			.append(newSelect, newInput, newBtn);
 
-		$('.social-inputs').append(newField);
+		$(".social-inputs").append(newField);
 	});
 
 	// enable after the click handler has been added
-	$('.social-add').prop("disabled",false);
-	$('.social-del').prop("disabled",false);
+	$(".social-add, .social-del").prop("disabled",false);
 });
 
-function deleteSocialInput(evt) {
-	evt.preventDefault();
+function deleteSocialInput(e) {
+	e.preventDefault();
 	$(this).parent().remove();
 }
