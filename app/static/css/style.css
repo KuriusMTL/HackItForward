@@ -86,6 +86,25 @@ div.header {
   color: var(--cirrus-primary) !important;
 }
 
+.btn, [type=submit], button {
+  transition: all var(--animation-duration);
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(60,140,201,.5);
+}
+
+.btn-grey {
+  background-color: var(--grid-grey);
+  border-color: var(--grid-grey);
+  color: var(--grey-mid);
+}
+
+.btn-grey:hover {
+  background-color: white;
+  color: var(--cirrus-primary);
+}
+
 .frame__body .btn-primary:hover {
   background: white;
   color: var(--cirrus-primary);
@@ -119,6 +138,10 @@ footer {
   font-weight: 100;
   letter-spacing: 0.5px;
   color: var(--grey-mid);
+}
+
+.list-item:hover{
+  color: var(--cirrus-primary);
 }
 
 
@@ -267,18 +290,6 @@ footer {
 .frame .form-section {
   padding-bottom: 1.5rem;
 }
-
-.btn-grey {
-  background-color: var(--grid-grey);
-  border-color: var(--grid-grey);
-  color: var(--grey-mid);
-}
-
-.btn-grey:hover {
-  background-color: white;
-  color: var(--cirrus-primary);
-}
-
 
 @media only screen and (min-width: 769px) {
   .buttons {
