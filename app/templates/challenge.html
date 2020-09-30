@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class="card-body content">
-          <p>{{ project.description|truncatechars(80) }}</p>
+          <p>{{ project.one_liner|truncatechars(80) }}</p>
         </div>
         <div class="card-footer content">
           {% for tag in project.tags.all()[:3] %}
