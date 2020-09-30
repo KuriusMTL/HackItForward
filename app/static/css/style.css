@@ -126,20 +126,6 @@ footer {
   margin-bottom: 0px;
 }
 
-.bold-footer {
-  font-weight: bold;
-  margin-block-start: 2.33em;
-  margin-block-end: 2.33em;
-  letter-spacing: 3px;
-}
-
-.thin-footer {
-  font-family:'Nunito-Sans', sans-serif;
-  font-weight: 100;
-  letter-spacing: 0.5px;
-  color: var(--grey-mid);
-}
-
 .list-item:hover{
   color: var(--cirrus-primary);
 }
