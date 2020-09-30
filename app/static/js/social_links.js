@@ -5,7 +5,7 @@ $(window).on('load', () => {
 		evt.preventDefault();
 		
 		const newSelect = $("<select></select>")
-			.prop("name","social-type")
+			.prop("name", "social-type")
 			.addClass("form-group-label")
 			.addClass("btn-grey")
 			.addClass("select");
@@ -19,10 +19,10 @@ $(window).on('load', () => {
 
 		const newInput = $("<input>")
 			.addClass("form-group-input")
-			.prop("type","text")
-			.prop("name","social-content")
-			.prop("placeholder",HELP_TEXT)
-			.prop("required",true);
+			.prop("type", "text")
+			.prop("name", "social-content")
+			.prop("placeholder", HELP_TEXT)
+			.prop("required", true);
 
 		const newBtn = $("<button></button>")
 			.addClass("form-group-btn")
@@ -32,7 +32,7 @@ $(window).on('load', () => {
 
 		const newField = $("<div></div>")
 			.addClass("form-group")
-	    	.append(newSelect, newInput, newBtn);
+	    	    	.append(newSelect, newInput, newBtn);
 
 		$('.social-inputs').append(newField);
 	});

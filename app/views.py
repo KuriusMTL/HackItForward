@@ -94,14 +94,12 @@ class SocialLinkFormMixin(FormMixin):
         context = super().get_context_data(**kwargs)
         context["default_social_links"] = SocialLink.objects.all()
         context["has_social_links_form"] = True
-        context["social_links"] = (
-            []
-            if self.object is None
-            else SocialLinkAttachement.objects.filter(
+        context["social_links"] = []
+        if self.object:
+            context["social_links"] = SocialLinkAttachement.objects.filter(
                 object_id=self.object.pk,
                 content_type=ContentType.objects.get_for_model(self.get_class_name()),
             )
-        )
         return context
 
     def form_valid(self, form):
