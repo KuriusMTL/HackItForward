@@ -105,37 +105,32 @@ class SocialLinkFormMixin(FormMixin):
         return context
 
     def form_valid(self, form):
-        try:
-            resp = super().form_valid(form)
-            CLASS_TYPE = ContentType.objects.get_for_model(self.get_class_name())
-            social_types = self.request.POST.getlist("social-type")
-            social_contents = self.request.POST.getlist("social-content")
-            pk = self.object.pk
-            new_socials = []
-            for ind in range(len(social_types)):
-                new_socials.append(
-                    SocialLinkAttachement(
-                        link=SocialLink.objects.get(name=social_types[ind]),
-                        content=social_contents[ind],
-                        content_type=CLASS_TYPE,
-                        object_id=pk,
-                    )
+        resp = super().form_valid(form)
+        CLASS_TYPE = ContentType.objects.get_for_model(self.get_class_name())
+        social_types = self.request.POST.getlist("social-type")
+        social_contents = self.request.POST.getlist("social-content")
+        pk = self.object.pk
+        new_socials = []
+        for ind in range(len(social_types)):
+            new_socials.append(
+                SocialLinkAttachement(
+                    link=SocialLink.objects.get(name=social_types[ind]),
+                    content=social_contents[ind],
+                    content_type=CLASS_TYPE,
+                    object_id=pk,
                 )
+            )
 
-            for social in SocialLinkAttachement.objects.filter(
-                content_type=CLASS_TYPE, object_id=pk
-            ):
-                if social not in new_socials:
-                    social.delete()
-                else:
-                    new_socials.remove(social)
+        for social in SocialLinkAttachement.objects.filter(content_type=CLASS_TYPE, object_id=pk):
+            if social not in new_socials:
+                social.delete()
+            else:
+                new_socials.remove(social)
 
-            for social in new_socials:
-                social.save()
+        for social in new_socials:
+            social.save()
 
-            return resp
-        except Exception as err:
-            return err
+        return resp
 
 
 class EditProfileView(LoginRequiredMixin, SocialLinkFormMixin, UpdateView):
