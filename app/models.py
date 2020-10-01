@@ -9,6 +9,7 @@ from django.dispatch import receiver
 from django.urls import reverse
 from django.utils import timezone
 
+from app.countries import COUNTRY_CHOICES
 
 class SocialLink(models.Model):
     name = models.CharField(
@@ -87,6 +88,7 @@ class Profile(models.Model):
     description = models.TextField(
         blank=True, verbose_name="Description", help_text="User description."
     )
+    country = models.CharField(max_length=3, choices=COUNTRY_CHOICES, blank=True, null=True);
     badges = models.ManyToManyField(
         Badge,
         blank=True,
