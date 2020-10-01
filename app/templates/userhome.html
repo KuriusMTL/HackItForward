@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block head %}
-<title>{{ profile.username }}'s Home | HackItForward</title>
+<title>{{ user.username }}'s Home | HackItForward</title>
 {% endblock %}
 
 {% block body %}
 <div class="content">
   <div class="row">
     <div class="col-12">
-      {% if profile != request.user.profile %}
-        <h2 class="header-margin">{{ profile.username }}'s Projects</h2>
+      {% if user != request.user.profile %}
+        <h2 class="header-margin">{{ user.username }}'s Projects</h2>
       {% else %}
         <h2 class="header-margin">Your Projects</h2>
       {% endif %}
@@ -30,7 +30,7 @@
               <div class="tile__container">
                 <p class="tile__title">{{ project.name }}</p>
                 <p class="tile__subtitle">
-                  {% if profile in project.creators.all() %}
+                  {% if user in project.creators.all() %}
                     Creator
                   {% else %}
                     Contributor
@@ -49,8 +49,8 @@
     {% endfor %}
     {% if not projects %} 
       <div class="col-12">
-        {% if profile != request.user.profile %}
-          <p>{{ profile.username }} has not created or contributed to any projects yet.</p>
+        {% if user != request.user.profile %}
+          <p>{{ user.username }} has not created or contributed to any projects yet.</p>
         {% else %}
         <p>No projects yet! Check out <a href="{{ url('index') }}">Explore</a> for some challenges to submit to and projects to contribute to.</p>
         {% endif %}
@@ -60,17 +60,17 @@
   <br>
   <div class="row">
     <div class="col-12">
-      {% if profile != request.user.profile %}
-        <h2 class="header-margin">{{ profile.username }}</h2>
+      {% if user != request.user.profile %}
+        <h2 class="header-margin">{{ user.username }}</h2>
       {% else %}
         <h2 class="header-margin">Profile</h2>
       {% endif %}
     </div>
 
-    {% if not profile.description and not profile.badges.exists() and not links.exists() and not profile.tags.exists() %}
+    {% if not user.description and not user.badges.exists() and not links.exists() and not user.tags.exists() %}
       <div class="col-12">
-        {% if profile != request.user.profile %}
-          <p>{{ profile.username }} has not given any user details.</p>
+        {% if user != request.user.profile %}
+          <p>{{ user.username }} has not given any user details.</p>
         {% else %}
           <p>No user details! Go to <a href="{{ url('edit_profile') }}">Edit Profile</a> to add something about yourself.</p>
         {% endif %}
@@ -78,7 +78,7 @@
     {% else %}
       <div class="card col-12" id="profile-block">
         <div class="col-12">
-          {% if profile.description %}
+          {% if user.description %}
             <div class="tile level r">
               <div class="tile__icon">
                 <span class="icon">
@@ -95,12 +95,12 @@
                 </span>
               </div>
               <div class="tile__container">
-                {{ profile.description|mistune }}
+                {{ user.description|mistune }}
               </div>
             </div>
           {% endif %}
 
-          {% if profile.badges.exists() %}
+          {% if user.badges.exists() %}
             <div class="tile level r">
               <div class="tile__icon">
                 <span class="icon">
@@ -109,7 +109,7 @@
               </div>
               <div class="tile__container">
                 <span class="tile__title badges">Badges:
-                  {% for badge in profile.badges.all() %}
+                  {% for badge in user.badges.all() %}
                     <a href="#badge-{{ badge.pk }}" class="tooltip" data-tooltip="{{ badge.name }}">
                       <img src="{{ badge.icon.url }}">
                     </a>
@@ -156,7 +156,7 @@
             </div>
           {% endif %}
 
-          {% if profile.tags.exists() %}
+          {% if user.tags.exists() %}
             <div class="tile level r">
               <div class="tile__icon">
                 <span class="icon">
@@ -165,7 +165,7 @@
               </div>
               <div class="tile__container">
                 <p class="tile__title">Interests:
-                  {% for tag in profile.tags.all() %}
+                  {% for tag in user.tags.all() %}
                     <span class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</span>
                   {% endfor %}
                 </p>

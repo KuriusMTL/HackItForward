@@ -61,7 +61,7 @@ class IndexView(TemplateView):
 class UserView(DetailView):
     template_name = "userhome.html"
     model = Profile
-    context_object_name = "profile"
+    context_object_name = "user"
 
     def get_object(self, queryset=None):
         if "pk" in self.kwargs:
