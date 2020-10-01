@@ -20,6 +20,14 @@ urlpatterns = [
     path("challenge/create/", views.ChallengeCreateView.as_view(), name="challenge_create"),
     path("challenge/<int:pk>/", views.ChallengeView.as_view(), name="challenge"),
     path("challenge/<int:pk>/edit/", views.ChallengeUpdateView.as_view(), name="challenge_edit"),
+    path(
+        "challenge/<int:pk>/follow/", views.ChallengeFollowView.as_view(), name="challenge_follow"
+    ),
+    path(
+        "challenge/<int:pk>/unfollow/",
+        views.ChallengeUnFollowView.as_view(),
+        name="challenge_unfollow",
+    ),
     path("project/create/", views.ProjectCreateView.as_view(), name="project_create"),
     path(
         "project/create/<int:pk>/",
@@ -28,4 +36,8 @@ urlpatterns = [
     ),
     path("project/<int:pk>/", views.ProjectView.as_view(), name="project"),
     path("project/<int:pk>/edit/", views.ProjectUpdateView.as_view(), name="project_edit"),
+    path("project/<int:pk>/follow/", views.ProjectFollowView.as_view(), name="project_follow"),
+    path(
+        "project/<int:pk>/unfollow/", views.ProjectUnFollowView.as_view(), name="project_unfollow"
+    ),
 ]

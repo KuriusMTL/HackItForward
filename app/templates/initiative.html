@@ -15,6 +15,11 @@
         {% if initiative.can_edit(request.user) %}
           <a class="btn btn-primary" href="{{ initiative.get_edit_url() }}"><i class="zmdi zmdi-edit"></i> Edit</a>
         {% endif %}
+        {% if following %}
+          <a class="btn btn-primary" href="{{ initiative.get_unfollow_url() }}"><i class="zmdi zmdi-eye-off"></i> Unfollow</a>
+        {% else %}
+          <a class="btn btn-primary" href="{{ initiative.get_follow_url() }}"><i class="zmdi zmdi-eye"></i> Follow</a>
+        {% endif %}
       {% endblock %}
     </div>
     <div class="row">

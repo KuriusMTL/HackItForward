@@ -199,6 +199,12 @@ class Challenge(models.Model):
     def get_edit_url(self):
         return reverse("challenge_edit", args=[self.pk])
 
+    def get_follow_url(self):
+        return reverse("challenge_follow", args=[self.pk])
+
+    def get_unfollow_url(self):
+        return reverse("challenge_unfollow", args=[self.pk])
+
     def is_open(self):
         if not self.start or not self.end:
             return True
@@ -274,6 +280,12 @@ class Project(models.Model):
     def get_edit_url(self):
         return reverse("project_edit", args=[self.pk])
 
+    def get_follow_url(self):
+        return reverse("project_follow", args=[self.pk])
+
+    def get_unfollow_url(self):
+        return reverse("project_unfollow", args=[self.pk])
+
     def __str__(self):
         return self.name
 
@@ -322,3 +334,18 @@ class NotificationInstance(models.Model):
     @property
     def created(self):
         return self.notification.created
+
+
+@receiver(post_save, sender=Project)
+@receiver(post_save, sender=Challenge)
+def notify_followers(sender, instance, created, raw, using, update_fields, **kwargs):
+    if not instance.followers.exists():
+        return
+    message = "The %s %s has been updated." % (instance, sender.__name__)
+    notification = Notification.objects.create(
+        message=message,
+        object_id=instance.pk,
+        content_type=ContentType.objects.get_for_model(sender),
+    )
+    for user in instance.followers.all():
+        NotificationInstance.objects.create(user=user, notification=notification)
