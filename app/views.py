@@ -18,7 +18,6 @@ from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormView, UpdateView
 from django.views.generic.list import ListView
-import struct
 
 
 class IndexView(TemplateView):
