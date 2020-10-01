@@ -10,14 +10,19 @@ from app.countries_data import countries
 class ProfileUpdateForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ["description", "tags", "country"]
-        hidden_fields = ["longitude", "latitude"]
+        fields = ["description", "tags", "country","longitude", "latitude"]
+
+        def clean(self):
+            print("lookin good")
+            self.fields["longitude"] = countries[self.fields["country"]]["Longitude"]
+            self.fields["latitude"] = countries[self.fields["country"]]["Latitude"]
+            print(self.fields["longitude"])
+            print(self.fields["latitude"])
+
 
     def __init__(self, *args, **kwargs):
         super(ProfileUpdateForm, self).__init__(*args, **kwargs)
         self.fields["tags"].widget = CheckboxSelectMultiple()
         self.fields["tags"].queryset = Tag.objects.all()
 
-    def clean(self):
-        self.hidden_feild["longitude"] = countries[self.feilds["country"]]["Longitude"]
-        self.hidden_feild["latitude"] = countries[self.feilds["country"]]["Latitude"]
+    

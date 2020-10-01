@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from app.countries import COUNTRY_CHOICES
+from app.countries_data import countries
 
 class SocialLink(models.Model):
     name = models.CharField(
@@ -82,7 +83,6 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
-
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
     description = models.TextField(
@@ -104,9 +104,12 @@ class Profile(models.Model):
         help_text="Tags associated with this user.",
     )
 
+    
+    
     @property
     def username(self):
         return self.user.username
+
 
     def __str__(self):
         return self.user.username
