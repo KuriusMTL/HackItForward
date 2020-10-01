@@ -52,6 +52,8 @@
         </div>
       </div>
     </div>
+  {% else %}
+    <p>No projects have been posted to this challenge yet! <a href="{{ url('project_challenge_create', pk=initiative.pk) }}">Create a project for this challenge</a>.</p>
   {% endfor %}
 </div>
 {% endblock %}

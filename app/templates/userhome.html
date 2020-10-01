@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-<title>{{ profile.username }}'s Home | Stratus</title>
+<title>{{ profile.username }}'s Home | HackItForward</title>
 {% endblock %}
 
 {% block body %}
@@ -68,7 +68,7 @@
       {% endif %}
     </div>
 
-    {% if not profile.description and not profile.badges.exists and not links.exists and not profile.tags.exists %}
+    {% if not profile.description and not profile.badges.exists() and not links.exists() and not profile.tags.exists() %}
       <div class="col-12">
         {% if profile != request.user.profile %}
           <p>{{ profile.username }} has not given any user details.</p>
@@ -101,7 +101,7 @@
             </div>
           {% endif %}
 
-          {% if profile.badges.exists %}
+          {% if profile.badges.exists() %}
             <div class="tile level r">
               <div class="tile__icon">
                 <span class="icon">
@@ -140,7 +140,7 @@
             </div>
           {% endif %}
 
-          {% if links.exists %}
+          {% if links.exists() %}
             <div class="tile level r">
               <div class="tile__icon">
                 <span class="icon">
@@ -157,7 +157,7 @@
             </div>
           {% endif %}
 
-          {% if profile.tags.exists %}
+          {% if profile.tags.exists() %}
             <div class="tile level r">
               <div class="tile__icon">
                 <span class="icon">

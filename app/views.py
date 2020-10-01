@@ -170,10 +170,11 @@ class ChallengeView(InitiativeMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["time_labels"] = [
-            {"label": "Start Time", "time": self.initiative.start},
-            {"label": "End Time", "time": self.initiative.end},
-        ]
+        if self.initiative.start and self.initiative.end:
+            context["time_labels"] = [
+                {"label": "Start Time", "time": self.initiative.start},
+                {"label": "End Time", "time": self.initiative.end},
+            ]
         context["projects"] = Project.objects.filter(challenge=self.initiative)
         return context
 

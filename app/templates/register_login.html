@@ -3,8 +3,8 @@
     <img class="img-cover" src="{{ static('img/register.png') }}">
     <div class="tab-container tabs-fill">
       <ul>
-        <li{% if type == 'Login' %} class="selected"{% endif %}><a href="{{ url('login') }}">Login</a></li>
-        <li{% if type == 'Register' %} class="selected"{% endif %}><a href="{{ url('register') }}">Register</a></li>
+        <li {% if type == 'Login' %} class="selected" {% endif %}><a href="{{ url('login') }}">Login</a></li>
+        <li {% if type == 'Register' %} class="selected" {% endif %}><a href="{{ url('register') }}">Register</a></li>
       </ul>
     </div> 
     <form action="" method="POST">
@@ -25,5 +25,20 @@
         <input type="submit" class="btn-primary u-pull-right animated" value="{{ type }}">
       </div>
     </form>
+    <div class="frame__body form-section">
+      <label>Or {{ type|lower }} with:</label>
+      <div class="row">
+        <div class="col"> 
+          <a href="{{ url('social:begin', 'google-oauth2') }}?next={{ next }}" class="btn btn-grey u-no-margin w-100">
+            <i class="zmdi zmdi-google"></i>&nbsp;<span>Google</span>
+          </a>
+        </div>
+        <div class="col"> 
+          <a href="{{ url('social:begin', 'github') }}?next={{ next }}" class="btn btn-grey u-no-margin w-100">
+            <i class="zmdi zmdi-github"></i>&nbsp;<span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
