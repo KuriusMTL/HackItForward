@@ -2,14 +2,14 @@
   {% if col_class %}<div class="col-2 u-text-right" >{% endif %}
     <label for="socials">Links:</label>
   {% if col_class %}</div>{% endif %}
-
+  
   <div {% if col_class %} class="col-10" style="padding-top:0" {% endif %}>
     <div class="social-inputs">
       {% for link in social_links %}
         <div class="form-group">
           <select class="form-group-label select btn-grey" name="social-type">
             {% for type in default_social_links %}
-              <option value="{{ type.name }}" {% if type == link.link %}selected{% endif %}>{{ type.name }}</option>
+              <option value="{{ type }}" {% if type == link.link.name %}selected{% endif %}>{{ type }}</option>
             {% endfor %}
           </select>
           <input type="text" class="form-group-input" placeholder="{{ link.link.placeholder }}" value="{{ link.content }}" name="social-content" required>
@@ -22,8 +22,6 @@
 </div>
 
 <script>
-  const HELP_TEXT = "URL, username, or text to be used in the link";
-  const SOCIAL_TYPES = "{% for item in default_social_links %}{{ item }},{% endfor %}".split(",");
-  SOCIAL_TYPES.pop();
+  const SOCIAL_TYPES = {{ default_social_links|safe }};
 </script>
 <script src="{{ static("js/social_links.js") }}"></script>

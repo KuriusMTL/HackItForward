@@ -92,7 +92,9 @@ class SocialLinkFormMixin(FormMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["default_social_links"] = SocialLink.objects.all()
+        context["default_social_links"] = {
+            lnk.name: lnk.placeholder for lnk in SocialLink.objects.all()
+        }
         context["has_social_links_form"] = True
         context["social_links"] = []
         if self.object:
@@ -120,7 +122,9 @@ class SocialLinkFormMixin(FormMixin):
                     )
                 )
 
-            for social in SocialLinkAttachement.objects.filter(content_type=CLASS_TYPE, object_id=pk):
+            for social in SocialLinkAttachement.objects.filter(
+                content_type=CLASS_TYPE, object_id=pk
+            ):
                 if social not in new_socials:
                     social.delete()
                 else:

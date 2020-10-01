@@ -8,9 +8,10 @@ $(window).on("load", () => {
 			.prop("name", "social-type")
 			.addClass("form-group-label")
 			.addClass("btn-grey")
-			.addClass("select");
+			.addClass("select")
+			.change(updatePlaceholder);
 
-		for (let type of SOCIAL_TYPES) {
+		for (let type in SOCIAL_TYPES) {
 			const opt = $("<option></option>")
 				.val(type)
 				.text(type);
@@ -21,7 +22,7 @@ $(window).on("load", () => {
 			.addClass("form-group-input")
 			.prop("type", "text")
 			.prop("name", "social-content")
-			.prop("placeholder", HELP_TEXT)
+			.prop("placeholder", SOCIAL_TYPES[Object.keys(SOCIAL_TYPES)[0]])
 			.prop("required", true);
 
 		const newBtn = $("<button></button>")
@@ -37,9 +38,16 @@ $(window).on("load", () => {
 		$(".social-inputs").append(newField);
 	});
 
+	// add onchange to current select fields
+	$(".social-inputs select").change(updatePlaceholder);
+
 	// enable after the click handler has been added
 	$(".social-add, .social-del").prop("disabled",false);
 });
+
+function updatePlaceholder() {
+	$(this).parent().find("input[type='text']").first().prop("placeholder", SOCIAL_TYPES[$(this).val()]);
+}
 
 function deleteSocialInput(e) {
 	e.preventDefault();
