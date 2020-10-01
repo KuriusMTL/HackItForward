@@ -12,7 +12,7 @@
     </div>
     <div class="card col-12" id="challenge-frame">
       {% for notif in notifications %}
-        {% if notif is not notifications[0] %}
+        {% if notif != notifications[0] %}
           <hr>
         {% endif %}
         <a class="notification-link font-alt font-bold" href="{{ notif.get_link_url() }}">{{ notif.notification.linked_item.__str__() }}</a>
