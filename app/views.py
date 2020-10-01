@@ -15,7 +15,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic.base import TemplateView, ContextMixin
-from django.views.generic.detail import DetailView
+from django.views.generic.detail import DetailView, SingleObjectMixin
 from django.views.generic.edit import CreateView, FormView, UpdateView
 from django.views.generic.list import ListView
 import struct
@@ -127,6 +127,7 @@ class InitiativeMixin(ContextMixin):
         self.initiative = self.classname.objects.get(pk=pk)
 
         context["initiative"] = self.initiative
+        context["following"] = self.initiative.followers.filter(user=self.request.user).exists()
         context["links"] = SocialLinkAttachement.objects.filter(
             object_id=pk, content_type=ContentType.objects.get_for_model(self.classname)
         )
@@ -141,6 +142,20 @@ class GenericFormMixin(LoginRequiredMixin, ContextMixin):
         context["header"] = ("Edit %s" if self.object else "Create %s") % self.model.__name__
         context["submit"] = "Save" if self.object else "Create"
         return context
+
+
+class FollowMixin(DetailView):
+    def get(self, *args, **kwargs):
+        obj = self.get_object()
+        obj.followers.add(self.request.user.profile)
+        return redirect(obj.get_absolute_url())
+
+
+class UnFollowMixin(DetailView):
+    def get(self, *args, **kwargs):
+        obj = self.get_object()
+        obj.followers.remove(self.request.user.profile)
+        return redirect(obj.get_absolute_url())
 
 
 class ChallengeFormView(GenericFormMixin):
@@ -177,6 +192,14 @@ class ChallengeView(InitiativeMixin, TemplateView):
         ]
         context["projects"] = Project.objects.filter(challenge=self.initiative)
         return context
+
+
+class ChallengeFollowView(FollowMixin):
+    model = Challenge
+
+
+class ChallengeUnFollowView(UnFollowMixin):
+    model = Challenge
 
 
 class ProjectFormView(GenericFormMixin):
@@ -222,3 +245,11 @@ class ProjectView(InitiativeMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context["time_labels"] = [{"label": "Creation Time", "time": self.initiative.created}]
         return context
+
+
+class ProjectFollowView(FollowMixin):
+    model = Project
+
+
+class ProjectUnFollowView(UnFollowMixin):
+    model = Project
