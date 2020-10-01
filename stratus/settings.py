@@ -162,5 +162,4 @@ LOGIN_REDIRECT_URL = '/home/'
 LOGIN_URL = '/login/'
 
 
-# ID of the site the settings file represents.
 SITE_ID = 1
