@@ -8,7 +8,7 @@ from django.forms.widgets import CheckboxSelectMultiple
 class ProfileUpdateForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ["description", "tags"]
+        fields = ["description", "tags", "country", "city"]
         hidden_fields = ["longitude", "latitude"]
 
     def __init__(self, *args, **kwargs):

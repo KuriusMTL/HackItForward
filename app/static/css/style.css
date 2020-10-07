@@ -233,8 +233,22 @@ footer {
   justify-items: center;
 }
 
+#geocoder {
+  position: relative;
+  z-index: 1;
+  width: 50%;
+  left: 50%;
+  margin-left: -25%;
+  top: 10px;
+}
+
+.mapboxgl-ctrl-geocoder {
+  min-width: 100%;
+  margin-left:10%;
+}
+
 #map {
-  height: 50vh;
+  margin-top: 75px;
 }
 
 .form-section > label {

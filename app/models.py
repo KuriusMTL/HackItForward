@@ -87,6 +87,8 @@ class Profile(models.Model):
     description = models.TextField(
         blank=True, verbose_name="Description", help_text="User description."
     )
+    country = models.CharField(blank=True, null=True, max_length=30, verbose_name="country", help_text="Country of origin of user")
+    city = models.CharField(blank=True, null=True,max_length=30, verbose_name="city", help_text="City of origin of user")
     badges = models.ManyToManyField(
         Badge,
         blank=True,
@@ -108,7 +110,6 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
-
 
 class Challenge(models.Model):
     name = models.CharField(

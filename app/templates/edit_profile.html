@@ -69,20 +69,25 @@
             <span class="text-primary info">{{ error }}</span>
           {% endfor %}
         </div>
-        <div class="form-section">
+        <!-- <div class="form-section">
           <label>Where are you from?</label>
-          <p>Click and drag the marker. </p>
           <div class="map-container w-100 h-50">
-            <div id="map">Map should be here</div>
+            <small>Country:</small>
+            <div class="input-control">
+              {{ form.country }}
+            </div>
+            <small>City:</small>
+            <div class="input-control">
+              {{ form.city }}
+            </div>
           </div>
-        </div>
+        </div> -->
         <br>
         <input type="submit" class="btn-primary u-pull-right animated" value="Save all">
       </div>
     </form>
   </div>
 </div>
-<script src="{{ static('js/map.js') }}"></script>
 <script>
   var simplemde = new SimpleMDE({ element: document.getElementById("id_description") });
 </script>
