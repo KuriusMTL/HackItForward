@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>About | HackItForward</title>
+{% endblock %}
+
+{% block body %}
+<space class="large"></space>
+<div class="content">
+  <h1 style="text-align: center">This is HackItFoward</h1>
+  <div style="border-radius: 20px; background-color: white; height:50%; margin-top: 50px; text-align: center;">
+    <img src="{{ static('img/humaans/peoplesitting.svg') }}" style="height: 50%; width: 50%;">
+  </div>
+  <div class="row level">
+    <div class="col-6 level-content" style="padding: 20px">
+      <h5>1. Work on Challenges.</h5>
+      <h5>2. Showcase your projects.</h5>
+      <h5>3. Implement your solutions.</h5>
+    </div>
+    <div class="col-6" style="padding: 20px">
+      <p>With the world shifting online as a result of the pandemic, many organizations
+        with limited resources, most often nonprofits, are struggling with this difficult transition.
+        HackItForward offers up-and-coming developers opportunities to help these organizations,
+       giving them real-world experience while making a meaningful impact on society.
+    </p>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

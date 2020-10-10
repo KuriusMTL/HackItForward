@@ -13,7 +13,7 @@
 
   <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cirrus-ui@0.5.5/dist/cirrus.min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
@@ -66,8 +66,8 @@
             </ul>
           </div>
           {% else %}
-          <div class="nav-item btn-container">
-            <a href="{{ url('login') }}" class="btn-primary btn-animated">Login</a>
+          <div class="nav-item btn-container" style="border-radius: 15px;">
+            <a href="{{ url('login') }}" class="btn--pilled btn-primary btn-animated">Login</a>
           </div>
         {% endif %}
       </div>
@@ -80,47 +80,39 @@
 
   <footer>
     <div class="content">
-      <a href="{{ url('index') }}">
-        <img src="{{ static('img/logo.png') }}" class="logo" alt="HackItForward">
-      </a>
-      <div class="row u-center">
-        <div class="col-3">
-          <ul class="no-bullets">
-            <p class="footer-list-title">About</p>
-            <a href="/faq">
-              <li class="list-item">FAQ</li>
-            </a>
-            <a href="{{ url('index') }}">
-              <li class="list-item">Explore</li>
-            </a>
-          </ul>
+      <div class="row level">
+          <div class="col-3">
+            <ul class="no-bullets">
+              <p class="footer-list-title">Navigation</p>
+              <a href="{{ url('index') }}">
+                <li class="list-item">Home</li>
+              </a>
+              <a href="/about">
+                <li class="list-item">About</li>
+              </a>
+            </ul>
+          </div>
+          <div class="col-3">
+            <ul class="no-bullets">
+              <p class="footer-list-title">More</p>
+              <a href="https://github.com/KuriusMTL/HackItForward/issues/new?labels=bug&template=bug_report.md" target="_blank" rel="noopener">
+                <li class="list-item">Report a bug</li>
+              </a>
+              <a href="/terms">
+                <li class="list-item">Terms of Service</li>
+              </a>
+            </ul>
+          </div>
+        <div class="col-6 level-items">
+            <h5 class="white">
+            <span class="faded">&copy; 2020</span>
+            <a href="{{ url('index') }}" class="expand">HackItForward</a>
+            </h5>
+            <p class="white poppins">Powered by <a class="u u-LR" href="http://kurius.ca" target="_blank" rel="noopener">Kurius</a></p>
         </div>
-        <div class="col-3">
-          <ul class="no-bullets">
-            <p class="footer-list-title">More</p>
-            <a href="https://github.com/KuriusMTL/HackItForward/issues/new?labels=bug&template=bug_report.md" target="_blank" rel="noopener">
-              <li class="list-item">Report a bug</li>
-            </a>
-            <a href="/tos">
-              <li class="list-item">Terms &amp; Conditions</li>
-            </a>
-          </ul>
-        </div>
+
+
       </div>
-      <space class="large"></space>
-      <div class="row u-center">
-        <a href="https://github.com/KuriusMTL/HackItForward">
-          <span class="icon">
-            <i class="zmdi zmdi-github zmdi-hc-2x" aria-hidden="true"></i>
-          </span>
-        </a>
-      </div>
-      <space></space>
-      <p class="white">
-        <span class="faded">&copy; 2020</span>
-        HackItForward
-      </p>
-      <p>Powered by <a href="http://kurius.ca" target="_blank" rel="noopener">Kurius</a></p>
     </div>
   </footer>
 
