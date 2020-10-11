@@ -39,6 +39,11 @@ h1, h2 ,h3, h4, h5, h6 {
   font-weight: bold;
 }
 
+a {
+  font-weight: 400;
+  padding: 0;
+}
+
 .btn-light {
   color: var(--grey-mid);
 }
@@ -121,14 +126,15 @@ button:focus, a:focus, input:focus {
 
 footer {
   background-color: var(--grey-dark);
+  margin-top: 0;
 }
 
 .footer-title-par {
   font-size: 1.5rem;
 }
 
-.content {
-  margin-bottom: 0px;
+.semi-bold {
+  font-weight: 600;
 }
 
 .bold-footer {
@@ -308,10 +314,6 @@ footer {
 
 .tile__title > span{
   color: var(--grey-dark);
-}
-
-.card.u-flex-column.h-100.slide-up {
-  padding-bottom: 1.5em;
 }
 
 .row [class^=col-]:not(.col-12) {

@@ -1,12 +1,12 @@
 <div class="content" style="max-width: 25em;">
   <div class="frame">
-    <img class="img-cover" src="{{ static('img/register.png') }}">
+    <img class="img-cover" src="{{ static('img/humaans/peoplesitting2.svg') }}" width="250" style="display: block; margin: 0 auto;">
     <div class="tab-container tabs-fill">
       <ul>
         <li{% if type == 'Login' %} class="selected"{% endif %}><a href="{{ url('login') }}">Login</a></li>
         <li{% if type == 'Register' %} class="selected"{% endif %}><a href="{{ url('register') }}">Register</a></li>
       </ul>
-    </div> 
+    </div>
     <form action="" method="POST">
       <div class="frame__body">
         {% csrf_token %}
@@ -28,12 +28,12 @@
     <div class="frame__body form-section">
       <label>Or {{ type|lower }} with:</label>
       <div class="row">
-        <div class="col"> 
+        <div class="col">
           <a href="{{ url('social:begin', 'google-oauth2') }}?next={{ next }}" class="btn btn-grey u-no-margin w-100">
             <i class="zmdi zmdi-google"></i>&nbsp;<span>Google</span>
           </a>
         </div>
-        <div class="col"> 
+        <div class="col">
           <a href="{{ url('social:begin', 'github') }}?next={{ next }}" class="btn btn-grey u-no-margin w-100">
             <i class="zmdi zmdi-github"></i>&nbsp;<span>GitHub</span>
           </a>
