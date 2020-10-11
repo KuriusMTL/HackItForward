@@ -7,6 +7,8 @@
   --grey-light: #f1efef;
   --grey-mid: #6c6c6c;
   --grey-dark: #242424;
+  --blue: #3c8cc9;
+  --dark-blue: #0071bc;
 
   --cirrus-primary: #3c8cc9;
   --cirrus-text: #aacbe3;
@@ -33,6 +35,19 @@ p {
 
 h1, h2 ,h3, h4, h5, h6 {
   font-family: "Poppins", sans-serif;
+  font-weight: bold;
+}
+
+.btn-light {
+  color: var(--grey-mid);
+}
+
+.btn, .btn-primary, .btn-transparent, .btn-light, .btn-dark {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0px;
+  font-size: 16px;
+  text-transform: none;
 }
 
 .frame {
@@ -77,7 +92,7 @@ div.header {
   height: 50px;
 }
 
-.poppins {
+.font-alt {
   font-family: "Poppins", sans-serif;
 }
 
@@ -89,14 +104,9 @@ div.header {
   border-bottom: 2px solid var(--cirrus-primary);
 }
 
-.btn-primary {
-  border: 2px solid var(--cirrus-primary);
-  border-radius: 2px;
-}
-
 .btn-primary:hover {
-  background: inherit;
-  color: var(--cirrus-primary);
+  background: var(--dark-blue);
+  color: white;
 }
 
 .frame__body .btn-primary:hover {
@@ -143,6 +153,71 @@ footer {
   color: var(--grid-grey);
 }
 
+.team-photo {
+  border-radius: 20px;
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.team-photo:hover > .team-name {
+  visibility: visible;
+  top: auto;
+  bottom: 10px;
+}
+
+.team-photo._1 {
+  background-image: url('/static/img/team/stevengong.png');
+}
+
+.team-photo._2 {
+  background-image: url('/static/img/team/louisfy.jpeg');
+}
+
+.team-photo._3 {
+  background-image: url('/static/img/team/fredericjarjour.jpeg');
+}
+
+.team-photo._4 {
+  background-image: url('/static/img/team/anikapeers.jpeg');
+}
+
+.team-photo._5 {
+  background-image: url('/static/img/team/ishita.jpg');
+}
+
+.team-photo._6 {
+  background-image: url('/static/img/team/stevenguikal.jpg');
+}
+
+.team-photo._7 {
+  background-image: url('/static/img/team/justinlu.jpg');
+}
+
+.team-photo._8 {
+  background-image: url('/static/img/team/aavasapkota.jpg');
+}
+
+.team-photo._9 {
+  background-image: url('/static/img/team/celesteluo.jpg');
+}
+
+.team-name {
+  left: 10px;
+  top: auto;
+  right: 10px;
+  bottom: -100px;
+  background-color: white;
+  border-radius: 15px;
+  position: absolute;
+  padding: 10px 20px;
+  transition: all ease 0.5s;
+  visibility: hidden;
+}
+
 
 
 /**
@@ -173,8 +248,8 @@ footer {
   background-color: white;
 }
 
-.button-group {
-  float:left;
+.tabcontent {
+  display: none;
 }
 
 .social-icon {
@@ -193,7 +268,7 @@ footer {
  */
 
 #splash-img {
-  background: url('../img/background.jpg');
+  background: url('/static/img/background.jpg');
   position: relative;
   background-attachment: fixed;
   background-position: center;
