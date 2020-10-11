@@ -224,7 +224,7 @@ footer {
 
  .section {
   padding: 100px 100px;
-  position: relative
+  position: relative;
 }
 
 .section > * {
@@ -232,13 +232,12 @@ footer {
   margin-right: 10%;
 }
 
-.whitebackground {
+.bg-white {
   background-color: white;
 }
 
 .section-color {
-  background: rgb(41,171,226);
-  background: linear-gradient(90deg, rgba(41,171,226,1) 0%, rgba(0,113,188,1) 100%);
+  background: linear-gradient(90deg, rgba(41, 171, 226, 1) 0%, rgba(0, 113, 188, 1) 100%);
 }
 
 .company-preview-card {
