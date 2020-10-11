@@ -16,7 +16,8 @@
   --cirrus-accent-border: #56a0d6;
   --cirrus-accent-hover: var(--grey-light);
   --cirrus-select-bg: #aacbe3;
-  --cirrus-link-dark: white;
+  --cirrus-link: #3c8cc9;
+  --cirrus-link-dark: #0071bc;
 }
 
 * {
@@ -178,30 +179,22 @@ footer {
 }
 
 .team-photo._3 {
-  background-image: url('/static/img/team/fredericjarjour.jpeg');
-}
-
-.team-photo._4 {
-  background-image: url('/static/img/team/anikapeers.jpeg');
-}
-
-.team-photo._5 {
   background-image: url('/static/img/team/ishita.jpg');
 }
 
-.team-photo._6 {
+.team-photo._4 {
   background-image: url('/static/img/team/stevenguikal.jpg');
 }
 
-.team-photo._7 {
+.team-photo._5 {
   background-image: url('/static/img/team/justinlu.jpg');
 }
 
-.team-photo._8 {
+.team-photo._6 {
   background-image: url('/static/img/team/aavasapkota.jpg');
 }
 
-.team-photo._9 {
+.team-photo._7 {
   background-image: url('/static/img/team/celesteluo.jpg');
 }
 
