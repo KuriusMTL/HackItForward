@@ -44,6 +44,14 @@ a {
   padding: 0;
 }
 
+.blue {
+  color: var(--blue);
+}
+
+.dark-blue {
+  color: var(--dark-blue);
+}
+
 .btn-light {
   color: var(--grey-mid);
 }
@@ -137,6 +145,11 @@ footer {
   font-weight: 600;
 }
 
+.reverse {
+  display:flex;
+  flex-direction: column-reverse;
+}
+
 .bold-footer {
   font-weight: bold;
   margin-block-start: 2.33em;
@@ -160,68 +173,15 @@ footer {
   color: var(--grid-grey);
 }
 
-.team-photo {
-  border-radius: 20px;
-  position: relative;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  height: 300px;
-  overflow: hidden;
-}
-
-.team-photo:hover > .team-name {
-  visibility: visible;
-  top: auto;
-  bottom: 10px;
-}
-
-.team-photo._1 {
-  background-image: url('/static/img/team/stevengong.png');
-}
-
-.team-photo._2 {
-  background-image: url('/static/img/team/louisfy.jpeg');
-}
-
-.team-photo._3 {
-  background-image: url('/static/img/team/ishita.jpg');
-}
-
-.team-photo._4 {
-  background-image: url('/static/img/team/stevenguikal.jpg');
-}
-
-.team-photo._5 {
-  background-image: url('/static/img/team/justinlu.jpg');
-}
-
-.team-photo._6 {
-  background-image: url('/static/img/team/aavasapkota.jpg');
-}
-
-.team-photo._7 {
-  background-image: url('/static/img/team/celesteluo.jpg');
-}
-
-.team-name {
-  left: 10px;
-  top: auto;
-  right: 10px;
-  bottom: -100px;
-  background-color: white;
-  border-radius: 15px;
-  position: absolute;
-  padding: 10px 20px;
-  transition: all ease 0.5s;
-  visibility: hidden;
-}
-
 
 
 /**
  * Front page sections
  */
+ #front-button:hover ~ #front-title {
+   color: var(--dark-blue);
+ }
+
  .section {
   padding: 100px 100px;
   position: relative
@@ -312,7 +272,7 @@ footer {
   color: var(--cirrus-primary);
 }
 
-.tile__title > span{
+.tile__title > span {
   color: var(--grey-dark);
 }
 
@@ -408,4 +368,67 @@ footer {
   .buttons {
     position: absolute;
   }
+}
+
+
+
+/**
+ * Team Photo
+ */
+
+.team-photo {
+  border-radius: 20px;
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.team-photo:hover > .team-name {
+  visibility: visible;
+  top: auto;
+  bottom: 10px;
+}
+
+.team-photo._1 {
+  background-image: url('/static/img/team/stevengong.png');
+}
+
+.team-photo._2 {
+  background-image: url('/static/img/team/louisfy.jpeg');
+}
+
+.team-photo._3 {
+  background-image: url('/static/img/team/ishita.jpg');
+}
+
+.team-photo._4 {
+  background-image: url('/static/img/team/stevenguikal.jpg');
+}
+
+.team-photo._5 {
+  background-image: url('/static/img/team/justinlu.jpg');
+}
+
+.team-photo._6 {
+  background-image: url('/static/img/team/aavasapkota.jpg');
+}
+
+.team-photo._7 {
+  background-image: url('/static/img/team/celesteluo.jpg');
+}
+
+.team-name {
+  left: 10px;
+  top: auto;
+  right: 10px;
+  bottom: -100px;
+  background-color: white;
+  border-radius: 15px;
+  position: absolute;
+  padding: 10px 20px;
+  transition: all ease 0.5s;
+  visibility: hidden;
 }
