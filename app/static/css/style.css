@@ -178,6 +178,46 @@ footer {
 /**
  * Front page sections
  */
+
+ .animate {
+  animation : move 7s infinite;
+ }
+
+ @keyframes move {
+  0%, 100% {
+    transform : translate(5px, 5px);
+  }
+  50% {
+    transform: translate(-5px, -5px);
+  }
+}
+
+.animate2 {
+  animation : move2 7s infinite;
+ }
+
+ @keyframes move2 {
+  0%, 100% {
+    transform : translate(5px, -5px);
+  }
+  50% {
+    transform: translate(-5px, 5px);
+  }
+}
+
+.animate3 {
+  animation : move3 7s infinite;
+ }
+
+ @keyframes move3 {
+  0%, 100% {
+    transform : translate(5px, 9px);
+  }
+  50% {
+    transform: translate(-5px, 9px);
+  }
+}
+
  #front-button:hover ~ #front-title {
    color: var(--dark-blue);
  }
