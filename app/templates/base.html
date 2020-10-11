@@ -45,7 +45,7 @@
     <div class="header-nav" id="header-menu">
       <div class="nav-right">
         <div class="nav-item">
-          <a href="/#challenges">Explore</a>
+          <a href="{{ url('explore') }}">Explore</a>
         </div>
         {% if request.user.is_authenticated %}
           <div class="nav-item has-sub btn-container" id="dropdown">
