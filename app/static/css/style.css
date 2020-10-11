@@ -176,7 +176,7 @@ footer {
 
 
 /**
- * Front page sections
+ * Front page strips
  */
 
  .animate {
@@ -222,12 +222,12 @@ footer {
    color: var(--dark-blue);
  }
 
- .section {
+ .strip {
   padding: 100px 100px;
   position: relative;
 }
 
-.section > * {
+.strip > * {
   margin-left: 10%;
   margin-right: 10%;
 }
@@ -236,7 +236,7 @@ footer {
   background-color: white;
 }
 
-.section-color {
+.strip-color {
   background: linear-gradient(90deg, rgba(41, 171, 226, 1) 0%, rgba(0, 113, 188, 1) 100%);
 }
 
