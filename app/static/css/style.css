@@ -72,10 +72,6 @@ a {
   height: 100px;
 }
 
-.header {
-  margin-bottom: 0;
-}
-
 .header .header-nav a {
   text-transform: uppercase;
   color: var(--grey-dark);
