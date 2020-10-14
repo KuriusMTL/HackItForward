@@ -136,10 +136,6 @@ footer {
   font-size: 1.5rem;
 }
 
-.semi-bold {
-  font-weight: 600;
-}
-
 .reverse {
   display:flex;
   flex-direction: column-reverse;
