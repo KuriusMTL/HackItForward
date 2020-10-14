@@ -6,7 +6,7 @@ labels: 'bug'
 ---
 
 Please do the following:
-- - Please read our Code of Conduct: https://github.com/KuriusMTL/HackItForward/blob/master/CODE_OF_CONDUCT.md
+- Please read our Code of Conduct: https://github.com/KuriusMTL/HackItForward/blob/master/CODE_OF_CONDUCT.md
 - Please do NOT submit bug reports for questions.
 - Please search existing issues to avoid creating duplicates.
 - Provide the steps you took to encounter the bug.
