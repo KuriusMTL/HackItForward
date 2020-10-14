@@ -21,7 +21,7 @@
         <div class="col-7">
           <div class="input-control">
             <input type="text" name="q" class="input-contains-icon" placeholder="{{ name|title }} Search"
-              value="{{ q|default("") }}">
+              value="{{ q|default('') }}">
             <span class="icon"><i class="zmdi zmdi-search" aria-hidden="true"></i></span>
           </div>
         </div>
@@ -48,7 +48,7 @@
     {# submission display #}
     <div class="row">
       {% for object in object_list %}
-        <div class="col-4 pointer-cursor" onclick="location.href=`{{ url(name, pk=object.pk) }}`">
+        <div class="col-4 pointer-cursor" onclick="location.href='{{ url(name, pk=object.pk) }}'">
           <div class="card u-flex-column h-100 slide-up">
             <div class="card-container">
               {% if object.image %}

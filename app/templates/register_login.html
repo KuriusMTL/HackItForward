@@ -3,8 +3,8 @@
     <img class="img-cover" src="{{ static('img/humaans/peoplesitting2.svg') }}" width="250" style="display: block; margin: 0 auto;">
     <div class="tab-container tabs-fill">
       <ul>
-        <li{% if type == 'Login' %} class="selected"{% endif %}><a href="{{ url('login') }}">Login</a></li>
-        <li{% if type == 'Register' %} class="selected"{% endif %}><a href="{{ url('register') }}">Register</a></li>
+        <li {% if type == 'Login' %} class="selected" {% endif %}><a href="{{ url('login') }}">Login</a></li>
+        <li {% if type == 'Register' %} class="selected" {% endif %}><a href="{{ url('register') }}">Register</a></li>
       </ul>
     </div>
     <form action="" method="POST">
