@@ -426,34 +426,6 @@ footer {
   bottom: 10px;
 }
 
-.team-photo._1 {
-  background-image: url('/static/img/team/stevengong.png');
-}
-
-.team-photo._2 {
-  background-image: url('/static/img/team/louisfy.jpeg');
-}
-
-.team-photo._3 {
-  background-image: url('/static/img/team/ishita.jpg');
-}
-
-.team-photo._4 {
-  background-image: url('/static/img/team/stevenguikal.jpg');
-}
-
-.team-photo._5 {
-  background-image: url('/static/img/team/justinlu.jpg');
-}
-
-.team-photo._6 {
-  background-image: url('/static/img/team/aavasapkota.jpg');
-}
-
-.team-photo._7 {
-  background-image: url('/static/img/team/celesteluo.jpg');
-}
-
 .team-name {
   left: 10px;
   top: auto;
