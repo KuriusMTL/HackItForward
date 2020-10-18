@@ -20,7 +20,6 @@ $(document).ready(() => {
 });
 
 function openTab(evt, level) {
-  // Declare all variables
   var i, tabcontent, tablevel;
 
   // Get all elements with class="tabcontent" and hide them
@@ -32,10 +31,10 @@ function openTab(evt, level) {
   // Get all elements with class="tablevel" and remove the class "selected"
   tablevel = document.getElementsByClassName("tablevel");
   for (i = 0; i < tablevel.length; i++) {
-    tablevel[i].className = tablevel[i].className.replace(" selected", "");
+    tablevel[i].classList.remove("selected");
   }
 
   // Show the current tab, and add an "selected" class to the button that opened the tab
   document.getElementById(level).style.display = "block";
-  evt.currentTarget.className += " selected";
+  evt.currentTarget.classList.add("selected");
 }

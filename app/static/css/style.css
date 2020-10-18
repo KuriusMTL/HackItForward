@@ -6,8 +6,6 @@
   --grey-light: #f1efef;
   --grey-mid: #6c6c6c;
   --grey-dark: #242424;
-  --blue: #3c8cc9;
-  --dark-blue: #0071bc;
 
   --cirrus-primary: #3c8cc9;
   --cirrus-text: #aacbe3;
@@ -44,11 +42,11 @@ a {
 }
 
 .blue {
-  color: var(--blue);
+  color: var(--cirrus-primary);
 }
 
 .dark-blue {
-  color: var(--dark-blue);
+  color: var(--cirrus-link-dark);
 }
 
 .frame {
@@ -106,7 +104,7 @@ div.header {
 }
 
 .btn-primary:hover {
-  background: var(--dark-blue);
+  background: var(--cirrus-link-dark);
   color: white;
 }
 
@@ -233,7 +231,7 @@ footer {
 }
 
  #front-button:hover ~ #front-title {
-   color: var(--dark-blue);
+   color: var(--cirrus-link-dark);
  }
 
  .strip {
@@ -423,7 +421,7 @@ footer {
   position: relative;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: 50% 50%;
+  background-position: center;
   height: 300px;
   overflow: hidden;
 }
