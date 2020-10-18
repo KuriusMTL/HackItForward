@@ -176,15 +176,6 @@ footer {
   color: var(--cirrus-primary);
 }
 
-.expand {
-  transition: all ease 0.5s;
-}
-
-.expand:hover {
-  font-size: 101%;
-  color: var(--grid-grey);
-}
-
 
 
 /**
