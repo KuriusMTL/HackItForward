@@ -182,11 +182,13 @@ footer {
  * Front page strips
  */
 
- .animate {
-  animation : move 7s infinite;
+ .animate-br-tl {
+  animation : move-br-tl 7s infinite;
+  -webkit-animation : move-br-tl 7s infinite;
+  -moz-animation : move-br-tl 7s infinite;
  }
 
- @keyframes move {
+@keyframes move-br-tl {
   0%, 100% {
     transform : translate(5px, 5px);
   }
@@ -195,11 +197,31 @@ footer {
   }
 }
 
-.animate2 {
-  animation : move2 7s infinite;
+@-webkit-keyframes move-br-tl {
+  0%, 100% {
+    transform : translate(5px, 5px);
+  }
+  50% {
+    transform: translate(-5px, -5px);
+  }
+}
+
+@-moz-keyframes move-br-tl {
+  0%, 100% {
+    transform : translate(5px, 5px);
+  }
+  50% {
+    transform: translate(-5px, -5px);
+  }
+}
+
+.animate-bl-tr {
+  animation : move-bl-tr 7s infinite;
+  -webkit-animation : move-bl-tr 7s infinite;
+  -moz-animation : move-bl-tr 7s infinite;
  }
 
- @keyframes move2 {
+@keyframes move-bl-tr {
   0%, 100% {
     transform : translate(5px, -5px);
   }
@@ -208,11 +230,49 @@ footer {
   }
 }
 
-.animate3 {
-  animation : move3 7s infinite;
+@-webkit-keyframes move-bl-tr {
+  0%, 100% {
+    transform : translate(5px, -5px);
+  }
+  50% {
+    transform: translate(-5px, 5px);
+  }
+}
+
+@-moz-keyframes move-bl-tr {
+  0%, 100% {
+    transform : translate(5px, -5px);
+  }
+  50% {
+    transform: translate(-5px, 5px);
+  }
+}
+
+.animate-l-r {
+  animation : move-l-r 7s infinite;
+  -webkit-animation : move-l-r 7s infinite;
+  -moz-animation : move-l-r 7s infinite;
  }
 
- @keyframes move3 {
+@keyframes move-l-r {
+  0%, 100% {
+    transform : translate(5px, 9px);
+  }
+  50% {
+    transform: translate(-5px, 9px);
+  }
+}
+
+@-webkit-keyframes move-l-r {
+  0%, 100% {
+    transform : translate(5px, 9px);
+  }
+  50% {
+    transform: translate(-5px, 9px);
+  }
+}
+
+@-moz-keyframes move-l-r {
   0%, 100% {
     transform : translate(5px, 9px);
   }
