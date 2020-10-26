@@ -116,7 +116,6 @@ class SocialLinkFormMixin(FormMixin):
             else SocialLinkFormSet(
                 prefix="social_links",
                 queryset=queryset,
-                initial=[initial_data],
             )
         )
 
