@@ -1,55 +1,37 @@
 $(window).on("load", () => {
-	$(".social-del").click(deleteSocialInput);
-
+	$(".social-del").click(toggleSocialInputDelete);
 	$(".social-add").click(e => {
 		e.preventDefault();
 		
-		const newSelect = $("<select></select>")
-			.prop("name", "social-type")
-			.addClass("form-group-label")
-			.addClass("btn-grey")
-			.addClass("select")
-			.change(updatePlaceholder);
-
-		for (let type in SOCIAL_TYPES) {
-			const opt = $("<option></option>")
-				.val(type)
-				.text(type);
-			newSelect.append(opt);
-		}
-
-		const newInput = $("<input>")
-			.addClass("form-group-input")
-			.prop("type", "text")
-			.prop("name", "social-content")
-			.prop("placeholder", SOCIAL_TYPES[Object.keys(SOCIAL_TYPES)[0]])
-			.prop("required", true);
-
-		const newBtn = $("<button></button>")
-			.addClass("form-group-btn")
-			.addClass("social-del")
-			.text("x")
-			.click(deleteSocialInput);
-
-		const newField = $("<div></div>")
-			.addClass("form-group")
-			.append(newSelect, newInput, newBtn);
-
-		$(".social-inputs").append(newField);
+		const form_index = $(`#id_${FORM_PREFIX}-TOTAL_FORMS`).val();
+		const new_form = $($("#social_form_empty").html().replace(/__prefix__/g, form_index));
+		$(".social-inputs").append(new_form);
+		$(`#id_${FORM_PREFIX}-TOTAL_FORMS`).val((form_index/1)+1);
+		new_form.children(".social-del").click(toggleSocialInputDelete);
 	});
 
-	// add onchange to current select fields
-	$(".social-inputs select").change(updatePlaceholder);
 
 	// enable after the click handler has been added
-	$(".social-add, .social-del").prop("disabled",false);
+	$(".social-add, .social-del").prop("disabled", false);
 });
 
-function updatePlaceholder() {
-	$(this).parent().find("input[type='text']").first().prop("placeholder", SOCIAL_TYPES[$(this).val()]);
-}
+const CLOSE = "delete";
+const OPEN = "time-restore-setting";
 
-function deleteSocialInput(e) {
+function toggleSocialInputDelete(e) {
 	e.preventDefault();
-	$(this).parent().remove();
+
+	if (parseInt($(this).attr("data-id").split("-")[1]) >= parseInt($(`#id_${FORM_PREFIX}-INITIAL_FORMS`).val())) {
+		$(this).parent().remove();
+		$(`#id_${FORM_PREFIX}-TOTAL_FORMS`).val(parseInt($(`#id_${FORM_PREFIX}-TOTAL_FORMS`).val())-1);
+		return;
+	}
+
+	$(this).parent().children().filter(function() {
+		return this.classList.length === 0 || !this.classList.contains("social-del")
+	}).each((ind,elm) => $(elm).toggleClass("disabled"));
+
+	const checkbox = $('#'+$(this).attr("data-id"))[0];
+	checkbox.checked = !checkbox.checked;
+	$(this).html(`<i class="zmdi zmdi-${$(this).html().includes(CLOSE) ? OPEN : CLOSE}" aria-hidden="true"></i>`);
 }

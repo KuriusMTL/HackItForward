@@ -1,4 +1,4 @@
-from app.forms import ProfileUpdateForm
+from app.forms import ProfileUpdateForm, SocialLinkFormSet
 from app.models import Challenge, Profile, Project, SocialLink, SocialLinkAttachement, Tag
 
 from django.core.exceptions import PermissionDenied
@@ -88,48 +88,59 @@ class UserView(DetailView):
 
 class SocialLinkFormMixin(FormMixin):
     def get_class_name(self):
-        return self.model if self.model else self.classname
+        return (
+            self.model if self.model else self.object.__class__ if self.object else self.classname
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["default_social_links"] = {
-            lnk.name: lnk.placeholder for lnk in SocialLink.objects.all()
-        }
+
         context["has_social_links_form"] = True
-        context["social_links"] = []
-        if self.object:
-            context["social_links"] = SocialLinkAttachement.objects.filter(
-                object_id=self.object.pk,
-                content_type=ContentType.objects.get_for_model(self.get_class_name()),
+
+        initial_data = {
+            "object_id": 0 if not self.object else self.object.pk,
+            "content_type": ContentType.objects.get_for_model(self.get_class_name()),
+        }
+        queryset = (
+            SocialLinkAttachement.objects.none()
+            if not self.object
+            else SocialLinkAttachement.objects.filter(
+                object_id=initial_data["object_id"],
+                content_type=initial_data["content_type"],
             )
+        )
+
+        context["formset"] = (
+            kwargs.pop("social_formset")
+            if "social_formset" in kwargs
+            else SocialLinkFormSet(
+                prefix="social_links",
+                queryset=queryset,
+                initial=[initial_data],
+            )
+        )
+
+        SocialLinkFormSet.form.base_fields["content_type"].initial = initial_data["content_type"]
+        SocialLinkFormSet.form.base_fields["object_id"].initial = initial_data["object_id"]
+
         return context
+
+    def form_invalid(self, form, formset, **kwargs):
+        return self.render_to_response(self.get_context_data(form=form, social_formset=formset))
 
     def form_valid(self, form):
         resp = super().form_valid(form)
-        CLASS_TYPE = ContentType.objects.get_for_model(self.get_class_name())
-        social_types = self.request.POST.getlist("social-type")
-        social_contents = self.request.POST.getlist("social-content")
-        pk = self.object.pk
-        new_socials = []
-        for ind in range(len(social_types)):
-            new_socials.append(
-                SocialLinkAttachement(
-                    link=SocialLink.objects.get(name=social_types[ind]),
-                    content=social_contents[ind],
-                    content_type=CLASS_TYPE,
-                    object_id=pk,
-                )
-            )
 
-        for social in SocialLinkAttachement.objects.filter(content_type=CLASS_TYPE, object_id=pk):
-            if social not in new_socials:
-                social.delete()
-            else:
-                new_socials.remove(social)
+        social_link_formset = SocialLinkFormSet(
+            self.request.POST,
+            prefix="social_links",
+            form_kwargs={"obj": self.object},
+        )
 
-        for social in new_socials:
-            social.save()
-
+        if social_link_formset.is_valid():
+            social_link_formset.save()
+        else:
+            return self.form_invalid(form, social_link_formset)
         return resp
 
 

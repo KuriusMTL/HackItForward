@@ -3,25 +3,52 @@
     <label for="socials">Links:</label>
   {% if col_class %}</div>{% endif %}
   
+  {{ formset.management_form }}
   <div {% if col_class %} class="col-10" style="padding-top:0" {% endif %}>
     <div class="social-inputs">
-      {% for link in social_links %}
+      {% for formlink in formset %}
         <div class="form-group">
-          <select class="form-group-label select btn-grey" name="social-type">
-            {% for type in default_social_links %}
-              <option value="{{ type }}" {% if type == link.link.name %}selected{% endif %}>{{ type }}</option>
-            {% endfor %}
-          </select>
-          <input type="text" class="form-group-input" placeholder="{{ link.link.placeholder }}" value="{{ link.content }}" name="social-content" required>
-          <button class="form-group-btn social-del" disabled>x</button>
+          {{ formlink.link }}
+          {{ formlink.content }}
+          <button class="form-group-btn social-del" data-id={{ formlink.DELETE.auto_id }} disabled><i class="zmdi zmdi-delete" aria-hidden="true"></i></button>
+          <input type="checkbox" id="{{ formlink.DELETE.auto_id }}" name="{{ formlink.DELETE.html_name }}" style="display:none">
+          {{ formlink.object_id }}
+          {{ formlink.content_type }}
+          {{ formlink.id }}
         </div>
       {% endfor %}
     </div>
     <button class="btn btn-primary social-add" disabled>Add Link</button>
+
+    <div style="display:none" id="social_form_empty">
+      <div class="form-group">
+        {{ formset.empty_form.link }}
+        {{ formset.empty_form.content }}
+        <button class="form-group-btn social-del" data-id={{ formset.empty_form.DELETE.auto_id }}><i class="zmdi zmdi-delete" aria-hidden="true"></i></button>
+        <input type="checkbox" id="{{ formset.empty_form.DELETE.auto_id }}" name="{{ formset.empty_form.DELETE.html_name }}" style="display:none">
+        {{ formset.empty_form.object_id }}
+        {{ formset.empty_form.content_type }}
+        {{ formset.empty_form.id }}
+      </div>
+    </div>
+    {% for dictl in formset.errors %}
+      {% for key, error in dictl.items() %}
+        <div class="toast toast--error" style="margin:0">
+          <button class="btn-close"></button>
+          <p>{{ key|title }} | {{ error.as_text() }}</p>
+        </div>
+      {% endfor %}
+    {% endfor %}
+    {% for error in formset.non_form_errors() %}
+        <div class="toast toast--error" style="margin:0">
+          <button class="btn-close"></button>
+          <p>{{ error.as_text() }}</p>
+        </div>
+    {% endfor %}
   </div>
 </div>
 
 <script>
-  const SOCIAL_TYPES = {{ default_social_links|safe }};
+  const FORM_PREFIX = "{{ formset.prefix }}";
 </script>
-<script src="{{ static("js/social_links.js") }}"></script>
+<script src="{{ static('js/social_links.js') }}"></script>
