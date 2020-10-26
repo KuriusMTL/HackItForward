@@ -75,7 +75,7 @@
   "fields": {
     "name": "YouTube",
     "icon": "youtube-play",
-    "site": "https://youtube.com/channel/",
+    "site": "https://youtube.com/user/%s",
     "placeholder": "Youtube Channel ID"
   }
 },
