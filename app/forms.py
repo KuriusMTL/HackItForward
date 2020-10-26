@@ -32,11 +32,6 @@ class SocialLinkForm(ModelForm):
         self.fields["content_type"].widget = HiddenInput()
         self.fields["object_id"].widget = HiddenInput()
 
-        if getattr(self, "object", None) is not None:
-            self.fields["content_type"].initial = ContentType.objects.get_for_model(
-                self.object.__class__
-            )
-
     def clean_object_id(self):
         cleaned_data = self.cleaned_data
         if getattr(self, "object", None) is not None:
@@ -47,10 +42,9 @@ class SocialLinkForm(ModelForm):
 
     def clean_content_type(self):
         cleaned_data = self.cleaned_data
-        if (
-            "content_type" not in cleaned_data
-            or cleaned_data["content_type"] != self.fields["content_type"].initial
-        ):
+        if "content_type" not in cleaned_data or cleaned_data[
+            "content_type"
+        ] != ContentType.objects.get_for_model(self.object.__class__):
             raise ValidationError("content_type should not be modified")
         return cleaned_data["content_type"]
 

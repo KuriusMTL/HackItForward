@@ -1,5 +1,5 @@
 from app.forms import ProfileUpdateForm, SocialLinkFormSet
-from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag 
+from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag
 
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login
