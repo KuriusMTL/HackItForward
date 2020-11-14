@@ -184,8 +184,7 @@ footer {
 
  .animate-br-tl {
   animation : move-br-tl 7s infinite;
-  -webkit-animation : move-br-tl 7s infinite;
-  -moz-animation : move-br-tl 7s infinite;
+  -moz-animation : none;
  }
 
 @keyframes move-br-tl {
@@ -197,28 +196,9 @@ footer {
   }
 }
 
-@-webkit-keyframes move-br-tl {
-  0%, 100% {
-    transform : translate(5px, 5px);
-  }
-  50% {
-    transform: translate(-5px, -5px);
-  }
-}
-
-@-moz-keyframes move-br-tl {
-  0%, 100% {
-    transform : translate(5px, 5px);
-  }
-  50% {
-    transform: translate(-5px, -5px);
-  }
-}
-
 .animate-bl-tr {
   animation : move-bl-tr 7s infinite;
-  -webkit-animation : move-bl-tr 7s infinite;
-  -moz-animation : move-bl-tr 7s infinite;
+  -moz-animation : none;
  }
 
 @keyframes move-bl-tr {
@@ -230,49 +210,12 @@ footer {
   }
 }
 
-@-webkit-keyframes move-bl-tr {
-  0%, 100% {
-    transform : translate(5px, -5px);
-  }
-  50% {
-    transform: translate(-5px, 5px);
-  }
-}
-
-@-moz-keyframes move-bl-tr {
-  0%, 100% {
-    transform : translate(5px, -5px);
-  }
-  50% {
-    transform: translate(-5px, 5px);
-  }
-}
-
 .animate-l-r {
   animation : move-l-r 7s infinite;
-  -webkit-animation : move-l-r 7s infinite;
-  -moz-animation : move-l-r 7s infinite;
+  -moz-animation : none;
  }
 
 @keyframes move-l-r {
-  0%, 100% {
-    transform : translate(5px, 9px);
-  }
-  50% {
-    transform: translate(-5px, 9px);
-  }
-}
-
-@-webkit-keyframes move-l-r {
-  0%, 100% {
-    transform : translate(5px, 9px);
-  }
-  50% {
-    transform: translate(-5px, 9px);
-  }
-}
-
-@-moz-keyframes move-l-r {
   0%, 100% {
     transform : translate(5px, 9px);
   }
