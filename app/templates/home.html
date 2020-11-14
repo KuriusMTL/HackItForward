@@ -58,22 +58,22 @@
       </a>
     </div>
     <div class="col-6 level-items">
-      <div class="card slide-up pointer-cursor" style="width: 80%;"  onclick="location.href=`/about`">
+      <div class="card slide-up pointer-cursor" style="width: 80%;"  onclick="location.href=`{{ url('challenge', 1)}}`">
         <div class="card-container">
-          <div class="card-image" style="background-image: url(https://unsplash.it/640/480?random&blur)"></div>
+          <div class="card-image" style="background-image: url({{ static('img/fundraising.jpg') }})"></div>
         </div>
         <div class="mobile-title">
           <div class="content">
             <div class="tile">
               <div class="tile__container">
-                <p class="tile__title">Funding for Homeless Community</p>
+                <p class="tile__title">Fundraising Challenge</p>
                 <p class="tile__subtitle">By TechAide</p>
               </div>
             </div>
           </div>
         </div>
         <div class="card-body content">
-          <p style="font-size: 14px;">Fun fact: HackItForward was started at a hackathon during the summer of 2020!</p>
+          <p style="font-size: 14px;">Centraide is one of the largest investors in the community sector. Each year, Centraide organizes a fundraising...</p>
         </div>
         <div class="card-footer content">
           Intermediate Level
@@ -375,7 +375,7 @@
     <div class="col-3">
       <div class="company-preview-card hover-grow level">
         <a class="level-content level-item" href="mailto:partners@kurius.ca?subject=Hello!" style="color: black;">
-          <p style="font-size: 24px;">Get in Touch</p>
+          <p style="font-size: 24px;" class="font-semibold">Get in Touch</p>
         </a>
       </div>
     </div>
