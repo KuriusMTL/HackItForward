@@ -286,7 +286,7 @@ footer {
  }
 
  .strip {
-  padding: 100px 100px;
+  padding: 10% 10%;
   position: relative;
 }
 
@@ -307,6 +307,10 @@ footer {
   min-height: 120px;
   border-radius: 20px;
   background-color: white;
+}
+
+.company-preview-card > a {
+  padding: 1.5rem 1rem;
 }
 
 .tabcontent {

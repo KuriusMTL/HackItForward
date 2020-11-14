@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block body %}
-<div id="splash-img" class="hero h-70 hero-img parallax-img">
+<div id="splash-img" class="hero hero-img parallax-img">
   <div class="hero-body">
     <div class="content row level">
       <div class="col-6 level-items">
@@ -41,17 +41,15 @@
     <div class="col-6 level-item level-content animate2">
       <img src="{{ static('img/humaans/humanwalking.svg') }}" width="300">
     </div>
-    <div>
-      <blockquote style="margin-top: 50px;">
-        <h5>Work on challenges. Showcase your projects. Implement your solutions.</h5>
-      </blockquote>
-    </div>
   </div>
+  <blockquote style="margin-top: 50px;">
+    <h5>Work on challenges. Showcase your projects. Implement your solutions.</h5>
+  </blockquote>
 </div>
 
 <div class="strip strip-color">
   <div class="row level" style="margin-right: 0">
-    <div class="col-6 white level-items">
+    <div class="col-6 white level-items" style="margin-bottom: 10%;">
       <h3>Work on Real-World Challenges</h3>
       <p>We work closely with many nonprofit organizations to publish detailed challenges on this platform for the coding community
         to tackle together. Take a look by clicking on the button below. </p>
@@ -60,7 +58,7 @@
       </a>
     </div>
     <div class="col-6 level-items">
-      <div class="card slide-up pointer-cursor" style="width: 80%; float:right"  onclick="location.href=`/about`">
+      <div class="card slide-up pointer-cursor" style="width: 80%;"  onclick="location.href=`/about`">
         <div class="card-container">
           <div class="card-image" style="background-image: url(https://unsplash.it/640/480?random&blur)"></div>
         </div>
@@ -329,7 +327,7 @@
 
 <div class="strip bg-white">
   <div class="row">
-    <div class="col-6">
+    <div class="col-6" style="margin-bottom: 10%;">
       <h3>Collaborate with Others</h3>
       <p>By choosing a challenge to tackle, you will be given the option to connect with other individuals directly on this platform. You can either
         start your own project, or simply join another one!
@@ -354,21 +352,21 @@
     <div class="col-3">
       <div class="company-preview-card hover-grow level">
         <a class="level-content level-item" href="https://techaidemontreal.org/" rel="noopener" target="_blank">
-          <img src="{{ static('img/logos/techaide.png') }}" width="150">
+          <img src="{{ static('img/logos/techaide.png') }}" width="85%">
         </a>
       </div>
     </div>
     <div class="col-3">
       <div class="company-preview-card hover-grow level">
         <a class="level-content level-item" href="https://canadianpolarbearhabitat.com/" rel="noopener" target="_blank">
-          <img src="{{ static('img/logos/CPBHhorizontal.png') }}" width="175">
+          <img src="{{ static('img/logos/CPBHhorizontal.png') }}" width="95%">>
         </a>
       </div>
     </div>
     <div class="col-3">
       <div class="company-preview-card hover-grow level">
         <a class="level-content level-item" href="https://google.com" rel="noopener" target="_blank">
-          <img src="{{ static('img/logos/google.png') }}" width="150">
+          <img src="{{ static('img/logos/google.png') }}" width="75%">
         </a>
       </div>
     </div>
@@ -387,10 +385,10 @@
     <div class="col-6 animate-l-r" style="padding: 0px">
       <img src="{{ static('img/humaans/humanlookingright.svg') }}" width="300">
     </div>
-    <div class="col-6 white" style="padding-bottom: 0px;">
+    <div class="col-6 white" style="padding-bottom: 50px;">
       <h3>Join our community</h3>
       <p>Be the first to know the latest news about upcoming challenges or updates!</p>
-      <div class="u-pull-left row level">
+      <div class="u-pull-left row level ignore-screen">
         <a href="https://www.facebook.com/KuriusMtl/" target="_blank" rel="noopener" class="social-icon level-content level-item">
           <i class="fa fa-facebook-square fa-lg" aria-hidden="true" style="color: black"></i>
         </a>
