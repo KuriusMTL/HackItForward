@@ -29,23 +29,20 @@ class SocialLinkForm(ModelForm):
             self.object = kwargs.pop("obj")
 
         super(SocialLinkForm, self).__init__(*args, **kwargs)
-        self.fields["content_type"].widget = HiddenInput()
+        self.fields["content_type"].widget = HiddenInput()  
         self.fields["object_id"].widget = HiddenInput()
+        self.fields["object_id"].disabled = True
+        self.fields["content_type"].disabled = True
 
     def clean_object_id(self):
         cleaned_data = self.cleaned_data
         if getattr(self, "object", None) is not None:
             cleaned_data["object_id"] = self.object.pk
-        elif self.fields["object_id"].initial is not None:
-            cleaned_data["object_id"] = self.fields["object_id"].initial
         return cleaned_data["object_id"]
 
     def clean_content_type(self):
         cleaned_data = self.cleaned_data
-        if "content_type" not in cleaned_data or cleaned_data[
-            "content_type"
-        ] != ContentType.objects.get_for_model(self.object.__class__):
-            raise ValidationError("content_type should not be modified")
+        cleaned_data["content_type"] = ContentType.objects.get_for_model(self.object.__class__)
         return cleaned_data["content_type"]
 
 
