@@ -233,11 +233,6 @@ footer {
   position: relative;
 }
 
-.strip > * {
-  margin-left: 10%;
-  margin-right: 10%;
-}
-
 .bg-white {
   background-color: white;
 }
