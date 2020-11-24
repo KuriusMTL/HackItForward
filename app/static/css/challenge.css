@@ -1,0 +1,80 @@
+/**
+ * Challenge
+ */
+
+ .social-share {
+
+}
+
+.sidebar {
+ position: absolute;
+ left: -100px;
+ top: 18px;
+ text-align: center;
+}
+
+
+#challenge-frame {
+ border-left: 5px solid var(--cirrus-primary);
+ padding: 3%;
+}
+
+#challenge-frame > .row > p {
+ border-top: 2px solid var(--grey-light);
+ padding-top: 17px;
+ margin-top: 18px;
+}
+
+.map-container {
+ justify-items: center;
+}
+
+#map {
+ height: 50vh;
+}
+
+.form-section > label {
+ font-weight: bold;
+}
+
+.form-section > label + p {
+ margin-bottom: 6px;
+ margin-top: 0;
+}
+
+.frame > .row > p {
+ width: 100%;
+}
+
+.frame > .row > .img-upload {
+ max-height: 40vh;
+ width: auto;
+}
+
+#profile-block.card {
+ padding: 15px;
+}
+
+.badges > a {
+ display: inline;
+}
+
+.badges .modal img {
+ height: 100px;
+}
+
+.badges a img {
+ height: 25px;
+ position: relative;
+ top: 5px;
+}
+
+.frame .form-section {
+ padding-bottom: 1.5rem;
+}
+
+@media only screen and (min-width: 769px) {
+ .buttons {
+   position: absolute;
+ }
+}
