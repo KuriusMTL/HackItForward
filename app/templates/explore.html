@@ -9,17 +9,6 @@
 {% endblock %}
 
 {% block body %}
-{% if not request.user.is_authenticated %}
-  <div id="splash-img" class="hero h-70 hero-img parallax-img">
-    <div class="hero-body">
-      <div class="content u-text-center">
-        <h1 class="uppercase title">HackItForward</h1>
-        <h3 class="sub-title faded">Conquer the world's challenges - together</h3>
-      </div>
-    </div>
-  </div>
-{% endif %}
-
 <div class="content" id="challenges">
   {% for name, object_list in objects.items() %}
     {# searching options #}
@@ -79,7 +68,7 @@
               </div>
             </div>
             <div class="card-body content">
-              <p>{{ object.description|truncatechars(48) }}</p>
+              <p style="font-size: 14px;">{{ object.description|truncatechars(48) }}</p>
             </div>
             <div class="card-footer content">
               {% for tag in object.tags.all()[:3] %}
@@ -100,7 +89,7 @@
       {% endif %}
     </div>
   {% endfor %}
-</div> 
+</div>
 <script>
   $(window).on('load', () => {
     $('.custom-multiple').chosen({

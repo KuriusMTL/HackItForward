@@ -1,0 +1,407 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>HackItForward | Conquer the world's challenges - together</title>
+
+<link rel="stylesheet" href="{{ static('vendor/chosen/chosen.min.css') }}">
+<script src="{{ static('vendor/chosen/chosen.jquery.min.js') }}"></script>
+<link rel="stylesheet" href="{{ static('css/explore.css') }}">
+<script src="https://kit.fontawesome.com/2a8ca409bf.js" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block body %}
+<div id="splash-img" class="hero hero-img parallax-img">
+  <div class="hero-body">
+    <div class="content row level">
+      <div class="col-6 level-items">
+        <img src="{{ static('img/logo.png') }}">
+      </div>
+      <div class="col-6 level-items reverse">
+        <a id="front-button" href="{{ url('explore') }}" style="margin-top: 50px;">
+          <button class="btn--pilled btn-large btn-primary" style="font-size: 19px;">Get Started — Discover Challenges</button>
+        </a>
+        <h3 class="sub-title faded font-semibold">Conquer the world's challenges - together</h3>
+        <h1 id="front-title" class="title blue">Hack<span class="font-normal">It</span>Forward</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="strip bg-white">
+  <div class="row level">
+    <div class="col-6 level-items">
+      <h3>What is HackItForward?</h3>
+      <p>HackItForward is an initiative started by <a href="https://www.kurius.ca/" target="_blank" rel="noopener">Kurius</a> which brings together
+        beginner and expert programmers alike looking to contribute to society in meaningful ways.
+      </p>
+      <a href="/about">
+        <button class="btn-dark btn--pilled" style="max-width: 350px; margin-top: 35px">Learn more about our mission</button>
+      </a>
+    </div>
+    <div class="col-6 level-item level-content animate-bl-tr">
+      <img src="{{ static('img/humaans/humanwalking.svg') }}" width="300">
+    </div>
+  </div>
+  <blockquote style="margin-top: 50px;">
+    <h5>Work on challenges. Showcase your projects. Implement your solutions.</h5>
+  </blockquote>
+</div>
+
+<div class="strip strip-color">
+  <div class="row level" style="margin-right: 0">
+    <div class="col-6 white level-items" style="margin-bottom: 10%;">
+      <h3>Work on Real-World Challenges</h3>
+      <p>We work closely with many nonprofit organizations to publish detailed challenges on this platform for the coding community
+        to tackle together. Take a look by clicking on the button below. </p>
+      <a href="{{ url('explore') }}">
+        <button class="btn-light btn--pilled" href="" style="max-width: 300px; margin-top: 35px;">Discover More Challenges</button>
+      </a>
+    </div>
+    <div class="col-6 level-items">
+      <div class="card slide-up pointer-cursor w-80"  onclick="location.href=`{{ url('challenge', 1)}}`">
+        <div class="card-container">
+          <div class="card-image" style="background-image: url({{ static('img/fundraising.jpg') }})"></div>
+        </div>
+        <div class="mobile-title">
+          <div class="content">
+            <div class="tile">
+              <div class="tile__container">
+                <p class="tile__title">Fundraising Challenge</p>
+                <p class="tile__subtitle">By TechAide</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body content">
+          <p style="font-size: 14px;">Centraide is one of the largest investors in the community sector. Each year, Centraide organizes a fundraising...</p>
+        </div>
+        <div class="card-footer content">
+          Intermediate Level
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="strip">
+  <div class="row level">
+    <div class="col-6 level-content level-item animate-br-tl">
+      <img src="{{ static('img/humaans/humansitting.svg') }}" width="350">
+    </div>
+    <div class="col-6 level-items">
+      <h3>Learn through Project-Based Tutorials</h3>
+      <p>Still consider yourself a beginner? No problem. we also have tons of
+        tutorials to help you develop the skills necessary to
+        tackle challenges that affect our communities.
+      </p>
+    </div>
+  </div>
+  <div class="u-text-center">
+    <h3>Choose one of our tutorial challenges</h3>
+    <p>Our tutorial challenges range from beginner to expert level, so there is always something for you.
+    </p>
+  </div>
+  <div class="tab-container tabs-center">
+    <ul>
+      <li class="tablevel selected" onclick="openTab(event, 'beginner')"><a class="font-alt font-semibold">Beginner</a></li>
+      <li class="tablevel" onclick="openTab(event, 'intermediate')"><a class="font-alt font-semibold">Intermediate</a></li>
+      <li class="tablevel" onclick="openTab(event, 'expert')"><a class="font-alt font-semibold">Expert</a></li>
+    </ul>
+  </div>
+
+  <div class="row tabcontent" id="beginner" style="display: block;">
+    <div class="col-4 pointer-cursor" onclick="location.href=`{{ url('challenge', 6) }}`">
+      <div class="card u-flex-column h-100 slide-up">
+        <div class="card-container">
+          <div class="card-image" style="background-image: url({{ static('img/logo.png') }})"></div>
+        </div>
+        <div class="mobile-title">
+          <div class="content">
+            <div class="tile">
+              <div class="tile__container">
+                <p class="tile__title">Fibonacci Number Finder</p>
+                <p class="tile__subtitle">By Frederic Jarjour</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body content">
+          <p style="font-size: 14px;">Write a function that takes one argument, n, which will always be a...
+          </p>
+        </div>
+        <div class="card-footer content">
+          2 min. read
+        </div>
+      </div>
+    </div>
+    <div class="col-4 pointer-cursor" onclick="location.href=`{{ url('challenge', 5) }}`">
+      <div class="card u-flex-column h-100 slide-up">
+        <div class="card-container">
+          <div class="card-image" style="background-image: url({{ static('img/logo.png') }})"></div>
+        </div>
+        <div class="mobile-title">
+          <div class="content">
+            <div class="tile">
+              <div class="tile__container">
+                <p class="tile__title">Digits of Power</p>
+                <p class="tile__subtitle">By Steven Gong</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body content">
+          <p style="font-size: 14px;">Write a function that takes two arguments, a and b. Both a and b..</p>
+        </div>
+        <div class="card-footer content">
+          3 min. read
+        </div>
+      </div>
+    </div>
+    <div class="col-4 pointer-cursor" onclick="location.href=`{{ url('challenge', 7) }}`">
+      <div class="card u-flex-column h-100 slide-up">
+        <div class="card-container">
+          <div class="card-image" style="background-image: url({{ static('img/logo.png') }})"></div>
+        </div>
+        <div class="mobile-title">
+          <div class="content">
+            <div class="tile">
+              <div class="tile__container">
+                <p class="tile__title">List of Strings</p>
+                <p class="tile__subtitle">By Frederic Jarjour</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body content">
+          <p style="font-size: 14px;">Have a variable listOfStrings equal to a list of strings, and...</p>
+        </div>
+        <div class="card-footer content">
+          2 min. read
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row tabcontent" id="intermediate">
+    <div class="col-4 pointer-cursor" onclick="location.href=`/about`">
+      <div class="card u-flex-column h-100 slide-up">
+        <div class="card-container">
+          <div class="card-image" style="background-image: url({{ static('img/logo.png') }})"></div>
+        </div>
+        <div class="mobile-title">
+          <div class="content">
+            <div class="tile">
+              <div class="tile__container">
+                <p class="tile__title">Coming Soon!</p>
+                <p class="tile__subtitle">By John Doe</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body content">
+          <p style="font-size: 14px;">Fun fact: HackItForward was started at a hackathon during the summer of 2020!
+          </p>
+        </div>
+        <div class="card-footer content">
+          2 min. read
+        </div>
+      </div>
+    </div>
+    <div class="col-4 pointer-cursor" onclick="location.href=`/about`">
+      <div class="card u-flex-column h-100 slide-up">
+        <div class="card-container">
+          <div class="card-image" style="background-image: url({{ static('img/logo.png') }})"></div>
+        </div>
+        <div class="mobile-title">
+          <div class="content">
+            <div class="tile">
+              <div class="tile__container">
+                <p class="tile__title">Coming Soon!</p>
+                <p class="tile__subtitle">By John Doe</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body content">
+          <p style="font-size: 14px;">Fun fact: HackItForward was started at a hackathon during the summer of 2020!</p>
+        </div>
+        <div class="card-footer content">
+          2 min. read
+        </div>
+      </div>
+    </div>
+    <div class="col-4 pointer-cursor" onclick="location.href=`/about`">
+      <div class="card u-flex-column h-100 slide-up">
+        <div class="card-container">
+          <div class="card-image" style="background-image: url({{ static('img/logo.png') }})"></div>
+        </div>
+        <div class="mobile-title">
+          <div class="content">
+            <div class="tile">
+              <div class="tile__container">
+                <p class="tile__title">Coming Soon!</p>
+                <p class="tile__subtitle">By John Doe</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body content">
+          <p style="font-size: 14px;">Fun fact: HackItForward was started at a hackathon during the summer of 2020!</p>
+        </div>
+        <div class="card-footer content">
+          2 min. read
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row tabcontent" id="expert">
+    <div class="col-4 pointer-cursor" onclick="location.href=`/about`">
+      <div class="card u-flex-column h-100 slide-up">
+        <div class="card-container">
+          <div class="card-image" style="background-image: url({{ static('img/logo.png') }})"></div>
+        </div>
+        <div class="mobile-title">
+          <div class="content">
+            <div class="tile">
+              <div class="tile__container">
+                <p class="tile__title">Coming Soon!</p>
+                <p class="tile__subtitle">By John Doe</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body content">
+          <p style="font-size: 14px;">Fun fact: HackItForward was started at a hackathon during the summer of 2020!</p>
+        </div>
+        <div class="card-footer content">
+          2 min. read
+        </div>
+      </div>
+    </div>
+    <div class="col-4 pointer-cursor" onclick="location.href=`/about`">
+      <div class="card u-flex-column h-100 slide-up">
+        <div class="card-container">
+          <div class="card-image" style="background-image: url({{ static('img/logo.png') }})"></div>
+        </div>
+        <div class="mobile-title">
+          <div class="content">
+            <div class="tile">
+              <div class="tile__container">
+                <p class="tile__title">Coming Soon!</p>
+                <p class="tile__subtitle">By John Doe</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body content">
+          <p style="font-size: 14px;">Fun fact: HackItForward was started at a hackathon during the summer of 2020!</p>
+        </div>
+        <div class="card-footer content">
+          2 min. read
+        </div>
+      </div>
+    </div>
+    <div class="col-4 pointer-cursor" onclick="location.href=`/about`">
+      <div class="card u-flex-column h-100 slide-up">
+        <div class="card-container">
+          <div class="card-image" style="background-image: url({{ static('img/logo.png') }})"></div>
+        </div>
+        <div class="mobile-title">
+          <div class="content">
+            <div class="tile">
+              <div class="tile__container">
+                <p class="tile__title">Coming Soon!</p>
+                <p class="tile__subtitle">By John Doe</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body content">
+          <p style="font-size: 14px;">Fun fact: HackItForward was started at a hackathon during the summer of 2020!</p>
+        </div>
+        <div class="card-footer content">
+          2 min. read
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="strip bg-white">
+  <div class="row">
+    <div class="col-6" style="margin-bottom: 10%;">
+      <h3>Collaborate with Others</h3>
+      <p>By choosing a challenge to tackle, you will be given the option to connect with other individuals directly on this platform. You can either
+        start your own project, or simply join another one!
+      </p>
+      <a href="{{ url('explore') }}">
+        <button class="btn-primary btn--pilled" style="margin-top: 35px;">Discover projects made by the community</button>
+      </a>
+    </div>
+    <div class="col-6 animate-bl-tr">
+      <img src="{{ static('img/humaans/sharing.svg') }}" width="400">
+    </div>
+  </div>
+
+</div>
+
+<div class="strip">
+  <div class="u-text-center">
+    <h3>Are you an organization looking to publicize your challenge?</h3>
+    <p>Get in touch with our team and we would be happy to work with you!</p>
+  </div>
+  <div class="row">
+    <div class="col-3">
+      <div class="company-preview-card hover-grow level">
+        <a class="level-content level-item" href="https://techaidemontreal.org/" rel="noopener" target="_blank">
+          <img src="{{ static('img/logos/techaide.png') }}" width="85%">
+        </a>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="company-preview-card hover-grow level">
+        <a class="level-content level-item" href="https://canadianpolarbearhabitat.com/" rel="noopener" target="_blank">
+          <img src="{{ static('img/logos/CPBHhorizontal.png') }}" width="95%">>
+        </a>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="company-preview-card hover-grow level">
+        <a class="level-content level-item" href="https://google.com" rel="noopener" target="_blank">
+          <img src="{{ static('img/logos/google.png') }}" width="75%">
+        </a>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="company-preview-card hover-grow level">
+        <a class="level-content level-item" href="mailto:partners@kurius.ca?subject=Hello!" style="color: black;">
+          <p style="font-size: 24px;" class="font-semibold">Get in Touch</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="strip strip-color" style="padding-bottom: 0px;">
+  <div class="row" style="padding-bottom: 0px;">
+    <div class="col-6 animate-l-r" style="padding: 0px">
+      <img src="{{ static('img/humaans/humanlookingright.svg') }}" width="300">
+    </div>
+    <div class="col-6 white" style="padding-bottom: 50px;">
+      <h3>Join our community</h3>
+      <p>Be the first to know the latest news about upcoming challenges or updates!</p>
+      <div class="u-pull-left row level ignore-screen">
+        <a href="https://www.facebook.com/KuriusMtl/" target="_blank" rel="noopener" class="social-icon level-content level-item">
+          <i class="fa fa-facebook-square fa-lg" aria-hidden="true" style="color: black"></i>
+        </a>
+        <a href="https://discord.com/invite/pU7XCG6" target="_blank" rel="noopener" class="social-icon level-content level-item">
+          <i class="fab fa-discord fa-lg" style="color: black"></i>
+        </a>
+        <a href="https://www.instagram.com/kuriusmtl/" target="_blank" rel="noopner" class="social-icon level-content level-item">
+          <i class="fab fa-instagram-square fa-lg" style="color: black"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
