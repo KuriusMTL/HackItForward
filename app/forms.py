@@ -29,7 +29,7 @@ class SocialLinkForm(ModelForm):
             self.object = kwargs.pop("obj")
 
         super(SocialLinkForm, self).__init__(*args, **kwargs)
-        self.fields["content_type"].widget = HiddenInput()  
+        self.fields["content_type"].widget = HiddenInput()
         self.fields["object_id"].widget = HiddenInput()
         self.fields["object_id"].disabled = True
         self.fields["content_type"].disabled = True
