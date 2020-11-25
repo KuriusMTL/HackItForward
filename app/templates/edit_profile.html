@@ -49,6 +49,7 @@
         {% for error in form.non_field_errors() %}
           <span class="text-primary info">{{ error }}</span>
         {% endfor %}
+
         <div class="form-section">
           {{ form.description.label_tag() }}
           {{ form.description }}
@@ -69,6 +70,9 @@
             <span class="text-primary info">{{ error }}</span>
           {% endfor %}
         </div>
+        {% with col_class=False %}
+          {% include "social_link_form.html" %}
+        {% endwith %}
         <div class="form-section">
           <label>Where are you from?</label>
           <p>Click and drag the marker. </p>

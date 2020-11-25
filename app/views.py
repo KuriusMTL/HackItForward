@@ -1,4 +1,4 @@
-from app.forms import ProfileUpdateForm
+from app.forms import ProfileUpdateForm, SocialLinkFormSet
 from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag
 
 from django.core.exceptions import PermissionDenied
@@ -16,7 +16,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, FormView, UpdateView
+from django.views.generic.edit import CreateView, FormMixin, FormView, UpdateView
 
 
 class IndexView(TemplateView):
@@ -90,10 +90,68 @@ class UserView(DetailView):
         return context
 
 
-class EditProfileView(LoginRequiredMixin, UpdateView):
+class SocialLinkFormMixin(FormMixin):
+    def get_class_name(self):
+        return (
+            self.model if self.model else self.object.__class__ if self.object else self.classname
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["has_social_links_form"] = True
+
+        initial_data = {
+            "object_id": 0 if not self.object else self.object.pk,
+            "content_type": ContentType.objects.get_for_model(self.get_class_name()),
+        }
+        queryset = (
+            SocialLinkAttachement.objects.none()
+            if not self.object
+            else SocialLinkAttachement.objects.filter(
+                object_id=initial_data["object_id"],
+                content_type=initial_data["content_type"],
+            )
+        )
+
+        context["formset"] = (
+            kwargs.pop("social_formset")
+            if "social_formset" in kwargs
+            else SocialLinkFormSet(
+                prefix="social_links",
+                queryset=queryset,
+            )
+        )
+
+        SocialLinkFormSet.form.base_fields["content_type"].initial = initial_data["content_type"]
+        SocialLinkFormSet.form.base_fields["object_id"].initial = initial_data["object_id"]
+
+        return context
+
+    def form_invalid(self, form, formset, **kwargs):
+        return self.render_to_response(self.get_context_data(form=form, social_formset=formset))
+
+    def form_valid(self, form):
+        resp = super().form_valid(form)
+
+        social_link_formset = SocialLinkFormSet(
+            self.request.POST,
+            prefix="social_links",
+            form_kwargs={"obj": self.object},
+        )
+
+        if social_link_formset.is_valid():
+            social_link_formset.save()
+        else:
+            return self.form_invalid(form, social_link_formset)
+        return resp
+
+
+class EditProfileView(LoginRequiredMixin, SocialLinkFormMixin, UpdateView):
     template_name = "edit_profile.html"
     form_class = ProfileUpdateForm
     success_url = reverse_lazy("edit_profile")
+    classname = Profile
 
     def get_object(self, queryset=None):
         return self.request.user.profile
@@ -110,7 +168,7 @@ class RegisterView(FormView):
         return super().form_valid(form)
 
 
-class InitiativeMixin(ContextMixin):
+class InitiativeViewMixin(ContextMixin):
     classname = None
     initiative = None
 
@@ -136,7 +194,11 @@ class GenericFormMixin(LoginRequiredMixin, ContextMixin):
         return context
 
 
-class ChallengeFormView(GenericFormMixin):
+class InitiativeFormView(GenericFormMixin, SocialLinkFormMixin):
+    pass
+
+
+class ChallengeFormView(InitiativeFormView):
     model = Challenge
     fields = ["name", "image", "description", "creators", "start", "end", "tags"]
 
@@ -158,7 +220,7 @@ class ChallengeUpdateView(ChallengeFormView, UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class ChallengeView(InitiativeMixin, TemplateView):
+class ChallengeView(InitiativeViewMixin, TemplateView):
     template_name = "challenge.html"
     classname = Challenge
 
@@ -173,7 +235,7 @@ class ChallengeView(InitiativeMixin, TemplateView):
         return context
 
 
-class ProjectFormView(GenericFormMixin):
+class ProjectFormView(InitiativeFormView):
     model = Project
     fields = ["name", "image", "description", "creators", "contributors", "tags"]
 
@@ -208,7 +270,7 @@ class ProjectUpdateView(ProjectFormView, UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class ProjectView(InitiativeMixin, TemplateView):
+class ProjectView(InitiativeViewMixin, TemplateView):
     template_name = "project.html"
     classname = Project
 

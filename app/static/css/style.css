@@ -403,7 +403,25 @@ footer {
   }
 }
 
+.social-inputs .form-group {
+  height: 3rem;
+}
 
+.social-inputs .form-group select:focus {
+  z-index: 10;
+}
+
+.social-inputs .form-group button.social-del {
+  width: 3.5rem;
+  padding: 0;
+}
+
+.social-inputs .disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  background-color: #f3f3f6;
+  border: #f3f3f6;
+}
 
 /**
  * Team Photo
