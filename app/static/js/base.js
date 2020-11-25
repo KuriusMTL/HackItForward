@@ -38,3 +38,23 @@ function openTab(evt, level) {
   document.getElementById(level).style.display = "block";
   evt.currentTarget.classList.add("selected");
 }
+
+function shareOnFB(url){
+  var link = "https://www.facebook.com/sharer/sharer.php?u=" + url;
+  window.open(link);
+}
+
+function shareOnTwitter(url){
+  var link = "https://twitter.com/intent/tweet?url=" + url + "&text=" + document.querySelector('#initiative-name').textContent;
+  TwitterWindow = window.open(link);
+}
+
+function shareOnLinkedIn(url){
+  var link = "https://www.linkedin.com/sharing/share-offsite/?url=" + url;
+  window.open(link);
+}
+
+function shareOnReddit(url) {
+  var url = "https://reddit.com/submit?url="+ url + "&title=" + document.querySelector('#initiative-name').textContent;
+  window.open(link);
+}

@@ -2,14 +2,41 @@
 
 {% block head %}
 <title>{{ initiative.name }} | HackItForward</title>
+
+<link rel="stylesheet" href="{{ static('css/challenge.css') }}">
 {% endblock %}
 
 {% block body %}
-<div class="content">
-  <div class="row">
-    <h2>{{ initiative.name }}</h2>
-  </div>
-  <div class="frame" id="challenge-frame">
+<div class="content" style="margin-top: 30px;">
+    <!-- TODO: Implement upvoting system in backend -->
+    <!-- <i class="fa fa-caret-up" aria-hidden="true" style="font-size: x-large;"></i>
+    <p>12</p>
+    <i class="fa fa-caret-down" aria-hidden="true" style="font-size: x-large;"></i> -->
+  <div>
+    <h2 id="initiative-name" style="text-align: center;">{{ initiative.name }}</h2>
+    <!-- TODO:Write backend for this -->
+    <p class="font-semibold subheading">Learn to create a weather forecasting app using the UIKit and Network frameworks in Swift.</p>
+    <div class="row level">
+      <img class="profile-icon" src="{{ static('img/default_profile.jpg') }}"/>
+      <div class="col-9">
+        <h4 style="margin: 0">John Fish</h4>
+        <p style="margin: 0">August 15, 2020 - 14 min read</p>
+      </div>
+      <div class="row no-space level u-pull-right">
+        <a onclick="shareOnFB(window.location.href.toString())" class="col-3 social-icon level-content level-item">
+          <i class="fab fa-facebook-square fa-2x" aria-hidden="true"></i>
+        </a>
+        <a onclick="shareOnTwitter(window.location.href.toString())" class="col-3 social-icon level-content level-item">
+          <i class="fab fa-twitter-square fa-2x"></i>
+        </a>
+        <a onclick="shareOnLinkedIn(window.location.href.toString())" class="col-3 social-icon level-content level-item">
+          <i class="fab fa-linkedin fa-2x"></i>
+        </a>
+        <a onclick="shareOnReddit(window.location.href.toString())" class="col-3 social-icon level-content level-item">
+          <i class="fab fa-reddit-square fa-2x"></i>
+        </a>
+      </div>
+    </div>
     <div class="buttons">
       {% block buttons %}
         {% if initiative.can_edit(request.user) %}
@@ -21,13 +48,12 @@
       {% if initiative.image %}
         <img class="img-upload u-margin-auto" src="{{ initiative.image.url }}">
       {% else %}
-        <img class="img-upload u-margin-auto" src="{{ static('img/logo.png') }}">
+        <img class="img-upload u-margin-auto" src="{{ static('img/logo.png') }}"  style="max-height: 400px; max-width: 600px;">
       {% endif %}
     </div>
     <div>
       {{ initiative.description|mistune }}
     </div>
-
     <div class="row">
       <div class="col-12">
         <!-- Challenge Tag -->
