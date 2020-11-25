@@ -36,7 +36,7 @@ class SocialLinkForm(ModelForm):
 
     def clean_object_id(self):
         cleaned_data = self.cleaned_data
-        if getattr(self, "object", None) is not None:
+        if hasattr(self, "object"):
             cleaned_data["object_id"] = self.object.pk
         return cleaned_data["object_id"]
 
