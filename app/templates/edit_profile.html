@@ -11,7 +11,7 @@
         <div class="tile level r">
           <div class="tile-avatar">
             <span class="icon">
-              <i class="zmdi zmdi-account" aria-hidden="true"></i>
+              <i class="fas fa-user-circle" aria-hidden="true"></i>
             </span>
           </div>
           <div class="tile__container">
@@ -22,7 +22,7 @@
         <div class="tile level r">
           <div class="tile-avatar">
             <span class="icon">
-              <i class="zmdi zmdi-email" aria-hidden="true"></i>
+              <i class="fas fa-envelope" aria-hidden="true"></i>
             </span>
           </div>
           <div class="tile__container">
@@ -33,7 +33,7 @@
         <div class="tile level r">
           <div class="tile-avatar">
             <span class="icon">
-              <i class="zmdi zmdi-lock" aria-hidden="true"></i>
+              <i class="fas fa-lock" aria-hidden="true"></i>
             </span>
           </div>
           <div class="tile__container">
@@ -49,6 +49,7 @@
         {% for error in form.non_field_errors() %}
           <span class="text-primary info">{{ error }}</span>
         {% endfor %}
+
         <div class="form-section">
           {{ form.description.label_tag() }}
           {{ form.description }}
@@ -69,6 +70,9 @@
             <span class="text-primary info">{{ error }}</span>
           {% endfor %}
         </div>
+        {% with col_class=False %}
+          {% include "social_link_form.html" %}
+        {% endwith %}
         <div class="form-section">
           <label>Where are you from?</label>
           <p>Click and drag the marker. </p>
