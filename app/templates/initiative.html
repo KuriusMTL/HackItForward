@@ -13,7 +13,7 @@
     <div class="buttons">
       {% block buttons %}
         {% if initiative.can_edit(request.user) %}
-          <a class="btn btn-primary" href="{{ initiative.get_edit_url() }}"><i class="zmdi zmdi-edit"></i> Edit</a>
+          <a class="btn btn-primary" href="{{ initiative.get_edit_url() }}"><i class="fas fa-edit"></i> Edit</a>
         {% endif %}
       {% endblock %}
     </div>
@@ -35,7 +35,7 @@
           <div class="tile level r">
             <div class="tile-avatar">
               <span class="icon">
-                <i class="zmdi zmdi-tag" aria-hidden="true"></i>
+                <i class="fas fa-tag" aria-hidden="true"></i>
               </span>
             </div>
             <div class="tile__container">
@@ -51,7 +51,7 @@
           <div class="tile level r">
             <div class="tile-avatar">
               <span class="icon">
-                <i class="zmdi zmdi-tag" aria-hidden="true"></i>
+                <i class="fas fa-tag" aria-hidden="true"></i>
               </span>
             </div>
             <div class="tile__container">
@@ -68,7 +68,7 @@
         <div class="tile level r">
           <div class="tile-avatar">
             <span class="icon">
-              <i class="zmdi zmdi-accounts-list" aria-hidden="true"></i>
+              <i class="fas fa-user-circle" aria-hidden="true"></i>
             </span>
           </div>
           <div class="tile__container">
@@ -85,7 +85,7 @@
           <div class="tile level r">
             <div class="tile-avatar">
               <span class="icon">
-                <i class="zmdi zmdi-accounts-list" aria-hidden="true"></i>
+                <i class="fas fa-user-circle" aria-hidden="true"></i>
               </span>
             </div>
             <div class="tile__container">
@@ -102,7 +102,7 @@
           <div class="tile level r">
             <div class="tile-avatar">
               <span class="icon">
-                <i class="zmdi zmdi-calendar-check" aria-hidden="true"></i>
+                <i class="fas fa-calendar-check" aria-hidden="true"></i>
               </span>
             </div>
             <div class="tile__container">
@@ -118,13 +118,13 @@
           <div class="tile level r">
             <div class="tile-avatar">
               <span class="icon">
-                <i class="zmdi zmdi-link" aria-hidden="true"></i>
+                <i class="fas fa-link" aria-hidden="true"></i>
               </span>
             </div>
             <div class="tile__container">
               <p class="tile__title">Links:
               {% for link in links.all() %}
-                <a href="{{ link.href }}" class="tooltip" data-tooltip="{{ link.link.placeholder }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
+                <a href="{{ link.href }}" class="tooltip" data-tooltip="{{ link.link.placeholder }}"><i class="fas fa-{{ link.link.icon }}"></i></a>
               {% endfor %}
               </p>
             </div>

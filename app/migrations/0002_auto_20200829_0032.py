@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='sociallink',
             name='icon',
-            field=models.CharField(help_text="CSS ZMDI icon class without 'zmdi-' prefix.", max_length=32, verbose_name='Icon'),
+            field=models.CharField(help_text="CSS FA icon class without 'fa-' prefix.", max_length=32, verbose_name='Icon'),
         ),
     ]

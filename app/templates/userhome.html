@@ -82,7 +82,7 @@
             <div class="tile level r">
               <div class="tile__icon">
                 <span class="icon">
-                  <i class="zmdi zmdi-account-box" aria-hidden="true"></i>
+                  <i class="fas fa-user-alt" aria-hidden="true"></i>
                 </span>
               </div>
               <div class="tile__container">
@@ -104,7 +104,7 @@
             <div class="tile level r">
               <div class="tile__icon">
                 <span class="icon">
-                  <i class="zmdi zmdi-group-work" aria-hidden="true"></i>
+                  <i class="fas fa-users" aria-hidden="true"></i>
                 </span>
               </div>
               <div class="tile__container">
@@ -143,13 +143,13 @@
             <div class="tile level r">
               <div class="tile__icon">
                 <span class="icon">
-                  <i class="zmdi zmdi-link" aria-hidden="true"></i>
+                  <i class="fas fa-link" aria-hidden="true"></i>
                 </span>
               </div>
               <div class="tile__container">
                 <p class="tile__title">Links:
                   {% for link in links.all() %}
-                    <a href="{{ link.href }}" class="tooltip" data-tooltip="{{ link.link.placeholder }}"><i class="zmdi zmdi-{{ link.link.icon }}"></i></a>
+                    <a href="{{ link.href }}" class="tooltip" data-tooltip="{{ link.link.placeholder }}"><i class="fas fa-{{ link.link.icon }}"></i></a>
                   {% endfor %}
                 </p>
               </div>
@@ -160,7 +160,7 @@
             <div class="tile level r">
               <div class="tile__icon">
                 <span class="icon">
-                  <i class="zmdi zmdi-tag" aria-hidden="true"></i>
+                  <i class="fas fa-tag" aria-hidden="true"></i>
                 </span>
               </div>
               <div class="tile__container">

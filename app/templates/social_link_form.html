@@ -10,7 +10,7 @@
         <div class="form-group">
           {{ formlink.link }}
           {{ formlink.content }}
-          <button class="form-group-btn social-del" data-id={{ formlink.DELETE.auto_id }} disabled><i class="zmdi zmdi-delete" aria-hidden="true"></i></button>
+          <button class="form-group-btn social-del" data-id={{ formlink.DELETE.auto_id }} disabled><i class="fas fa-trash" aria-hidden="true"></i></button>
           <input type="checkbox" id="{{ formlink.DELETE.auto_id }}" name="{{ formlink.DELETE.html_name }}" style="display:none">
           {{ formlink.object_id }}
           {{ formlink.content_type }}
@@ -24,7 +24,7 @@
       <div class="form-group">
         {{ formset.empty_form.link }}
         {{ formset.empty_form.content }}
-        <button class="form-group-btn social-del" data-id={{ formset.empty_form.DELETE.auto_id }}><i class="zmdi zmdi-delete" aria-hidden="true"></i></button>
+        <button class="form-group-btn social-del" data-id={{ formset.empty_form.DELETE.auto_id }}><i class="fas fa-trash" aria-hidden="true"></i></button>
         <input type="checkbox" id="{{ formset.empty_form.DELETE.auto_id }}" name="{{ formset.empty_form.DELETE.html_name }}" style="display:none">
         {{ formset.empty_form.object_id }}
         {{ formset.empty_form.content_type }}

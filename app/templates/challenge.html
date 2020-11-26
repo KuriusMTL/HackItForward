@@ -3,7 +3,7 @@
 {% block buttons %}
 {% if initiative.is_open() %}
   <a class="btn btn-primary" href="{{ url('project_challenge_create', pk=initiative.pk) }}">
-    <i class="zmdi zmdi-plus"></i> Create Project
+    <i class="fas fa-plus"></i>&nbsp; Create Project
   </a>
 {% endif %}
 {{ super() }}
