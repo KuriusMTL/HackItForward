@@ -44,5 +44,5 @@ function toggleSocialInputDelete(e) {
 
 	const checkbox = $('#'+$(this).attr("data-id"))[0];
 	checkbox.checked = !checkbox.checked;
-	$(this).children("i").toggleClass("zmdi-delete").toggleClass("zmdi-time-restore-setting")
+	$(this).children("i").toggleClass("fa-trash").toggleClass("fa-trash-restore")
 }
