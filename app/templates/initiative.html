@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block body %}
-<div class="content" style="margin-top: 30px;">
+<div class="content" style="margin-top: 110px;">
     <!-- TODO: Implement upvoting system in backend -->
     <!-- <i class="fa fa-caret-up" aria-hidden="true" style="font-size: x-large;"></i>
     <p>12</p>
@@ -15,11 +15,15 @@
   <div>
     <h2 id="initiative-name" style="text-align: center;">{{ initiative.name }}</h2>
     <!-- TODO:Write backend for this -->
-    <p class="font-semibold subheading">Learn to create a weather forecasting app using the UIKit and Network frameworks in Swift.</p>
+    <p class="font-semibold subheading">This is the subheading that needs to be coded on the backend. It summarizes the project/challenge/tutorial.</p>
     <div class="row level">
-      <img class="profile-icon" src="{{ static('img/default_profile.jpg') }}"/>
+      <a>
+        <img class="profile-icon" src="{{ static('img/default_profile.jpg') }}"/>
+      </a>
       <div class="col-9">
-        <h4 style="margin: 0">John Fish</h4>
+        <a>
+          <h4 style="margin: 0">John Fish</h4>
+        </a>
         <p style="margin: 0">August 15, 2020 - 14 min read</p>
       </div>
       <div class="row no-space level u-pull-right">
