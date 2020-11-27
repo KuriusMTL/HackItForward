@@ -10,6 +10,46 @@ from django.urls import reverse
 from django.utils import timezone
 
 
+PROJECT_DESCRIPTION = """
+# Project Name
+
+A longer description of the project compared to the one liner.
+
+## Features
+
+Talk about some cool things your project does here. You can use a:
+ - Bulleted
+ - List
+ - Like
+ - This
+
+## Installation
+
+You should explain how to install the project in this section.
+ 1. Numbered
+ 2. Lists
+ 3. Are
+ 4. Useful
+"""
+
+CHALLENGE_DESCRIPTION = """
+# Challenge Name
+
+A longer description of the project compared to the one liner.
+
+## Tasks
+
+Provide a simple, bulleted list of tasks that you would like project creators to accomplish:
+ - Task 1
+ - Task 2
+ - Task 3
+
+## Extra Resources
+
+If there are extra tools that you think project makers could benefit them, include them here.
+"""
+
+
 class SocialLink(models.Model):
     name = models.CharField(
         max_length=24, verbose_name="Name", help_text="Name of this social link."
@@ -115,7 +155,10 @@ class Challenge(models.Model):
         max_length=100, verbose_name="Name", help_text="Name of this challenge."
     )
     description = models.TextField(
-        blank=True, verbose_name="Description", help_text="Description of this challenge."
+        blank=True,
+        default=CHALLENGE_DESCRIPTION,
+        verbose_name="Description",
+        help_text="Description of this challenge.",
     )
     one_liner = models.CharField(
         blank=True,
@@ -206,7 +249,10 @@ class Project(models.Model):
     challenge = models.ForeignKey(Challenge, null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=100, verbose_name="Name", help_text="Name of this project.")
     description = models.TextField(
-        blank=True, verbose_name="Description", help_text="Description of this project."
+        blank=True,
+        default=PROJECT_DESCRIPTION,
+        verbose_name="Description",
+        help_text="Description of this project.",
     )
     tags = models.ManyToManyField(
         Tag,
