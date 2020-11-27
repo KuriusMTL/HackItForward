@@ -68,7 +68,7 @@
               </div>
             </div>
             <div class="card-body content">
-              <p style="font-size: 14px;">{{ object.description|truncatechars(48) }}</p>
+              <p style="font-size: 14px;">{{ object.one_liner }}</p>
             </div>
             <div class="card-footer content">
               {% for tag in object.tags.all()[:3] %}

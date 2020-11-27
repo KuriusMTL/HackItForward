@@ -118,9 +118,9 @@ class Challenge(models.Model):
         blank=True, verbose_name="Description", help_text="Description of this challenge."
     )
     one_liner = models.CharField(
-        default="",
-        verbose_name="One Line Description",
-        help_text="A one line description of the Challenge",
+        blank=True,
+        verbose_name="One Liner",
+        help_text="A one line description of this challenge.",
         max_length=50,
     )
     tags = models.ManyToManyField(
@@ -216,9 +216,9 @@ class Project(models.Model):
         help_text="Tags associated with this project.",
     )
     one_liner = models.CharField(
-        default="",
-        verbose_name="One Line Description",
-        help_text="A one line description of the Challenge",
+        blank=True,
+        verbose_name="One Liner",
+        help_text="A one line description of this project.",
         max_length=50,
     )
     contributors = models.ManyToManyField(

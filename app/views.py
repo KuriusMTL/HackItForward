@@ -200,7 +200,7 @@ class InitiativeFormView(GenericFormMixin, SocialLinkFormMixin):
 
 class ChallengeFormView(InitiativeFormView):
     model = Challenge
-    fields = ["name", "image", "description", "creators", "start", "end", "tags"]
+    fields = ["name", "image", "one_liner", "description", "creators", "start", "end", "tags"]
 
     def get_form_class(self, *args, **kwargs):
         form_class = super().get_form_class(*args, **kwargs)
@@ -237,7 +237,7 @@ class ChallengeView(InitiativeViewMixin, TemplateView):
 
 class ProjectFormView(InitiativeFormView):
     model = Project
-    fields = ["name", "image", "description", "creators", "contributors", "tags"]
+    fields = ["name", "image", "one_liner", "description", "creators", "contributors", "tags"]
 
 
 class ProjectCreateView(ProjectFormView, CreateView):
