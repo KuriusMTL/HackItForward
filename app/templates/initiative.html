@@ -74,7 +74,7 @@
           <div class="tile__container">
             <p class="tile__title">Creators:
               {% for creator in initiative.creators.all() %}
-                <a href="{{ url('user', pk=creator.pk) }}" class="tag black">{{ creator.username }}</a>
+                <a href="{{ url('user', creator.username) }}" class="tag black">{{ creator.username }}</a>
               {% endfor %}
             </p>
           </div>
@@ -91,7 +91,7 @@
             <div class="tile__container">
               <p class="tile__title">Contributors:
                 {% for contributor in initiative.contributors.all() %}
-                  <a href="{{ url('user', pk=contributor.pk) }}" class="tag black">{{ contributor.username }}</a>
+                  <a href="{{ url('user', contributor.username) }}" class="tag black">{{ contributor.username }}</a>
                 {% endfor %}
               </p>
             </div>

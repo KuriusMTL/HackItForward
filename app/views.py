@@ -61,18 +61,9 @@ class ExploreView(TemplateView):
         context["objects"] = {initiative: queryset.distinct()}
         return context
 
-
-class UserView(DetailView):
-    template_name = "userhome.html"
+class GenericUserView(DetailView):
     model = Profile
     context_object_name = "user"
-
-    def get_object(self, queryset=None):
-        if "pk" in self.kwargs:
-            return super().get_object(queryset)
-        if self.request.user.is_authenticated:
-            return self.request.user.profile
-        raise Http404
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -88,6 +79,20 @@ class UserView(DetailView):
             content_type=ContentType.objects.get_for_model(Profile),
         )
         return context
+
+
+class DashboardView(LoginRequiredMixin, GenericUserView):
+    template_name = "dashboard.html"
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
+
+
+class UserView(GenericUserView):
+    template_name = "user.html"
+
+    def get_object(self):
+        return get_object_or_404(Profile, user__username=self.kwargs["username"])
 
 
 class SocialLinkFormMixin(FormMixin):
