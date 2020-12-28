@@ -34,18 +34,20 @@
           <img src="{{ static('img/logo.png') }}" class="logo" alt="HackItForward">
         </a>
       </div>
+    </div>
 
       <!-- Hambuger Menu -->
-      <div class="nav-item nav-btn" id="header-btn">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
+
     <div class="header-nav" id="header-menu">
       <div class="nav-right">
         <div class="nav-item">
-          <a href="{{ url('explore') }}">Explore</a>
+          <a href="{{ url('explore') }}"><p class="u u-LR">Challenges</p></a>
+        </div>
+        <div class="nav-item">
+          <a href="{{ url('explore') }}"><p class="u u-LR">Submit Challenge</p></a>
+        </div>
+        <div class="nav-item">
+          <a href="{{ url('explore') }}"><p class="u u-LR">Gallery</p></a>
         </div>
         {% if request.user.is_authenticated %}
           <div class="nav-item has-sub btn-container" id="dropdown">
@@ -66,8 +68,11 @@
             </ul>
           </div>
           {% else %}
+          <div class="nav-item">
+            <a href="{{ url('login') }}"><p class="u u-LR">Login</p></a>
+          </div>
           <div class="nav-item btn-container">
-            <a href="{{ url('login') }}" class="btn--pilled btn-primary btn-animated">Login</a>
+            <a href="{{ url('login') }}" class="btn--pilled btn-primary btn-animated">Sign Up</a>
           </div>
         {% endif %}
       </div>

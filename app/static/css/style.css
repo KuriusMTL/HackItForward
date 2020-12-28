@@ -4,7 +4,7 @@
 :root {
   --grid-grey: #f0eeee;
   --grey-light: #f1efef;
-  --grey-mid: #6c6c6c;
+  --grey-mid: #828282;
   --grey-dark: #242424;
 
   --cirrus-primary: #3c8cc9;
@@ -53,6 +53,10 @@ a:hover {
   color: var(--cirrus-link-dark);
 }
 
+.grey {
+  color: var(--grey-mid);
+}
+
 .frame {
   background-color: white;
   padding-top: 25px 0;
@@ -62,12 +66,11 @@ a:hover {
   height: 100px;
 }
 
-.header .header-nav a {
-  text-transform: uppercase;
-  color: var(--grey-dark);
-  font-weight: 600;
-  color: var(--cirrus-primary);
-}
+.header .header-nav a p {
+  color: var(--grey-mid);
+  font-weight: 500;
+  font-family: "Poppins";
+  }
 
 .header .header-nav a[class*="btn-primary"] {
   color: var(--cirrus-bg);
@@ -342,6 +345,13 @@ footer {
  * Challenge
  */
 
+ .share-social-icon {
+  background-color: var(--grey-light);
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  margin: 0px;
+}
  a > .fa-facebook-square {
    color: rgb(59, 89, 152);
  }
@@ -406,10 +416,6 @@ a > .fa-reddit-square:hover {
 .form-section > label + p {
   margin-bottom: 6px;
   margin-top: 0;
-}
-
-.frame > .row > p {
-  width: 100%;
 }
 
 .frame > .row > .img-upload {

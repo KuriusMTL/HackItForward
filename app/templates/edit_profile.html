@@ -1,90 +1,166 @@
 {% extends "base.html" %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ static('css/profile.css') }}">
+{% endblock %}
+
 {% block body %}
 <div class="content">
-  <div class="frame">
-    <div class="row">
-      <div class="col-5">
-        <img class="img-cover" src="{{ static('img/edit_profile.png') }}">
+  <div class="profile-card">
+    <div class="profile-bg">
+      <a class="edit-profile-button" style="text-align: center;">
+        <i class="fas fa-edit"></i>
+      </a>
+    </div>
+    <div class="profile-info">
+      <div class="avatar" style="">
+        <img src="{{ static('img/default_profile.jpg') }}">
       </div>
-      <div class="col-7">
-        <div class="tile level r">
-          <div class="tile-avatar">
-            <span class="icon">
-              <i class="fas fa-user-circle" aria-hidden="true"></i>
-            </span>
-          </div>
-          <div class="tile__container">
-            <p class="tile__title">Username</p>
-            <p class="tile__subtitle">{{ request.user.username }}</p>
-          </div>
+      <div class="profile-details">
+        <h5 style="margin-bottom: 4px;">Steven Gong</h5>
+        <p>@{{ request.user.username }}</p>
+      </div>
+      <button>Follow</button>
+      <div class="profile-social level">
+        <a class="col-3 level-content level-item">
+          <i class="fab fa-facebook fa-2x"></i>
+        </a>
+        <a class="col-3 level-content level-item">
+          <i class="fab fa-twitter fa-2x"></i>
+        </a>
+        <a  class="col-3 level-content level-item">
+          <i class="fab fa-linkedin fa-2x"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="tab-container">
+      <ul>
+        <li class="selected"><a class="">About</a></li>
+        <li><a class="">Projects</a></li>
+        <li><a class="">Me</a></li>
+      </ul>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <div class="profile-info-heading">
+          <strong>Email</strong>
         </div>
-        <div class="tile level r">
-          <div class="tile-avatar">
-            <span class="icon">
-              <i class="fas fa-envelope" aria-hidden="true"></i>
-            </span>
-          </div>
-          <div class="tile__container">
-            <p class="tile__title">Email</p>
-            <p class="tile__subtitle">{{ request.user.email }}</p>
-          </div>
+        <div class="profile-info-text">
+          {{ request.user.email }}
         </div>
-        <div class="tile level r">
-          <div class="tile-avatar">
-            <span class="icon">
-              <i class="fas fa-lock" aria-hidden="true"></i>
-            </span>
-          </div>
-          <div class="tile__container">
-            <p class="tile__title">Password</p>
-            <p class="tile__subtitle">•••••••••••••••</p>
-          </div>
+      </div>
+      <div class="col-6">
+        <div class="profile-info-heading">
+          <strong>Location</strong>
+        </div>
+        <div class="profile-info-text">
+          Montreal, QC
         </div>
       </div>
     </div>
-    <form action="" method="POST">
-      <div class="frame__body">
-        {% csrf_token %}
-        {% for error in form.non_field_errors() %}
+
+    <div class="row">
+      <div class="col-12">
+        <div class="profile-info-heading">
+          <strong>Bio</strong>
+        </div>
+        <div class="profile-info-text">
+          I am a grade 12 student studying Pure and Applied.
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+  <div class="row">
+    <div class="col-5">
+      <img class="img-cover" src="{{ static('img/edit_profile.png') }}">
+    </div>
+    <div class="col-7">
+      <div class="tile level r">
+        <div class="tile-avatar">
+          <span class="icon">
+            <i class="fas fa-user-circle" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div class="tile__container">
+          <p class="tile__title">Username</p>
+          <p class="tile__subtitle">{{ request.user.username }}</p>
+        </div>
+      </div>
+      <div class="tile level r">
+        <div class="tile-avatar">
+          <span class="icon">
+            <i class="fas fa-envelope" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div class="tile__container">
+          <p class="tile__title">Email</p>
+          <p class="tile__subtitle">{{ request.user.email }}</p>
+        </div>
+      </div>
+      <div class="tile level r">
+        <div class="tile-avatar">
+          <span class="icon">
+            <i class="fas fa-lock" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div class="tile__container">
+          <p class="tile__title">Password</p>
+          <p class="tile__subtitle">•••••••••••••••</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form action="" method="POST">
+    <div class="frame__body">
+      {% csrf_token %}
+      {% for error in form.non_field_errors() %}
+        <span class="text-primary info">{{ error }}</span>
+      {% endfor %}
+
+      <div class="form-section">
+        {{ form.description.label_tag() }}
+        {{ form.description }}
+        {% for error in form.description.errors %}
           <span class="text-primary info">{{ error }}</span>
         {% endfor %}
-
-        <div class="form-section">
-          {{ form.description.label_tag() }}
-          {{ form.description }}
-          {% for error in form.description.errors %}
-            <span class="text-primary info">{{ error }}</span>
-          {% endfor %}
-        </div>
-        <div class="form-section">
-          <label>Skills:</label>
-          <div class="row">
-            {% for tag in form.tags %}
-              <div class="col-2">
-                {{ tag }}
-              </div>
-            {% endfor %}
-          </div>
-          {% for error in form.tags.errors %}
-            <span class="text-primary info">{{ error }}</span>
-          {% endfor %}
-        </div>
-        {% with col_class=False %}
-          {% include "social_link_form.html" %}
-        {% endwith %}
-        <div class="form-section">
-          <label>Where are you from?</label>
-          <p>Click and drag the marker. </p>
-          <div class="map-container w-100 h-50">
-            <div id="map">Map should be here</div>
-          </div>
-        </div>
-        <br>
-        <input type="submit" class="btn-primary u-pull-right animated" value="Save all">
       </div>
-    </form>
-  </div>
+      <div class="form-section">
+        <label>Skills:</label>
+        <div class="row">
+          {% for tag in form.tags %}
+            <div class="col-2">
+              {{ tag }}
+            </div>
+          {% endfor %}
+        </div>
+        {% for error in form.tags.errors %}
+          <span class="text-primary info">{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% with col_class=False %}
+        {% include "social_link_form.html" %}
+      {% endwith %}
+      <div class="form-section">
+        <label>Where are you from?</label>
+        <p>Click and drag the marker. </p>
+        <div class="map-container w-100 h-50">
+          <div id="map">Map should be here</div>
+        </div>
+      </div>
+      <br>
+      <input type="submit" class="btn-primary u-pull-right animated" value="Save all">
+    </div>
+  </form>
 </div>
 <script src="{{ static('js/map.js') }}"></script>
 <script>
