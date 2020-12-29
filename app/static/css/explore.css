@@ -1,3 +1,26 @@
+.challenge-of-the-week {
+border-radius: 16px;
+width: 100%;
+background-repeat: no-repeat;
+background-size: cover;
+min-height: 340px;
+padding: 5% 5%;
+}
+
+.input-contains-icon {
+  font-family: "Poppins";
+}
+
+.input-contains-icon::-webkit-input-placeholder {
+  font-family: "Poppins";
+}
+
+.input-control {
+  font-family: "Poppins";
+}
+
+
+
 /* Override chosen css and cirrus transition */
 .chosen-container-multi .chosen-choices:focus, .chosen-container-multi.chosen-container-active .chosen-choices {
   border-color: #3dabf0;
