@@ -39,7 +39,7 @@
     {# submission display #}
     <div class="row">
       {% for object in object_list %}
-        <div class="col-4">
+        <div class="col-4" style="padding: 0 0.75rem;">
           <div class="challenge-card" onclick="location.href='{{ url(name, pk=object.pk) }}'">
             {% if object.image %}
               <div class="card-img" style="background-image: url({{ object.image.url }})"></div>
