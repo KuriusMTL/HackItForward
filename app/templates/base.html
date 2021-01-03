@@ -50,7 +50,7 @@
           <a href="{{ url('explore') }}"><p class="u u-LR">Gallery</p></a>
         </div>
         {% if request.user.is_authenticated %}
-          <div class="nav-item has-sub btn-container" id="dropdown">
+          <!-- <div class="nav-item has-sub btn-container" id="dropdown">
             <a class="nav-dropdown-link">Create</a>
             <ul class="dropdown-menu" role="menu">
               {% if request.user.has_perm('app.add_challenge') %}
@@ -58,7 +58,7 @@
               {% endif %}
               <li role="menu-item"><a href="{{ url('project_create') }}">Project</a></li>
             </ul>
-          </div>
+          </div> -->
           <div class="nav-item has-sub btn-container" id="dropdown">
             <a class="nav-dropdown-link btn-primary">Welcome, {{ request.user.username }}</a>
             <ul class="dropdown-menu" role="menu">
@@ -72,7 +72,7 @@
             <a href="{{ url('login') }}"><p class="u u-LR">Login</p></a>
           </div>
           <div class="nav-item btn-container">
-            <a href="{{ url('login') }}" class="btn--pilled btn-primary btn-animated">Sign Up</a>
+            <a href="{{ url('register') }}" class="btn--pilled btn-primary btn-animated">Sign Up</a>
           </div>
         {% endif %}
       </div>

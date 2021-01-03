@@ -15,41 +15,92 @@
 
     <div class="row">
       <div class="col-8 initiative-card">
-        <div class="row">
+        <div class="initiative-card-content">
           {% if initiative.image %}
-            <img class="img-upload u-margin-auto" src="{{ initiative.image.url }}">
+            <div class="initiative-card-image" style="background-image: url({{ initiative.image.url }})"></div>
           {% else %}
-            <img class="img-upload u-margin-auto" src="{{ static('img/polar-bear-2.png') }}"  style="max-height: 400px; max-width: 600px;">
+            <div class="initiative-card-image" style="background-image: url({{ static('img/polar-bear-2.png') }})"></div>
           {% endif %}
-        </div>
-        <h2 id="initiative-name" style="text-align: center;">{{ initiative.name }}</h2>
-        <!-- TODO:Write backend for this -->
-        <p class="font-semibold subheading">This is the subheading that needs to be coded on the backend. It summarizes the project/challenge/tutorial.</p>
-        <div class="row level">
-          <a>
-            <img class="profile-icon" src="{{ static('img/default_profile.jpg') }}"/>
-          </a>
-          <div class="col-9">
-            <a>
-              <h4 style="margin: 0">John Fish</h4>
-            </a>
-            <p style="margin: 0">August 15, 2020 - 14 min read</p>
+          <h1 id="initiative-name">{{ initiative.name }}</h1>
+          <div style="font-weight: 400; color: #828282;">
+            {{ initiative.description|mistune }}
           </div>
-          <div class="row no-space level u-pull-right">
-            <a onclick="shareOnFB(window.location.href.toString())" class="col-3 share-social-icon level-content level-item">
-              <i class="fab fa-facebook-square fa-2x" aria-hidden="true"></i>
-            </a>
-            <a onclick="shareOnTwitter(window.location.href.toString())" class="col-3 share-social-icon level-content level-item">
-              <i class="fab fa-twitter-square fa-2x"></i>
-            </a>
-            <a onclick="shareOnLinkedIn(window.location.href.toString())" class="col-3 share-social-icon level-content level-item">
-              <i class="fab fa-linkedin fa-2x"></i>
-            </a>
-            <a onclick="shareOnReddit(window.location.href.toString())" class="col-3 share-social-icon level-content level-item">
-              <i class="fab fa-reddit-square fa-2x"></i>
-            </a>
+          <div class="row">
+            <div class="col-12">
+              <!-- Challenge Tag -->
+              {% if initiative.challenge %}
+                <div class="tile level r">
+                  <div class="tile-avatar">
+                    <span class="icon">
+                      <i class="fas fa-tag" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                  <div class="tile__container">
+                    <p class="tile__title">Challenge:
+                      <a href="{{ url('challenge', pk=initiative.challenge.pk) }}" class="tag black">{{ initiative.challenge.name }}</a>
+                    </p>
+                  </div>
+                </div>
+              {% endif %}
+
+              <!-- {% if links.exists() %}
+                <div class="tile level r">
+                  <div class="tile-avatar">
+                    <span class="icon">
+                      <i class="fas fa-link" aria-hidden="true"></i>
+                    </span>
+                  </div>
+                  <div class="tile__container">
+                    <p class="tile__title">Links:
+                    {% for link in links.all() %}
+                      <a href="{{ link.href }}" class="tooltip" data-tooltip="{{ link.link.placeholder }}"><i class="fas fa-{{ link.link.icon }}"></i></a>
+                    {% endfor %}
+                    </p>
+                  </div>
+                </div>
+              {% endif %} -->
+            </div>
           </div>
+
+          <div class="row" style="padding: 0; margin: 0">
+            <a class="col-6" style="padding: 0; margin: 0">
+              <img class="profile-icon vertical-align" src="{{ static('img/default_profile.jpg') }}"/>
+              <p class="vertical-align" style="margin: 0; color:#4F4F4F;">By <b>{{ initiative.creators.all()[0].username }}</b></p>
+            </a>
+
+
+
+            <div class="level col-4 offset-2">
+              <a onclick="shareOnReddit(window.location.href.toString())" class="share-social-icon level-content level-item">
+                <i class="fas fa-link fa-lg" style="color: #868686;"></i>
+              </a>
+              <a onclick="shareOnFB(window.location.href.toString())" class="share-social-icon level-content level-item">
+                <i class="fab fa-facebook fa-lg" aria-hidden="true"></i>
+              </a>
+              <a onclick="shareOnTwitter(window.location.href.toString())" class="share-social-icon level-content level-item">
+                <i class="fab fa-twitter fa-lg"></i>
+              </a>
+              <a onclick="shareOnLinkedIn(window.location.href.toString())" class="share-social-icon level-content level-item">
+                <i class="fab fa-linkedin fa-lg"></i>
+              </a>
+              <a onclick="shareOnReddit(window.location.href.toString())" class="share-social-icon level-content level-item">
+                <i class="fab fa-reddit fa-lg"></i>
+              </a>
+
+              <a onclick="shareOnReddit(window.location.href.toString())" class="share-social-icon level-content level-item">
+                <i class="fas fa-bookmark fa-lg" style="color: #4F4F4F;"></i>
+              </a>
+            </div>
+          </div>
+
         </div>
+      </div>
+
+      <div class="col-3" style="margin-left: 16px;">
+
+        {% block topright %}
+        {% endblock %}
+
         <div class="buttons">
           {% block buttons %}
             {% if initiative.can_edit(request.user) %}
@@ -57,114 +108,27 @@
             {% endif %}
           {% endblock %}
         </div>
-        <div>
-          {{ initiative.description|mistune }}
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <!-- Challenge Tag -->
-            {% if initiative.challenge %}
-              <div class="tile level r">
-                <div class="tile-avatar">
-                  <span class="icon">
-                    <i class="fas fa-tag" aria-hidden="true"></i>
-                  </span>
-                </div>
-                <div class="tile__container">
-                  <p class="tile__title">Challenge:
-                    <a href="{{ url('challenge', pk=initiative.challenge.pk) }}" class="tag black">{{ initiative.challenge.name }}</a>
-                  </p>
-                </div>
-              </div>
-            {% endif %}
 
-            <!-- Tags -->
+        <!-- Tags -->
+        <div class="initiative-card">
+          <div class="initiative-card-content">
+            <h5>Tags</h5>
             {% if initiative.tags.exists() %}
-              <div class="tile level r">
-                <div class="tile-avatar">
-                  <span class="icon">
-                    <i class="fas fa-tag" aria-hidden="true"></i>
-                  </span>
-                </div>
-                <div class="tile__container">
-                  <p class="tile__title">Tags:
-                    {% for tag in initiative.tags.all() %}
-                      <a href="{{ url('index') }}?type={{ initiative|class_name|lower }}&tag={{ tag.name }}" class="tag white" style="background-color: {{ tag.color }}">{{ tag.name }}</a>
-                    {% endfor %}
-                  </p>
-                </div>
-              </div>
-            {% endif %}
-
-            <!-- Creators -->
-            <div class="tile level r">
-              <div class="tile-avatar">
-                <span class="icon">
-                  <i class="fas fa-user-circle" aria-hidden="true"></i>
-                </span>
-              </div>
-              <div class="tile__container">
-                <p class="tile__title">Creators:
-                  {% for creator in initiative.creators.all() %}
-                    <a href="{{ url('user', pk=creator.pk) }}" class="tag black">{{ creator.username }}</a>
-                  {% endfor %}
-                </p>
-              </div>
+            <div class="row" style="padding-left: 0;">
+              {% for tag in initiative.tags.all() %}
+              <a class="initiative-tag" href="{{ url('index') }}?type={{ initiative|class_name|lower }}&tag={{ tag.name }}">
+                <button class="btn-tag btn--pilled btn-primary btn-small" style="font-weight: 500;">{{ tag.name }}</button>
+              </a>
+              {% endfor %}
             </div>
-
-            <!-- Contributors -->
-            {% if initiative.contributors and initiative.contributors.exists() %}
-              <div class="tile level r">
-                <div class="tile-avatar">
-                  <span class="icon">
-                    <i class="fas fa-user-circle" aria-hidden="true"></i>
-                  </span>
-                </div>
-                <div class="tile__container">
-                  <p class="tile__title">Contributors:
-                    {% for contributor in initiative.contributors.all() %}
-                      <a href="{{ url('user', pk=contributor.pk) }}" class="tag black">{{ contributor.username }}</a>
-                    {% endfor %}
-                  </p>
-                </div>
-              </div>
-            {% endif %}
-
-            {% for timestamp in time_labels %}
-              <div class="tile level r">
-                <div class="tile-avatar">
-                  <span class="icon">
-                    <i class="fas fa-calendar-check" aria-hidden="true"></i>
-                  </span>
-                </div>
-                <div class="tile__container">
-                  <p class="tile__title">{{ timestamp.label }}:
-                    <span>{{ timestamp.time }}</span>
-                  </p>
-                </div>
-              </div>
-            {% endfor %}
-
-            <!-- Links -->
-            {% if links.exists() %}
-              <div class="tile level r">
-                <div class="tile-avatar">
-                  <span class="icon">
-                    <i class="fas fa-link" aria-hidden="true"></i>
-                  </span>
-                </div>
-                <div class="tile__container">
-                  <p class="tile__title">Links:
-                  {% for link in links.all() %}
-                    <a href="{{ link.href }}" class="tooltip" data-tooltip="{{ link.link.placeholder }}"><i class="fas fa-{{ link.link.icon }}"></i></a>
-                  {% endfor %}
-                  </p>
-                </div>
-              </div>
             {% endif %}
           </div>
         </div>
+
+        {% block related %}
+        {% endblock %}
       </div>
+
     </div>
   <br>
   {% block frames %}

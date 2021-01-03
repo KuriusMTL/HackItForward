@@ -5,7 +5,49 @@
 {% endblock %}
 
 {% block body %}
-{% with type='Login' %}
-  {% include "register_login.html" %}
-{% endwith %}
+<div class="content" style="max-width: 25em;">
+  <div class="frame">
+    <img class="img-cover" src="{{ static('img/humaans/peoplesitting2.svg') }}" width="250" style="display: block; margin: 0 auto;">
+    <div class="tab-container tabs-fill">
+      <ul>
+        <li {% if type == 'Login' %} class="selected" {% endif %}><a href="{{ url('login') }}">Login</a></li>
+        <li {% if type == 'Register' %} class="selected" {% endif %}><a href="{{ url('register') }}">Register</a></li>
+      </ul>
+    </div>
+    <form action="" method="POST">
+      <div class="frame__body">
+        {% csrf_token %}
+        {% for error in form.non_field_errors() %}
+          <span class="text-primary info">{{ error }}</span>
+        {% endfor %}
+        {% for field in form %}
+          <div class="form-section">
+            <label>{{ field.label_tag() }}</label>
+            {{ field }}
+          {% for error in field.errors %}
+            <span class="text-primary info">{{ error }}</span>
+          {% endfor %}
+          </div>
+        {% endfor %}
+        <input type="submit" class="btn-primary u-pull-right animated" value="{{ type }}">
+      </div>
+    </form>
+    <div class="frame__body form-section">
+      <label>Or {{ type|lower }} with:</label>
+      <div class="row">
+        <div class="col">
+          <a href="{{ url('social:begin', 'google-oauth2') }}?next={{ next }}" class="btn btn-grey u-no-margin w-100">
+            <i class="fab fa-google"></i>&nbsp;<span>Google</span>
+          </a>
+        </div>
+        <div class="col">
+          <a href="{{ url('social:begin', 'github') }}?next={{ next }}" class="btn btn-grey u-no-margin w-100">
+            <i class="fab fa-github"></i>&nbsp;<span>GitHub</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

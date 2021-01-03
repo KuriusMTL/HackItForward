@@ -28,11 +28,13 @@ body {
 
 p {
   font-size: 18px;
+  color: #4F4F4F;
 }
 
 h1, h2 ,h3, h4, h5, h6 {
   font-family: "Poppins", sans-serif;
   font-weight: bold;
+  color: #4F4F4F;
 }
 
 a {
@@ -59,6 +61,11 @@ a:hover {
 .frame {
   background-color: white;
   padding-top: 25px 0;
+}
+
+.horizontal-line {
+  border: 1px solid #bdbdbd;
+  width: 100%;
 }
 
 .placeholder img {
@@ -115,6 +122,11 @@ div.header {
   transition: all var(--animation-duration);
 }
 
+.btn-oauth {
+  border-radius: 8px;
+  padding: 12px;
+}
+
 .btn-primary:hover {
   background: var(--cirrus-link-dark);
   color: white;
@@ -147,9 +159,43 @@ div.header {
   color: var(--cirrus-primary);
 }
 
+.btn-black {
+  background-color: black;
+  border-color: black;
+  color: white;
+}
+
+.btn-black:hover {
+  background-color: black;
+  color: white;
+}
+
+.btn-google {
+  background-color: #5286EC;
+  color: white;
+}
+
+.btn-google:hover {
+  background-color: #5286EC;
+  color: white;
+}
+
 .btn-light {
   color: var(--grey-mid);
 }
+
+.btn-tag {
+  background-color: #E3EEFC;
+  border-color: #E3EEFC;
+  color: #4F4F4F;
+}
+
+.btn-tag:hover {
+  background-color: #E3EEFC;
+  border-color: #E3EEFC;
+  color: #4F4F4F;
+}
+
 
 .btn, .btn-primary, .btn-transparent, .btn-light, .btn-dark {
   font-family: "Poppins", sans-serif;
@@ -322,42 +368,38 @@ footer {
  */
 
  .challenge-card {
-   position: relative;
+   background-color: white;
+   border-radius: 16px;
+   margin: .5rem 0;
+   padding: 0;
  }
 
- .challenge-card:before {
-    content:     "";
-    display:     block;
-    padding-top: 105%; /* initial ratio of 1:1*/
- }
-
- .card-content {
-  background-color: white;
-  border-radius: 16px;
-  position: absolute;
-  top:      0;
-  left:     0;
-  bottom:   0;
-  right:    0;
-  margin: 0 .5rem;
+ .challenge-card:hover {
+  cursor: pointer;
 }
 
-.card-content .card-img {
-  height: 60%;
-  background-size: contain;
+.challenge-card .card-img {
+  height: 260px;
+  background-size: cover;
   background-repeat: no-repeat;
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
 }
 
 .challenge-card .card-description {
-height: 40%;
+padding: 2% 5%;
 }
 
 .challenge-card-title {
   font-size: 20px;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .challenge-card-creators {
   font-size: 16px;
+  padding: 10px;
+  position: relative;
 }
 
 .vertical-align {
@@ -375,30 +417,44 @@ height: 40%;
   position: 50%;
 }
 
+.challenge-card-profile-icon {
+  height: 28px;
+  width: 28px;
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  margin-top: -14px;
+}
+
+.challenge-card-profile-text {
+  margin-left: 45px;
+  margin-top: 7px;
+}
+
+
 /**
  * Challenge
  */
 
  .share-social-icon {
-  background-color: var(--grey-light);
-  border-radius: 8px;
+  border-radius: 50%;
   width: 40px;
   height: 40px;
   margin: 0px;
 }
- a > .fa-facebook-square {
-   color: rgb(59, 89, 152);
+ a > .fa-facebook {
+   color: #3E75E4;
  }
 
- a > .fa-facebook-square:hover {
-  color: rgb(48, 72, 124);
+ a > .fa-facebook:hover {
+  color: #2666e7;
 }
 
-a > .fa-twitter-square {
+a > .fa-twitter {
   color: rgb(0, 172, 237);
 }
 
-a > .fa-twitter-square:hover {
+a > .fa-twitter:hover {
   color: rgb(1, 157, 214);
 }
 
@@ -410,12 +466,12 @@ a > .fa-linkedin:hover {
  color:var(--cirrus-link-dark);
 }
 
-a > .fa-reddit-square {
+a > .fa-reddit {
   color: rgb(255,69,0);
 }
 
-a > .fa-reddit-square:hover {
- color: rgb(230, 63, 3);
+a > .fa-reddit:hover {
+ color: rgb(246, 67, 2);
 }
 
  .profile-icon {

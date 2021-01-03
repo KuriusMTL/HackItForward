@@ -39,26 +39,29 @@
     {# submission display #}
     <div class="row">
       {% for object in object_list %}
-        <div class="challenge-card col-4" onclick="location.href='{{ url(name, pk=object.pk) }}'">
-          <div class="card-content">
+        <div class="col-4">
+          <div class="challenge-card" onclick="location.href='{{ url(name, pk=object.pk) }}'">
             {% if object.image %}
-            <div class="card-img" style="background-image: url({{ object.image.url }})"></div>
-          {% else %}
-            <div class="card-img" style="background-image: url({{ static('img/fibonacci.png') }})"></div>
-          {% endif %}
+              <div class="card-img" style="background-image: url({{ object.image.url }})"></div>
+            {% else %}
+              <div class="card-img" style="background-image: url({{ static('img/fibonacci.png') }})"></div>
+            {% endif %}
             <div class="card-description">
-              <h1 class="challenge-card-title">{{ object.name }}</h1>
-              <hr noshade size="1" style="border-color: #E0E0E0;">
-              <div class="challenge-card-creators  row" >
-                <div class="col-2 vertical-align" style="display: flex; align-items: center;">
-                  <span class="circle"></span>
-                </div>
-                <div class="u-text-left col-10 vertical-align">
-                  <p class="">
-                    By&nbsp;<b class="">{{ object.short_creators }}</b>
+              <h1 class="challenge-card-title" style="margin-bottom: 5px; font-size: 20px;">{{ object.name }}</h1>
+              <p style="margin: 0; font-size: 20px;">0 Submissions</p>
+            </div>
+            <hr noshade size="1" style="border-color: #F2F2F2;">
+
+            <div class="card-description" style="padding: 0;">
+              <div class="challenge-card-creators row">
+                <a>
+                  <img class="profile-icon challenge-card-profile-icon" src="{{ static('img/default_profile.jpg') }}"/>
+                </a>
+                <div class="u-text-left">
+                  <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0">
+                  By&nbsp;<b class="">{{ object.short_creators }}</b>
                   </p>
                 </div>
-
               </div>
             </div>
           </div>

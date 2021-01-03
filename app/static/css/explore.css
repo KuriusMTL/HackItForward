@@ -5,6 +5,7 @@ background-repeat: no-repeat;
 background-size: cover;
 min-height: 340px;
 padding: 5% 5%;
+margin-top: 50px;
 }
 
 .input-contains-icon {
