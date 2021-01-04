@@ -61,6 +61,7 @@ class ExploreView(TemplateView):
         context["objects"] = {initiative: queryset.distinct()}
         return context
 
+
 class GenericUserView(DetailView):
     model = Profile
     context_object_name = "user"
