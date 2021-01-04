@@ -1,4 +1,11 @@
+var url = document.location.href;
+
 $(document).ready(() => {
+  new Clipboard('.clipboard-btn', {
+    text: function() {
+      return url
+    }
+  });
 	// Show / Hide menu when clicked
 	$('.has-sub').on('click', function(e) {
 		$('.dropdown-menu').not($(this).children('.dropdown-menu')).removeClass('dropdown-shown'); // Hide other menus
@@ -39,6 +46,13 @@ function openTab(evt, level) {
   evt.currentTarget.classList.add("selected");
 }
 
+function copyLink() {
+  var Url = document.getElementById("random");
+  Url.innerHTML = window.location.href;
+  Url.select();
+  document.execCommand("copy");
+}
+
 function shareOnFB(url){
   var link = "https://www.facebook.com/sharer/sharer.php?u=" + url;
   window.open(link);
@@ -55,6 +69,6 @@ function shareOnLinkedIn(url){
 }
 
 function shareOnReddit(url) {
-  var url = "https://reddit.com/submit?url="+ url + "&title=" + document.querySelector('#initiative-name').textContent;
+  var link = "https://reddit.com/submit?url="+ url + "&title=" + document.querySelector('#initiative-name').textContent;
   window.open(link);
 }
