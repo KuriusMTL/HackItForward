@@ -70,6 +70,13 @@ margin: 5px;
   left: 50%;
   margin-left: -2.3rem;
   margin-top: -2rem;
+}
 
-
+.share-image-preview {
+  min-height: 200px;
+  border-radius: 8px;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 24px 0px;
 }

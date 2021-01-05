@@ -10,10 +10,40 @@
 {% endblock %}
 
 {% block topright %}
+<div class="modal modal-animated--zoom-in" id="share-modal">
+  <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
+  <div class="modal-content" style="min-width: 500px; border-radius: 16px;">
+      <div class="modal-body">
+      {% if initiative.image %}
+        <div class="share-image-preview" style="background-image: url({{ initiative.image.url }})"></div>
+      {% else %}
+        <div class="share-image-preview" style="background-image: url({{ static('img/polar-bear-2.png') }})"></div>
+      {% endif %}
+      <h3 class="u-text-center">Share This Challenge</h3>
+        <div class="row">
+          <a class="clipboard-btn share-social-icon level-content level-item">
+            <i class="fas fa-link fa-lg" style="color: #868686;"></i>
+          </a>
+          <a onclick="shareOnFB(window.location.href.toString())" class="share-social-icon level-content level-item">
+            <i class="fab fa-facebook fa-lg" aria-hidden="true"></i>
+          </a>
+          <a onclick="shareOnTwitter(window.location.href.toString())" class="share-social-icon level-content level-item">
+            <i class="fab fa-twitter fa-lg"></i>
+          </a>
+          <a onclick="shareOnLinkedIn(window.location.href.toString())" class="share-social-icon level-content level-item">
+            <i class="fab fa-linkedin fa-lg"></i>
+          </a>
+          <a onclick="shareOnReddit(window.location.href.toString())" class="share-social-icon level-content level-item">
+            <i class="fab fa-reddit fa-lg"></i>
+          </a>
+        </div>
+      </div>
+  </div>
+</div>
 <a href="{{ url('project_challenge_create', pk=initiative.pk) }}" class="u-center">
   <button class="btn-primary btn--pilled" style="width: 100%;">Create Solution</button>
 </a>
-<a class="font-bold u-center" style="margin: 20px 0;">Share Challenge &nbsp;<i class="fas fa-share"></i></a>
+<a href="#share-modal" class="font-bold u-center" style="margin: 20px 0;">Share Challenge &nbsp;<i class="fas fa-share"></i></a>
 {% endblock %}
 
 
