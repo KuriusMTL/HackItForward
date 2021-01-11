@@ -1,14 +1,5 @@
 {% extends "initiative.html" %}
 
-{% block buttons %}
-{% if initiative.is_open() %}
-  <a class="btn btn-primary" href="{{ url('project_challenge_create', pk=initiative.pk) }}">
-    <i class="fas fa-plus"></i>&nbsp; Create Project
-  </a>
-{% endif %}
-{{ super() }}
-{% endblock %}
-
 {% block topright %}
 <div class="modal modal-animated--zoom-in" id="share-modal">
   <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
@@ -40,10 +31,12 @@
       </div>
   </div>
 </div>
-<a href="{{ url('project_challenge_create', pk=initiative.pk) }}" class="u-center">
-  <button class="btn-primary btn--pilled" style="width: 100%;">Create Solution</button>
-</a>
+{% if initiative.is_open() %}
+  <a href="{{ url('project_challenge_create', pk=initiative.pk) }}" class="u-center">
+    <button class="btn-primary btn--pilled" style="width: 100%;">Create Solution</button>
+  </a>
 <a href="#share-modal" class="font-bold u-center" style="margin: 20px 0;">Share Challenge &nbsp;<i class="fas fa-share"></i></a>
+{% endif %}
 {% endblock %}
 
 
@@ -94,7 +87,7 @@
       <a href="{{ url('project_challenge_create', pk=initiative.pk) }}" class="u-center">
         <button class="btn-primary btn--pilled">Submit Project</button>
       </a>
-      <a class="font-bold" style="margin-top: 12px;">Share Challenge &nbsp;<i class="fas fa-share"></i></a>
+      <a href="#share-modal" class="font-bold" style="margin-top: 12px;">Share Challenge &nbsp;<i class="fas fa-share"></i></a>
     </div>
   </div>
   {% endfor %}

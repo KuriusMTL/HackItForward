@@ -6,113 +6,57 @@
 
 {% block body %}
 <div class="content">
-  <div class="profile">
-
-
-
-
-  <!-- <div class="profile-social level">
-    <a class="col-3 level-content level-item">
-      <i class="fab fa-facebook fa-2x"></i>
+  <div class="profile-card">
+    <h2>Edit Profile</h2>
+    <img>
+    <a>
+      <button class="btn--pilled btn-primary">Change Photo</button>
     </a>
-    <a class="col-3 level-content level-item">
-      <i class="fab fa-twitter fa-2x"></i>
-    </a>
-    <a  class="col-3 level-content level-item">
-      <i class="fab fa-linkedin fa-2x"></i>
-    </a>
-  </div> -->
-
-
-
-
-
-
-
-
-  <div class="row">
-    <div class="col-5">
-      <img class="img-cover" src="{{ static('img/edit_profile.png') }}">
-    </div>
-    <div class="col-7">
-      <div class="tile level r">
-        <div class="tile-avatar">
-          <span class="icon">
-            <i class="fas fa-user-circle" aria-hidden="true"></i>
-          </span>
-        </div>
-        <div class="tile__container">
-          <p class="tile__title">Username</p>
-          <p class="tile__subtitle">{{ request.user.username }}</p>
-        </div>
-      </div>
-      <div class="tile level r">
-        <div class="tile-avatar">
-          <span class="icon">
-            <i class="fas fa-envelope" aria-hidden="true"></i>
-          </span>
-        </div>
-        <div class="tile__container">
-          <p class="tile__title">Email</p>
-          <p class="tile__subtitle">{{ request.user.email }}</p>
-        </div>
-      </div>
-      <div class="tile level r">
-        <div class="tile-avatar">
-          <span class="icon">
-            <i class="fas fa-lock" aria-hidden="true"></i>
-          </span>
-        </div>
-        <div class="tile__container">
-          <p class="tile__title">Password</p>
-          <p class="tile__subtitle">•••••••••••••••</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <form action="" method="POST">
-    <div class="frame__body">
-      {% csrf_token %}
-      {% for error in form.non_field_errors() %}
-        <span class="text-primary info">{{ error }}</span>
-      {% endfor %}
-
-      <div class="form-section">
-        {{ form.description.label_tag() }}
-        {{ form.description }}
-        {% for error in form.description.errors %}
+    <a>Delete Photo</a>
+    <form action="" method="POST">
+      <div class="frame__body">
+        {% csrf_token %}
+        {% for error in form.non_field_errors() %}
           <span class="text-primary info">{{ error }}</span>
         {% endfor %}
-      </div>
-      <div class="form-section">
-        <label>Skills:</label>
-        <div class="row">
-          {% for tag in form.tags %}
-            <div class="col-2">
-              {{ tag }}
-            </div>
+
+        <div class="form-section">
+          {{ form.description.label_tag() }}
+          {{ form.description }}
+          {% for error in form.description.errors %}
+            <span class="text-primary info">{{ error }}</span>
           {% endfor %}
         </div>
-        {% for error in form.tags.errors %}
-          <span class="text-primary info">{{ error }}</span>
-        {% endfor %}
-      </div>
-      {% with col_class=False %}
-        {% include "social_link_form.html" %}
-      {% endwith %}
-      <div class="form-section">
-        <label>Where are you from?</label>
-        <p>Click and drag the marker. </p>
-        <div class="map-container w-100 h-50">
-          <div id="map">Map should be here</div>
+        <div class="form-section">
+          <label>Skills:</label>
+          <div class="row">
+            {% for tag in form.tags %}
+              <div class="col-2">
+                {{ tag }}
+              </div>
+            {% endfor %}
+          </div>
+          {% for error in form.tags.errors %}
+            <span class="text-primary info">{{ error }}</span>
+          {% endfor %}
         </div>
+        {% with col_class=False %}
+          {% include "social_link_form.html" %}
+        {% endwith %}
+        <div class="form-section">
+          <label>Where are you from?</label>
+          <p>Click and drag the marker. </p>
+          <div class="map-container w-100 h-50">
+            <div id="map">Map should be here</div>
+          </div>
+        </div>
+        <br>
+        <input type="submit" class="btn-primary u-pull-right animated" value="Save all">
       </div>
-      <br>
-      <input type="submit" class="btn-primary u-pull-right animated" value="Save all">
-    </div>
-  </form>
+    </form>
+  </div>
 </div>
-<script src="{{ static('js/map.js') }}"></script>
+  <script src="{{ static('js/map.js') }}"></script>
 <script>
   var simplemde = new SimpleMDE({ element: document.getElementById("id_description") });
 </script>

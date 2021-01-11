@@ -53,13 +53,20 @@
       </div>
     {% endif %}
     </div>
+
+    {% if user == profile %}
+    <a href="{{ url('edit_profile') }}">
+      <button class="btn--pilled btn-white btn-primary" style="color: #4f4f4f; position: relative; right: -1050px; top: 100px">Edit Profile</button>
+    </a>
+    {% endif %}
+
   </div>
 
   <div class="tab-container">
     <ul>
-      <li class="tablevel selected" onclick="openTab(event, 'bio')"><a class="">Bio</a></li>
-      <li class="tablevel" onclick="openTab(event, 'submissions')"><a class="">Submissions</a></li>
-      <li class="tablevel" onclick="openTab(event, 'bookmarks')"><a class="">Bookmarks</a></li>
+      <li class="tablevel selected" onclick="openTab(event, 'bio')"><a class="" style="background-color: transparent; font-size: large;">Bio</a></li>
+      <li class="tablevel" onclick="openTab(event, 'submissions')"><a class="" style="background-color: transparent; font-size: large;">Submissions</a></li>
+      <li class="tablevel" onclick="openTab(event, 'bookmarks')" ><a class="" style="background-color: transparent; font-size: large;">Bookmarks</a></li>
     </ul>
   </div>
 
@@ -88,13 +95,13 @@
       {% if links.exists() %}
         <div class="col-3">
           <div class="profile-card">
-            <h4>Connect</h4>
+            <h4 style="margin-top: 0;">Connect</h4>
             <div class="level">
               <!-- <a href="mailto:{{ request.user.email }}" target="_blank" class="share-social-icon level-content level-item">
                 <i class="fas fa-envelope fa-lg" aria-hidden="true" style="color: #4F4F4F;"></i>
               </a> -->
               {% for link in links.all() %}
-                <a class="share-social-icon level-content level-item" href="{{ link.href }}" target="_blank"><i class="fab fa-{{ link.link.icon }} fa-3x"></i></a>
+                <a class="share-social-icon level-content level-item" href="{{ link.href }}" target="_blank"><i class="fab fa-{{ link.link.icon }} fa-2x"></i></a>
               {% endfor %}
             </div>
           </div>
