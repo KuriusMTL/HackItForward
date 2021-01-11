@@ -12,8 +12,9 @@
       {% endif %}
       <h3 class="u-text-center">Share This Challenge</h3>
         <div class="row">
-          <a class="clipboard-btn share-social-icon level-content level-item">
+          <a class="popup clipboard-btn share-social-icon level-content level-item" onclick="displayLinkCopied(1)">
             <i class="fas fa-link fa-lg" style="color: #868686;"></i>
+            <span class="popuptext" id="copy-popup-1">Link copied!</span>
           </a>
           <a onclick="shareOnFB(window.location.href.toString())" class="share-social-icon level-content level-item">
             <i class="fab fa-facebook fa-lg" aria-hidden="true"></i>
