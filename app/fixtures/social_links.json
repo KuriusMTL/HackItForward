@@ -74,7 +74,7 @@
   "pk": null,
   "fields": {
     "name": "YouTube",
-    "icon": "youtube-play",
+    "icon": "youtube",
     "site": "https://youtube.com/channel/",
     "placeholder": "Youtube Channel ID"
   }
@@ -134,7 +134,7 @@
   "pk": null,
   "fields": {
     "name": "Email",
-    "icon": "email",
+    "icon": "envelope",
     "site": "mailto:%s",
     "placeholder": "Email"
   }

@@ -1,10 +1,8 @@
 .profile-card {
-  position: relative;
-  height: 100%;
-  padding: 30px;
-  border-radius: 3px;
-  background-color: #fff;
-  box-shadow: 0 1px 5px 0 #ebedf0;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 16px rgba(202, 202, 202, 0.15);
+  border-radius: 16px;
+  padding: 40px;
 }
 
 .profile-bg {
@@ -12,10 +10,13 @@
   margin-top: -30px;
   margin-right: -30px;
   margin-left: -30px;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+  border-radius: 16px;
   background-image: url(../img/default-profile-bg.jpg);
   background-position: 50% 50%;
+}
+
+.skills-tag {
+  margin: 5px;
 }
 
 .edit-profile-button {
@@ -37,6 +38,8 @@
   width: 130px;
   height: 130px;
   -webkit-box-flex: 0;
+  margin-left: 10px;
+  margin-right: 20px;
 }
 
 .profile-info {
@@ -57,6 +60,7 @@
   margin-top: 65px;
   margin-left: 20px;
   -webkit-box-flex: 1;
+
 }
 
 .profile-social {

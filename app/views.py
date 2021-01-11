@@ -63,7 +63,7 @@ class ExploreView(TemplateView):
 
 
 class UserView(DetailView):
-    template_name = "userhome.html"
+    template_name = "userprofile.html"
     model = Profile
     context_object_name = "user"
 

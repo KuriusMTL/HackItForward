@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>{{ user.username }} | HackItForward</title>
+<link rel="stylesheet" href="{{ static('css/profile.css') }}">
+<link rel="stylesheet" href="{{ static('css/challenge.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="content">
+  <div class="profile-bg">
+  </div>
+  <div class="profile-info">
+    <div class="avatar"foll>
+      <img src="{{ static('img/default_profile.jpg') }}">
+    </div>
+    <div class="profile-details">
+      <h3 style="margin-bottom: 4px;">Steven Gong</h3>
+      <p style="margin: 0">Montreal, QC</p>
+      <p style="margin:0">@{{ request.user.username }}</p>
+
+      {% if user.badges.exists() %}
+      <div>
+        <div>
+          <span class="tile__title badges">Badges:
+            {% for badge in user.badges.all() %}
+              <a href="#badge-{{ badge.pk }}" class="tooltip" data-tooltip="{{ badge.name }}">
+                <img src="{{ badge.icon.url }}">
+              </a>
+              <div class="modal modal-animated--zoom-in" id="badge-{{ badge.pk }}">
+                <a href="#Profile" class="modal-overlay close-btn" aria-label="Close"></a>
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <br>
+                    <h4 class="modal-title">{{ badge.name }}</h4>
+                    <p>{{ badge.description }}</p>
+                    <img src="{{ badge.icon.url }}">
+                  </div>
+                  <div class="modal-footer">
+                    <div class="u-flex">
+                      <div class="level-right level-content">
+                        <a href="#Profile" style="display:inline-block">
+                          <button class="btn-small">Cancel</button>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </span>
+        </div>
+      </div>
+    {% endif %}
+    </div>
+  </div>
+
+  <div class="tab-container">
+    <ul>
+      <li class="tablevel selected" onclick="openTab(event, 'bio')"><a class="">Bio</a></li>
+      <li class="tablevel" onclick="openTab(event, 'submissions')"><a class="">Submissions</a></li>
+      <li class="tablevel" onclick="openTab(event, 'bookmarks')"><a class="">Bookmarks</a></li>
+    </ul>
+  </div>
+
+  <div class="tabcontent" id="bio" style="display: block;">
+    <div class="row">
+      <div class="col-6">
+        <div class="profile-card">
+          <h6 style="margin-top: 0px;">About Me</h6>
+          <p>{{ user.description|mistune }}</p>
+          {% if user.tags.exists() %}
+            <h6>My Skills</h6>
+            <div class="row">
+              {% for tag in user.tags.all() %}
+              <a class="skills-tag" href="">
+                <button class="btn-tag btn--pilled btn-primary btn-small" style="font-weight: 500;">{{ tag.name }}</button>
+              </a>
+              {% endfor %}
+            </div>
+
+
+        {% endif %}
+        </div>
+      </div>
+
+
+      {% if links.exists() %}
+        <div class="col-3">
+          <div class="profile-card">
+            <h4>Connect</h4>
+            <div class="level">
+              <!-- <a href="mailto:{{ request.user.email }}" target="_blank" class="share-social-icon level-content level-item">
+                <i class="fas fa-envelope fa-lg" aria-hidden="true" style="color: #4F4F4F;"></i>
+              </a> -->
+              {% for link in links.all() %}
+                <a class="share-social-icon level-content level-item" href="{{ link.href }}" target="_blank"><i class="fab fa-{{ link.link.icon }} fa-3x"></i></a>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+  <div class="tabcontent" id="submissions">
+    {% for project in projects %}
+      <div class="initiative-card" onclick="location.href=`{{ url('project', pk=project.pk) }}`">
+        <div class="project-card-content row">
+          {% if project.image %}
+            <div class="project-card-image-preview col-3" style="background-image: url({{ project.image.url }})"></div>
+          {% else %}
+            <div class="project-card-image-preview col-3" style="background-image: url({{ static('img/polar-bear.png') }})"></div>
+          {% endif %}
+
+          <div class="col-7" style="padding-left: 32px;">
+            <h3 class="">{{ project.name }}</h3>
+            <p class="grey">{{ project.description|truncatechars(100) }}</p>
+
+            <div class="row">
+              <a href="">
+                <img class="profile-icon vertical-align" src="{{ static('img/default_profile.jpg') }}"/>
+              </a>
+              <p style="font-weight: 500;" class="grey">{{ project.short_creators }}</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
+    {% if not projects %}
+      <div class="col-12">
+        {% if user != profile %}
+          <p>{{ user.username }} has not created or contributed to any projects yet.</p>
+        {% else %}
+        <p>No projects yet! Check out <a href="{{ url('index') }}">Explore</a> for some challenges to submit to and projects to contribute to.</p>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="tabcontent" id="bookmarks">
+    <div class="row">
+
+    </div>
+  </div>
+
+
+  <!-- <div class="row">
+    <div class="col-12">
+      {% if user != profile %}
+        <h2 class="header-margin">{{ user.username }}</h2>
+      {% else %}
+        <h2 class="header-margin">Profile</h2>
+      {% endif %}
+    </div>
+    {% if not user.description and not user.badges.exists() and not links.exists() and not user.tags.exists() %}
+      <div class="col-12">
+        {% if user != profile %}
+          <p>{{ user.username }} has not given any user details.</p>
+        {% else %}
+          <p>No user details! Go to <a href="{{ url('edit_profile') }}">Edit Profile</a> to add something about yourself.</p>
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="card col-12" id="profile-block">
+        <div class="col-12">
+          {% if user.description %}
+            <div class="tile level r">
+              <div class="tile__icon">
+                <span class="icon">
+                  <i class="fas fa-user-alt" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="tile__container">
+                <p class="tile__title">About Me:</p>
+              </div>
+            </div>
+            <div class="tile level">
+              <div class="tile__icon">
+                <span class="icon">
+                </span>
+              </div>
+              <div class="tile__container">
+                {{ user.description|mistune }}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  </div> -->
+
+</div>
+{% endblock %}
+</html>

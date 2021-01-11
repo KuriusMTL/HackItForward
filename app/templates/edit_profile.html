@@ -6,72 +6,22 @@
 
 {% block body %}
 <div class="content">
-  <div class="profile-card">
-    <div class="profile-bg">
-      <a class="edit-profile-button" style="text-align: center;">
-        <i class="fas fa-edit"></i>
-      </a>
-    </div>
-    <div class="profile-info">
-      <div class="avatar" style="">
-        <img src="{{ static('img/default_profile.jpg') }}">
-      </div>
-      <div class="profile-details">
-        <h5 style="margin-bottom: 4px;">Steven Gong</h5>
-        <p>@{{ request.user.username }}</p>
-      </div>
-      <button>Follow</button>
-      <div class="profile-social level">
-        <a class="col-3 level-content level-item">
-          <i class="fab fa-facebook fa-2x"></i>
-        </a>
-        <a class="col-3 level-content level-item">
-          <i class="fab fa-twitter fa-2x"></i>
-        </a>
-        <a  class="col-3 level-content level-item">
-          <i class="fab fa-linkedin fa-2x"></i>
-        </a>
-      </div>
-    </div>
+  <div class="profile">
 
-    <div class="tab-container">
-      <ul>
-        <li class="selected"><a class="">About</a></li>
-        <li><a class="">Projects</a></li>
-        <li><a class="">Me</a></li>
-      </ul>
-    </div>
 
-    <div class="row">
-      <div class="col-6">
-        <div class="profile-info-heading">
-          <strong>Email</strong>
-        </div>
-        <div class="profile-info-text">
-          {{ request.user.email }}
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="profile-info-heading">
-          <strong>Location</strong>
-        </div>
-        <div class="profile-info-text">
-          Montreal, QC
-        </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-12">
-        <div class="profile-info-heading">
-          <strong>Bio</strong>
-        </div>
-        <div class="profile-info-text">
-          I am a grade 12 student studying Pure and Applied.
-        </div>
-      </div>
-    </div>
-  </div>
+
+  <!-- <div class="profile-social level">
+    <a class="col-3 level-content level-item">
+      <i class="fab fa-facebook fa-2x"></i>
+    </a>
+    <a class="col-3 level-content level-item">
+      <i class="fab fa-twitter fa-2x"></i>
+    </a>
+    <a  class="col-3 level-content level-item">
+      <i class="fab fa-linkedin fa-2x"></i>
+    </a>
+  </div> -->
 
 
 

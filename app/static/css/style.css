@@ -454,6 +454,14 @@ padding: 2% 5%;
   color: #2666e7;
 }
 
+a > .fa-github {
+  color: black;
+}
+
+a > .fa-github:hover {
+ color: black;
+}
+
 a > .fa-twitter {
   color: rgb(0, 172, 237);
 }

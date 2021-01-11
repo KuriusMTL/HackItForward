@@ -16,11 +16,19 @@
     <div class="row">
       <div class="col-8 initiative-card">
         <div class="initiative-card-content">
+          <div class="buttons">
+            {% block buttons %}
+              {% if initiative.can_edit(request.user) %}
+                <a class="btn btn-primary" href="{{ initiative.get_edit_url() }}"><i class="fas fa-edit"></i> Edit</a>
+              {% endif %}
+            {% endblock %}
+          </div>
           {% if initiative.image %}
             <div class="initiative-card-image" style="background-image: url({{ initiative.image.url }})"></div>
           {% else %}
             <div class="initiative-card-image" style="background-image: url({{ static('img/polar-bear-2.png') }})"></div>
           {% endif %}
+
           <h1 id="initiative-name">{{ initiative.name }}</h1>
           <div style="font-weight: 400; color: #828282;">
             {{ initiative.description|mistune }}
@@ -99,13 +107,6 @@
         {% block topright %}
         {% endblock %}
 
-        <div class="buttons">
-          {% block buttons %}
-            {% if initiative.can_edit(request.user) %}
-              <a class="btn btn-primary" href="{{ initiative.get_edit_url() }}"><i class="fas fa-edit"></i> Edit</a>
-            {% endif %}
-          {% endblock %}
-        </div>
 
         <!-- Tags -->
         <div class="initiative-card">

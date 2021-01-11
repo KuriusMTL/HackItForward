@@ -62,9 +62,9 @@
           <div class="nav-item has-sub btn-container" id="dropdown">
             <a class="nav-dropdown-link btn-primary">Welcome, {{ request.user.username }}</a>
             <ul class="dropdown-menu" role="menu">
-              <li role="menu-item"><a href="{{ url('home') }}">Dashboard</a></li>
-              <li role="menu-item"><a href="{{ url('edit_profile') }}">Edit Profile</a></li>
-              <li role="menu-item"><a href="{{ url('logout') }}">Logout</a></li>
+              <li role="menu-item"><a href="{{ url('profile') }}" style="font-weight: bold;color: #4f4f4f; font-size: 16px;">Profile</a></li>
+              <li role="menu-item"><a href="{{ url('edit_profile') }}" style="font-weight: bold;color: #4f4f4f; font-size: 16px;">Edit Profile</a></li>
+              <li role="menu-item"><a href="{{ url('logout') }}"style="font-weight: bold;color: #4f4f4f; font-size: 16px;">Logout</a></li>
             </ul>
           </div>
           {% else %}
