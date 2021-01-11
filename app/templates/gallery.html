@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Explore | HackItForward</title>
+
+<link rel="stylesheet" href="{{ static('vendor/chosen/chosen.min.css') }}">
+<script src="{{ static('vendor/chosen/chosen.jquery.min.js') }}"></script>
+<link rel="stylesheet" href="{{ static('css/explore.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="content" id="challenges">
+  <div style="background-color: white;">
+    <h2>Explore the community</h2>
+  </div>
+
+  {% for name, object_list in objects.items() %}
+    {# searching options #}
+    <form action=".">
+      <input type="hidden" name="type" value="{{ name }}">
+      <div class="row">
+        <h1 class="header-margin">{{ name|title }}s</h1>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="input-control">
+            <input type="text" name="q" class="input-contains-icon" placeholder="Search challenges, tutorials, and tags"
+              value="{{ q|default('') }}">
+            <span class="icon"><i class="fas fa-search" aria-hidden="true"></i></span>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    {# submission display #}
+    <div class="row">
+      {% for object in object_list %}
+        <div class="col-4" style="padding: 0 0.75rem;">
+          <div class="challenge-card" onclick="location.href='{{ url(name, pk=object.pk) }}'">
+            {% if object.image %}
+              <div class="card-img" style="background-image: url({{ object.image.url }})"></div>
+            {% else %}
+              <div class="card-img" style="background-image: url({{ static('img/fibonacci.png') }})"></div>
+            {% endif %}
+            <div class="card-description">
+              <h1 class="challenge-card-title" style="margin-bottom: 5px; font-size: 20px;">{{ object.name }}</h1>
+              <p style="margin: 0; font-size: 20px;">0 Submissions</p>
+            </div>
+            <hr noshade size="1" style="border-color: #F2F2F2;">
+
+            <div class="card-description" style="padding: 0;">
+              <div class="challenge-card-creators row">
+                <a>
+                  <img class="profile-icon challenge-card-profile-icon" src="{{ static('img/default_profile.jpg') }}"/>
+                </a>
+                <div class="u-text-left">
+                  <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0">
+                  By&nbsp;<b class="">{{ object.short_creators }}</b>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      {% if not object_list %}
+        <div class="col-12">
+          {% if q or selected_tags %}
+            <p>No {{ name }}s matching your query have been found. Perhaps try {{ "selecting less tags" if selected_tags else "broadening your search" }}?</p>
+          {% else %}
+            <p>No {{ name }}s have been published yet.</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+<script>
+  $(window).on('load', () => {
+    $('.custom-multiple').chosen({
+      width: '100%',
+      no_results_text: 'No such tag:'
+    });
+  });
+</script>
+{% endblock %}

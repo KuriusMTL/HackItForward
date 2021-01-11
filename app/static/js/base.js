@@ -72,3 +72,7 @@ function shareOnReddit(url) {
   var link = "https://reddit.com/submit?url="+ url + "&title=" + document.querySelector('#initiative-name').textContent;
   window.open(link);
 }
+
+function getRandomUnsplash() {
+
+}

@@ -5,11 +5,12 @@
 
 <link rel="stylesheet" href="{{ static('vendor/chosen/chosen.min.css') }}">
 <link rel="stylesheet" href="{{ static('css/explore.css') }}">
+<link rel="stylesheet" href="{{ static('css/profile.css') }}">
 {% endblock %}
 
 {% block body %}
-<div class="content">
-  <div class="frame">
+<div class="content" style="max-width: 1000px;">
+  <div class="profile-card">
     <div class="content">
       <h2 class="text-primary">{{ header }}</h2>
       <span>Blue fields are mandatory.</span>
@@ -24,12 +25,11 @@
       {% csrf_token %}
       <div class="frame__body" style="overflow-y: initial">
         {% for field in form %}
-          <div class="row">
-            <div class="col-2 u-text-right{% if field.field.required %} text-primary{% endif %}">
+            <h4 class="row {% if field.field.required %} text-primary{% endif %}" style="margin-bottom: 0;">
               {{ field.label_tag() }}
-            </div>
-            <div class="col-10">
-              <div class="form-selection">
+            </h4>
+            <div class="row">
+              <div class="col-12 form-selection">
                 {{ field }}
                 {% if field.help_text %}
                   <div class="faded font-thin">
@@ -43,7 +43,6 @@
                 {% endfor %}
               </div>
             </div>
-          </div>
         {% endfor %}
         {% if has_social_links_form %}
           <div class="row">

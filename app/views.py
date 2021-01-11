@@ -27,7 +27,7 @@ class ExploreView(TemplateView):
     template_name = "explore.html"
 
     def dispatch(self, request, *args, **kwargs):
-        if request.GET.get("type") not in ["challenge", "project", None]:
+        if request.GET.get("type") not in ["challenge", None]:
             return redirect("index")
         return super(ExploreView, self).dispatch(request, *args, **kwargs)
 
@@ -40,15 +40,53 @@ class ExploreView(TemplateView):
             "q" not in self.request.GET and "tag" not in self.request.GET
         ):
             context["objects"] = {
-                "challenge": Challenge.objects.all()[:3],
-                "project": Project.objects.all()[:9],
+                "challenge": Challenge.objects.all(),
+                # "project": Project.objects.all()[:9],
             }
             return context
 
         initiative = self.request.GET["type"]
         if initiative == "challenge":
             queryset = Challenge.objects.all()
-        elif initiative == "project":
+        # elif initiative == "project":
+        #     queryset = Project.objects.all()
+
+        context["selected_tags"] = Tag.objects.filter(name__in=self.request.GET.getlist("tag"))
+        for tag in context["selected_tags"]:
+            queryset = queryset.filter(tags__in=[tag])
+
+        search = context["q"] = self.request.GET.get("q", "")
+        queryset = queryset.filter(Q(name__icontains=search) | Q(description__icontains=search))
+
+        context["objects"] = {initiative: queryset.distinct()}
+        return context
+
+
+class GalleryView(TemplateView):
+    template_name = "gallery.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.GET.get("type") not in ["challenge", None]:
+            return redirect("index")
+        return super(GalleryView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["tags"] = Tag.objects.all()
+
+        if "type" not in self.request.GET or (
+            "q" not in self.request.GET and "tag" not in self.request.GET
+        ):
+            context["objects"] = {
+                "project": Project.objects.all(),
+            }
+            return context
+
+        initiative = self.request.GET["type"]
+        # if initiative == "challenge":
+        #     queryset = Challenge.objects.all()
+        if initiative == "project":
             queryset = Project.objects.all()
 
         context["selected_tags"] = Tag.objects.filter(name__in=self.request.GET.getlist("tag"))
