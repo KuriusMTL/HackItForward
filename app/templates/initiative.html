@@ -71,15 +71,16 @@
           </div>
 
           <div class="row" style="padding: 0; margin: 0">
-            <a class="col-6" style="padding: 0; margin: 0">
+            <a class="col-6" style="padding: 0; margin: 0" href="{{ url('user', username=initiative.creators.all()[0].username) }}">
               <img class="profile-icon vertical-align" src="{{ static('img/default_profile.jpg') }}"/>
               <p class="vertical-align" style="margin: 0; color:#4F4F4F;">By <b>{{ initiative.creators.all()[0].username }}</b></p>
             </a>
 
 
             <div class="level col-4 offset-2">
-              <a class="clipboard-btn share-social-icon level-content level-item">
+              <a class="popup clipboard-btn share-social-icon level-content level-item" onclick="displayLinkCopied()">
                 <i class="fas fa-link fa-lg" style="color: #868686;"></i>
+                <span class="popuptext" id="copy-popup">Link copied!</span>
               </a>
               <a onclick="shareOnFB(window.location.href.toString())" class="share-social-icon level-content level-item">
                 <i class="fab fa-facebook fa-lg" aria-hidden="true"></i>
@@ -109,20 +110,8 @@
 
 
         <!-- Tags -->
-        <div class="initiative-card">
-          <div class="initiative-card-content">
-            <h5>Tags</h5>
-            {% if initiative.tags.exists() %}
-            <div class="row" style="padding-left: 0;">
-              {% for tag in initiative.tags.all() %}
-              <a class="initiative-tag" href="{{ url('index') }}?type={{ initiative|class_name|lower }}&tag={{ tag.name }}">
-                <button class="btn-tag btn--pilled btn-primary btn-small" style="font-weight: 500;">{{ tag.name }}</button>
-              </a>
-              {% endfor %}
-            </div>
-            {% endif %}
-          </div>
-        </div>
+        {% block tags %}
+        {% endblock %}
 
         {% block related %}
         {% endblock %}
