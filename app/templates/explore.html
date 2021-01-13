@@ -48,20 +48,20 @@
             {% endif %}
             <div class="card-description">
               <h1 class="challenge-card-title" style="margin-bottom: 5px; font-size: 20px;">{{ object.name }}</h1>
-              <p style="margin: 0; font-size: 20px;">0 Submissions</p>
+              <p style="margin: 0; font-size: 20px;">{{ object.submission_count }} Submissions</p>
             </div>
             <hr noshade size="1" style="border-color: #F2F2F2;">
 
             <div class="card-description" style="padding: 0;">
               <div class="challenge-card-creators row">
-                <a>
+                <a href="{{ url('user', username=object.creators.all()[0].username) }}">
                   <img class="profile-icon challenge-card-profile-icon" src="{{ static('img/default_profile.jpg') }}"/>
+                  <div class="u-text-left">
+                    <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0">
+                    By&nbsp;<b class="">{{ object.short_creators }}</b>
+                    </p>
+                  </div>
                 </a>
-                <div class="u-text-left">
-                  <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0">
-                  By&nbsp;<b class="">{{ object.short_creators }}</b>
-                  </p>
-                </div>
               </div>
             </div>
           </div>
