@@ -184,6 +184,15 @@ div.header {
   color: var(--grey-mid);
 }
 
+.btn-transparent {
+  border-color: #518BC4;
+}
+
+.btn-transparent:hover {
+  border-color: #518BC4;
+  background: transparent;
+}
+
 .btn-tag {
   background-color: #E3EEFC;
   border-color: #E3EEFC;
@@ -195,7 +204,6 @@ div.header {
   border-color: #E3EEFC;
   color: #4F4F4F;
 }
-
 
 .btn, .btn-primary, .btn-transparent, .btn-light, .btn-dark {
   font-family: "Poppins", sans-serif;
@@ -513,6 +521,14 @@ padding: 2% 5%;
 
  a > .fa-facebook:hover {
   color: #2666e7;
+}
+
+a > .fa-instagram {
+  color: black;
+}
+
+a > .fa-instagram:hover {
+  color: black;
 }
 
 a > .fa-github {
