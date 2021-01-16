@@ -1,3 +1,11 @@
+#expand {
+  padding-right: 0.5rem;
+}
+
+#expand::after {
+  display: none;
+}
+
 .initiative-card {
   border-radius: 16px;
   background-color: white;
