@@ -8,7 +8,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.utils import timezone
-from re import match
+import re
 
 
 PROJECT_DESCRIPTION = """
@@ -76,10 +76,9 @@ SOCIAL_LINKS = [
         "name": "Email",
         "icon": "envelope",
         "fab": False,
-        "regex": r"^(mailto:)?(.+@[a-zA-Z0-9\.-]+)$",
+        "regex": r"^mailto:(.+@[a-z0-9\.-]+)$",
     },
-    {"name": "Phone Number", "icon": "phone", "fab": False, "regex": r"^(tel:)?[0-9]+$"},
-    {"name": "Generic Link", "icon": "link", "fab": False, "regex": r".*"},
+    {"name": "Phone Number", "icon": "phone", "fab": False, "regex": r"^tel:[0-9]+$"},
 ]
 
 
@@ -97,7 +96,8 @@ class SocialLinkAttachement(models.Model):
 
     def social_link(self):
         for link in SOCIAL_LINKS:
-            if match(link["regex"], self.content):
+            regex = re.compile(link["regex"], re.I)
+            if regex.match(self.content):
                 return link
         # the last element in SOCIAL_LINKS should be the generic link
         return SOCIAL_LINKS[-1]
