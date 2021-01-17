@@ -36,6 +36,9 @@ class SocialLinkForm(ModelForm):
         self.fields["content_type"].disabled = True
         self.fields["object_id"].disabled = True
 
+        # These two fields are automatically "cleaned"/filled anyways
+        self.fields["content_type"].required = False
+        self.fields["object_id"].required = False
 
     def clean_object_id(self):
         cleaned_data = self.cleaned_data
