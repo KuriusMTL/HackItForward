@@ -8,6 +8,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.utils import timezone
+from PIL import Image, ImageOps
 
 
 class SocialLink(models.Model):
@@ -84,9 +85,12 @@ class Tag(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
+    image = models.ImageField(default="default_profile.jpg", upload_to="profile_pics")
+    banner_image = models.ImageField(default="default_profile-bg.jpg", upload_to="profile_background_pics")
     description = models.TextField(
         blank=True, verbose_name="Description", help_text="User description."
     )
+    location = models.CharField(blank=True, verbose_name="Location", max_length=50)
     badges = models.ManyToManyField(
         Badge,
         blank=True,
@@ -108,6 +112,16 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def save(self, *args, **kwargs):
+        super(Profile, self).save(*args, **kwargs)
+
+        img = Image.open(self.image.path)
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img = ImageOps.fit(img, output_size, Image.ANTIALIAS)
+            img.save(self.image.path)
 
 
 class Challenge(models.Model):
@@ -181,6 +195,10 @@ class Challenge(models.Model):
         if self.creators.count() == 1:
             return self.creators.first().username
         return "%s, et al." % self.creators.first().username
+
+    @property
+    def submission_count(self):
+        return self.project_set.count()
 
     def can_edit(self, user):
         if not user.is_authenticated:

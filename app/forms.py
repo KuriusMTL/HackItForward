@@ -1,20 +1,42 @@
-from app.models import Profile, Tag, SocialLinkAttachement
+from app.models import Profile, Tag, SocialLinkAttachement, User
 
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.forms import modelformset_factory, HiddenInput, ValidationError
 from django.forms.models import ModelForm
 from django.forms.widgets import CheckboxSelectMultiple
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
+
+
+class PasswordUpdateForm(PasswordChangeForm):
+    class Meta:
+        model = User
+
+    def __init__(self, *args, **kwargs):
+        request = kwargs.pop("request") # it's best you pop request, so that you don't get any complains for a parent that checks what kwargs it gets
+        super(PasswordUpdateForm, self).__init__(request.user)
+
+
+
+class UserUpdateForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "email"]
+
+    def __init__(self, *args, **kwargs):
+        super(UserUpdateForm, self).__init__(*args, **kwargs)
+        self.label_suffix = ""
 
 
 class ProfileUpdateForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ["description", "tags"]
+        fields = ["image", "banner_image","location", "description", "tags"]
         hidden_fields = ["longitude", "latitude"]
 
     def __init__(self, *args, **kwargs):
         super(ProfileUpdateForm, self).__init__(*args, **kwargs)
+        self.label_suffix = ""
         self.fields["tags"].widget = CheckboxSelectMultiple()
         self.fields["tags"].queryset = Tag.objects.all()
 

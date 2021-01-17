@@ -1,8 +1,8 @@
-from app.forms import ProfileUpdateForm, SocialLinkFormSet
-from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag
+from app.forms import ProfileUpdateForm, UserUpdateForm, SocialLinkFormSet, PasswordUpdateForm
+from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, User
 
 from django.core.exceptions import PermissionDenied
-from django.contrib.auth import login
+from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
@@ -48,8 +48,11 @@ class ExploreView(TemplateView):
         initiative = self.request.GET["type"]
         if initiative == "challenge":
             queryset = Challenge.objects.all()
+
         # elif initiative == "project":
         #     queryset = Project.objects.all()
+            # for element in queryset:
+            #     element = humanize. relative_time
 
         context["selected_tags"] = Tag.objects.filter(name__in=self.request.GET.getlist("tag"))
         for tag in context["selected_tags"]:
@@ -66,7 +69,7 @@ class GalleryView(TemplateView):
     template_name = "gallery.html"
 
     def dispatch(self, request, *args, **kwargs):
-        if request.GET.get("type") not in ["challenge", None]:
+        if request.GET.get("type") not in ["project", None]:
             return redirect("index")
         return super(GalleryView, self).dispatch(request, *args, **kwargs)
 
@@ -105,11 +108,12 @@ class UserView(DetailView):
     model = Profile
     context_object_name = "user"
 
-    def get_object(self, queryset=None):
-        if "pk" in self.kwargs:
-            return super().get_object(queryset)
+    def get_object(self):
+        UserName = self.kwargs.get("username")
+        if "username" in self.kwargs:
+            return get_object_or_404(User, username=UserName)
         if self.request.user.is_authenticated:
-            return self.request.user.profile
+            return self.request.user
         raise Http404
 
     def get_context_data(self, **kwargs):
@@ -188,11 +192,38 @@ class SocialLinkFormMixin(FormMixin):
 class EditProfileView(LoginRequiredMixin, SocialLinkFormMixin, UpdateView):
     template_name = "edit_profile.html"
     form_class = ProfileUpdateForm
-    success_url = reverse_lazy("edit_profile")
-    classname = Profile
+    success_url = reverse_lazy("profile")
 
     def get_object(self, queryset=None):
         return self.request.user.profile
+
+
+class SettingsView(LoginRequiredMixin, UpdateView):
+    template_name = "settings.html"
+    form_class = UserUpdateForm
+    success_url = reverse_lazy("profile")
+    classname = User
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
+class PasswordChangeView(LoginRequiredMixin, UpdateView):
+    template_name = "password_change.html"
+    form_class = PasswordUpdateForm
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_form_kwargs(self, **kwargs):
+        data = super(PasswordChangeView, self).get_form_kwargs(**kwargs)
+        data["request"] = self.request
+        return data
+
+    def form_valid(self, form):
+        if form.is_valid():
+            form.save()
+
 
 
 class RegisterView(FormView):
@@ -202,7 +233,7 @@ class RegisterView(FormView):
 
     def form_valid(self, form):
         form.save()
-        login(self.request, form.instance)
+        login(self.request, form.instance, backend='django.contrib.auth.backends.ModelBackend')
         return super().form_valid(form)
 
 
@@ -270,6 +301,7 @@ class ChallengeView(InitiativeViewMixin, TemplateView):
                 {"label": "End Time", "time": self.initiative.end},
             ]
         context["projects"] = Project.objects.filter(challenge=self.initiative)
+        context["related_challenges"] = Challenge.objects.all()[:3]
         return context
 
 
