@@ -103,7 +103,7 @@ class SocialLinkAttachement(models.Model):
         return SOCIAL_LINKS[-1]
 
     def fa_class(self):
-        return "fab" if self.social_link().get("fab", True) else "fas"
+        return "fab" if "fab" in self.social_link() else "fas"
 
     @property
     def icon(self):
