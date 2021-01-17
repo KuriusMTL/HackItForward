@@ -1,35 +1,114 @@
 {% extends "initiative.html" %}
 
+{% block project_modal %}
+  {% for project in projects %}
+    <div class="modal modal-large modal-animated--zoom-in" id="{{ project.name }}">
+      <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
+      <div class="modal-content" style="border-radius: 8px; background-color: #F6F8FB; min-height: 80%; min-width: 60%;">
+        <div class="modal-body" style="padding: 1rem 1rem; max-height: 85vh;">
+          <div class="row">
+            <div class="col-6">
+              {% if project.image %}
+              <div class="initiative-card-image" style="background-image: url({{ project.image.url }})"></div>
+              {% else %}
+                <div class="initiative-card-image" style="background-image: url({{ static('img/polar-bear.png') }})"></div>
+              {% endif %}
+              <div class="initiative-card" style="margin-top: 1rem;">
+                <div class="initiative-card-content">
+                  <p style="font-size: 20px;">Give Feedback</p>
+                  <input placeholder="Give your feedback">
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="initiative-card">
+                <div class="initiative-card-content">
+                  <h1 style="font-size: 20px; margin-top: 0px;">{{ project.name }}</h1>
+                  <p class="grey" style="font-weight: 400;">{{ project.description }}</p>
+
+                  {% if project.can_edit(request.user) %}
+                    <a href="{{ project.get_edit_url() }}">
+                      <button class="btn--pilled btn-primary">Edit Project</button>
+                    </a>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="initiative-card">
+                <div class="initiative-card-content">
+                  <h3 style="font-size: 20px;">Team</h3>
+
+                  {% for creator in project.creators.all() %}
+                    <div class="row pointer" onclick="location.href='{{ url("user", username=creator.username) }}'">
+                      <div class="col-3">
+                        <img src="{{ creator.image.url }}" style="border-radius: 50%; max-height: 60px;">
+                      </div>
+                      <div class="col-9">
+                        <h6 style="margin: 0;">{{ creator.username }}</h6>
+                        <p style="margin: 0">{{creator.description|truncatechars(10) }}</p>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <!-- TODO: Implement tools option for database -->
+              <!-- <div class="initiative-card">
+                <div class="initiative-card-content">
+                  <h4>Tools Used</h4>
+
+                </div>
+              </div> -->
+              {% if project.tags.exists() %}
+              <div class="initiative-card">
+                <div class="initiative-card-content">
+                  <div class="row">
+                    {% for tag in project.tags.all() %}
+                    <a class="initiative-tag" href="{{ url('explore') }}?type={{ initiative|class_name|lower }}&tag={{ tag.name }}">
+                      <button class="btn-tag btn--pilled btn-primary btn-small" style="font-weight: 500;">{{ tag.name }}</button>
+                    </a>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}
+
 {% block topright %}
 <div class="modal modal-animated--zoom-in" id="share-modal">
   <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
   <div class="modal-content" style="min-width: 500px; border-radius: 16px;">
-      <div class="modal-body">
-      {% if initiative.image %}
-        <div class="share-image-preview" style="background-image: url({{ initiative.image.url }})"></div>
-      {% else %}
-        <div class="share-image-preview" style="background-image: url({{ static('img/polar-bear-2.png') }})"></div>
-      {% endif %}
-      <h3 class="u-text-center">Share This Challenge</h3>
-        <div class="row">
-          <a class="popup clipboard-btn share-social-icon level-content level-item" onclick="displayLinkCopied(1)">
-            <i class="fas fa-link fa-lg" style="color: #868686;"></i>
-            <span class="popuptext" id="copy-popup-1">Link copied!</span>
-          </a>
-          <a onclick="shareOnFB(window.location.href.toString())" class="share-social-icon level-content level-item">
-            <i class="fab fa-facebook fa-lg" aria-hidden="true"></i>
-          </a>
-          <a onclick="shareOnTwitter(window.location.href.toString())" class="share-social-icon level-content level-item">
-            <i class="fab fa-twitter fa-lg"></i>
-          </a>
-          <a onclick="shareOnLinkedIn(window.location.href.toString())" class="share-social-icon level-content level-item">
-            <i class="fab fa-linkedin fa-lg"></i>
-          </a>
-          <a onclick="shareOnReddit(window.location.href.toString())" class="share-social-icon level-content level-item">
-            <i class="fab fa-reddit fa-lg"></i>
-          </a>
-        </div>
+    <div class="modal-body">
+    {% if initiative.image %}
+      <div class="share-image-preview" style="background-image: url({{ initiative.image.url }})"></div>
+    {% else %}
+      <div class="share-image-preview" style="background-image: url({{ static('img/polar-bear-2.png') }})"></div>
+    {% endif %}
+    <h3 class="u-text-center">Share This Challenge</h3>
+      <div class="row">
+        <a class="popup clipboard-btn share-social-icon level-content level-item" onclick="displayLinkCopied(1)">
+          <i class="fas fa-link fa-lg" style="color: #868686;"></i>
+          <span class="popuptext" id="copy-popup-1">Link copied!</span>
+        </a>
+        <a onclick="shareOnFB(window.location.href.toString())" class="share-social-icon level-content level-item">
+          <i class="fab fa-facebook fa-lg" aria-hidden="true"></i>
+        </a>
+        <a onclick="shareOnTwitter(window.location.href.toString())" class="share-social-icon level-content level-item">
+          <i class="fab fa-twitter fa-lg"></i>
+        </a>
+        <a onclick="shareOnLinkedIn(window.location.href.toString())" class="share-social-icon level-content level-item">
+          <i class="fab fa-linkedin fa-lg"></i>
+        </a>
+        <a onclick="shareOnReddit(window.location.href.toString())" class="share-social-icon level-content level-item">
+          <i class="fab fa-reddit fa-lg"></i>
+        </a>
       </div>
+    </div>
   </div>
 </div>
 {% if initiative.is_open() %}
@@ -40,9 +119,39 @@
 {% endif %}
 {% endblock %}
 
+{% block tags %}
+{% if initiative.tags.exists() %}
+<div class="initiative-card">
+  <div class="initiative-card-content">
+    <h5>Tags</h5>
+    <div class="row" style="padding-left: 0;">
+      {% for tag in initiative.tags.all() %}
+        <a class="initiative-tag" href="{{ url('gallery') }}?type={{ initiative|class_name|lower }}&tag={{ tag.name }}">
+          <button class="btn-tag btn--pilled btn-primary btn-small" style="font-weight: 500;">{{ tag.name }}</button>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock %}
 
 {% block related %}
 <h4 style="margin-top: 32px;">Related Challenges</h4>
+  {% for challenge in related_challenges %}
+    <div class="related-challenge row" onclick="location.href=`{{ url('challenge', pk=challenge.pk) }}`">
+    {% if challenge.image %}
+      <img class="col-3 related-challenge-image-preview" style="background-image: url({{ challenge.image.url }})">
+    {% else %}
+      <div class="col-3 related-challenge-image-preview" style="background-image: url({{ static('img/polar-bear.png')}})"></div>
+    {% endif %}
+
+      <div class="col-8" style="margin-left: 15px">
+        <h6 style="font-size: 16px; margin-bottom: 0;">{{ challenge.name }}</h6>
+        <p style="font-size: 16px; margin-top: 5px; line-height: 20px;">{{ challenge.description|truncatechars(60) }}</p>
+      </div>
+    </div>
+  {% endfor %}
 {% endblock %}
 
 {% block frames %}
@@ -51,31 +160,33 @@
     <div class="tab-container tabs-large" style="">
       <ul>
         <li class="selected"><a class="" style="background-color:transparent;">Submissions</a></li>
-        <li><a class=""style="background-color:transparent;">Comments</a></li>
+        <!-- TODO: Implement comments -->
+        <!-- <li><a class=""style="background-color:transparent;">Comments</a></li> -->
       </ul>
     </div>
     {% for project in projects %}
-    <div class="initiative-card" onclick="location.href=`{{ url('project', pk=project.pk) }}`">
-      <div class="project-card-content row">
-        {% if project.image %}
-          <div class="project-card-image-preview col-3" style="background-image: url({{ project.image.url }})"></div>
-        {% else %}
-          <div class="project-card-image-preview col-3" style="background-image: url({{ static('img/polar-bear.png') }})"></div>
-        {% endif %}
+    <div class="initiative-card">
+      <a href="#{{ project.name }}">
+        <div class="project-card-content row">
+          {% if project.image %}
+            <div class="project-card-image-preview col-3" style="background-image: url({{ project.image.url }});"></div>
+          {% else %}
+            <div class="project-card-image-preview col-3" style="background-image: url({{ static('img/polar-bear.png') }});"></div>
+          {% endif %}
 
-        <div class="col-7" style="padding-left: 32px;">
-          <h3 class="">{{ project.name }}</h3>
-          <p class="grey">{{ project.description|truncatechars(100) }}</p>
+          <div class="col-7" style="padding-left: 32px;">
+            <h3 class="">{{ project.name }}</h3>
+            <p class="grey">{{ project.description|truncatechars(100) }}</p>
 
-          <div class="row">
-            <a href="">
-              <img class="profile-icon vertical-align" src="{{ static('img/default_profile.jpg') }}"/>
-            </a>
-            <p style="font-weight: 500;" class="grey">{{ project.short_creators }}</p>
+              <a href="{{ url('user', username=project.creators.first().username) }}">
+                <div class="row">
+                  <img class="profile-icon vertical-align" src="{{ project.creators.first().image.url }}"/>
+                  <p style="font-weight: 500; margin:0" class="grey">{{ project.short_creators }}</p>
+                </div>
+              </a>
           </div>
-
         </div>
-      </div>
+      </a>
     </div>
   {% else %}
   <div class="initiative-card">
