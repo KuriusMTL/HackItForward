@@ -103,7 +103,7 @@ class SocialLinkAttachement(models.Model):
         raise ValueError("Invalid social link")
 
     def fa_class(self):
-        return "fab" if "fab" in self.social_link() else "fas"
+        return "fab" if "fab" not in self.social_link() else "fas"
 
     @property
     def icon(self):
