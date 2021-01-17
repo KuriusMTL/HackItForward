@@ -16,8 +16,10 @@ urlpatterns = [
     path("logout/", auth_views.LogoutView.as_view(template_name="logout.html"), name="logout"),
     # TODO: Rename this to fit in line with project and challenge style.
     path("profile/", views.UserView.as_view(), name="profile"),
-    path("profile/<int:pk>", views.UserView.as_view(), name="user"),
-    path("profile/edit", views.EditProfileView.as_view(), name="edit_profile"),
+    path("profile/<str:username>", views.UserView.as_view(), name="user"),
+    path("edit/profile", views.EditProfileView.as_view(), name="edit_profile"),
+    path("settings/", views.SettingsView.as_view(), name="settings"),
+    path("password/", views.PasswordChangeView.as_view(), name="password"),
     path("challenge/create/", views.ChallengeCreateView.as_view(), name="challenge_create"),
     path("challenge/<int:pk>/", views.ChallengeView.as_view(), name="challenge"),
     path("challenge/<int:pk>/edit/", views.ChallengeUpdateView.as_view(), name="challenge_edit"),
