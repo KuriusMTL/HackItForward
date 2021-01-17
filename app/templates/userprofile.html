@@ -8,22 +8,22 @@
 
 {% block body %}
 <div class="content">
-  <div class="profile-bg">
+  <div class="profile-bg" style="background-image: url({{ user.profile.banner_image.url }});">
   </div>
   <div class="profile-info">
-    <div class="avatar"foll>
-      <img src="{{ static('img/default_profile.jpg') }}">
+    <div class="avatar">
+      <img class="avatar-image" src="{{ user.profile.image.url }}">
     </div>
     <div class="profile-details">
-      <h3 style="margin-bottom: 4px;">Steven Gong</h3>
-      <p style="margin: 0">Montreal, QC</p>
-      <p style="margin:0">@{{ request.user.username }}</p>
+      <h3 style="margin-bottom: 4px;">{{ user.first_name }} {{ user.last_name }}</h3>
+      <p style="margin: 0">{{ user.profile.location }}</p>
+      <p style="margin:0">@{{ user.username }}</p>
 
-      {% if user.badges.exists() %}
+      {% if user.profile.badges.exists() %}
       <div>
         <div>
           <span class="tile__title badges">Badges:
-            {% for badge in user.badges.all() %}
+            {% for badge in user.profile.badges.all() %}
               <a href="#badge-{{ badge.pk }}" class="tooltip" data-tooltip="{{ badge.name }}">
                 <img src="{{ badge.icon.url }}">
               </a>
@@ -54,9 +54,9 @@
     {% endif %}
     </div>
 
-    {% if user == profile %}
+    {% if request.user == user %}
     <a href="{{ url('edit_profile') }}">
-      <button class="btn--pilled btn-white btn-primary" style="color: #4f4f4f; position: relative; right: -1050px; top: 100px">Edit Profile</button>
+      <button class="btn--pilled btn-white btn-primary" style="color: #4f4f4f; position: absolute; right: 50px; margin-top: 80px">Edit Profile</button>
     </a>
     {% endif %}
 
@@ -66,7 +66,8 @@
     <ul>
       <li class="tablevel selected" onclick="openTab(event, 'bio')"><a class="" style="background-color: transparent; font-size: large;">Bio</a></li>
       <li class="tablevel" onclick="openTab(event, 'submissions')"><a class="" style="background-color: transparent; font-size: large;">Submissions</a></li>
-      <li class="tablevel" onclick="openTab(event, 'bookmarks')" ><a class="" style="background-color: transparent; font-size: large;">Bookmarks</a></li>
+      <!-- TODO: Implement bookmarks -->
+      <!-- <li class="tablevel" onclick="openTab(event, 'bookmarks')" ><a class="" style="background-color: transparent; font-size: large;">Bookmarks</a></li> -->
     </ul>
   </div>
 
@@ -75,11 +76,15 @@
       <div class="col-6">
         <div class="profile-card">
           <h6 style="margin-top: 0px;">About Me</h6>
-          <p>{{ user.description|mistune }}</p>
-          {% if user.tags.exists() %}
+          {% if user.profile.description %}
+            <p>{{ user.profile.description|mistune }}</p>
+          {% else %}
+            <p>I haven't had a chance to write a bio about myself yet :(</p>
+          {% endif %}
+          {% if user.profile.tags.exists() %}
             <h6>My Skills</h6>
             <div class="row">
-              {% for tag in user.tags.all() %}
+              {% for tag in user.profile.tags.all() %}
               <a class="skills-tag" href="">
                 <button class="btn-tag btn--pilled btn-primary btn-small" style="font-weight: 500;">{{ tag.name }}</button>
               </a>
@@ -124,14 +129,12 @@
           <div class="col-7" style="padding-left: 32px;">
             <h3 class="">{{ project.name }}</h3>
             <p class="grey">{{ project.description|truncatechars(100) }}</p>
-
-            <div class="row">
-              <a href="">
-                <img class="profile-icon vertical-align" src="{{ static('img/default_profile.jpg') }}"/>
+              <a href="{{ url('user', username=project.creators.first().username) }}">
+                <div class="row">
+                  <img class="profile-icon" src="{{ project.creators.first().image.url }}"/>
+                  <p style="font-weight: 500; margin:0" class="grey">{{ project.short_creators }}</p>
+                </div>
               </a>
-              <p style="font-weight: 500;" class="grey">{{ project.short_creators }}</p>
-            </div>
-
           </div>
         </div>
       </div>
@@ -153,53 +156,6 @@
 
     </div>
   </div>
-
-
-  <!-- <div class="row">
-    <div class="col-12">
-      {% if user != profile %}
-        <h2 class="header-margin">{{ user.username }}</h2>
-      {% else %}
-        <h2 class="header-margin">Profile</h2>
-      {% endif %}
-    </div>
-    {% if not user.description and not user.badges.exists() and not links.exists() and not user.tags.exists() %}
-      <div class="col-12">
-        {% if user != profile %}
-          <p>{{ user.username }} has not given any user details.</p>
-        {% else %}
-          <p>No user details! Go to <a href="{{ url('edit_profile') }}">Edit Profile</a> to add something about yourself.</p>
-        {% endif %}
-      </div>
-    {% else %}
-      <div class="card col-12" id="profile-block">
-        <div class="col-12">
-          {% if user.description %}
-            <div class="tile level r">
-              <div class="tile__icon">
-                <span class="icon">
-                  <i class="fas fa-user-alt" aria-hidden="true"></i>
-                </span>
-              </div>
-              <div class="tile__container">
-                <p class="tile__title">About Me:</p>
-              </div>
-            </div>
-            <div class="tile level">
-              <div class="tile__icon">
-                <span class="icon">
-                </span>
-              </div>
-              <div class="tile__container">
-                {{ user.description|mistune }}
-              </div>
-            </div>
-          {% endif %}
-        </div>
-      </div>
-    {% endif %}
-  </div> -->
-
 </div>
 {% endblock %}
 </html>
