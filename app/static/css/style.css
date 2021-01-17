@@ -58,6 +58,10 @@ a:hover {
   color: var(--grey-mid);
 }
 
+.black {
+  color: #4f4f4f;
+}
+
 .frame {
   background-color: white;
   padding-top: 25px 0;
@@ -104,6 +108,7 @@ div.header {
 .content {
   max-width: 100em;
   width: 93%;
+  margin-top: 40px;
 }
 
 .logo {
@@ -531,11 +536,11 @@ a > .fa-instagram:hover {
   color: black;
 }
 
-a > .fa-github {
+.fa-github {
   color: black;
 }
 
-a > .fa-github:hover {
+.fa-github:hover {
  color: black;
 }
 
@@ -565,7 +570,8 @@ a > .fa-reddit:hover {
 
  .profile-icon {
   border-radius: 50%;
-  max-height: 50px;
+  max-height: 30px;
+  margin-right: 5px;
  }
 
  .subheading {

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ static('css/profile.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="content" style="max-width: 800px;">
+  <div class="profile-card">
+    <h2>Account Settings</h2>
+    <form action="" method="POST">
+      <div class="frame__body">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" class="btn-primary btn--pilled u-pull-right animated" value="Save all">
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

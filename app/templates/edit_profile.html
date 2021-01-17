@@ -5,20 +5,40 @@
 {% endblock %}
 
 {% block body %}
-<div class="content">
+<div class="content" style="max-width: 800px;">
   <div class="profile-card">
     <h2>Edit Profile</h2>
-    <img>
-    <a>
-      <button class="btn--pilled btn-primary">Change Photo</button>
-    </a>
-    <a>Delete Photo</a>
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
       <div class="frame__body">
         {% csrf_token %}
         {% for error in form.non_field_errors() %}
           <span class="text-primary info">{{ error }}</span>
         {% endfor %}
+
+        <div class="form-section">
+          {{ form.image.label_tag() }}
+          {{ form.image }}
+          {% for error in form.image.errors %}
+            <span class="text-primary info">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-section">
+          {{ form.banner_image.label_tag() }}
+          {{ form.banner_image }}
+          {% for error in form.banner_image.errors %}
+            <span class="text-primary info">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-section">
+          {{ form.location.label_tag() }}
+          {{ form.location }}
+          {% for error in form.location.errors %}
+            <span class="text-primary info">{{ error }}</span>
+          {% endfor %}
+        </div>
+
 
         <div class="form-section">
           {{ form.description.label_tag() }}
@@ -28,7 +48,7 @@
           {% endfor %}
         </div>
         <div class="form-section">
-          <label>Skills:</label>
+          <label>Skills</label>
           <div class="row">
             {% for tag in form.tags %}
               <div class="col-2">
@@ -51,7 +71,7 @@
           </div>
         </div>
         <br>
-        <input type="submit" class="btn-primary u-pull-right animated" value="Save all">
+        <input type="submit" class="btn-primary btn--pilled u-pull-right animated" value="Save all">
       </div>
     </form>
   </div>
