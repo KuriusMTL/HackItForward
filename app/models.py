@@ -79,6 +79,7 @@ SOCIAL_LINKS = [
         "regex": r"^mailto:(.+@[a-z0-9\.-]+)$",
     },
     {"name": "Phone Number", "icon": "phone", "fab": False, "regex": r"^tel:[0-9]+$"},
+    {"name": "Generic Link", "icon": "link", "fab": False, "regex": r"^[^\<\>\s\"\\\^\`\{\}\|]*$"},
 ]
 
 
@@ -99,8 +100,7 @@ class SocialLinkAttachement(models.Model):
             regex = re.compile(link["regex"], re.I)
             if regex.match(self.content):
                 return link
-        # the last element in SOCIAL_LINKS should be the generic link
-        return SOCIAL_LINKS[-1]
+        raise ValueError("Invalid social link")
 
     def fa_class(self):
         return "fab" if "fab" in self.social_link() else "fas"
