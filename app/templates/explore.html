@@ -47,15 +47,15 @@
               <div class="card-img" style="background-image: url({{ static('img/fibonacci.png') }})"></div>
             {% endif %}
             <div class="card-description">
-              <h1 class="challenge-card-title" style="margin-bottom: 5px; font-size: 20px;">{{ object.name }}</h1>
-              <p style="margin: 0; font-size: 20px;">{{ object.submission_count }} Submissions</p>
+              <h1 class="challenge-card-title" style="min-height: 40px; margin-bottom: 5px; font-size: 20px;">{{ object.name|truncatechars(100)  }}</h1>
+              <p style="margin: 0; font-size: 16px;">{{ object.submission_count }} Submissions</p>
             </div>
             <hr noshade size="1" style="border-color: #F2F2F2;">
 
             <div class="card-description" style="padding: 0;">
               <div class="challenge-card-creators row">
-                <a href="{{ url('user', username=object.creators.all()[0].username) }}">
-                  <img class="profile-icon challenge-card-profile-icon" src="{{ static('img/default_profile.jpg') }}"/>
+                <a href="{{ url('user', username=object.creators.first().username) }}">
+                  <img class="profile-icon challenge-card-profile-icon" src="{{ object.creators.first().image.url }}"/>
                   <div class="u-text-left">
                     <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0">
                     By&nbsp;<b class="">{{ object.short_creators }}</b>

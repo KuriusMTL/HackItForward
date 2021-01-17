@@ -44,12 +44,24 @@
 margin: 5px;
 }
 
+.related-challenge:hover {
+  cursor: pointer;
+}
+
+.related-challenge-image-preview {
+  border-radius: 8px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-width: 80px;
+  max-height: 80px;
+}
 
 .project-card-image-preview {
   border-radius: 8px;
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 200px;
+  min-width: 200px;
 }
 
 
