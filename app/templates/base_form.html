@@ -9,11 +9,10 @@
 {% endblock %}
 
 {% block body %}
-<div class="content" style="max-width: 1000px;">
+<div class="content" style="max-width: 800px;">
   <div class="profile-card">
     <div class="content">
       <h2 class="text-primary">{{ header }}</h2>
-      <span>Blue fields are mandatory.</span>
       {% if form.errors %}
         <p class="text-danger">There were errors in your form. Please correct them.</p>
       {% endif %}
@@ -21,13 +20,13 @@
         <p class="text-danger">{{ error }}</p>
       {% endfor %}
     </div>
-    <form action="." method="POST">
+    <form action="." method="POST" enctype="multipart/form-data" style="margin-bottom: 30px;">
       {% csrf_token %}
       <div class="frame__body" style="overflow-y: initial">
         {% for field in form %}
-            <h4 class="row {% if field.field.required %} text-primary{% endif %}" style="margin-bottom: 0;">
-              {{ field.label_tag() }}
-            </h4>
+            <h5 class="row" style="margin-bottom: 0;">
+              {{ field.label_tag() }}{% if field.field.required %}*{% endif %}
+            </h5>
             <div class="row">
               <div class="col-12 form-selection">
                 {{ field }}
@@ -52,9 +51,7 @@
           </div>
         {% endif %}
       </div>
-      <div class="content">
-        <input class="btn btn-primary u-pull-right" type="submit" value="{{ submit }}">
-      </div>
+      <input class="btn-primary btn--pilled u-pull-right" type="submit" value="{{ submit }}">
     </form>
   </div>
 </div>

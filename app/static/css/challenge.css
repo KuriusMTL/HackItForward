@@ -8,8 +8,9 @@
 
 .initiative-card {
   border-radius: 16px;
-  background-color: white;
+  background-color: #ffffff;
   padding: 0px;
+  margin-bottom: 1rem;
 }
 
 .initiative-card-content {
@@ -70,6 +71,11 @@ margin: 5px;
   width: 100%;
   position: relative;
 }
+
+.project-modal-team {
+  border-radius: 50%;
+}
+
 
 #circle {
   width: 100px;

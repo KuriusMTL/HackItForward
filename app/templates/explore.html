@@ -18,47 +18,46 @@
     </a>
   </div>
 
-  {% for name, object_list in objects.items() %}
     {# searching options #}
-    <form action=".">
-      <input type="hidden" name="type" value="{{ name }}">
-      <div class="row">
-        <h1 class="header-margin">{{ name|title }}s</h1>
-      </div>
+    <form action="." style="margin-top: 0.5rem;">
+      <input type="hidden" name="type" value="challenge">
       <div class="row">
         <div class="col-12">
           <div class="input-control">
             <input type="text" name="q" class="input-contains-icon" placeholder="Search challenges, tutorials, and tags"
-              value="{{ q|default('') }}">
+              value="{{ q|default('') }}" style="border: none; border-radius: 100px; outline: none; font-family: Poppins;">
             <span class="icon"><i class="fas fa-search" aria-hidden="true"></i></span>
           </div>
         </div>
       </div>
     </form>
+    <div class="row">
+      <h5 class="header-margin">Featured Challenges</h5>
+    </div>
 
     {# submission display #}
     <div class="row">
-      {% for object in object_list %}
+      {% for challenge in challenges[:3] %}
         <div class="col-4" style="padding: 0 0.75rem;">
-          <div class="challenge-card" onclick="location.href='{{ url(name, pk=object.pk) }}'">
-            {% if object.image %}
-              <div class="card-img" style="background-image: url({{ object.image.url }})"></div>
+          <div class="challenge-card" onclick="location.href='{{ url("challenge", pk=challenge.pk) }}'">
+            {% if challenge.image %}
+              <div class="card-img" style="background-image: url({{ challenge.image.url }})"></div>
             {% else %}
               <div class="card-img" style="background-image: url({{ static('img/fibonacci.png') }})"></div>
             {% endif %}
             <div class="card-description">
-              <h1 class="challenge-card-title" style="min-height: 40px; margin-bottom: 5px; font-size: 20px;">{{ object.name|truncatechars(100)  }}</h1>
-              <p style="margin: 0; font-size: 16px;">{{ object.submission_count }} Submissions</p>
+              <h1 class="challenge-card-title" style="min-height: 40px; margin-bottom: 5px; font-size: 20px;">{{ challenge.name|truncatechars(100)  }}</h1>
+              <p style="margin: 0; font-size: 16px;">{{ challenge.submission_count }} Submissions</p>
             </div>
             <hr noshade size="1" style="border-color: #F2F2F2;">
 
             <div class="card-description" style="padding: 0;">
               <div class="challenge-card-creators row">
-                <a href="{{ url('user', username=object.creators.first().username) }}">
-                  <img class="profile-icon challenge-card-profile-icon" src="{{ object.creators.first().image.url }}"/>
+                <a href="{{ url('user', username=challenge.creators.first().username) }}">
+                  <img class="profile-icon challenge-card-profile-icon" src="{{ challenge.creators.first().image.url }}"/>
                   <div class="u-text-left">
                     <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0">
-                    By&nbsp;<b class="">{{ object.short_creators }}</b>
+                    By&nbsp;<b class="">{{ challenge.short_creators }}</b>
                     </p>
                   </div>
                 </a>
@@ -67,7 +66,7 @@
           </div>
         </div>
       {% endfor %}
-      {% if not object_list %}
+      {% if not challenges %}
         <div class="col-12">
           {% if q or selected_tags %}
             <p>No {{ name }}s matching your query have been found. Perhaps try {{ "selecting less tags" if selected_tags else "broadening your search" }}?</p>
@@ -77,7 +76,92 @@
         </div>
       {% endif %}
     </div>
+
+  <h5 style="margin-top: 80px;">Spotlight of the week</h5>
+  <div class="wide-challenge-card" style="background-image: url({{ static('img/stock-photo.png') }});">
+    <h2 class="white" style="font-size: 80px; margin-bottom: 0;">Better DMV</h2>
+    <div class="row">
+      <h6 class="grey" style="font-size: 40px; margin-top: 0;">Try Now &nbsp;</h6><i class="grey fas fa-arrow-right fa-3x"></i>
+    </div>
+  </div>
+
+  <div class="tab-container" style="margin-top: 80px;">
+    <ul>
+      <li class="tablevel selected" onclick="openTab(event, 'recent')"><a class="" style="background-color: transparent; font-size: large;">Recent</a></li>
+      <li class="tablevel" onclick="openTab(event, 'most-submissions')"><a class="" style="background-color: transparent; font-size: large;">Most Submissions</a></li>
+    </ul>
+  </div>
+
+  <div class="tabcontent" id="recent" style="display: block;">
+  <div class="row">
+    {% for challenge in challenges %}
+    <div class="col-4" style="padding: 0 0.75rem;">
+      <div class="challenge-card" onclick="location.href='{{ url("challenge", pk=challenge.pk) }}'">
+        {% if challenge.image %}
+          <div class="card-img" style="background-image: url({{ challenge.image.url }})"></div>
+        {% else %}
+          <div class="card-img" style="background-image: url({{ static('img/fibonacci.png') }})"></div>
+        {% endif %}
+        <div class="card-description">
+          <h1 class="challenge-card-title" style="min-height: 40px; margin-bottom: 5px; font-size: 20px;">{{ challenge.name|truncatechars(100)  }}</h1>
+          <p style="margin: 0; font-size: 16px;">{{ challenge.submission_count }} Submissions</p>
+        </div>
+        <hr noshade size="1" style="border-color: #F2F2F2;">
+
+        <div class="card-description" style="padding: 0;">
+          <div class="challenge-card-creators row">
+            <a href="{{ url('user', username=challenge.creators.first().username) }}">
+              <img class="profile-icon challenge-card-profile-icon" src="{{ challenge.creators.first().image.url }}"/>
+              <div class="u-text-left">
+                <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0">
+                By&nbsp;<b class="">{{ challenge.short_creators }}</b>
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   {% endfor %}
+  </div>
+  </div>
+  <div class="tabcontent" id="most-submissions">
+    <div class="row">
+      {% for challenge in most_submissions %}
+      <div class="col-4" style="padding: 0 0.75rem;">
+        <div class="challenge-card" onclick="location.href='{{ url("challenge", pk=challenge.pk) }}'">
+          {% if challenge.image %}
+            <div class="card-img" style="background-image: url({{ challenge.image.url }})"></div>
+          {% else %}
+            <div class="card-img" style="background-image: url({{ static('img/fibonacci.png') }})"></div>
+          {% endif %}
+          <div class="card-description">
+            <h1 class="challenge-card-title" style="min-height: 40px; margin-bottom: 5px; font-size: 20px;">{{ challenge.name|truncatechars(100)  }}</h1>
+            <p style="margin: 0; font-size: 16px;">{{ challenge.submission_count }} Submissions</p>
+          </div>
+          <hr noshade size="1" style="border-color: #F2F2F2;">
+
+          <div class="card-description" style="padding: 0;">
+            <div class="challenge-card-creators row">
+              <a href="{{ url('user', username=challenge.creators.first().username) }}">
+                <img class="profile-icon challenge-card-profile-icon" src="{{ challenge.creators.first().image.url }}"/>
+                <div class="u-text-left">
+                  <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0">
+                  By&nbsp;<b class="">{{ challenge.short_creators }}</b>
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+
+  </div>
+
+
 </div>
 <script>
   $(window).on('load', () => {

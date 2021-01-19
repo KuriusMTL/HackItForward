@@ -16,17 +16,23 @@
         {% endfor %}
 
         <div class="form-section">
-          {{ form.image.label_tag() }}
-          {{ form.image }}
-          {% for error in form.image.errors %}
+          {{ form.banner_image.label_tag() }}
+          <div class="row">
+            <div style="border-radius: 16px; height: 200px; width: 100%; background-position: 50% 50%; background-image: url(/media/{{ form.banner_image.value() }})"></div>
+          </div>
+          {{ form.banner_image }}
+          {% for error in form.banner_image.errors %}
             <span class="text-primary info">{{ error }}</span>
           {% endfor %}
         </div>
 
         <div class="form-section">
-          {{ form.banner_image.label_tag() }}
-          {{ form.banner_image }}
-          {% for error in form.banner_image.errors %}
+          <label>Profile Image</label>
+          <div class="row">
+            <img style="border-radius: 50%; max-height: 150px" src="/media/{{ form.image.value() }}">
+          </div>
+          {{ form.image }}
+          {% for error in form.image.errors %}
             <span class="text-primary info">{{ error }}</span>
           {% endfor %}
         </div>
@@ -39,6 +45,13 @@
           {% endfor %}
         </div>
 
+        <div class="form-section">
+          {{ form.headline.label_tag() }}
+          {{ form.headline }}
+          {% for error in form.headline.errors %}
+            <span class="text-primary info">{{ error }}</span>
+          {% endfor %}
+        </div>
 
         <div class="form-section">
           {{ form.description.label_tag() }}
@@ -49,13 +62,7 @@
         </div>
         <div class="form-section">
           <label>Skills</label>
-          <div class="row">
-            {% for tag in form.tags %}
-              <div class="col-2">
-                {{ tag }}
-              </div>
-            {% endfor %}
-          </div>
+          {{ form.tags }}
           {% for error in form.tags.errors %}
             <span class="text-primary info">{{ error }}</span>
           {% endfor %}
@@ -76,8 +83,12 @@
     </form>
   </div>
 </div>
-  <script src="{{ static('js/map.js') }}"></script>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ static('js/map.js') }}"></script>
 <script>
   var simplemde = new SimpleMDE({ element: document.getElementById("id_description") });
+  $('select[multiple]').chosen({width: '100%', placeholder_text_multiple: ' ', placeholder_text_single: ' '});
 </script>
 {% endblock %}

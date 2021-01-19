@@ -8,8 +8,21 @@ padding: 5% 5%;
 margin-top: 50px;
 }
 
+.wide-challenge-card {
+  border-radius: 16px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 240px;
+  padding: 5% 5%;
+  margin-top: 50px;
+  }
+
 .input-contains-icon {
   font-family: "Poppins";
+  border: none;
+  border-radius: 100px;
+  outline: none;
 }
 
 .input-contains-icon::-webkit-input-placeholder {
@@ -36,6 +49,7 @@ margin-top: 50px;
   border-radius: 3px;
   transition: var(--animation-duration);
 }
+
 select[multiple].input-contains-icon + .chosen-container > .chosen-choices {
   padding-left: 2.75rem;
 }
@@ -47,8 +61,9 @@ select[multiple].input-contains-icon + .chosen-container > .chosen-choices {
   background-image: none;
   -webkit-box-shadow: none;
   box-shadow: none;
-  background-color: transparent;
-  border-color: #bbb;
+  border-color: transparent;
+  border-radius: 100px;
+  background-color: #E3EEFC;
 }
 .chosen-container-multi .chosen-choices li.search-choice a.search-choice-close {
   transition: none;

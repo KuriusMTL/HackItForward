@@ -13,10 +13,27 @@
               {% else %}
                 <div class="initiative-card-image" style="background-image: url({{ static('img/polar-bear.png') }})"></div>
               {% endif %}
-              <div class="initiative-card" style="margin-top: 1rem;">
+              <!-- <div class="initiative-card" style="margin-top: 1rem;">
                 <div class="initiative-card-content">
                   <p style="font-size: 20px;">Give Feedback</p>
                   <input placeholder="Give your feedback">
+                </div>
+              </div> -->
+              <div class="initiative-card" style="margin-top: 1rem;">
+                <div class="initiative-card-content">
+                  <h3 style="font-size: 20px;">Team</h3>
+
+                  {% for creator in project.creators.all() %}
+                    <div class="row pointer" onclick="location.href='{{ url("user", username=creator.username) }}'">
+                      <div class="col-3">
+                        <img src="{{ creator.image.url }}" style="border-radius: 50%; max-height: 60px;">
+                      </div>
+                      <div class="col-9">
+                        <h6 style="margin: 0;">{{ creator.username }}</h6>
+                        <p style="margin: 0">{{creator.headline }}</p>
+                      </div>
+                    </div>
+                  {% endfor %}
                 </div>
               </div>
             </div>
@@ -31,23 +48,6 @@
                       <button class="btn--pilled btn-primary">Edit Project</button>
                     </a>
                   {% endif %}
-                </div>
-              </div>
-              <div class="initiative-card">
-                <div class="initiative-card-content">
-                  <h3 style="font-size: 20px;">Team</h3>
-
-                  {% for creator in project.creators.all() %}
-                    <div class="row pointer" onclick="location.href='{{ url("user", username=creator.username) }}'">
-                      <div class="col-3">
-                        <img src="{{ creator.image.url }}" style="border-radius: 50%; max-height: 60px;">
-                      </div>
-                      <div class="col-9">
-                        <h6 style="margin: 0;">{{ creator.username }}</h6>
-                        <p style="margin: 0">{{creator.description|truncatechars(10) }}</p>
-                      </div>
-                    </div>
-                  {% endfor %}
                 </div>
               </div>
 

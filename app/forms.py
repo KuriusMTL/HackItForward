@@ -26,19 +26,21 @@ class UserUpdateForm(UserChangeForm):
     def __init__(self, *args, **kwargs):
         super(UserUpdateForm, self).__init__(*args, **kwargs)
         self.label_suffix = ""
+        for field in self.fields:
+         self.fields[field].widget.attrs['class'] = 'form-input-field'
 
 
 class ProfileUpdateForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ["image", "banner_image","location", "description", "tags"]
+        fields = ["image", "banner_image", "headline", "location", "description", "tags"]
         hidden_fields = ["longitude", "latitude"]
 
     def __init__(self, *args, **kwargs):
         super(ProfileUpdateForm, self).__init__(*args, **kwargs)
         self.label_suffix = ""
-        self.fields["tags"].widget = CheckboxSelectMultiple()
-        self.fields["tags"].queryset = Tag.objects.all()
+        for field in self.fields:
+         self.fields[field].widget.attrs['class'] = 'form-input-field'
 
 
 class SocialLinkForm(ModelForm):
@@ -55,6 +57,8 @@ class SocialLinkForm(ModelForm):
         self.fields["object_id"].widget = HiddenInput()
         self.fields["object_id"].disabled = True
         self.fields["content_type"].disabled = True
+        for field in self.fields:
+         self.fields[field].widget.attrs['class'] = 'form-input-field'
 
     def clean_object_id(self):
         cleaned_data = self.cleaned_data

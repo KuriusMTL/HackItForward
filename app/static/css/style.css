@@ -6,6 +6,7 @@
   --grey-mid: #828282;
   --grey-dark: #242424;
 
+  --cirrus-fg: #4F4F4F;
   --cirrus-primary: #3c8cc9;
   --cirrus-text: #aacbe3;
   --cirrus-primary-light: #c1d5e3;
@@ -37,6 +38,10 @@ h1, h2 ,h3, h4, h5, h6 {
   color: #4F4F4F;
 }
 
+.modal-content h1, .modal-content h2, .modal-content h3, .modal-content h4, .modal-content h5, .modal-content h6 {
+  color: var(--cirrus-fg);
+}
+
 a {
   font-weight: 400;
   padding: 0;
@@ -44,6 +49,22 @@ a {
 
 a:hover {
   cursor: pointer;
+}
+
+.pointer:hover {
+  cursor: pointer;
+}
+
+input::placeholder {
+  font-family: Poppins;
+}
+
+.input-contains-icon:focus {
+  outline: none;
+}
+
+.form-input-field {
+  font-family: Poppins !important;
 }
 
 .blue {
@@ -142,14 +163,14 @@ div.header {
 }
 
 .btn-white {
-  background-color: white;
-  border-color: white;
+  background-color: #ffffff;
+  border-color: #ffffff;
   color: var(--cirrus-link);
 }
 
 .btn-white:hover {
-  background-color: white;
-  border-color: white;
+  background-color: #ffffff;
+  border-color: #ffffff;
   color: var(--cirrus-link);
 }
 
@@ -446,7 +467,7 @@ footer {
  */
 
  .challenge-card {
-   background-color: white;
+   background-color: #ffffff;
    border-radius: 16px;
    margin: .5rem 0;
    padding: 0;

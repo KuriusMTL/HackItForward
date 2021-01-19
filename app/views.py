@@ -39,10 +39,8 @@ class ExploreView(TemplateView):
         if "type" not in self.request.GET or (
             "q" not in self.request.GET and "tag" not in self.request.GET
         ):
-            context["objects"] = {
-                "challenge": Challenge.objects.all(),
-                # "project": Project.objects.all()[:9],
-            }
+            context["challenges"] = Challenge.objects.all()
+            context["most_submissions"] = sorted(Challenge.objects.all(), key=lambda t: t.submission_count, reverse=True)
             return context
 
         initiative = self.request.GET["type"]
@@ -207,7 +205,7 @@ class SettingsView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 
-
+# TODO: Password update doesn't work
 class PasswordChangeView(LoginRequiredMixin, UpdateView):
     template_name = "password_change.html"
     form_class = PasswordUpdateForm
@@ -221,8 +219,7 @@ class PasswordChangeView(LoginRequiredMixin, UpdateView):
         return data
 
     def form_valid(self, form):
-        if form.is_valid():
-            form.save()
+        form.save()
 
 
 
@@ -275,6 +272,8 @@ class ChallengeFormView(InitiativeFormView):
         form_class = super().get_form_class(*args, **kwargs)
         form_class.base_fields["start"].widget.attrs["placeholder"] = "YYYY-MM-DD HH:MM"
         form_class.base_fields["end"].widget.attrs["placeholder"] = "YYYY-MM-DD HH:MM"
+        for field in form_class.base_fields:
+            form_class.base_fields[field].widget.attrs['class'] = 'form-input-field'
         return form_class
 
 
