@@ -79,7 +79,6 @@ SOCIAL_LINKS = [
         "regex": r"^mailto:(.+@[a-z0-9\.-]+)$",
     },
     {"name": "Phone Number", "icon": "phone", "fab": False, "regex": r"^tel:[0-9]+$"},
-    {"name": "Generic Link", "icon": "link", "fab": False, "regex": r"^[^\<\>\s\"\\\^\`\{\}\|]*$"},
 ]
 
 
@@ -100,7 +99,7 @@ class SocialLinkAttachement(models.Model):
             regex = re.compile(link["regex"], re.I)
             if regex.match(self.content):
                 return link
-        raise ValueError("Invalid social link")
+        return {"name": "Generic Link", "icon": "link", "fab": False}
 
     def fa_class(self):
         return "fab" if "fab" not in self.social_link() else "fas"
