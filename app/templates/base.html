@@ -43,22 +43,15 @@
         <div class="nav-item">
           <a href="{{ url('explore') }}"><p class="u u-LR">Challenges</p></a>
         </div>
-        <div class="nav-item">
-          <a href="{{ url('challenge_create') }}"><p class="u u-LR">Submit Challenge</p></a>
-        </div>
+        {% if request.user.is_authenticated and request.user.has_perm('app.add_challenge') %}
+          <div class="nav-item">
+            <a href="{{ url('challenge_create') }}"><p class="u u-LR">Submit Challenge</p></a>
+          </div>
+        {% endif %}
         <div class="nav-item">
           <a href="{{ url('gallery') }}"><p class="u u-LR">Gallery</p></a>
         </div>
         {% if request.user.is_authenticated %}
-          <!-- <div class="nav-item has-sub btn-container" id="dropdown">
-            <a class="nav-dropdown-link">Create</a>
-            <ul class="dropdown-menu" role="menu">
-              {% if request.user.has_perm('app.add_challenge') %}
-                <li role="menu-item"><a href="{{ url('challenge_create') }}">Challenge</a></li>
-              {% endif %}
-              <li role="menu-item"><a href="{{ url('project_create') }}">Project</a></li>
-            </ul>
-          </div> -->
           <div class="nav-item has-sub btn-container" id="dropdown">
             <a class="nav-dropdown-link"><img src="{{ request.user.profile.image.url }}" style="border-radius: 50%; width: 50px; height: 50px"></a>
             <ul class="dropdown-menu" role="menu">
@@ -78,7 +71,6 @@
           </div>
         {% endif %}
       </div>
-
     </div>
   </div>
 
