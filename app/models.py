@@ -55,7 +55,7 @@ If there are extra tools that you think project makers could benefit them, inclu
 name: "Name of this social link"
 icon: "CSS FA icon class without 'fa-' prefix"
 regex: "regular expression to match this link"
-fab: True (optional; indicates whether the icon is part of FontAwesome Brand fonts; default is True)
+fa: "Font Awesome CSS class to use" (optional; defaults to "fab")
 """
 SOCIAL_LINKS = [
     {"name": "Twitter", "icon": "twitter", "regex": r"(^(https?:\/\/)?)twitter\.com\/.*"},
@@ -75,10 +75,10 @@ SOCIAL_LINKS = [
     {
         "name": "Email",
         "icon": "envelope",
-        "fab": False,
+        "fa": "fas",
         "regex": r"^mailto:(.+@[a-z0-9\.-]+)$",
     },
-    {"name": "Phone Number", "icon": "phone", "fab": False, "regex": r"^tel:[0-9]+$"},
+    {"name": "Phone Number", "icon": "phone", "fa": "fas", "regex": r"^tel:[0-9]+$"},
 ]
 
 
@@ -99,10 +99,10 @@ class SocialLinkAttachement(models.Model):
             regex = re.compile(link["regex"], re.I)
             if regex.match(self.content):
                 return link
-        return {"name": "Generic Link", "icon": "link", "fab": False}
+        return {"name": "Generic Link", "icon": "link", "fa": "fas"}
 
     def fa_class(self):
-        return "fab" if "fab" not in self.social_link() else "fas"
+        return self.social_link.get("fa", "fab")
 
     @property
     def icon(self):
