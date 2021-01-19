@@ -141,7 +141,7 @@
               <div class="tile__container">
                 <p class="tile__title">Links:
                   {% for link in links.all() %}
-                    <a href="{{ link.href }}" class="tooltip" data-tooltip="{{ link.link.placeholder }}"><i class="fas fa-{{ link.link.icon }}"></i></a>
+                    <a href="{{ link.content|e }}" class="tooltip" data-tooltip="{{ link.name }}"><i class="icon {{ link.css_class }}"></i></a>
                   {% endfor %}
                 </p>
               </div>

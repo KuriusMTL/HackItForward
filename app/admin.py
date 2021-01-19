@@ -1,6 +1,5 @@
 from django.contrib import admin
 from app.models import (
-    SocialLink,
     SocialLinkAttachement,
     Badge,
     Tag,
@@ -9,7 +8,6 @@ from app.models import (
     Project,
 )
 
-admin.site.register(SocialLink)
 admin.site.register(SocialLinkAttachement)
 admin.site.register(Badge)
 admin.site.register(Tag)

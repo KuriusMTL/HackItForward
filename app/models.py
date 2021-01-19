@@ -8,6 +8,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
 from django.utils import timezone
+import re
 
 
 PROJECT_DESCRIPTION = """
@@ -49,41 +50,43 @@ Provide a simple, bulleted list of tasks that you would like project creators to
 If there are extra tools that you think project makers could benefit them, include them here.
 """
 
-
-class SocialLink(models.Model):
-    name = models.CharField(
-        max_length=24, verbose_name="Name", help_text="Name of this social link."
-    )
-    icon = models.CharField(
-        max_length=32, verbose_name="Icon", help_text="CSS FA icon class without 'fa-' prefix."
-    )
-    site = models.CharField(
-        max_length=2047,
-        verbose_name="Site",
-        help_text="Python format string which will have '%s' replaced with the link content.",
-    )
-    placeholder = models.CharField(
-        max_length=32,
-        verbose_name="Placeholder",
-        help_text="Placeholder text displayed to the user when creating a link.",
-    )
-
-    def __str__(self):
-        return self.name
+"""
+# FORMAT
+name: "Name of this social link"
+icon: "CSS FA icon class without 'fa-' prefix"
+regex: "regular expression to match this link"
+fa: "Font Awesome CSS class to use" (optional; defaults to "fab")
+"""
+SOCIAL_LINKS = [
+    {"name": "Twitter", "icon": "twitter", "regex": r"(^(https?:\/\/)?)twitter\.com\/.*"},
+    {"name": "Facebook", "icon": "facebook", "regex": r"(^(https?:\/\/)?)facebook\.com\/.*"},
+    {"name": "Github", "icon": "github", "regex": r"(^(https?:\/\/)?)github\.com\/.*"},
+    {"name": "Reddit", "icon": "reddit", "regex": r"(^(https?:\/\/)?)reddit\.com\/.*"},
+    {"name": "Steam", "icon": "steam", "regex": r"(^(https?:\/\/)?)steamcommunity\.com\/.*"},
+    {"name": "YouTube", "icon": "youtube", "regex": r"(^(https?:\/\/)?)youtube\.com\/.*"},
+    {
+        "name": "Stack Overflow",
+        "icon": "stack-overflow",
+        "regex": r"(^(https?:\/\/)?)stackoverflow\.com\/.*",
+    },
+    {"name": "Vimeo", "icon": "vimeo-v", "regex": r"(^(https?:\/\/)?)vimeo\.com\/.*"},
+    {"name": "SoundCloud", "icon": "soundcloud", "regex": r"(^(https?:\/\/)?)soundcloud\.com\/.*"},
+    {"name": "Instagram", "icon": "instagram", "regex": r"(^(https?:\/\/)?)instagram\.com\/.*"},
+    {
+        "name": "Email",
+        "icon": "envelope",
+        "fa": "fas",
+        "regex": r"^mailto:(.+@[a-z0-9\.-]+)$",
+    },
+    {"name": "Phone Number", "icon": "phone", "fa": "fas", "regex": r"^tel:[0-9]+$"},
+]
 
 
 class SocialLinkAttachement(models.Model):
-    link = models.ForeignKey(
-        SocialLink,
-        related_name="attachments",
-        on_delete=models.CASCADE,
-        verbose_name="Link",
-        help_text="Social link of this link attachment.",
-    )
     content = models.CharField(
         max_length=2047,
-        verbose_name="Content",
-        help_text="URL or username to be replaced in social link.",
+        verbose_name="Link",
+        help_text="The actual link.",
     )
     content_type = models.ForeignKey(
         ContentType, verbose_name="Linked Item Type", on_delete=models.CASCADE
@@ -91,12 +94,30 @@ class SocialLinkAttachement(models.Model):
     object_id = models.PositiveIntegerField(verbose_name="Linked Item ID")
     linked_item = GenericForeignKey()
 
+    def social_link(self):
+        for link in SOCIAL_LINKS:
+            regex = re.compile(link["regex"], re.I)
+            if regex.match(self.content):
+                return link
+        return {"name": "Generic Link", "icon": "link", "fa": "fas"}
+
+    def fa_class(self):
+        return self.social_link.get("fa", "fab")
+
     @property
-    def href(self):
-        return self.link.site % self.content
+    def icon(self):
+        return self.social_link()["icon"]
+
+    @property
+    def name(self):
+        return self.social_link()["name"]
+
+    @property
+    def css_class(self):
+        return "%s fa-%s" % (self.fa_class(), self.icon)
 
     def __str__(self):
-        return self.href
+        return self.content
 
 
 class Badge(models.Model):
