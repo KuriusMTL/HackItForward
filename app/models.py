@@ -87,6 +87,12 @@ class Profile(models.Model):
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
     image = models.ImageField(default="default_profile.jpg", upload_to="profile_pics")
     banner_image = models.ImageField(default="default_profile-bg.jpg", upload_to="profile_background_pics")
+    headline = models.CharField(
+        default="",
+        verbose_name="Headline",
+        help_text="A headline for your profile",
+        max_length=40,
+    )
     description = models.TextField(
         blank=True, verbose_name="Description", help_text="User description."
     )
@@ -194,7 +200,7 @@ class Challenge(models.Model):
     def short_creators(self):
         if self.creators.count() == 1:
             return self.creators.first().username
-        return "%s, et al." % self.creators.first().username
+        return self.creators.first().username + ", +" + str(self.creators.count()-1)
 
     @property
     def submission_count(self):
@@ -267,7 +273,7 @@ class Project(models.Model):
     def short_creators(self):
         if self.creators.count() == 1:
             return self.creators.first().username
-        return "%s, et al." % self.creators.first().username
+        return self.creators.first().username + ", +" + str(self.creators.count()-1)
 
     def can_edit(self, user):
         if not user.is_authenticated:
