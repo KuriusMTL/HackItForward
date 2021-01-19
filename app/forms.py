@@ -57,8 +57,7 @@ class SocialLinkForm(ModelForm):
         else:
             validate_url = URLValidator()
             validate_url(data)
-        data = escape(data)
-        return data
+        return escape(data)
 
 
 SocialLinkFormSet = modelformset_factory(
