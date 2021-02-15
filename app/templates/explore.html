@@ -10,6 +10,8 @@
 
 {% block body %}
 <div class="content" id="challenges">
+
+  <!-- Challenge of the Week: Puts a particular challenge on the spotlight for HackItForward users to tackle -->
   <div class="challenge-of-the-week" style="background-image: url({{ static('img/polar-bear.png') }});">
     <h2 style="color: #225A62; font-size: 50px; margin-bottom: 0;">Challenge Of The Week</h2>
     <p class="" style="font-size: 24px; color:#40A0AE; margin-top: 0;">Canadian Polar Bear Habitat Challenge</p>
@@ -18,7 +20,7 @@
     </a>
   </div>
 
-    {# searching options #}
+    <!-- Challenge search bar -->
     <form action="." style="margin-top: 0.5rem;">
       <input type="hidden" name="type" value="challenge">
       <div class="row">
@@ -31,11 +33,11 @@
         </div>
       </div>
     </form>
+
+    <!-- Display 3 featured challenges -->
     <div class="row">
       <h5 class="header-margin">Featured Challenges</h5>
     </div>
-
-    {# submission display #}
     <div class="row">
       {% for challenge in challenges[:3] %}
         <div class="col-4" style="padding: 0 0.75rem;">
@@ -50,7 +52,6 @@
               <p style="margin: 0; font-size: 16px;">{{ challenge.submission_count }} Submissions</p>
             </div>
             <hr noshade size="1" style="border-color: #F2F2F2;">
-
             <div class="card-description" style="padding: 0;">
               <div class="challenge-card-creators row">
                 <a href="{{ url('user', username=challenge.creators.first().username) }}">
@@ -77,6 +78,7 @@
       {% endif %}
     </div>
 
+  <!-- Secondary Spotlight challenge -->
   <h5 style="margin-top: 80px;">Spotlight of the week</h5>
   <div class="wide-challenge-card" style="background-image: url({{ static('img/stock-photo.png') }});">
     <h2 class="white" style="font-size: 80px; margin-bottom: 0;">Better DMV</h2>
@@ -85,13 +87,13 @@
     </div>
   </div>
 
+  <!-- View rest of the other challenges. There are two viewing options, sorting by most recent and sorting by most submissions. -->
   <div class="tab-container" style="margin-top: 80px;">
     <ul>
       <li class="tablevel selected" onclick="openTab(event, 'recent')"><a class="" style="background-color: transparent; font-size: large;">Recent</a></li>
       <li class="tablevel" onclick="openTab(event, 'most-submissions')"><a class="" style="background-color: transparent; font-size: large;">Most Submissions</a></li>
     </ul>
   </div>
-
   <div class="tabcontent" id="recent" style="display: block;">
   <div class="row">
     {% for challenge in challenges %}
@@ -157,11 +159,7 @@
       </div>
       {% endfor %}
     </div>
-
-
   </div>
-
-
 </div>
 <script>
   $(window).on('load', () => {

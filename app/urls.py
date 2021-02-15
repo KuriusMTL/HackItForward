@@ -16,6 +16,7 @@ urlpatterns = [
     path("logout/", auth_views.LogoutView.as_view(template_name="logout.html"), name="logout"),
     # TODO: Rename this to fit in line with project and challenge style.
     path("profile/", views.UserView.as_view(), name="profile"),
+    #Enables to visit any user's profile by inserting their username
     path("profile/<str:username>", views.UserView.as_view(), name="user"),
     path("edit/profile", views.EditProfileView.as_view(), name="edit_profile"),
     path("settings/", views.SettingsView.as_view(), name="settings"),

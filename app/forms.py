@@ -8,6 +8,7 @@ from django.forms.widgets import CheckboxSelectMultiple
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 
 
+# TODO: Make this form functional. The form fails to update the password currently
 class PasswordUpdateForm(PasswordChangeForm):
     class Meta:
         model = User
@@ -17,7 +18,7 @@ class PasswordUpdateForm(PasswordChangeForm):
         super(PasswordUpdateForm, self).__init__(request.user)
 
 
-
+# Form that allows users to update information stored in the User model
 class UserUpdateForm(UserChangeForm):
     class Meta:
         model = User
@@ -30,6 +31,7 @@ class UserUpdateForm(UserChangeForm):
          self.fields[field].widget.attrs['class'] = 'form-input-field'
 
 
+# Form that allows users to update information stored in the Profile model
 class ProfileUpdateForm(ModelForm):
     class Meta:
         model = Profile
@@ -42,7 +44,7 @@ class ProfileUpdateForm(ModelForm):
         for field in self.fields:
          self.fields[field].widget.attrs['class'] = 'form-input-field'
 
-
+# Form that allows users to update their social links
 class SocialLinkForm(ModelForm):
     class Meta:
         model = SocialLinkAttachement

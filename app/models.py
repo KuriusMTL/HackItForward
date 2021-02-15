@@ -61,6 +61,10 @@ class SocialLinkAttachement(models.Model):
 
 
 class Badge(models.Model):
+    '''Badges are still a relatively new concept. They are awarded to users when they accomplish certain things, such as completing a challenge.
+    These badges are then displayed on a user's profile.
+    '''
+
     name = models.CharField(max_length=48, verbose_name="name", help_text="Name of this badge.")
     description = models.TextField(
         blank=True, verbose_name="Description", help_text="Description of this badge."
@@ -76,6 +80,10 @@ class Badge(models.Model):
 
 
 class Tag(models.Model):
+    ''' Tags are used in challenges and projects, as well as for users (selecting skills). They help classify and are
+    used in search.
+    '''
+
     name = models.CharField(max_length=24, verbose_name="Name", help_text="Name of this tag.")
     color = ColorField(help_text="Color", verbose_name="Color of this tag.")
 
@@ -84,8 +92,13 @@ class Tag(models.Model):
 
 
 class Profile(models.Model):
+    '''Django comes with a user authentication system. It provides us with the User object, which has attributes such as
+    username, password, email, first_name, last_name. However, in order to store additional information for each user
+     such as headlines, banner images, and location, we need to create this separate Profile model.
+    '''
+
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
-    image = models.ImageField(default="default_profile.jpg", upload_to="profile_pics")
+    image = models.ImageField(default="default_profile.jpg", upload_to="profile_pics") # the profile image
     banner_image = models.ImageField(default="default_profile-bg.jpg", upload_to="profile_background_pics")
     headline = models.CharField(
         default="",
@@ -119,9 +132,9 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+    #Function that ensures that the image stored on the database does not exceed 300 by 300 pixels
     def save(self, *args, **kwargs):
         super(Profile, self).save(*args, **kwargs)
-
         img = Image.open(self.image.path)
         if img.height > 300 or img.width > 300:
             output_size = (300, 300)
@@ -131,6 +144,8 @@ class Profile(models.Model):
 
 
 class Challenge(models.Model):
+    '''Challenges are the problems presented by various nonprofit organizations for hackers to solve.
+    '''
     name = models.CharField(
         max_length=100, verbose_name="Name", help_text="Name of this challenge."
     )
@@ -227,6 +242,8 @@ class Challenge(models.Model):
 
 
 class Project(models.Model):
+    '''A project is a submission to specific challenge.
+    '''
     challenge = models.ForeignKey(Challenge, null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=100, verbose_name="Name", help_text="Name of this project.")
     description = models.TextField(

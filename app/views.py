@@ -24,6 +24,7 @@ class IndexView(TemplateView):
 
 
 class ExploreView(TemplateView):
+    '''Default page. Allows site visitors to see challenges.'''
     template_name = "explore.html"
 
     def dispatch(self, request, *args, **kwargs):

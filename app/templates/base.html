@@ -12,13 +12,14 @@
   <link rel="apple-touch-icon" type="image/png" href="{{ static('img/favicon/apple-touch-icon.png') }}">
 
   <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.4.0/clipboard.min.js" crossorigin="anonymous"></script>  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.4.0/clipboard.min.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/2a8ca409bf.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cirrus-ui@0.5.5/dist/cirrus.min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
   <script src="https://kit.fontawesome.com/2a8ca409bf.js" crossorigin="anonymous"></script>
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css" rel="stylesheet" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css" rel="stylesheet"/>
 
   {% block head %}
   {% endblock %}
@@ -27,6 +28,8 @@
 </head>
 
 <body>
+
+  <!-- Header -->
   <div class="header unselectable header-animated header-clear">
     <div class="header-brand">
       <div class="nav-item">
@@ -35,14 +38,12 @@
         </a>
       </div>
     </div>
-
-      <!-- Hambuger Menu -->
-
     <div class="header-nav" id="header-menu">
       <div class="nav-right">
         <div class="nav-item">
           <a href="{{ url('explore') }}"><p class="u u-LR">Challenges</p></a>
         </div>
+        <!-- Only enable users to create challenges if they are authenticated and are authorized to do so -->
         {% if request.user.is_authenticated and request.user.has_perm('app.add_challenge') %}
           <div class="nav-item">
             <a href="{{ url('challenge_create') }}"><p class="u u-LR">Submit Challenge</p></a>
@@ -62,7 +63,7 @@
               <li role="menu-item"><a href="{{ url('logout') }}"style="font-weight: bold;color: #4f4f4f; font-size: 16px;">Logout</a></li>
             </ul>
           </div>
-          {% else %}
+        {% else %}
           <div class="nav-item">
             <a href="{{ url('login') }}"><p class="u u-LR">Login</p></a>
           </div>
@@ -77,6 +78,7 @@
   {% block body %}
   {% endblock %}
 
+  <!-- Footer -->
   <footer style="background-color: #FFFFFF;" id="footer">
     <div class="content">
       <div class="u-flex u-justify-flex-start">
@@ -85,7 +87,7 @@
           <p class="u-text-left black" style="margin-bottom: 0; font-weight: 500;"><span class="">&copy; 2020</span> HackItForward</p>
           <p class="u-text-left black" style="margin-top: 0; font-weight: 500;">Powered by <a class="u u-LR" href="https://kurius.ca" target="_blank" rel="noopener" style="color: #518BC4;">Kurius</a></p>
         </div>
-        <div class="" style="margin-right: 80px;">
+        <div style="margin-right: 80px;">
           <ul class="no-bullets u-text-left">
             <h5 class="blue">Navigation</h5>
             <a href="{{ url('index') }}">
@@ -99,7 +101,7 @@
             </a>
           </ul>
         </div>
-        <div class="">
+        <div>
           <ul class="no-bullets u-text-left">
             <h5 class="blue">More</h5>
             <a href="https://github.com/KuriusMTL/HackItForward/issues/new?labels=bug&template=bug_report.md" target="_blank" rel="noopener">
