@@ -1,0 +1,23 @@
+{% extends "user_base.html" %}
+
+{% block project_header %}
+  Your Projects
+{% endblock %}
+
+{% block no_projects %}
+<p>
+  No projects yet!
+  Check out <a href="{{ url('index') }}">Explore</a> for some challenges to submit to and projects to contribute to
+</p>
+{% endblock %}
+
+{% block profile_header %}
+<h2 class="header-margin">Profile</h2>
+{% endblock %}
+
+{% block no_profile %}
+<p>
+  You haven't provided any user details!
+  Go to <a href="{{ url('edit_profile') }}">Edit Profile</a> to add something about yourself.
+</p>
+{% endblock %}

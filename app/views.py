@@ -65,6 +65,7 @@ class ExploreView(TemplateView):
 
 
 class GalleryView(TemplateView):
+    '''Gallery view displays projects rather than challenges.'''
     template_name = "gallery.html"
 
     def dispatch(self, request, *args, **kwargs):
@@ -129,6 +130,32 @@ class UserView(DetailView):
             content_type=ContentType.objects.get_for_model(Profile),
         )
         return context
+
+class GenericUserView(DetailView):
+    model = Profile
+    context_object_name = "user"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["projects"] = (
+            Project.objects.filter(
+                Q(creators__in=[self.object.pk]) | Q(contributors__in=[self.object.pk])
+            )
+            .distinct()
+            .order_by("-created")
+        )
+        context["links"] = SocialLinkAttachement.objects.filter(
+            object_id=self.object.pk,
+            content_type=ContentType.objects.get_for_model(Profile),
+        )
+        return context
+
+
+class DashboardView(LoginRequiredMixin, GenericUserView):
+    template_name = "dashboard.html"
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
 
 
 class SocialLinkFormMixin(FormMixin):
@@ -267,7 +294,7 @@ class InitiativeFormView(GenericFormMixin, SocialLinkFormMixin):
 
 class ChallengeFormView(InitiativeFormView):
     model = Challenge
-    fields = ["name", "image", "description", "creators", "start", "end", "tags"]
+    fields = ["name", "image", "one_liner", "description", "creators", "start", "end", "tags"]
 
     def get_form_class(self, *args, **kwargs):
         form_class = super().get_form_class(*args, **kwargs)
@@ -307,7 +334,7 @@ class ChallengeView(InitiativeViewMixin, TemplateView):
 
 class ProjectFormView(InitiativeFormView):
     model = Project
-    fields = ["name", "image", "description", "creators", "contributors", "tags"]
+    fields = ["name", "image", "one_liner", "description", "creators", "contributors", "tags"]
 
 
 class ProjectCreateView(ProjectFormView, CreateView):
