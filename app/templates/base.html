@@ -12,12 +12,14 @@
   <link rel="apple-touch-icon" type="image/png" href="{{ static('img/favicon/apple-touch-icon.png') }}">
 
   <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.4.0/clipboard.min.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/2a8ca409bf.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cirrus-ui@0.5.5/dist/cirrus.min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-  <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/2a8ca409bf.js" crossorigin="anonymous"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css" rel="stylesheet"/>
 
   {% block head %}
   {% endblock %}
@@ -26,6 +28,8 @@
 </head>
 
 <body>
+
+  <!-- Header -->
   <div class="header unselectable header-animated header-clear">
     <div class="header-brand">
       <div class="nav-item">
@@ -33,84 +37,83 @@
           <img src="{{ static('img/logo.png') }}" class="logo" alt="HackItForward">
         </a>
       </div>
-
-      <!-- Hambuger Menu -->
-      <div class="nav-item nav-btn" id="header-btn">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
     </div>
     <div class="header-nav" id="header-menu">
       <div class="nav-right">
         <div class="nav-item">
-          <a href="{{ url('explore') }}">Explore</a>
+          <a href="{{ url('explore') }}"><p class="u u-LR">Challenges</p></a>
+        </div>
+        <!-- Only enable users to create challenges if they are authenticated and are authorized to do so -->
+        {% if request.user.is_authenticated and request.user.has_perm('app.add_challenge') %}
+          <div class="nav-item">
+            <a href="{{ url('challenge_create') }}"><p class="u u-LR">Submit Challenge</p></a>
+          </div>
+        {% endif %}
+        <div class="nav-item">
+          <a href="{{ url('gallery') }}"><p class="u u-LR">Gallery</p></a>
         </div>
         {% if request.user.is_authenticated %}
           <div class="nav-item has-sub btn-container" id="dropdown">
-            <a class="nav-dropdown-link">Create</a>
+            <a class="nav-dropdown-link"><img src="{{ request.user.profile.image.url }}" style="border-radius: 50%; width: 50px; height: 50px"></a>
             <ul class="dropdown-menu" role="menu">
-              {% if request.user.has_perm('app.add_challenge') %}
-                <li role="menu-item"><a href="{{ url('challenge_create') }}">Challenge</a></li>
-              {% endif %}
-              <li role="menu-item"><a href="{{ url('project_create') }}">Project</a></li>
+              <li role="menu-item"><a href="{{ url('profile') }}" style="font-weight: bold;color: #4f4f4f; font-size: 16px;">Profile</a></li>
+              <li role="menu-item"><a href="{{ url('edit_profile') }}" style="font-weight: bold;color: #4f4f4f; font-size: 16px;">Edit Profile</a></li>
+              <li role="menu-item"><a href="{{ url('settings') }}" style="font-weight: bold;color: #4f4f4f; font-size: 16px;">Account Settings</a></li>
+              <hr noshade size="1" style="border-color: #F2F2F2;">
+              <li role="menu-item"><a href="{{ url('logout') }}"style="font-weight: bold;color: #4f4f4f; font-size: 16px;">Logout</a></li>
             </ul>
           </div>
-          <div class="nav-item has-sub btn-container" id="dropdown">
-            <a class="nav-dropdown-link btn-primary">Welcome, {{ request.user.username }}</a>
-            <ul class="dropdown-menu" role="menu">
-              <li role="menu-item"><a href="{{ url('home') }}">Dashboard</a></li>
-              <li role="menu-item"><a href="{{ url('edit_profile') }}">Edit Profile</a></li>
-              <li role="menu-item"><a href="{{ url('logout') }}">Logout</a></li>
-            </ul>
+        {% else %}
+          <div class="nav-item">
+            <a href="{{ url('login') }}"><p class="u u-LR">Login</p></a>
           </div>
-          {% else %}
           <div class="nav-item btn-container">
-            <a href="{{ url('login') }}" class="btn--pilled btn-primary btn-animated">Login</a>
+            <a href="{{ url('register') }}" class="btn--pilled btn-transparent btn-animated" style="color: #518BC4;max-height: 50px;">Sign Up</a>
           </div>
         {% endif %}
       </div>
-
     </div>
   </div>
 
   {% block body %}
   {% endblock %}
 
-  <footer>
+  <!-- Footer -->
+  <footer style="background-color: #FFFFFF;" id="footer">
     <div class="content">
-      <div class="row level">
-        <div class="col-3">
-          <ul class="no-bullets">
-            <p class="footer-list-title">Navigation</p>
+      <div class="u-flex u-justify-flex-start">
+        <div class="level-items u-text-left" style="margin-right: 200px;">
+          <img src="{{ static('img/logo.png') }}" width="80">
+          <p class="u-text-left black" style="margin-bottom: 0; font-weight: 500;"><span class="">&copy; 2020</span> HackItForward</p>
+          <p class="u-text-left black" style="margin-top: 0; font-weight: 500;">Powered by <a class="u u-LR" href="https://kurius.ca" target="_blank" rel="noopener" style="color: #518BC4;">Kurius</a></p>
+        </div>
+        <div style="margin-right: 80px;">
+          <ul class="no-bullets u-text-left">
+            <h5 class="blue">Navigation</h5>
             <a href="{{ url('index') }}">
-              <li class="list-item">Home</li>
+              <li class="black">Home</li>
             </a>
             <a href="{{ url('explore') }}">
-              <li class="list-item">Explore</li>
+              <li class="black">Explore</li>
             </a>
             <a href="/about">
-              <li class="list-item">About</li>
+              <li class="black">About</li>
             </a>
           </ul>
         </div>
-        <div class="col-3">
-          <ul class="no-bullets">
-            <p class="footer-list-title">More</p>
+        <div>
+          <ul class="no-bullets u-text-left">
+            <h5 class="blue">More</h5>
             <a href="https://github.com/KuriusMTL/HackItForward/issues/new?labels=bug&template=bug_report.md" target="_blank" rel="noopener">
-              <li class="list-item">Report a bug</li>
+              <li class="black">Report a bug</li>
             </a>
             <a href="/terms">
-              <li class="list-item">Terms of Service</li>
+              <li class="black">Terms of Service</li>
             </a>
             <a href="/privacy-policy">
-              <li class="list-item">Privacy Policy</li>
+              <li class="black">Privacy Policy</li>
             </a>
           </ul>
-        </div>
-        <div class="col-6 level-items">
-          <h5 class="white"><span class="faded">&copy; 2020</span> HackItForward</h5>
-          <p class="white font-alt">Powered by <a class="u u-LR" href="https://kurius.ca" target="_blank" rel="noopener">Kurius</a></p>
         </div>
       </div>
     </div>

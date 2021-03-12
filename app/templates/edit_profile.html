@@ -1,54 +1,57 @@
 {% extends "base.html" %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ static('css/profile.css') }}">
+{% endblock %}
+
 {% block body %}
-<div class="content">
-  <div class="frame">
-    <div class="row">
-      <div class="col-5">
-        <img class="img-cover" src="{{ static('img/edit_profile.png') }}">
-      </div>
-      <div class="col-7">
-        <div class="tile level r">
-          <div class="tile-avatar">
-            <span class="icon">
-              <i class="fas fa-user-circle" aria-hidden="true"></i>
-            </span>
-          </div>
-          <div class="tile__container">
-            <p class="tile__title">Username</p>
-            <p class="tile__subtitle">{{ request.user.username }}</p>
-          </div>
-        </div>
-        <div class="tile level r">
-          <div class="tile-avatar">
-            <span class="icon">
-              <i class="fas fa-envelope" aria-hidden="true"></i>
-            </span>
-          </div>
-          <div class="tile__container">
-            <p class="tile__title">Email</p>
-            <p class="tile__subtitle">{{ request.user.email }}</p>
-          </div>
-        </div>
-        <div class="tile level r">
-          <div class="tile-avatar">
-            <span class="icon">
-              <i class="fas fa-lock" aria-hidden="true"></i>
-            </span>
-          </div>
-          <div class="tile__container">
-            <p class="tile__title">Password</p>
-            <p class="tile__subtitle">•••••••••••••••</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <form action="" method="POST">
+<div class="content" style="max-width: 800px;">
+  <div class="profile-card">
+    <h2>Edit Profile</h2>
+    <form action="" method="POST" enctype="multipart/form-data">
       <div class="frame__body">
         {% csrf_token %}
         {% for error in form.non_field_errors() %}
           <span class="text-primary info">{{ error }}</span>
         {% endfor %}
+
+        <div class="form-section">
+          {{ form.banner_image.label_tag() }}
+          <div class="row">
+            <div style="border-radius: 16px; height: 200px; width: 100%; background-position: 50% 50%; background-image: url(/media/{{ form.banner_image.value() }})"></div>
+          </div>
+          {{ form.banner_image }}
+          {% for error in form.banner_image.errors %}
+            <span class="text-primary info">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-section">
+          <label>Profile Image</label>
+          <div class="row">
+            <img style="border-radius: 50%; max-height: 150px" src="/media/{{ form.image.value() }}">
+          </div>
+          {{ form.image }}
+          {% for error in form.image.errors %}
+            <span class="text-primary info">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-section">
+          {{ form.location.label_tag() }}
+          {{ form.location }}
+          {% for error in form.location.errors %}
+            <span class="text-primary info">{{ error }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="form-section">
+          {{ form.headline.label_tag() }}
+          {{ form.headline }}
+          {% for error in form.headline.errors %}
+            <span class="text-primary info">{{ error }}</span>
+          {% endfor %}
+        </div>
 
         <div class="form-section">
           {{ form.description.label_tag() }}
@@ -58,14 +61,8 @@
           {% endfor %}
         </div>
         <div class="form-section">
-          <label>Skills:</label>
-          <div class="row">
-            {% for tag in form.tags %}
-              <div class="col-2">
-                {{ tag }}
-              </div>
-            {% endfor %}
-          </div>
+          <label>Skills</label>
+          {{ form.tags }}
           {% for error in form.tags.errors %}
             <span class="text-primary info">{{ error }}</span>
           {% endfor %}
@@ -81,13 +78,17 @@
           </div>
         </div>
         <br>
-        <input type="submit" class="btn-primary u-pull-right animated" value="Save all">
+        <input type="submit" class="btn-primary btn--pilled u-pull-right animated" value="Save all">
       </div>
     </form>
   </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
 <script src="{{ static('js/map.js') }}"></script>
 <script>
   var simplemde = new SimpleMDE({ element: document.getElementById("id_description") });
+  $('select[multiple]').chosen({width: '100%', placeholder_text_multiple: ' ', placeholder_text_single: ' '});
 </script>
 {% endblock %}

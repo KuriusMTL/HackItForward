@@ -5,6 +5,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
     path("explore/", views.ExploreView.as_view(), name="explore"),
+    path("gallery/", views.GalleryView.as_view(), name="gallery"),
     path("register/", views.RegisterView.as_view(), name="register"),
     path(
         "login/",
@@ -13,9 +14,13 @@ urlpatterns = [
     ),
     path("login/social/", include("social_django.urls", namespace="social")),
     path("logout/", auth_views.LogoutView.as_view(template_name="logout.html"), name="logout"),
-    path("home/", views.DashboardView.as_view(), name="home"),
-    path("user/<str:username>", views.UserView.as_view(), name="user"),
-    path("settings/", views.EditProfileView.as_view(), name="edit_profile"),
+    # TODO: Rename this to fit in line with project and challenge style.
+    path("profile/", views.UserView.as_view(), name="profile"),
+    #Enables to visit any user's profile by inserting their username
+    path("profile/<str:username>", views.UserView.as_view(), name="user"),
+    path("edit/profile", views.EditProfileView.as_view(), name="edit_profile"),
+    path("settings/", views.SettingsView.as_view(), name="settings"),
+    path("password/", views.PasswordChangeView.as_view(), name="password"),
     path("challenge/create/", views.ChallengeCreateView.as_view(), name="challenge_create"),
     path("challenge/<int:pk>/", views.ChallengeView.as_view(), name="challenge"),
     path("challenge/<int:pk>/edit/", views.ChallengeUpdateView.as_view(), name="challenge_edit"),

@@ -1,12 +1,29 @@
-<div class="content" style="max-width: 25em;">
-  <div class="frame">
-    <img class="img-cover" src="{{ static('img/humaans/peoplesitting2.svg') }}" width="250" style="display: block; margin: 0 auto;">
-    <div class="tab-container tabs-fill">
-      <ul>
-        <li {% if type == 'Login' %} class="selected" {% endif %}><a href="{{ url('login') }}">Login</a></li>
-        <li {% if type == 'Register' %} class="selected" {% endif %}><a href="{{ url('register') }}">Register</a></li>
-      </ul>
+<div class="content row">
+  <div class="frame offset-3 col-6" style="border-radius: 16px; box-shadow: 0px 4px 16px rgba(202, 202, 202, 0.15); padding: 80px;">
+    <div class="frame__body form-section">
+      {% if type == 'Register' %}<h2 style="margin-bottom: 40px;" class="u-text-center">Create An Account</h2>{% endif %}
+      {% if type == 'Login' %}<h2 style="margin-bottom: 40px;" class="u-text-center" >Sign In</h2>{% endif %}
+      <div>
+        <a href="{{ url('social:begin', 'google-oauth2') }}?next={{ next }}" class="btn btn-google w-100 btn-oauth">
+          {% if type == 'Register' %}<i class="fab fa-google"></i>&nbsp;<span>Sign Up With Google</span>{% endif %}
+          {% if type == 'Login' %}<i class="fab fa-google"></i>&nbsp;<span>Sign In With Google</span>{% endif %}
+        </a>
+      </div>
+      <div>
+        <a href="{{ url('social:begin', 'github') }}?next={{ next }}" class="btn btn-black w-100 btn-oauth">
+          {% if type == 'Register' %}<i class="fab fa-github" style="color: white"></i>&nbsp;<span>Sign Up with GitHub</span>{% endif %}
+          {% if type == 'Login' %}<i class="fab fa-github" style="color: white"></i>&nbsp;<span>Sign In with GitHub</span>{% endif %}
+
+        </a>
+      </div>
     </div>
+    <div class="or-container">
+      <span class="horizontal-line"></span>
+      <p style="margin: 25px; color: #bdbdbd;">or</p>
+      <span class="horizontal-line"></span>
+    </div>
+
+
     <form action="" method="POST">
       <div class="frame__body">
         {% csrf_token %}
@@ -22,23 +39,20 @@
           {% endfor %}
           </div>
         {% endfor %}
-        <input type="submit" class="btn-primary u-pull-right animated" value="{{ type }}">
+        {% if type == 'Register' %}<input type="submit" class="btn-primary" value="Create An Account" style="width: 100%; border-radius: 100px; margin-top: 50px;">{% endif %}
+        {% if type == 'Login' %}<input type="submit" class="btn-primary" value="Sign In" style="width: 100%; border-radius: 100px; margin-top: 50px;">{% endif %}
+
       </div>
     </form>
-    <div class="frame__body form-section">
-      <label>Or {{ type|lower }} with:</label>
-      <div class="row">
-        <div class="col">
-          <a href="{{ url('social:begin', 'google-oauth2') }}?next={{ next }}" class="btn btn-grey u-no-margin w-100">
-            <i class="fab fa-google"></i>&nbsp;<span>Google</span>
-          </a>
-        </div>
-        <div class="col">
-          <a href="{{ url('social:begin', 'github') }}?next={{ next }}" class="btn btn-grey u-no-margin w-100">
-            <i class="fab fa-github"></i>&nbsp;<span>GitHub</span>
-          </a>
-        </div>
-      </div>
-    </div>
+    {% if type == 'Register' %}
+      <a href="{{ url('login') }}">
+        <p class="u-text-center grey" style="font-weight: 500; margin-top: 0;">I Already Have An Account</p>
+      </a>
+    {% endif %}
+    {% if type == 'Login' %}
+      <a href="{{ url('register') }}">
+        <p class="u-text-center grey" style="font-weight: 500; margin-top: 0">Not a Member? <b class="blue">Sign Up</b></p>
+      </a>
+    {% endif %}
   </div>
 </div>

@@ -1,4 +1,4 @@
-from app.models import Profile, Tag, SocialLinkAttachement
+from app.models import Profile, Tag, SocialLinkAttachement, User
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.validators import RegexValidator, URLValidator, validate_email
@@ -6,21 +6,47 @@ from django.db import models
 from django.forms import modelformset_factory, HiddenInput, ValidationError
 from django.forms.models import ModelForm
 from django.forms.widgets import CheckboxSelectMultiple
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.utils.html import escape
 
 
+# TODO: Make this form functional. The form fails to update the password currently
+class PasswordUpdateForm(PasswordChangeForm):
+    class Meta:
+        model = User
+
+    def __init__(self, *args, **kwargs):
+        request = kwargs.pop("request") # it's best you pop request, so that you don't get any complains for a parent that checks what kwargs it gets
+        super(PasswordUpdateForm, self).__init__(request.user)
+
+
+# Form that allows users to update information stored in the User model
+class UserUpdateForm(UserChangeForm):
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "email"]
+
+    def __init__(self, *args, **kwargs):
+        super(UserUpdateForm, self).__init__(*args, **kwargs)
+        self.label_suffix = ""
+        for field in self.fields:
+         self.fields[field].widget.attrs['class'] = 'form-input-field'
+
+
+# Form that allows users to update information stored in the Profile model
 class ProfileUpdateForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ["description", "tags"]
+        fields = ["image", "banner_image", "headline", "location", "description", "tags"]
         hidden_fields = ["longitude", "latitude"]
 
     def __init__(self, *args, **kwargs):
         super(ProfileUpdateForm, self).__init__(*args, **kwargs)
-        self.fields["tags"].widget = CheckboxSelectMultiple()
-        self.fields["tags"].queryset = Tag.objects.all()
+        self.label_suffix = ""
+        for field in self.fields:
+         self.fields[field].widget.attrs['class'] = 'form-input-field'
 
-
+# Form that allows users to update their social links
 class SocialLinkForm(ModelForm):
     class Meta:
         model = SocialLinkAttachement
@@ -34,6 +60,8 @@ class SocialLinkForm(ModelForm):
         self.fields["content_type"].widget = HiddenInput()
         self.fields["object_id"].widget = HiddenInput()
         self.fields["content_type"].disabled = True
+        for field in self.fields:
+         self.fields[field].widget.attrs['class'] = 'form-input-field'
         self.fields["object_id"].disabled = True
 
     def clean_object_id(self):

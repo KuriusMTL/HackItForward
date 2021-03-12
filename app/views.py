@@ -1,8 +1,8 @@
-from app.forms import ProfileUpdateForm, SocialLinkFormSet
-from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag
+from app.forms import ProfileUpdateForm, UserUpdateForm, SocialLinkFormSet, PasswordUpdateForm
+from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, User
 
 from django.core.exceptions import PermissionDenied
-from django.contrib.auth import login
+from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
@@ -24,10 +24,11 @@ class IndexView(TemplateView):
 
 
 class ExploreView(TemplateView):
+    '''Default page. Allows site visitors to see challenges.'''
     template_name = "explore.html"
 
     def dispatch(self, request, *args, **kwargs):
-        if request.GET.get("type") not in ["challenge", "project", None]:
+        if request.GET.get("type") not in ["challenge", None]:
             return redirect("index")
         return super(ExploreView, self).dispatch(request, *args, **kwargs)
 
@@ -39,16 +40,56 @@ class ExploreView(TemplateView):
         if "type" not in self.request.GET or (
             "q" not in self.request.GET and "tag" not in self.request.GET
         ):
-            context["objects"] = {
-                "challenge": Challenge.objects.all()[:3],
-                "project": Project.objects.all()[:9],
-            }
+            context["challenges"] = Challenge.objects.all()
+            context["most_submissions"] = sorted(Challenge.objects.all(), key=lambda t: t.submission_count, reverse=True)
             return context
 
         initiative = self.request.GET["type"]
         if initiative == "challenge":
             queryset = Challenge.objects.all()
-        elif initiative == "project":
+
+        # elif initiative == "project":
+        #     queryset = Project.objects.all()
+            # for element in queryset:
+            #     element = humanize. relative_time
+
+        context["selected_tags"] = Tag.objects.filter(name__in=self.request.GET.getlist("tag"))
+        for tag in context["selected_tags"]:
+            queryset = queryset.filter(tags__in=[tag])
+
+        search = context["q"] = self.request.GET.get("q", "")
+        queryset = queryset.filter(Q(name__icontains=search) | Q(description__icontains=search))
+
+        context["objects"] = {initiative: queryset.distinct()}
+        return context
+
+
+class GalleryView(TemplateView):
+    '''Gallery view displays projects rather than challenges.'''
+    template_name = "gallery.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.GET.get("type") not in ["project", None]:
+            return redirect("index")
+        return super(GalleryView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["tags"] = Tag.objects.all()
+
+        if "type" not in self.request.GET or (
+            "q" not in self.request.GET and "tag" not in self.request.GET
+        ):
+            context["objects"] = {
+                "project": Project.objects.all(),
+            }
+            return context
+
+        initiative = self.request.GET["type"]
+        # if initiative == "challenge":
+        #     queryset = Challenge.objects.all()
+        if initiative == "project":
             queryset = Project.objects.all()
 
         context["selected_tags"] = Tag.objects.filter(name__in=self.request.GET.getlist("tag"))
@@ -61,6 +102,34 @@ class ExploreView(TemplateView):
         context["objects"] = {initiative: queryset.distinct()}
         return context
 
+
+class UserView(DetailView):
+    template_name = "userprofile.html"
+    model = Profile
+    context_object_name = "user"
+
+    def get_object(self):
+        UserName = self.kwargs.get("username")
+        if "username" in self.kwargs:
+            return get_object_or_404(User, username=UserName)
+        if self.request.user.is_authenticated:
+            return self.request.user
+        raise Http404
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["projects"] = (
+            Project.objects.filter(
+                Q(creators__in=[self.object.pk]) | Q(contributors__in=[self.object.pk])
+            )
+            .distinct()
+            .order_by("-created")
+        )
+        context["links"] = SocialLinkAttachement.objects.filter(
+            object_id=self.object.pk,
+            content_type=ContentType.objects.get_for_model(Profile),
+        )
+        return context
 
 class GenericUserView(DetailView):
     model = Profile
@@ -87,13 +156,6 @@ class DashboardView(LoginRequiredMixin, GenericUserView):
 
     def get_object(self, queryset=None):
         return self.request.user.profile
-
-
-class UserView(GenericUserView):
-    template_name = "user.html"
-
-    def get_object(self):
-        return get_object_or_404(Profile, user__username=self.kwargs["username"])
 
 
 class SocialLinkFormMixin(FormMixin):
@@ -156,11 +218,37 @@ class SocialLinkFormMixin(FormMixin):
 class EditProfileView(LoginRequiredMixin, SocialLinkFormMixin, UpdateView):
     template_name = "edit_profile.html"
     form_class = ProfileUpdateForm
-    success_url = reverse_lazy("edit_profile")
-    classname = Profile
+    success_url = reverse_lazy("profile")
 
     def get_object(self, queryset=None):
         return self.request.user.profile
+
+
+class SettingsView(LoginRequiredMixin, UpdateView):
+    template_name = "settings.html"
+    form_class = UserUpdateForm
+    success_url = reverse_lazy("profile")
+    classname = User
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+# TODO: Password update doesn't work
+class PasswordChangeView(LoginRequiredMixin, UpdateView):
+    template_name = "password_change.html"
+    form_class = PasswordUpdateForm
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_form_kwargs(self, **kwargs):
+        data = super(PasswordChangeView, self).get_form_kwargs(**kwargs)
+        data["request"] = self.request
+        return data
+
+    def form_valid(self, form):
+        form.save()
+
 
 
 class RegisterView(FormView):
@@ -170,7 +258,7 @@ class RegisterView(FormView):
 
     def form_valid(self, form):
         form.save()
-        login(self.request, form.instance)
+        login(self.request, form.instance, backend='django.contrib.auth.backends.ModelBackend')
         return super().form_valid(form)
 
 
@@ -212,6 +300,8 @@ class ChallengeFormView(InitiativeFormView):
         form_class = super().get_form_class(*args, **kwargs)
         form_class.base_fields["start"].widget.attrs["placeholder"] = "YYYY-MM-DD HH:MM"
         form_class.base_fields["end"].widget.attrs["placeholder"] = "YYYY-MM-DD HH:MM"
+        for field in form_class.base_fields:
+            form_class.base_fields[field].widget.attrs['class'] = 'form-input-field'
         return form_class
 
 
@@ -238,6 +328,7 @@ class ChallengeView(InitiativeViewMixin, TemplateView):
                 {"label": "End Time", "time": self.initiative.end},
             ]
         context["projects"] = Project.objects.filter(challenge=self.initiative)
+        context["related_challenges"] = Challenge.objects.all()[:3]
         return context
 
 

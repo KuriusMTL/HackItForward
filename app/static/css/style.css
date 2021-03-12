@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
   --grid-grey: #f0eeee;
   --grey-light: #f1efef;
-  --grey-mid: #6c6c6c;
+  --grey-mid: #828282;
   --grey-dark: #242424;
 
+  --cirrus-fg: #4F4F4F;
   --cirrus-primary: #3c8cc9;
   --cirrus-text: #aacbe3;
   --cirrus-primary-light: #c1d5e3;
@@ -18,27 +18,53 @@
 }
 
 * {
-  font-family: "Inter", sans-serif;
+  font-family: "Poppins", sans-serif;
   box-sizing: border-box;
   word-wrap: break-word;
 }
 
 body {
-  background-color: var(--grey-light);
+  background-color: #F6F8FB;
 }
 
 p {
   font-size: 18px;
+  color: #4F4F4F;
 }
 
 h1, h2 ,h3, h4, h5, h6 {
   font-family: "Poppins", sans-serif;
   font-weight: bold;
+  color: #4F4F4F;
+}
+
+.modal-content h1, .modal-content h2, .modal-content h3, .modal-content h4, .modal-content h5, .modal-content h6 {
+  color: var(--cirrus-fg);
 }
 
 a {
   font-weight: 400;
   padding: 0;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.pointer:hover {
+  cursor: pointer;
+}
+
+input::placeholder {
+  font-family: Poppins;
+}
+
+.input-contains-icon:focus {
+  outline: none;
+}
+
+.form-input-field {
+  font-family: Poppins !important;
 }
 
 .blue {
@@ -49,24 +75,41 @@ a {
   color: var(--cirrus-link-dark);
 }
 
+.grey {
+  color: var(--grey-mid);
+}
+
+.black {
+  color: #4f4f4f;
+}
+
 .frame {
   background-color: white;
   padding-top: 25px 0;
+}
+
+.horizontal-line {
+  border: 0.5px solid #bdbdbd;
+  width: 100%;
 }
 
 .placeholder img {
   height: 100px;
 }
 
-.header .header-nav a {
-  text-transform: uppercase;
-  color: var(--grey-dark);
-  font-weight: 600;
-  color: var(--cirrus-primary);
-}
+.header .header-nav a p {
+  color: var(--grey-mid);
+  font-weight: 500;
+  font-family: "Poppins";
+  }
 
 .header .header-nav a[class*="btn-primary"] {
   color: var(--cirrus-bg);
+}
+
+.nav-dropdown-link {
+  font-weight: 500;
+  font-family: "Poppins";
 }
 
 .nav-item.has-sub .nav-dropdown-link.btn-primary::after {
@@ -83,12 +126,14 @@ div.header {
   margin-top: 10px;
 }
 
-.logo {
-  height: 50px;
+.content {
+  max-width: 100em;
+  width: 93%;
+  margin-top: 40px;
 }
 
-.font-alt {
-  font-family: "Poppins", sans-serif;
+.logo {
+  height: 50px;
 }
 
 .tab-container li a {
@@ -103,6 +148,11 @@ div.header {
   transition: all var(--animation-duration);
 }
 
+.btn-oauth {
+  border-radius: 8px;
+  padding: 12px;
+}
+
 .btn-primary:hover {
   background: var(--cirrus-link-dark);
   color: white;
@@ -110,6 +160,18 @@ div.header {
 
 .btn-primary:focus {
   box-shadow: 0 0 0 0.2rem rgba(60,140,201,.5);
+}
+
+.btn-white {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: var(--cirrus-link);
+}
+
+.btn-white:hover {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: var(--cirrus-link);
 }
 
 .btn-grey {
@@ -123,8 +185,50 @@ div.header {
   color: var(--cirrus-primary);
 }
 
+.btn-black {
+  background-color: black;
+  border-color: black;
+  color: white;
+}
+
+.btn-black:hover {
+  background-color: black;
+  color: white;
+}
+
+.btn-google {
+  background-color: #5286EC;
+  color: white;
+}
+
+.btn-google:hover {
+  background-color: #5286EC;
+  color: white;
+}
+
 .btn-light {
   color: var(--grey-mid);
+}
+
+.btn-transparent {
+  border-color: #518BC4;
+}
+
+.btn-transparent:hover {
+  border-color: #518BC4;
+  background: transparent;
+}
+
+.btn-tag {
+  background-color: #E3EEFC;
+  border-color: #E3EEFC;
+  color: #4F4F4F;
+}
+
+.btn-tag:hover {
+  background-color: #E3EEFC;
+  border-color: #E3EEFC;
+  color: #4F4F4F;
 }
 
 .btn, .btn-primary, .btn-transparent, .btn-light, .btn-dark {
@@ -176,7 +280,11 @@ footer {
   color: var(--cirrus-primary);
 }
 
-
+.or-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
 
 /**
  * Front page strips
@@ -264,7 +372,68 @@ footer {
   margin-left: 5px;
 }
 
+/* Popup container */
+.popup {
+  position: relative;
+  cursor: pointer;
+}
 
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 0.5s;
+  animation: fadeIn 0.5s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
 
 /**
  * Front page banner
@@ -294,54 +463,142 @@ footer {
 
 
 /**
- * Front Page Cards
+ * Small Challenge Cards
  */
 
-.card-container {
-  min-height: 230px;
-}
+ .challenge-card {
+   background-color: #ffffff;
+   border-radius: 16px;
+   margin: .5rem 0;
+   padding: 0;
+ }
 
-.card-body .content {
-  position: relative;
-  z-index: 1;
-}
-
-.pointer-cursor {
+ .challenge-card:hover {
   cursor: pointer;
 }
 
-.tile__title {
-  font-family: "Poppins", sans-serif;
-  font-weight: bold;
-  color: var(--cirrus-primary);
+.challenge-card .card-img {
+  height: 260px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  border-radius: 16px 16px 0 0;
 }
 
-.tile__title > span {
-  color: var(--grey-dark);
+.challenge-card .card-description {
+padding: 2% 5%;
 }
 
-.row [class^=col-]:not(.col-12) {
-  padding: 0.5rem;
+.challenge-card-title {
+  font-size: 20px;
+  margin-top: 0;
+  padding-top: 0;
 }
 
-.tile.level.r {
-  padding: 0.5rem 0px;
+.challenge-card-creators {
+  font-size: 16px;
+  padding: 10px;
+  position: relative;
 }
 
-.tile__container > .tile__title > span {
-  font-weight: 300;
+.vertical-align {
+  display: inline-block;
+  vertical-align: middle;
 }
 
+.circle {
+  height: 25px;
+  width: 25px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0;
+  position: 50%;
+}
+
+.challenge-card-profile-icon {
+  height: 28px;
+  width: 28px;
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  margin-top: -14px;
+}
+
+.challenge-card-profile-text {
+  margin-left: 45px;
+  margin-top: 7px;
+}
 
 
 /**
  * Challenge
  */
 
-#challenge-frame {
-  border-left: 5px solid var(--cirrus-primary);
-  padding: 3%;
+ .share-social-icon {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 0px;
 }
+ a > .fa-facebook {
+   color: #3E75E4;
+ }
+
+ a > .fa-facebook:hover {
+  color: #2666e7;
+}
+
+a > .fa-instagram {
+  color: black;
+}
+
+a > .fa-instagram:hover {
+  color: black;
+}
+
+.fa-github {
+  color: black;
+}
+
+.fa-github:hover {
+ color: black;
+}
+
+a > .fa-twitter {
+  color: rgb(0, 172, 237);
+}
+
+a > .fa-twitter:hover {
+  color: rgb(1, 157, 214);
+}
+
+a > .fa-linkedin {
+  color: var(--cirrus-primary);
+}
+
+a > .fa-linkedin:hover {
+ color:var(--cirrus-link-dark);
+}
+
+a > .fa-reddit {
+  color: rgb(255,69,0);
+}
+
+a > .fa-reddit:hover {
+ color: rgb(246, 67, 2);
+}
+
+ .profile-icon {
+  border-radius: 50%;
+  max-height: 30px;
+  margin-right: 5px;
+ }
+
+ .subheading {
+   font-size: 22px;
+   line-height: 1.5em;
+ }
 
 #challenge-frame > .row > p {
   border-top: 2px solid var(--grey-light);
@@ -351,6 +608,7 @@ footer {
 
 .map-container {
   justify-items: center;
+  margin-top: 25px;
 }
 
 #map {
@@ -364,10 +622,6 @@ footer {
 .form-section > label + p {
   margin-bottom: 6px;
   margin-top: 0;
-}
-
-.frame > .row > p {
-  width: 100%;
 }
 
 .frame > .row > .img-upload {
