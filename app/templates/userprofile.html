@@ -106,7 +106,7 @@
                 <i class="fas fa-envelope fa-lg" aria-hidden="true" style="color: #4F4F4F;"></i>
               </a> -->
               {% for link in links.all() %}
-                <a class="share-social-icon level-content level-item" href="{{ link.content|e }}" target="_blank"><i class="icon {{ link.css_class }} fa-2x"></i></a>
+                <a class="share-social-icon level-content level-item" href="{{ link.content|e }}" target="_blank"><i class="fab fa-{{ link.icon }} fa-2x"></i></a>
               {% endfor %}
             </div>
           </div>
