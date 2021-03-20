@@ -19,18 +19,18 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormMixin, FormView, UpdateView
 
 
+class AboutView(TemplateView):
+    template_name = "about.html"
+
+
 class IndexView(TemplateView):
-    template_name = "home.html"
-
-
-class ExploreView(TemplateView):
     '''Default page. Allows site visitors to see challenges.'''
     template_name = "explore.html"
 
     def dispatch(self, request, *args, **kwargs):
         if request.GET.get("type") not in ["challenge", None]:
             return redirect("index")
-        return super(ExploreView, self).dispatch(request, *args, **kwargs)
+        return super(IndexView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
