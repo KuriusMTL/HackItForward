@@ -107,6 +107,10 @@
         <a onclick="shareOnReddit(window.location.href.toString())" class="share-social-icon level-content level-item">
           <i class="fab fa-reddit fa-lg"></i>
         </a>
+        <a class="share-social-icon level-content level-item" onclick="displayLinkCopied(1)">
+          <i class="fas fa-bookmark" style="color: #868686;"></i>
+          <span class="popuptext" id="copy-popup-1">Bookmarked!</span>
+        </a>
       </div>
     </div>
   </div>
@@ -147,7 +151,7 @@
     {% endif %}
 
       <div class="col-8" style="margin-left: 15px">
-        <h6 style="font-size: 16px; margin-bottom: 0;">{{ challenge.name }}</h6>
+        <h6 style="font-size: 16px; margin-bottom: 0; margin-top:0;">{{ challenge.name }}</h6>
         <p style="font-size: 16px; margin-top: 5px; line-height: 20px;">{{ challenge.description|truncatechars(60) }}</p>
       </div>
     </div>

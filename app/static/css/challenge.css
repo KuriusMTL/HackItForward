@@ -42,7 +42,7 @@
 }
 
 .initiative-tag {
-margin: 5px;
+  margin: 5px;
 }
 
 .related-challenge:hover {
@@ -54,6 +54,8 @@ margin: 5px;
   background-repeat: no-repeat;
   background-size: cover;
   max-width: 80px;
+  min-width: 80px;
+  min-height: 80px;
   max-height: 80px;
 }
 
@@ -85,7 +87,7 @@ margin: 5px;
 }
 
 #plane {
-  color: #518BC4;
+  color: #518bc4;
   opacity: 30%;
   z-index: 10;
   position: absolute;
