@@ -32,6 +32,7 @@
   border-radius: 8px;
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   min-height: 300px;
   width: 100%;
 }
@@ -42,7 +43,12 @@
 }
 
 .initiative-tag {
-margin: 5px;
+  margin: 5px;
+}
+
+.initiative-tag {
+  padding: 6px 15px;
+  border-radius: 100px;
 }
 
 .related-challenge:hover {
@@ -54,6 +60,8 @@ margin: 5px;
   background-repeat: no-repeat;
   background-size: cover;
   max-width: 80px;
+  min-width: 80px;
+  min-height: 80px;
   max-height: 80px;
 }
 
@@ -85,7 +93,7 @@ margin: 5px;
 }
 
 #plane {
-  color: #518BC4;
+  color: #518bc4;
   opacity: 30%;
   z-index: 10;
   position: absolute;
@@ -102,4 +110,33 @@ margin: 5px;
   background-size: cover;
   background-repeat: no-repeat;
   margin: 24px 0px;
+}
+
+#social-float {
+  max-width: 350px;
+}
+
+@media screen and (max-width: 1150px) {
+  #social-float {
+    max-width: 325px;
+    background-color: black;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  #social-float {
+    max-width: 300px;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  #social-float {
+    max-width: 275px;
+  }
+}
+
+@media screen and (max-width: 920px) {
+  #social-float {
+    max-width: 250px;
+  }
 }
