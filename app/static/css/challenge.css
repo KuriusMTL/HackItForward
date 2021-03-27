@@ -32,6 +32,7 @@
   border-radius: 8px;
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   min-height: 300px;
   width: 100%;
 }
@@ -43,6 +44,11 @@
 
 .initiative-tag {
   margin: 5px;
+}
+
+.initiative-tag {
+  padding: 6px 15px;
+  border-radius: 100px;
 }
 
 .related-challenge:hover {
@@ -104,4 +110,33 @@
   background-size: cover;
   background-repeat: no-repeat;
   margin: 24px 0px;
+}
+
+#social-float {
+  max-width: 350px;
+}
+
+@media screen and (max-width: 1150px) {
+  #social-float {
+    max-width: 325px;
+    background-color: black;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  #social-float {
+    max-width: 300px;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  #social-float {
+    max-width: 275px;
+  }
+}
+
+@media screen and (max-width: 920px) {
+  #social-float {
+    max-width: 250px;
+  }
 }

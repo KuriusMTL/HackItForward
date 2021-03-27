@@ -9,9 +9,9 @@
           <div class="row">
             <div class="col-6">
               {% if project.image %}
-              <div class="initiative-card-image" style="background-image: url({{ project.image.url }})"></div>
+              <div class="initiative-card-image" style="background-image: url({{ project.image.url }});"></div>
               {% else %}
-                <div class="initiative-card-image" style="background-image: url({{ static('img/polar-bear.png') }})"></div>
+                <div class="initiative-card-image" style="background-image: url({{ static('img/polar-bear.png') }});"></div>
               {% endif %}
               <!-- <div class="initiative-card" style="margin-top: 1rem;">
                 <div class="initiative-card-content">
@@ -107,10 +107,6 @@
         <a onclick="shareOnReddit(window.location.href.toString())" class="share-social-icon level-content level-item">
           <i class="fab fa-reddit fa-lg"></i>
         </a>
-        <a class="share-social-icon level-content level-item" onclick="displayLinkCopied(1)">
-          <i class="fas fa-bookmark" style="color: #868686;"></i>
-          <span class="popuptext" id="copy-popup-1">Bookmarked!</span>
-        </a>
       </div>
     </div>
   </div>
@@ -127,11 +123,11 @@
 {% if initiative.tags.exists() %}
 <div class="initiative-card">
   <div class="initiative-card-content">
-    <h5>Tags</h5>
-    <div class="row" style="padding-left: 0;">
+    <h5 style="margin-top: 0px;">Tags</h5>
+    <div class="row" style="padding: 0;">
       {% for tag in initiative.tags.all() %}
         <a class="initiative-tag" href="{{ url('gallery') }}?type={{ initiative|class_name|lower }}&tag={{ tag.name }}">
-          <button class="btn-tag btn--pilled btn-primary btn-small" style="font-weight: 500;">{{ tag.name }}</button>
+          <button class="btn-tag btn--pilled btn-primary btn-small" style="font-weight: 500; font-size: 12px;">{{ tag.name }}</button>
         </a>
       {% endfor %}
     </div>
