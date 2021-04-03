@@ -8,40 +8,50 @@
 <div class="content" style="max-width: 800px;">
   <div class="profile-card">
     <h2>Edit Profile</h2>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data" onclick="alterForm()">
       <div class="frame__body">
         {% csrf_token %}
         {% for error in form.non_field_errors() %}
-          <span class="text-primary info">{{ error }}</span>
+        <span class="text-primary info">{{ error }}</span>
         {% endfor %}
 
         <div class="form-section">
           {{ form.banner_image.label_tag() }}
           <div class="row">
-            <div style="border-radius: 16px; height: 200px; width: 100%; background-position: 50% 50%; background-image: url(/media/{{ form.banner_image.value() }})"></div>
+            <div
+              style="border-radius: 16px; height: 200px; width: 100%; background-position: 50% 50%; background-image: url(/media/{{ form.banner_image.value() }})">
+            </div>
           </div>
-          {{ form.banner_image }}
-          {% for error in form.banner_image.errors %}
+          <div class="file-buttons">
+            <label for="id_image" class="btn-primary btn--pilled u-pull-right animated row u-block"
+              style="cursor: pointer; flex: none;">Change Photo</label>
+            {{ form.banner_image }}
+            {% for error in form.banner_image.errors %}
             <span class="text-primary info">{{ error }}</span>
-          {% endfor %}
+            {% endfor %}
+          </div>
         </div>
 
         <div class="form-section">
           <label>Profile Image</label>
-          <div class="row">
-            <img style="border-radius: 50%; max-height: 150px" src="/media/{{ form.image.value() }}">
+          <div class="u-flex prof-flex">
+            <img style="border-radius: 50%; max-height: 150px; max-width: 150px" src="/media/{{ form.image.value() }}">
+            <div class="file-buttons">
+              <label for="id_image" class="btn-primary btn--pilled u-pull-right animated row u-block"
+                style="cursor: pointer; flex: none;">Change Photo</label>
+              {{ form.image }}
+              {% for error in form.image.errors %}
+              <span class="text-primary info">{{ error }}</span>
+              {% endfor %}
+            </div>
           </div>
-          {{ form.image }}
-          {% for error in form.image.errors %}
-            <span class="text-primary info">{{ error }}</span>
-          {% endfor %}
         </div>
 
         <div class="form-section">
           {{ form.location.label_tag() }}
           {{ form.location }}
           {% for error in form.location.errors %}
-            <span class="text-primary info">{{ error }}</span>
+          <span class="text-primary info">{{ error }}</span>
           {% endfor %}
         </div>
 
@@ -49,7 +59,7 @@
           {{ form.headline.label_tag() }}
           {{ form.headline }}
           {% for error in form.headline.errors %}
-            <span class="text-primary info">{{ error }}</span>
+          <span class="text-primary info">{{ error }}</span>
           {% endfor %}
         </div>
 
@@ -57,18 +67,18 @@
           {{ form.description.label_tag() }}
           {{ form.description }}
           {% for error in form.description.errors %}
-            <span class="text-primary info">{{ error }}</span>
+          <span class="text-primary info">{{ error }}</span>
           {% endfor %}
         </div>
         <div class="form-section">
           <label>Skills</label>
           {{ form.tags }}
           {% for error in form.tags.errors %}
-            <span class="text-primary info">{{ error }}</span>
+          <span class="text-primary info">{{ error }}</span>
           {% endfor %}
         </div>
         {% with col_class=False %}
-          {% include "social_link_form.html" %}
+        {% include "social_link_form.html" %}
         {% endwith %}
         <div class="form-section">
           <label>Where are you from?</label>
@@ -83,12 +93,25 @@
     </form>
   </div>
 </div>
+
+<script type="text/javascript">
+  function alterForm() {
+    const sections = document.getElementsByClassName("form-section");
+    for (i = 0; i < sections.length; i++) {
+      const section = sections[i];
+      section.innerHTML = section.innerHTML.split("Currently:").join("");
+      section.innerHTML = section.innerHTML.split("Change:").join("");
+    }
+  }
+  alterForm();
+</script>
+
 {% endblock %}
 
 {% block scripts %}
 <script src="{{ static('js/map.js') }}"></script>
 <script>
   var simplemde = new SimpleMDE({ element: document.getElementById("id_description") });
-  $('select[multiple]').chosen({width: '100%', placeholder_text_multiple: ' ', placeholder_text_single: ' '});
+  $('select[multiple]').chosen({ width: '100%', placeholder_text_multiple: ' ', placeholder_text_single: ' ' });
 </script>
 {% endblock %}
