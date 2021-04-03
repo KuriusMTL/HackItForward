@@ -139,3 +139,17 @@
     max-width: 250px;
   }
 }
+
+@media screen and (max-width: 769px) {
+  .initiative-card-content #initiative-info {
+    display: flex;
+    width: 100%;
+  }
+  .initiative-card-content #initiative-info a:first-child {
+    width: 50%;
+  }
+  .initiative-card-content #initiative-info .level {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

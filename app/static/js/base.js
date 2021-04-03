@@ -31,11 +31,13 @@ $(document).scroll(function() {
 });
 
 function checkOffset() {
-  console.log($(window).width());
+  console.log("Window innerHeight"+$(document).scrollTop()+window.innerHeight);
+  console.log($('#footer').offset().top);
   if ($(window).width() >= 770) {
     if($('#social-float').offset().top + $('#social-float').height()
                                           >= $('#footer').offset().top - 10)
         $('#social-float').css('position', 'absolute');
+        $('#social-float').css('top', '525px');
     if($(document).scrollTop() + window.innerHeight < $('#footer').offset().top && $(document).scrollTop() >= 84) {
         $('#social-float').css('position', 'fixed'); // restore when you scroll up
         $('#social-float').css('top', '25px');
