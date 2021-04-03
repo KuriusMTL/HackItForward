@@ -140,16 +140,51 @@
   }
 }
 
+@media screen and (max-width: 850px) {
+  #social-float .related-challenge .col-8 {
+    margin-left: 5px;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  #social-float .related-challenge .col-8 {
+    margin-left: 0px;
+    width: 55.67%;
+  }
+}
+
 @media screen and (max-width: 769px) {
   .initiative-card-content #initiative-info {
     display: flex;
     width: 100%;
   }
-  .initiative-card-content #initiative-info a:first-child {
+  .initiative-card-content #initiative-info .initiative-creator {
     width: 50%;
   }
   .initiative-card-content #initiative-info .level {
     display: flex;
     justify-content: flex-end;
+  }
+  #social-float {
+    max-width: 100%;
+    left: -15px;
+  }
+  #social-float .initiative-card .row {
+    display: flex;
+  }
+  #social-float .related-challenge .col-8 {
+    margin-left: 15px;
+    width: 76%;
+  }
+  .initiative-card-content {
+    width: 100vw;
+    position: relative;
+    left: -30px;
+  }
+  .initiative-card-content .initiative-card-image {
+    width: 100vw;
+    position: relative;
+    top: -32px;
+    left: -27px;
   }
 }
