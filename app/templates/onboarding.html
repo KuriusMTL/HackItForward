@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block head %}
-<title>Edit Profile | HackItForward</title>
+<title>Onboarding | HackItForward</title>
 {% endblock %}
 
 {% block body %}
 <div class="content" style="max-width: 800px;">
   <div class="profile-card">
-    <h2>Edit Profile</h2>
+    <h2>Welcome! Let's Create Your Profile</h2>
     <form action="" method="POST" enctype="multipart/form-data">
       <div class="frame__body">
         {% csrf_token %}
@@ -23,7 +23,7 @@
             </div>
           </div>
           <div class="file-buttons">
-            <label for="id_banner_image" class="btn-primary btn--pilled u-pull-right animated row u-block"
+            <label for="id_image" class="btn-primary btn--pilled u-pull-right animated row u-block"
               style="cursor: pointer; flex: none;">Change Photo</label>
             {{ form.banner_image }}
             {% for error in form.banner_image.errors %}
@@ -88,7 +88,13 @@
           </div>
         </div>
         <br>
-        <input type="submit" class="btn-primary btn--pilled u-pull-right animated" value="Save all">
+        <div class="row">
+            <input type="submit" class="row btn-primary btn--pilled u-center animated" value="Create Profile" style="max-width: 40%;">
+        </div>
+        <a href="{{ url('index') }}" class="row">
+            <p class="u-text-center u-center grey" style="font-weight: 500; margin-top: 0;">I'll Do This Later</p>
+        </a>
+
       </div>
     </form>
   </div>

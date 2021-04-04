@@ -1,4 +1,4 @@
-from app.forms import ProfileUpdateForm, UserUpdateForm, SocialLinkFormSet, PasswordUpdateForm
+from app.forms import ProfileUpdateForm, UserUpdateForm, SocialLinkFormSet, PasswordUpdateForm, OnboardingForm
 from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, User
 
 from django.core.exceptions import PermissionDenied
@@ -101,7 +101,6 @@ class GalleryView(TemplateView):
 
         context["objects"] = {initiative: queryset.distinct()}
         return context
-
 
 class UserView(DetailView):
     template_name = "userprofile.html"
@@ -219,6 +218,15 @@ class EditProfileView(LoginRequiredMixin, SocialLinkFormMixin, UpdateView):
     template_name = "edit_profile.html"
     form_class = ProfileUpdateForm
     success_url = reverse_lazy("profile")
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
+
+
+class OnboardingView(LoginRequiredMixin, SocialLinkFormMixin, UpdateView):
+    template_name = "onboarding.html"
+    form_class = ProfileUpdateForm
+    success_url = reverse_lazy("index")
 
     def get_object(self, queryset=None):
         return self.request.user.profile
