@@ -18,12 +18,13 @@ $(document).ready(() => {
 	$('#header-btn').on('click', function(e) {
 		$('#header-menu').toggleClass('active');
 		$('.nav-btn').toggleClass('active');
+    $('body').toggleClass('overflow-hidden');
 	});
-
-	// Remove parent upon clicking close button
-	$('.btn-close').on('click', function() {
-		$(this).closest('div').remove();
-	});
+  $('.dropdown-menu li').on('click', function(e) {
+    $('#header-menu').removeClass('active');
+    $('.nav-btn').removeClass('active');
+    $('body').removeClass('overflow-hidden');
+  })
 });
 
 $(document).scroll(function() {
@@ -31,11 +32,34 @@ $(document).scroll(function() {
 });
 
 function checkOffset() {
-  if($('#social-float').offset().top + $('#social-float').height()
-                                         >= $('#footer').offset().top - 10)
+  if ($(window).width() >= 770) {
+    if($('#social-float').offset().top + $('#social-float').height()
+                                          >= $('#footer').offset().top - 10)
+        $('#social-float').css('position', 'absolute');
+        // Calculate top of social float to not go over footer
+        var footerOffset = $('#footer').offset().top;
+        var bottomSocialFloat = $('#social-float').offset().top+$('#social-float').height();
+        var diff = footerOffset - bottomSocialFloat;
+        var topSocialFloat = $('#social-float').offset().top;
+        var stringTop = '';
+        if (diff < 0) {
+          topSocialFloat += diff;
+          stringTop = topSocialFloat + 'px';
+        } else {
+          stringTop = topSocialFloat + 'px';
+        }
+        $('#social-float').css('top', stringTop);
+    if($(document).scrollTop() + window.innerHeight < $('#footer').offset().top && $(document).scrollTop() >= 84) {
+        $('#social-float').css('position', 'fixed'); // restore when you scroll up
+        $('#social-float').css('top', '25px');
+    }
+    if($(document).scrollTop() < 84) {
       $('#social-float').css('position', 'absolute');
-  if($(document).scrollTop() + window.innerHeight < $('#footer').offset().top)
-      $('#social-float').css('position', 'fixed'); // restore when you scroll up
+      $('#social-float').css('top', '145px');
+    }
+  } else {
+    $('#social-float').css('position', 'relative');
+  }
 }
 
 function openTab(evt, level) {

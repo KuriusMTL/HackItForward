@@ -9,9 +9,9 @@
           <div class="row">
             <div class="col-6">
               {% if project.image %}
-              <div class="initiative-card-image" style="background-image: url({{ project.image.url }})"></div>
+              <div class="initiative-card-image" style="background-image: url({{ project.image.url }});"></div>
               {% else %}
-                <div class="initiative-card-image" style="background-image: url({{ static('img/polar-bear.png') }})"></div>
+                <div class="initiative-card-image" style="background-image: url({{ static('img/polar-bear.png') }});"></div>
               {% endif %}
               <!-- <div class="initiative-card" style="margin-top: 1rem;">
                 <div class="initiative-card-content">
@@ -123,11 +123,11 @@
 {% if initiative.tags.exists() %}
 <div class="initiative-card">
   <div class="initiative-card-content">
-    <h5>Tags</h5>
-    <div class="row" style="padding-left: 0;">
+    <h5 style="margin-top: 0px;">Tags</h5>
+    <div class="row" style="padding: 0;">
       {% for tag in initiative.tags.all() %}
         <a class="initiative-tag" href="{{ url('gallery') }}?type={{ initiative|class_name|lower }}&tag={{ tag.name }}">
-          <button class="btn-tag btn--pilled btn-primary btn-small" style="font-weight: 500;">{{ tag.name }}</button>
+          <button class="btn-tag btn--pilled btn-primary btn-small" style="font-weight: 500; font-size: 12px;">{{ tag.name }}</button>
         </a>
       {% endfor %}
     </div>
@@ -147,7 +147,7 @@
     {% endif %}
 
       <div class="col-8" style="margin-left: 15px">
-        <h6 style="font-size: 16px; margin-bottom: 0;">{{ challenge.name }}</h6>
+        <h6 style="font-size: 16px; margin-bottom: 0; margin-top:0;">{{ challenge.name }}</h6>
         <p style="font-size: 16px; margin-top: 5px; line-height: 20px;">{{ challenge.description|truncatechars(60) }}</p>
       </div>
     </div>
