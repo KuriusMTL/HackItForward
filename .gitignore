@@ -132,3 +132,5 @@ dmypy.json
 **/.DS_STORE
 .idea/
 .vscode/
+media/profile_pics
+media/profile_background_pics
