@@ -45,6 +45,9 @@ class ProfileUpdateForm(ModelForm):
         self.label_suffix = ""
         for field in self.fields:
          self.fields[field].widget.attrs['class'] = 'form-input-field'
+        self.fields['banner_image'].widget.attrs['class'] = 'prof-img'
+        self.fields['image'].widget.attrs['class'] = 'prof-img'
+        
 
 # Form that allows users to update their social links
 class SocialLinkForm(ModelForm):
