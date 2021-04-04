@@ -8,7 +8,7 @@
 <div class="content" style="max-width: 800px;">
   <div class="profile-card">
     <h2>Edit Profile</h2>
-    <form action="" method="POST" enctype="multipart/form-data" onclick="alterForm()">
+    <form action="" method="POST" enctype="multipart/form-data">
       <div class="frame__body">
         {% csrf_token %}
         {% for error in form.non_field_errors() %}
@@ -96,7 +96,7 @@
 
 <script type="text/javascript">
   function alterForm() {
-    const sections = document.getElementsByClassName("form-section");
+    const sections = document.getElementsByClassName("file-buttons");
     for (i = 0; i < sections.length; i++) {
       const section = sections[i];
       section.innerHTML = section.innerHTML.split("Currently:").join("");
