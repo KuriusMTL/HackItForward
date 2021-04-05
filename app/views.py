@@ -1,9 +1,9 @@
-from app.forms import ProfileUpdateForm, UserUpdateForm, SocialLinkFormSet, PasswordUpdateForm
+from app.forms import ProfileUpdateForm, UserUpdateForm, SocialLinkFormSet, PasswordUpdateForm, OnboardingForm
 from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, User
 
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login, update_session_auth_hash
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
@@ -18,19 +18,18 @@ from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormMixin, FormView, UpdateView
 
+class AboutView(TemplateView):
+    template_name = "about.html"
+
 
 class IndexView(TemplateView):
-    template_name = "home.html"
-
-
-class ExploreView(TemplateView):
     '''Default page. Allows site visitors to see challenges.'''
     template_name = "explore.html"
 
     def dispatch(self, request, *args, **kwargs):
         if request.GET.get("type") not in ["challenge", None]:
             return redirect("index")
-        return super(ExploreView, self).dispatch(request, *args, **kwargs)
+        return super(IndexView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -101,7 +100,6 @@ class GalleryView(TemplateView):
 
         context["objects"] = {initiative: queryset.distinct()}
         return context
-
 
 class UserView(DetailView):
     template_name = "userprofile.html"
@@ -224,6 +222,15 @@ class EditProfileView(LoginRequiredMixin, SocialLinkFormMixin, UpdateView):
         return self.request.user.profile
 
 
+class OnboardingView(LoginRequiredMixin, SocialLinkFormMixin, UpdateView):
+    template_name = "onboarding.html"
+    form_class = ProfileUpdateForm
+    success_url = reverse_lazy("index")
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
+
+
 class SettingsView(LoginRequiredMixin, UpdateView):
     template_name = "settings.html"
     form_class = UserUpdateForm
@@ -233,22 +240,11 @@ class SettingsView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 
-# TODO: Password update doesn't work
-class PasswordChangeView(LoginRequiredMixin, UpdateView):
-    template_name = "password_change.html"
-    form_class = PasswordUpdateForm
+class PasswordChangeConfirmationView(TemplateView):
+    template_name = "password_change_confirmation.html"
 
-    def get_object(self, queryset=None):
-        return self.request.user
-
-    def get_form_kwargs(self, **kwargs):
-        data = super(PasswordChangeView, self).get_form_kwargs(**kwargs)
-        data["request"] = self.request
-        return data
-
-    def form_valid(self, form):
-        form.save()
-
+class PasswordResetConfirmationView(TemplateView):
+    template_name = "password_reset_confirmation.html"
 
 
 class RegisterView(FormView):

@@ -160,7 +160,7 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
     image = models.ImageField(default="default_profile.jpg", upload_to="profile_pics") # the profile image
-    banner_image = models.ImageField(default="default_profile-bg.jpg", upload_to="profile_background_pics")
+    banner_image = models.ImageField(default="default_profile_bg.jpg", upload_to="profile_background_pics")
     headline = models.CharField(
         default="",
         verbose_name="Headline",

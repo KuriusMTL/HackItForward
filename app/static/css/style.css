@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 :root {
   --grid-grey: #f0eeee;
@@ -6,7 +6,7 @@
   --grey-mid: #828282;
   --grey-dark: #242424;
 
-  --cirrus-fg: #4F4F4F;
+  --cirrus-fg: #4f4f4f;
   --cirrus-primary: #3c8cc9;
   --cirrus-text: #aacbe3;
   --cirrus-primary-light: #c1d5e3;
@@ -24,21 +24,32 @@
 }
 
 body {
-  background-color: #F6F8FB;
+  background-color: #f6f8fb;
+  overflow-x: hidden;
 }
 
 p {
   font-size: 18px;
-  color: #4F4F4F;
+  color: #4f4f4f;
 }
 
-h1, h2 ,h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Poppins", sans-serif;
   font-weight: bold;
-  color: #4F4F4F;
+  color: #4f4f4f;
 }
 
-.modal-content h1, .modal-content h2, .modal-content h3, .modal-content h4, .modal-content h5, .modal-content h6 {
+.modal-content h1,
+.modal-content h2,
+.modal-content h3,
+.modal-content h4,
+.modal-content h5,
+.modal-content h6 {
   color: var(--cirrus-fg);
 }
 
@@ -101,7 +112,7 @@ input::placeholder {
   color: var(--grey-mid);
   font-weight: 500;
   font-family: "Poppins";
-  }
+}
 
 .header .header-nav a[class*="btn-primary"] {
   color: var(--cirrus-bg);
@@ -144,7 +155,9 @@ div.header {
   border-bottom: 2px solid var(--cirrus-primary);
 }
 
-.btn, [type=submit], button {
+.btn,
+[type="submit"],
+button {
   transition: all var(--animation-duration);
 }
 
@@ -159,7 +172,7 @@ div.header {
 }
 
 .btn-primary:focus {
-  box-shadow: 0 0 0 0.2rem rgba(60,140,201,.5);
+  box-shadow: 0 0 0 0.2rem rgba(60, 140, 201, 0.5);
 }
 
 .btn-white {
@@ -197,12 +210,12 @@ div.header {
 }
 
 .btn-google {
-  background-color: #5286EC;
+  background-color: #5286ec;
   color: white;
 }
 
 .btn-google:hover {
-  background-color: #5286EC;
+  background-color: #5286ec;
   color: white;
 }
 
@@ -211,27 +224,31 @@ div.header {
 }
 
 .btn-transparent {
-  border-color: #518BC4;
+  border-color: #518bc4;
 }
 
 .btn-transparent:hover {
-  border-color: #518BC4;
+  border-color: #518bc4;
   background: transparent;
 }
 
 .btn-tag {
-  background-color: #E3EEFC;
-  border-color: #E3EEFC;
-  color: #4F4F4F;
+  background-color: #e3eefc;
+  border-color: #e3eefc;
+  color: #4f4f4f;
 }
 
 .btn-tag:hover {
-  background-color: #E3EEFC;
-  border-color: #E3EEFC;
-  color: #4F4F4F;
+  background-color: #e3eefc;
+  border-color: #e3eefc;
+  color: #4f4f4f;
 }
 
-.btn, .btn-primary, .btn-transparent, .btn-light, .btn-dark {
+.btn,
+.btn-primary,
+.btn-transparent,
+.btn-light,
+.btn-dark {
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   letter-spacing: 0px;
@@ -244,7 +261,9 @@ div.header {
   color: var(--cirrus-primary);
 }
 
-button:focus, a:focus, input:focus {
+button:focus,
+a:focus,
+input:focus {
   box-shadow: none;
 }
 
@@ -258,7 +277,7 @@ footer {
 }
 
 .reverse {
-  display:flex;
+  display: flex;
   flex-direction: column-reverse;
 }
 
@@ -270,13 +289,13 @@ footer {
 }
 
 .thin-footer {
-  font-family:'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-weight: 100;
   letter-spacing: 0.5px;
   color: var(--grey-mid);
 }
 
-.list-item:hover{
+.list-item:hover {
   color: var(--cirrus-primary);
 }
 
@@ -290,14 +309,15 @@ footer {
  * Front page strips
  */
 
- .animate-br-tl {
-  animation : move-br-tl 7s infinite;
-  -moz-animation : none;
- }
+.animate-br-tl {
+  animation: move-br-tl 7s infinite;
+  -moz-animation: none;
+}
 
 @keyframes move-br-tl {
-  0%, 100% {
-    transform : translate(5px, 5px);
+  0%,
+  100% {
+    transform: translate(5px, 5px);
   }
   50% {
     transform: translate(-5px, -5px);
@@ -305,13 +325,14 @@ footer {
 }
 
 .animate-bl-tr {
-  animation : move-bl-tr 7s infinite;
-  -moz-animation : none;
- }
+  animation: move-bl-tr 7s infinite;
+  -moz-animation: none;
+}
 
 @keyframes move-bl-tr {
-  0%, 100% {
-    transform : translate(5px, -5px);
+  0%,
+  100% {
+    transform: translate(5px, -5px);
   }
   50% {
     transform: translate(-5px, 5px);
@@ -319,24 +340,25 @@ footer {
 }
 
 .animate-l-r {
-  animation : move-l-r 7s infinite;
-  -moz-animation : none;
- }
+  animation: move-l-r 7s infinite;
+  -moz-animation: none;
+}
 
 @keyframes move-l-r {
-  0%, 100% {
-    transform : translate(5px, 9px);
+  0%,
+  100% {
+    transform: translate(5px, 9px);
   }
   50% {
     transform: translate(-5px, 9px);
   }
 }
 
- #front-button:hover ~ #front-title {
-   color: var(--cirrus-link-dark);
- }
+#front-button:hover ~ #front-title {
+  color: var(--cirrus-link-dark);
+}
 
- .strip {
+.strip {
   padding: 10% 10%;
   position: relative;
 }
@@ -346,7 +368,11 @@ footer {
 }
 
 .strip-color {
-  background: linear-gradient(90deg, rgba(41, 171, 226, 1) 0%, rgba(0, 113, 188, 1) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(41, 171, 226, 1) 0%,
+    rgba(0, 113, 188, 1) 100%
+  );
 }
 
 .company-preview-card {
@@ -415,24 +441,40 @@ footer {
 
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity:1 ;}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity:1 ;}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /**
@@ -440,7 +482,7 @@ footer {
  */
 
 #splash-img {
-  background: url('/static/img/background.jpg');
+  background: url("/static/img/background.jpg");
   position: relative;
   background-attachment: fixed;
   background-position: center;
@@ -460,20 +502,18 @@ footer {
   margin-top: 30px;
 }
 
-
-
 /**
  * Small Challenge Cards
  */
 
- .challenge-card {
-   background-color: #ffffff;
-   border-radius: 16px;
-   margin: .5rem 0;
-   padding: 0;
- }
+.challenge-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  margin: 0.5rem 0;
+  padding: 0;
+}
 
- .challenge-card:hover {
+.challenge-card:hover {
   cursor: pointer;
 }
 
@@ -486,7 +526,7 @@ footer {
 }
 
 .challenge-card .card-description {
-padding: 2% 5%;
+  padding: 2% 5%;
 }
 
 .challenge-card-title {
@@ -530,22 +570,21 @@ padding: 2% 5%;
   margin-top: 7px;
 }
 
-
 /**
  * Challenge
  */
 
- .share-social-icon {
+.share-social-icon {
   border-radius: 50%;
   width: 40px;
   height: 40px;
   margin: 0px;
 }
- a > .fa-facebook {
-   color: #3E75E4;
- }
+a > .fa-facebook {
+  color: #3e75e4;
+}
 
- a > .fa-facebook:hover {
+a > .fa-facebook:hover {
   color: #2666e7;
 }
 
@@ -562,7 +601,7 @@ a > .fa-instagram:hover {
 }
 
 .fa-github:hover {
- color: black;
+  color: black;
 }
 
 a > .fa-twitter {
@@ -578,27 +617,27 @@ a > .fa-linkedin {
 }
 
 a > .fa-linkedin:hover {
- color:var(--cirrus-link-dark);
+  color: var(--cirrus-link-dark);
 }
 
 a > .fa-reddit {
-  color: rgb(255,69,0);
+  color: rgb(255, 69, 0);
 }
 
 a > .fa-reddit:hover {
- color: rgb(246, 67, 2);
+  color: rgb(246, 67, 2);
 }
 
- .profile-icon {
+.profile-icon {
   border-radius: 50%;
   max-height: 30px;
   margin-right: 5px;
- }
+}
 
- .subheading {
-   font-size: 22px;
-   line-height: 1.5em;
- }
+.subheading {
+  font-size: 22px;
+  line-height: 1.5em;
+}
 
 #challenge-frame > .row > p {
   border-top: 2px solid var(--grey-light);
@@ -708,4 +747,45 @@ a > .fa-reddit:hover {
   padding: 10px 20px;
   transition: all ease 0.5s;
   visibility: hidden;
+}
+.overflow-hidden {
+  overflow-y: hidden;
+}
+
+@media screen and (max-width: 770px) {
+  .header {
+    background-color: #fff;
+    margin: 0 !important;
+    padding: 10px 16px;
+  }
+  #header-menu .nav-item:first-child {
+    padding-top: 20px;
+  }
+  #header-menu .btn--pilled {
+    padding: 10px 20px;
+    justify-content: center;
+  }
+  .header-nav .nav-item {
+    margin: 0 20px;
+    padding: 0.5em 1rem;
+  }
+  .logo {
+    height: 44px;
+  }
+  p {
+    font-size: 16px;
+  }
+  .challenge-card-profile-text {
+    margin-left: 60px;
+    margin-top: 4px;
+  }
+  #footer .footer-content {
+    padding: 0 40px;
+  }
+  #footer #footer-brand {
+    margin-right: 70px !important;
+  }
+  #footer #footer-navigation {
+    margin-right: 50px !important;
+  }
 }

@@ -25,17 +25,25 @@
   {% endblock %}
 
   <link href="{{ static('css/style.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ static('css/challenge.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ static('css/explore.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ static('css/profile.css') }}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 
   <!-- Header -->
-  <div class="header unselectable header-animated header-clear">
+  <div class="header unselectable header-animated header-clear" id="header">
     <div class="header-brand">
       <div class="nav-item">
         <a href="{{ url('index') }}">
           <img src="{{ static('img/logo.png') }}" class="logo" alt="HackItForward">
         </a>
+      </div>
+      <div class="nav-item nav-btn" id="header-btn">
+          <span></span>
+          <span></span>
+          <span></span>
       </div>
     </div>
     <div class="header-nav" id="header-menu">
@@ -81,13 +89,13 @@
   <!-- Footer -->
   <footer style="background-color: #FFFFFF;" id="footer">
     <div class="content">
-      <div class="u-flex u-justify-flex-start">
-        <div class="level-items u-text-left" style="margin-right: 200px;">
+      <div class="u-flex u-justify-flex-start footer-content">
+        <div id="footer-brand" class="level-items u-text-left" style="margin-right: 200px;">
           <img src="{{ static('img/logo.png') }}" width="80">
           <p class="u-text-left black" style="margin-bottom: 0; font-weight: 500;"><span class="">&copy; 2020</span> HackItForward</p>
           <p class="u-text-left black" style="margin-top: 0; font-weight: 500;">Powered by <a class="u u-LR" href="https://kurius.ca" target="_blank" rel="noopener" style="color: #518BC4;">Kurius</a></p>
         </div>
-        <div style="margin-right: 80px;">
+        <div id="footer-navigation" style="margin-right: 80px;">
           <ul class="no-bullets u-text-left">
             <h5 class="blue">Navigation</h5>
             <a href="{{ url('index') }}">

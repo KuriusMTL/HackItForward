@@ -17,6 +17,10 @@
   padding: 32px 26px;
 }
 
+.initiative-card-content .row:after {
+  display: none;
+}
+
 .project-card-content {
   padding: 32px 32px;
   margin-left: 0px;
@@ -32,6 +36,7 @@
   border-radius: 8px;
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   min-height: 300px;
   width: 100%;
 }
@@ -42,7 +47,8 @@
 }
 
 .initiative-tag {
-margin: 5px;
+  padding: 6px 8px;
+  border-radius: 100px;
 }
 
 .related-challenge:hover {
@@ -54,6 +60,8 @@ margin: 5px;
   background-repeat: no-repeat;
   background-size: cover;
   max-width: 80px;
+  min-width: 80px;
+  min-height: 80px;
   max-height: 80px;
 }
 
@@ -85,7 +93,7 @@ margin: 5px;
 }
 
 #plane {
-  color: #518BC4;
+  color: #518bc4;
   opacity: 30%;
   z-index: 10;
   position: absolute;
@@ -102,4 +110,217 @@ margin: 5px;
   background-size: cover;
   background-repeat: no-repeat;
   margin: 24px 0px;
+}
+
+#social-float {
+  max-width: 350px;
+}
+
+@media screen and (max-width: 1150px) {
+  #social-float {
+    max-width: 325px;
+  }
+  #social-float .related-challenge .col-8 {
+    max-width: 65%;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  #social-float {
+    max-width: 300px;
+  }
+}
+
+@media screen and (max-width: 990px) {
+  #social-float {
+    max-width: 275px;
+  }
+  #social-float .related-challenge .col-8 {
+    max-width: 63%;
+  }
+}
+
+@media screen and (max-width: 920px) {
+  #social-float {
+    max-width: 250px;
+  }
+  #social-float .related-challenge .col-8 {
+    max-width: 59%;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  #social-float .related-challenge .col-8 {
+    margin-left: 5px;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  #social-float {
+    max-width: 225px;
+  }
+  #social-float .related-challenge .col-8 {
+    max-width: 54%;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  #social-float .related-challenge .col-8 {
+    margin-left: 0px;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .initiative-card-content #initiative-info {
+    display: flex;
+    width: 100%;
+  }
+  .initiative-card-content #initiative-info .initiative-creator {
+    width: 50%;
+  }
+  .initiative-card-content #initiative-info .level {
+    display: flex;
+    justify-content: flex-end;
+  }
+  #social-float {
+    max-width: 100%;
+    left: -15px;
+    position: relative !important;
+    top: 0px !important;
+  }
+  #social-float .initiative-card .row {
+    display: flex;
+  }
+  #social-float .related-challenge .col-8 {
+    margin-left: 15px;
+    width: 85%;
+    max-width: 100%;
+  }
+  .initiative-card-content {
+    width: 100vw;
+    position: relative;
+    left: -32px;
+    overflow: hidden;
+    background-color: white;
+    padding-top: 0;
+  }
+  .initiative-card-content .initiative-card-image {
+    width: 100vw;
+    position: relative;
+    left: -27px;
+    border-radius: 0;
+  }
+  #social-float .initiative-card-content {
+    left: 0px;
+    background-color: transparent;
+    padding-top: 32px;
+  }
+}
+
+@media screen and (max-width: 715px) {
+  #social-float .related-challenge .col-8 {
+    width: 84%;
+  }
+}
+
+@media screen and (max-width: 672px) {
+  #social-float .related-challenge .col-8 {
+    width: 83%;
+  }
+}
+
+@media screen and (max-width: 635px) {
+  #social-float .related-challenge .col-8 {
+    width: 82%;
+  }
+}
+
+@media screen and (max-width: 601px) {
+  #social-float .related-challenge .col-8 {
+    width: 81%;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  #social-float .related-challenge .col-8 {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 545px) {
+  #social-float .related-challenge .col-8 {
+    width: 79%;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  #social-float .related-challenge .col-8 {
+    width: 78%;
+  }
+}
+
+@media screen and (max-width: 498px) {
+  #social-float .related-challenge .col-8 {
+    width: 77%;
+  }
+}
+
+@media screen and (max-width: 478px) {
+  #social-float .related-challenge .col-8 {
+    width: 76%;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  #social-float .related-challenge .col-8 {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 442px) {
+  #social-float .related-challenge .col-8 {
+    width: 74%;
+  }
+}
+
+@media screen and (max-width: 427px) {
+  #social-float .related-challenge .col-8 {
+    width: 73%;
+  }
+}
+
+@media screen and (max-width: 412px) {
+  #social-float .related-challenge .col-8 {
+    width: 72%;
+  }
+}
+
+@media screen and (max-width: 399px) {
+  #social-float .related-challenge .col-8 {
+    width: 71%;
+  }
+}
+
+@media screen and (max-width: 386px) {
+  #social-float .related-challenge .col-8 {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 374px) {
+  #social-float .related-challenge .col-8 {
+    width: 69%;
+  }
+}
+
+@media screen and (max-width: 363px) {
+  #social-float .related-challenge .col-8 {
+    width: 68%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .initiative-card-content {
+    left: -20px;
+  }
 }

@@ -19,6 +19,51 @@ class PasswordUpdateForm(PasswordChangeForm):
         request = kwargs.pop("request") # it's best you pop request, so that you don't get any complains for a parent that checks what kwargs it gets
         super(PasswordUpdateForm, self).__init__(request.user)
 
+# Form that is loaded during the onboarding process of new users
+class OnboardingForm(ModelForm):
+    #Right now, OnboardingForm is identical to ProfileUpdateForm. Can be implemented in the future  
+    a = None #Filler code
+
+# Form that allows users to update their social links
+class SocialLinkForm(ModelForm):
+    class Meta:
+        model = SocialLinkAttachement
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        if "obj" in kwargs:
+            self.object = kwargs.pop("obj")
+
+        super(SocialLinkForm, self).__init__(*args, **kwargs)
+        self.fields["content_type"].widget = HiddenInput()
+        self.fields["object_id"].widget = HiddenInput()
+        self.fields["content_type"].disabled = True
+        for field in self.fields:
+         self.fields[field].widget.attrs['class'] = 'form-input-field'
+        self.fields["object_id"].disabled = True
+
+    def clean_object_id(self):
+        cleaned_data = self.cleaned_data
+        if hasattr(self, "object"):
+            cleaned_data["object_id"] = self.object.pk
+        return cleaned_data["object_id"]
+
+    def clean_content_type(self):
+        cleaned_data = self.cleaned_data
+        cleaned_data["content_type"] = ContentType.objects.get_for_model(self.object.__class__)
+        return cleaned_data["content_type"]
+
+    def clean_content(self):
+        data = self.cleaned_data["content"]
+        if data.lower().startswith("mailto:"):
+            validate_email(data[7:])
+        elif data.lower().startswith("tel:"):
+            validate_tel = RegexValidator(r"^[0-9]+$", "Enter a valid telephone number")
+            validate_tel(data[4:])
+        else:
+            validate_url = URLValidator()
+            validate_url(data)
+        return escape(data)
 
 # Form that allows users to update information stored in the User model
 class UserUpdateForm(UserChangeForm):
@@ -45,6 +90,9 @@ class ProfileUpdateForm(ModelForm):
         self.label_suffix = ""
         for field in self.fields:
          self.fields[field].widget.attrs['class'] = 'form-input-field'
+        self.fields['banner_image'].widget.attrs['class'] = 'prof-img'
+        self.fields['image'].widget.attrs['class'] = 'prof-img'
+        
 
 # Form that allows users to update their social links
 class SocialLinkForm(ModelForm):
