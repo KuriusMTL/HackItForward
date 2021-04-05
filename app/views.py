@@ -3,7 +3,7 @@ from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, 
 
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login, update_session_auth_hash
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
@@ -17,7 +17,6 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormMixin, FormView, UpdateView
-
 
 class AboutView(TemplateView):
     template_name = "about.html"
@@ -241,22 +240,8 @@ class SettingsView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 
-# TODO: Password update doesn't work
-class PasswordChangeView(LoginRequiredMixin, UpdateView):
-    template_name = "password_change.html"
-    form_class = PasswordUpdateForm
-
-    def get_object(self, queryset=None):
-        return self.request.user
-
-    def get_form_kwargs(self, **kwargs):
-        data = super(PasswordChangeView, self).get_form_kwargs(**kwargs)
-        data["request"] = self.request
-        return data
-
-    def form_valid(self, form):
-        form.save()
-
+class PasswordConfirmationView(TemplateView):
+    template_name = "password_confirmation.html"
 
 
 class RegisterView(FormView):
