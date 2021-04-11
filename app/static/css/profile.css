@@ -1,9 +1,8 @@
 .profile-card {
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 4px 16px rgba(202, 202, 202, 0.15);
   border-radius: 16px;
   padding: 40px;
-  padding-bottom: 80px;
 }
 
 .profile-bg {
@@ -25,7 +24,7 @@
   border-radius: 3px;
   background-color: #fff;
   background-size: 20px;
-  transition: background-color .1s ease-in-out;
+  transition: background-color 0.1s ease-in-out;
   display: inline-block;
   position: absolute;
   left: auto;
@@ -43,8 +42,12 @@
 }
 
 .avatar-image {
-  border: 5px solid #FFFFFF;
-  border-radius: 50%;
+  border: 5px solid #ffffff;
+  min-width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .profile-info {
@@ -91,6 +94,21 @@
 
 .prof-flex .file-buttons {
   margin-left: 2rem;
+}
+
+.col-3 .profile-card .level {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.col-3 .profile-card .share-social-icon {
+  flex: 0;
+}
+
+.profile-card .frame__body .btn-primary {
+  display: block !important;
+  position: relative;
+  float: none;
 }
 
 @media (max-width: 600px) {

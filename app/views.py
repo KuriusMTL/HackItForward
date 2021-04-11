@@ -41,6 +41,9 @@ class IndexView(TemplateView):
         ):
             context["challenges"] = Challenge.objects.all()
             context["most_submissions"] = sorted(Challenge.objects.all(), key=lambda t: t.submission_count, reverse=True)
+            context["beginner"] = Challenge.objects.filter(tags=1)
+            context["intermediate"] = Challenge.objects.filter(tags=2)
+            context["advanced"] = Challenge.objects.filter(tags=3)
             return context
 
         initiative = self.request.GET["type"]
