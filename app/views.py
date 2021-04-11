@@ -243,8 +243,11 @@ class SettingsView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 
-class PasswordConfirmationView(TemplateView):
-    template_name = "password_confirmation.html"
+class PasswordChangeConfirmationView(TemplateView):
+    template_name = "password_change_confirmation.html"
+
+class PasswordResetConfirmationView(TemplateView):
+    template_name = "password_reset_confirmation.html"
 
 
 class RegisterView(FormView):
