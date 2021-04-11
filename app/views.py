@@ -46,14 +46,8 @@ class IndexView(TemplateView):
             context["advanced"] = Challenge.objects.filter(tags=3)
             return context
 
-        initiative = self.request.GET["type"]
-        if initiative == "challenge":
-            queryset = Challenge.objects.all()
 
-        # elif initiative == "project":
-        #     queryset = Project.objects.all()
-            # for element in queryset:
-            #     element = humanize. relative_time
+        queryset = Challenge.objects.all()
 
         context["selected_tags"] = Tag.objects.filter(name__in=self.request.GET.getlist("tag"))
         for tag in context["selected_tags"]:
@@ -62,7 +56,7 @@ class IndexView(TemplateView):
         search = context["q"] = self.request.GET.get("q", "")
         queryset = queryset.filter(Q(name__icontains=search) | Q(description__icontains=search))
 
-        context["objects"] = {initiative: queryset.distinct()}
+        context["challenges"] = queryset.distinct()
         return context
 
 
@@ -83,16 +77,10 @@ class GalleryView(TemplateView):
         if "type" not in self.request.GET or (
             "q" not in self.request.GET and "tag" not in self.request.GET
         ):
-            context["objects"] = {
-                "project": Project.objects.all(),
-            }
+            context["projects"] = Project.objects.all()
             return context
 
-        initiative = self.request.GET["type"]
-        # if initiative == "challenge":
-        #     queryset = Challenge.objects.all()
-        if initiative == "project":
-            queryset = Project.objects.all()
+        queryset = Project.objects.all()
 
         context["selected_tags"] = Tag.objects.filter(name__in=self.request.GET.getlist("tag"))
         for tag in context["selected_tags"]:
@@ -101,7 +89,7 @@ class GalleryView(TemplateView):
         search = context["q"] = self.request.GET.get("q", "")
         queryset = queryset.filter(Q(name__icontains=search) | Q(description__icontains=search))
 
-        context["objects"] = {initiative: queryset.distinct()}
+        context["projects"] = queryset.distinct()
         return context
 
 class UserView(DetailView):
