@@ -1,6 +1,6 @@
 appdirs==1.4.4
 asgiref==3.2.10
-black==20.8b1
+black==20.8
 click==7.1.2
 django>=3.1.6
 django-colorfield>=0.3.2

@@ -6,10 +6,10 @@
 
 {% block body %}
 <div class="content">
-  <div class="profile-bg" style="background-image: url({{ user.profile.banner_image.url }});">
+  <div class="profile-bg" style="background-image: url({{ user.profile.banner_image.url }}); background-repeat: no-repeat;">
   </div>
   <div class="profile-info" style="position: relative;">
-    <div class="avatar">
+    <div class="avatar" style="position: relative;">
       <img class="avatar-image" src="{{ user.profile.image.url }}">
     </div>
     <div class="profile-details">

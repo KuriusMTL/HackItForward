@@ -18,6 +18,9 @@ from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormMixin, FormView, UpdateView
 
+from django.http import JsonResponse
+
+
 class AboutView(TemplateView):
     template_name = "about.html"
 
@@ -40,26 +43,20 @@ class IndexView(TemplateView):
             "q" not in self.request.GET and "tag" not in self.request.GET
         ):
             context["challenges"] = Challenge.objects.all()
-            context["most_submissions"] = sorted(Challenge.objects.all(), key=lambda t: t.submission_count, reverse=True)
             return context
 
-        initiative = self.request.GET["type"]
-        if initiative == "challenge":
-            queryset = Challenge.objects.all()
+        queryset = Challenge.objects.all()
 
-        # elif initiative == "project":
-        #     queryset = Project.objects.all()
-            # for element in queryset:
-            #     element = humanize. relative_time
-
-        context["selected_tags"] = Tag.objects.filter(name__in=self.request.GET.getlist("tag"))
+        context["selected_tags"] = Tag.objects.filter(
+            name__in=self.request.GET.getlist("tag"))
         for tag in context["selected_tags"]:
             queryset = queryset.filter(tags__in=[tag])
 
         search = context["q"] = self.request.GET.get("q", "")
-        queryset = queryset.filter(Q(name__icontains=search) | Q(description__icontains=search))
+        queryset = queryset.filter(
+            Q(name__icontains=search) | Q(description__icontains=search))
 
-        context["objects"] = {initiative: queryset.distinct()}
+        context["challenges"] = queryset.distinct()
         return context
 
 
@@ -80,26 +77,23 @@ class GalleryView(TemplateView):
         if "type" not in self.request.GET or (
             "q" not in self.request.GET and "tag" not in self.request.GET
         ):
-            context["objects"] = {
-                "project": Project.objects.all(),
-            }
+            context["projects"] = Project.objects.all()
             return context
 
-        initiative = self.request.GET["type"]
-        # if initiative == "challenge":
-        #     queryset = Challenge.objects.all()
-        if initiative == "project":
-            queryset = Project.objects.all()
+        queryset = Project.objects.all()
 
-        context["selected_tags"] = Tag.objects.filter(name__in=self.request.GET.getlist("tag"))
+        context["selected_tags"] = Tag.objects.filter(
+            name__in=self.request.GET.getlist("tag"))
         for tag in context["selected_tags"]:
             queryset = queryset.filter(tags__in=[tag])
 
         search = context["q"] = self.request.GET.get("q", "")
-        queryset = queryset.filter(Q(name__icontains=search) | Q(description__icontains=search))
+        queryset = queryset.filter(
+            Q(name__icontains=search) | Q(description__icontains=search))
 
-        context["objects"] = {initiative: queryset.distinct()}
+        context["projects"] = queryset.distinct()
         return context
+
 
 class UserView(DetailView):
     template_name = "userprofile.html"
@@ -118,7 +112,8 @@ class UserView(DetailView):
         context = super().get_context_data(**kwargs)
         context["projects"] = (
             Project.objects.filter(
-                Q(creators__in=[self.object.pk]) | Q(contributors__in=[self.object.pk])
+                Q(creators__in=[self.object.pk]) | Q(
+                    contributors__in=[self.object.pk])
             )
             .distinct()
             .order_by("-created")
@@ -129,6 +124,7 @@ class UserView(DetailView):
         )
         return context
 
+
 class GenericUserView(DetailView):
     model = Profile
     context_object_name = "user"
@@ -137,7 +133,8 @@ class GenericUserView(DetailView):
         context = super().get_context_data(**kwargs)
         context["projects"] = (
             Project.objects.filter(
-                Q(creators__in=[self.object.pk]) | Q(contributors__in=[self.object.pk])
+                Q(creators__in=[self.object.pk]) | Q(
+                    contributors__in=[self.object.pk])
             )
             .distinct()
             .order_by("-created")
@@ -240,8 +237,10 @@ class SettingsView(LoginRequiredMixin, UpdateView):
     def get_object(self, queryset=None):
         return self.request.user
 
+
 class PasswordChangeConfirmationView(TemplateView):
     template_name = "password_change_confirmation.html"
+
 
 class PasswordResetConfirmationView(TemplateView):
     template_name = "password_reset_confirmation.html"
@@ -254,7 +253,8 @@ class RegisterView(FormView):
 
     def form_valid(self, form):
         form.save()
-        login(self.request, form.instance, backend='django.contrib.auth.backends.ModelBackend')
+        login(self.request, form.instance,
+              backend='django.contrib.auth.backends.ModelBackend')
         return super().form_valid(form)
 
 
@@ -269,7 +269,8 @@ class InitiativeViewMixin(ContextMixin):
 
         context["initiative"] = self.initiative
         context["links"] = SocialLinkAttachement.objects.filter(
-            object_id=pk, content_type=ContentType.objects.get_for_model(self.classname)
+            object_id=pk, content_type=ContentType.objects.get_for_model(
+                self.classname)
         )
         return context
 
@@ -279,7 +280,8 @@ class GenericFormMixin(LoginRequiredMixin, ContextMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["header"] = ("Edit %s" if self.object else "Create %s") % self.model.__name__
+        context["header"] = (
+            "Edit %s" if self.object else "Create %s") % self.model.__name__
         context["submit"] = "Save" if self.object else "Create"
         return context
 
@@ -290,7 +292,8 @@ class InitiativeFormView(GenericFormMixin, SocialLinkFormMixin):
 
 class ChallengeFormView(InitiativeFormView):
     model = Challenge
-    fields = ["name", "image", "one_liner", "description", "creators", "start", "end", "tags"]
+    fields = ["name", "image", "one_liner",
+              "description", "creators", "start", "end", "tags"]
 
     def get_form_class(self, *args, **kwargs):
         form_class = super().get_form_class(*args, **kwargs)
@@ -330,7 +333,8 @@ class ChallengeView(InitiativeViewMixin, TemplateView):
 
 class ProjectFormView(InitiativeFormView):
     model = Project
-    fields = ["name", "image", "one_liner", "description", "creators", "contributors", "tags"]
+    fields = ["name", "image", "one_liner",
+              "description", "creators", "contributors", "tags"]
 
 
 class ProjectCreateView(ProjectFormView, CreateView):
@@ -369,5 +373,37 @@ class ProjectView(InitiativeViewMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["time_labels"] = [{"label": "Creation Time", "time": self.initiative.created}]
+        context["time_labels"] = [
+            {"label": "Creation Time", "time": self.initiative.created}]
         return context
+
+
+def get_challenges_ajax(request):
+    if request.method == "POST":
+        filter_id = request.POST['filter_id']
+        try:
+            final_list = []
+            challenges = []
+            if (filter_id == 'default'):
+                challenges = list(Challenge.objects.all())
+            elif (filter_id == 'most_submissions'):
+                challenges = sorted(
+                    Challenge.objects.all(), key=lambda t: t.submission_count, reverse=True)
+            else:
+                challenges = list(Challenge.objects.filter(tags=filter_id))
+            for c in challenges:
+                challenge = {
+                    'id': c.id,
+                    'name': c.name,
+                    'image_url': 'false',
+                    'first_creator': c.creators.first().username,
+                    'first_creator_profile': c.creators.first().image.url,
+                    'submission_count': c.submission_count,
+                }
+                if c.image:
+                    challenge['image_url'] = c.image.url
+                final_list.append(challenge)
+        except Exception:
+            data['error_message'] = 'error'
+            return JsonResponse(data)
+        return JsonResponse(final_list, safe=False)

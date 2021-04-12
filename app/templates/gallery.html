@@ -13,36 +13,32 @@
     <h1>Explore The Community</h1>
   </div>
 
-  {% for name, object_list in objects.items() %}
-    {# searching options #}
-    <form action=".">
-      <input type="hidden" name="type" value="{{ name }}">
-      <div class="row">
-        <h1 class="header-margin">{{ name|title }}s</h1>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <div class="input-control">
-            <input type="text" name="q" class="input-contains-icon" placeholder="Search challenges, tutorials, and tags"
-              value="{{ q|default('') }}" style="border: none; border-radius: 100px; outline: none; font-family: Poppins;">
-            <span class="icon"><i class="fas fa-search" aria-hidden="true"></i></span>
-          </div>
+  <!-- Project search bar -->
+  <form action="." style="margin-top: 0.5rem;">
+    <input type="hidden" name="type" value="project">
+    <div class="row">
+      <div class="col-12">
+        <div class="input-control">
+          <input type="text" name="q" class="input-contains-icon" placeholder="Search projects that have been submittted to various challenges"
+            value="{{ q|default('') }}" style="border: none; border-radius: 100px; outline: none; font-family: Poppins;">
+          <span class="icon"><i class="fas fa-search" aria-hidden="true"></i></span>
         </div>
       </div>
-    </form>
+    </div>
+  </form>
 
     {# submission display #}
     <div class="row">
-      {% for object in object_list %}
+      {% for project in projects %}
         <div class="col-4" style="padding: 0 0.75rem;">
-          <div class="challenge-card" onclick="location.href='{{ url(name, pk=object.pk) }}'">
-            {% if object.image %}
-              <div class="card-img" style="background-image: url({{ object.image.url }})"></div>
+          <div class="challenge-card" onclick="location.href='{{ url("project", pk=project.pk) }}'">
+            {% if project.image %}
+              <div class="card-img" style="background-image: url({{ project.image.url }})"></div>
             {% else %}
               <div class="card-img" style="background-image: url({{ static('img/fibonacci.png') }})"></div>
             {% endif %}
             <div class="card-description">
-              <h1 class="challenge-card-title" style="margin-bottom: 5px; font-size: 20px;">{{ object.name }}</h1>
+              <h1 class="challenge-card-title" style="margin-bottom: 5px; font-size: 20px;">{{ project.name }}</h1>
             </div>
             <hr noshade size="1" style="border-color: #F2F2F2;">
 
@@ -53,7 +49,7 @@
                 </a>
                 <div class="u-text-left">
                   <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0">
-                  By&nbsp;<b class="">{{ object.short_creators }}</b>
+                  By&nbsp;<b class="">{{ project.short_creators }}</b>
                   </p>
                 </div>
               </div>
@@ -61,7 +57,7 @@
           </div>
         </div>
       {% endfor %}
-      {% if not object_list %}
+      {% if not projects %}
         <div class="col-12">
           {% if q or selected_tags %}
             <p>No {{ name }}s matching your query have been found. Perhaps try {{ "selecting less tags" if selected_tags else "broadening your search" }}?</p>
@@ -71,7 +67,6 @@
         </div>
       {% endif %}
     </div>
-  {% endfor %}
 </div>
 <script>
   $(window).on('load', () => {

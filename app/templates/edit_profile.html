@@ -9,7 +9,7 @@
   <div class="profile-card">
     <h2>Edit Profile</h2>
     <form action="" method="POST" enctype="multipart/form-data">
-      <div class="frame__body">
+      <div class="frame__body" style="position: relative;">
         {% csrf_token %}
         {% for error in form.non_field_errors() %}
         <span class="text-primary info">{{ error }}</span>

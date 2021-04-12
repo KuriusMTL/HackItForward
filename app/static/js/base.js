@@ -174,3 +174,9 @@ function searchUnsplash() {
     }
   })
 }
+
+$("#challenge-level").change(function(){ 
+  /* Be careful with SQL injections */
+  var selectedLevel = $('#challenge-level').find(":selected").val();
+  
+});

@@ -17,21 +17,7 @@
     <a href="">
       <button class="btn--pilled btn-white btn-primary" style="color: #225A62">View Challenge</button>
     </a>
-  </div>
-
-    <!-- Challenge search bar -->
-    <form action="." style="margin-top: 0.5rem;">
-      <input type="hidden" name="type" value="challenge">
-      <div class="row">
-        <div class="col-12">
-          <div class="input-control">
-            <input type="text" name="q" class="input-contains-icon" placeholder="Search challenges, tutorials, and tags"
-              value="{{ q|default('') }}" style="border: none; border-radius: 100px; outline: none; font-family: Poppins;">
-            <span class="icon"><i class="fas fa-search" aria-hidden="true"></i></span>
-          </div>
-        </div>
-      </div>
-    </form>
+  </div>    
 
     <!-- Display 3 featured challenges -->
     <div class="row">
@@ -86,15 +72,44 @@
     </div>
   </div>
 
-  <!-- View rest of the other challenges. There are two viewing options, sorting by most recent and sorting by most submissions. -->
-  <div class="tab-container" style="margin-top: 80px;">
-    <ul>
-      <li class="tablevel selected" onclick="openTab(event, 'recent')"><a class="" style="background-color: transparent; font-size: large;">Recent</a></li>
-      <li class="tablevel" onclick="openTab(event, 'most-submissions')"><a class="" style="background-color: transparent; font-size: large;">Most Submissions</a></li>
-    </ul>
-  </div>
-  <div class="tabcontent" id="recent" style="display: block;">
-  <div class="row">
+   <!-- Challenge search bar -->
+   <form action="." style="margin-top: 0.5rem;">
+      <input type="hidden" name="type" value="challenge">
+      <div class="row">
+        <div class="col-12">
+          <div class="input-control">
+            <input type="text" name="q" class="input-contains-icon" placeholder="Search challenges, tutorials, and tags"
+              value="{{ q|default('') }}" style="border: none; border-radius: 100px; outline: none; font-family: Poppins;">
+            <span class="icon"><i class="fas fa-search" aria-hidden="true"></i></span>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <!-- Challenge Filter -->
+    <div id="challenges-filter" class="form-control">
+      {% csrf_token %}
+      <div class="row">
+        <select id="challenge-level" class="select form-group-input" placeholder="All Levels">
+            <option value="default" selected>All Levels</option>
+            <option  value="1">Beginner</option>
+            <option value="2">Intermediate</option>
+            <option value="3">Advanced</option>
+        </select>
+        <select id="challenge-category" class="select form-group-input" placeholder="All Categories">
+            <option value="default" selected>All Categories</option>
+            <option value="31">Python</option>
+            <option value="14">Design</option>
+            <option value="21">JS</option>
+        </select>
+        <select id="challenge-sorted-by" class="select form-group-input" placeholder="Sort by">
+            <option value="default" selected>Recent</option>
+            <option value="most_submissions">Most Submissions</option>
+        </select>
+      </div>
+    </div>
+
+  <div class="row" id="challenges-list">
     {% for challenge in challenges %}
     <div class="col-4" style="padding: 0 0.75rem;">
       <div class="challenge-card" onclick="location.href='{{ url("challenge", pk=challenge.pk) }}'">
@@ -125,47 +140,68 @@
     </div>
   {% endfor %}
   </div>
-  </div>
-  <div class="tabcontent" id="most-submissions">
-    <div class="row">
-      {% for challenge in most_submissions %}
-      <div class="col-4" style="padding: 0 0.75rem;">
-        <div class="challenge-card" onclick="location.href='{{ url("challenge", pk=challenge.pk) }}'">
-          {% if challenge.image %}
-            <div class="card-img" style="background-image: url({{ challenge.image.url }})"></div>
-          {% else %}
-            <div class="card-img" style="background-image: url({{ static('img/fibonacci.png') }})"></div>
-          {% endif %}
-          <div class="card-description">
-            <h1 class="challenge-card-title" style="min-height: 40px; margin-bottom: 5px; font-size: 20px;">{{ challenge.name|truncatechars(100)  }}</h1>
-            <p style="margin: 0; font-size: 16px;">{{ challenge.submission_count }} Submissions</p>
-          </div>
-          <hr noshade size="1" style="border-color: #F2F2F2;">
-
-          <div class="card-description" style="padding: 0;">
-            <div class="challenge-card-creators row">
-              <a href="{{ url('user', username=challenge.creators.first().username) }}">
-                <img class="profile-icon challenge-card-profile-icon" src="{{ challenge.creators.first().image.url }}"/>
-                <div class="u-text-left">
-                  <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0">
-                  By&nbsp;<b class="">{{ challenge.short_creators }}</b>
-                  </p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
+  
 </div>
 <script>
+  function challengeHTML (challenge) {
+    return `<div class="col-4" style="padding: 0 0.75rem;">
+            <div class="challenge-card" onclick="location.href='/challenge/${challenge.id}/'">
+              <div class="card-img" style="background-image: url(${challenge.image_url})"></div>
+              <div class="card-description">
+                <h1 class="challenge-card-title" style="min-height: 40px; margin-bottom: 5px; font-size: 20px;">${ challenge.name }</h1>
+                <p style="margin: 0; font-size: 16px;">${challenge.submission_count} Submissions</p>
+              </div>
+              <hr noshade size="1" style="border-color: #F2F2F2;">
+              <div class="card-description" style="padding: 0;">
+                <div class="challenge-card-creators row">
+                  <a href="${window.location.href}profile/${challenge.first_creator}">
+                    <img class="profile-icon challenge-card-profile-icon" src="${challenge.first_creator_profile}"/>
+                    <div class="u-text-left">
+                      <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0">
+                      By&nbsp;<b class="">${challenge.first_creator}</b>
+                      </p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>`;
+  }
+  function renderChallenges(challenges) {
+    let html_data = '';
+    if (challenges.length == 0) {
+      html_data += `No challenges in this category :(`
+    } else {
+      for(var i = 0; i<challenges.length;i++) {
+        let challenge = challenges[i];
+        challenge.image_url = challenge.image_url == 'false' ? `${window.location.href}static/img/fibonacci.png` : challenge.image_url;
+        html_data += challengeHTML(challenge);
+      };
+    }
+    $('#challenges-list').html(html_data);
+  }
+  function onSelectChange() {
+    const filterId = $(this).val();
+    $.ajax({
+      type: "POST",
+      url: `${window.location.href}get_challenges_ajax/`,
+      data: {
+        'filter_id': filterId,
+        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
+      },
+      success: function(challenges) {
+        renderChallenges(challenges);
+      }
+    })
+  }
   $(window).on('load', () => {
     $('.custom-multiple').chosen({
       width: '100%',
       no_results_text: 'No such tag:'
     });
+    $('#challenge-level').change(onSelectChange);
+    $('#challenge-category').change(onSelectChange);
+    $('#challenge-sorted-by').change(onSelectChange);
   });
 </script>
 {% endblock %}
