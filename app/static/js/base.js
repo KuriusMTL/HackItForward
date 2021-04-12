@@ -131,18 +131,13 @@ var $input = $('#searchWord');
 //on keyup, start the countdown
 $input.on('keyup', function () {
   clearTimeout(typingTimer);
-  typingTimer = setTimeout(doneTyping, doneTypingInterval);
+  typingTimer = setTimeout(searchUnsplash, doneTypingInterval);
 });
 
 //on keydown, clear the countdown 
 $input.on('keydown', function () {
   clearTimeout(typingTimer);
 });
-
-//user is "finished typing," do something
-function doneTyping() {
-  searchUnsplash();
-}
 
 function searchUnsplash() {
   var url = new URL("https://api.unsplash.com/search/photos");
@@ -165,11 +160,16 @@ function searchUnsplash() {
     var container = document.getElementById('imageContainer');
     container.innerHTML = "";
 
+    //For each image, create a list that will be contained inside the container
     for (var i = 0, j = urlArray.length; i < j; i++) {
       var list_element = document.createElement('li');
+      list_element.setAttribute("id", `image-${i}`); //Create a unique id
       var img = document.createElement('img');
       img.src = urlArray[i]; // img[i] refers to the current URL.
-      list_element.appendChild(img)
+      list_element.appendChild(img);
+      list_element.addEventListener("click", function(event) { //Detect when an image is being clicked
+        console.log(event.target.src)
+      })
       container.appendChild(list_element);
     }
   })
