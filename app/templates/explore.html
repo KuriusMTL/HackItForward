@@ -91,22 +91,20 @@
       {% csrf_token %}
       <div class="row">
         <select id="challenge-level" class="select form-group-input" placeholder="All Levels">
-            <option>All Levels</option>
+            <option value="default" selected>All Levels</option>
             <option  value="1">Beginner</option>
             <option value="2">Intermediate</option>
             <option value="3">Advanced</option>
         </select>
         <select id="challenge-category" class="select form-group-input" placeholder="All Categories">
-            <option>All Categories</option>
-            <option value="beginner">Beginner</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
+            <option value="default" selected>All Categories</option>
+            <option value="31">Python</option>
+            <option value="14">Design</option>
+            <option value="21">JS</option>
         </select>
-        <select id="challenge-language" class="select form-group-input" placeholder="All Languages">
-            <option>All Languages</option>
-            <option>Beginner</option>
-            <option>Intermediate</option>
-            <option>Advanced</option>
+        <select id="challenge-sorted-by" class="select form-group-input" placeholder="Sort by">
+            <option value="default" selected>Recent</option>
+            <option value="most_submissions">Most Submissions</option>
         </select>
       </div>
     </div>
@@ -145,32 +143,65 @@
   
 </div>
 <script>
+  function challengeHTML (challenge) {
+    return `<div class="col-4" style="padding: 0 0.75rem;">
+            <div class="challenge-card" onclick="location.href='/challenge/${challenge.id}/'">
+              <div class="card-img" style="background-image: url(${challenge.image_url})"></div>
+              <div class="card-description">
+                <h1 class="challenge-card-title" style="min-height: 40px; margin-bottom: 5px; font-size: 20px;">${ challenge.name }</h1>
+                <p style="margin: 0; font-size: 16px;">${challenge.submission_count} Submissions</p>
+              </div>
+              <hr noshade size="1" style="border-color: #F2F2F2;">
+              <div class="card-description" style="padding: 0;">
+                <div class="challenge-card-creators row">
+                  <a href="${window.location.href}profile/${challenge.first_creator}">
+                    <img class="profile-icon challenge-card-profile-icon" src="${challenge.first_creator_profile}"/>
+                    <div class="u-text-left">
+                      <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0">
+                      By&nbsp;<b class="">${challenge.first_creator}</b>
+                      </p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>`;
+  }
+  function renderChallenges(challenges) {
+    let html_data = '';
+    if (challenges.length == 0) {
+      html_data += `No challenges in this category :(`
+    } else {
+      for(var i = 0; i<challenges.length;i++) {
+        let challenge = challenges[i];
+        challenge.image_url = challenge.image_url == 'false' ? `${window.location.href}static/img/fibonacci.png` : challenge.image_url;
+        html_data += challengeHTML(challenge);
+      };
+    }
+    $('#challenges-list').html(html_data);
+  }
+  function onSelectChange() {
+    const filterId = $(this).val();
+    $.ajax({
+      type: "POST",
+      url: `${window.location.href}get_challenges_ajax/`,
+      data: {
+        'filter_id': filterId,
+        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
+      },
+      success: function(challenges) {
+        renderChallenges(challenges);
+      }
+    })
+  }
   $(window).on('load', () => {
     $('.custom-multiple').chosen({
       width: '100%',
       no_results_text: 'No such tag:'
     });
-    $('#challenge-level').change(function() {
-      const filterId = $(this).val();
-      console.log(filterId);
-      /*
-      $.ajax({
-        type: "POST",
-        url: '{% url "get_challenges_ajax" %}',
-        data: {
-          'filter_id': filterId,
-          'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
-        },
-        success: function(data) {
-          console.log(data);
-          let html_data = '';
-          data.forEach(function(data) {
-            html_data += ``
-          });
-          $('#challenges-list').html(html_data);
-        }
-      })*/
-    });
+    $('#challenge-level').change(onSelectChange);
+    $('#challenge-category').change(onSelectChange);
+    $('#challenge-sorted-by').change(onSelectChange);
   });
 </script>
 {% endblock %}
