@@ -429,9 +429,9 @@ def add_comment(request):
     if request.method == "POST":
         comment = request.POST['comment']
         profile = request.user.profile
-        pk = request.POST["initiative_pk"]
-        initiative = Challenge.objects.get(pk=pk)
-        initiative.comments.create(text=comment, profile=profile)
+        pk = request.POST["challenge_pk"]
+        challenge = Challenge.objects.get(pk=pk)
+        challenge.comments.create(text=comment, profile=profile)
     
     return JsonResponse("Success", safe=False)
 
