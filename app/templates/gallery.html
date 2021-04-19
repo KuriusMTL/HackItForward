@@ -27,12 +27,14 @@
     </div>
   </form>
 
+  {% include 'project_modal.html' %}
     {# submission display #}
     <div class="row">
       {% for project in projects %}
         <div class="col-4" style="padding: 0 0.75rem;">
-          <div class="challenge-card" onclick="location.href='{{ url("project", pk=project.pk) }}'">
-            {% if project.image %}
+          <div class="challenge-card">
+            <a href="#{{ project.name }}">
+              {% if project.image %}
               <div class="card-img" style="background-image: url({{ project.image.url }})"></div>
             {% else %}
               <div class="card-img" style="background-image: url({{ static('img/fibonacci.png') }})"></div>
@@ -54,6 +56,7 @@
                 </div>
               </div>
             </div>
+            </a>
           </div>
         </div>
       {% endfor %}
