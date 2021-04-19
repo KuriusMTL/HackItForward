@@ -10,16 +10,6 @@ from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.utils.html import escape
 
 
-class CommentForm(ModelForm):
-    class Meta:
-        model = Comment
-        fields = ["text"]
-
-    def __init__(self, *args, **kwargs):
-        super(CommentForm, self).__init__(*args, **kwargs)
-
-
-# TODO: Make this form functional. The form fails to update the password currently
 class PasswordUpdateForm(PasswordChangeForm):
     class Meta:
         model = User
