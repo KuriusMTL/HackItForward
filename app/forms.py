@@ -92,6 +92,7 @@ class ProfileUpdateForm(ModelForm):
          self.fields[field].widget.attrs['class'] = 'form-input-field'
         self.fields['banner_image'].widget.attrs['class'] = 'prof-img'
         self.fields['image'].widget.attrs['class'] = 'prof-img'
+        self.fields['tags'].widget.attrs['data-custom-type'] = "tag"
         
 
 # Form that allows users to update their social links

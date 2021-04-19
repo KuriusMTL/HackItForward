@@ -1,6 +1,121 @@
 {% extends "base.html" %}
 
 {% block head %}
+<style>
+  /*==================================================
+Entire Custom Tag
+==================================================*/
+.tag-container {
+  position: relative;
+  width: 100%;
+  display: inline-grid;
+  grid-template-rows: auto 10px;
+  grid-template-areas: "input" "dropdown";
+}
+
+/*==================================================
+Custom Tag Input + Chosen Item Display
+==================================================*/
+.tag-field {
+  border: 1px solid #BDBDBD;
+  border-radius: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: .5rem 0.75rem;
+  min-height: 2rem;
+  overflow-x: hidden;
+  flex-grow: 1;
+}
+
+.tag-field-focus {
+  border: #2972fa solid 1px;
+  box-shadow: 0px 0px 2px 2px rgba(41, 114, 250, 0.5);
+}
+
+.tag-input {
+  width: 2rem !important;
+  max-width: 100% !important;
+  flex-grow: 1 !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #505050 !important;
+  font-weight: 700 !important;
+  font-family: Poppins, sans-serif !important;
+  font-size: 1em !important;
+}
+
+.tag-input:focus {
+  outline: none !important;
+}
+
+/*==================================================
+Custom Tag Input Prediction Dropdown
+==================================================*/
+.tag-dropdown {
+  position: absolute;
+  min-height: 1.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: -4px;
+  z-index: 2;
+  display: none;
+  grid-area: dropdown;
+}
+
+.tag-field-focus+.tag-dropdown-focus {
+  background-color: white;
+  border: #2972fa solid 1px;
+  border-top: 1px solid #BDBDBD;
+  box-shadow: 0px 4px 2px -2px rgba(41, 114, 250, 0.5), 2px 0px 2px 0 rgba(41, 114, 250, 0.5), -2px 0px 2px 0 rgba(41, 114, 250, 0.5);
+  border-radius: 0 0 4px 4px;
+  display: block;
+}
+
+.dropdown-item {
+  line-height: 3rem;
+  padding-left: 0.5rem;
+  background-color: white;
+  cursor: pointer;
+  color: #505050;
+  font-weight: 700;
+  font-family: Poppins, sans-serif;
+  font-size: 1em;
+}
+
+.dropdown-item:last-child {
+  border-radius: 0 0 2.5px 2.5px;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  outline: none;
+  background-color: #2972fa;
+  color: white;
+}
+
+/*==================================================
+Custom Tag Input Chosen Items
+==================================================*/
+.chosen-item {
+  margin: 0.2rem 0.2rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #e2eefc;
+  border-radius: 2rem;
+  display: inline-flex;
+  align-items: center;
+  color: #505050;
+  font-weight: 700;
+  font-family: Poppins, sans-serif;
+  font-size: 1em;
+}
+
+.delete-button {
+  height: 16px;
+  width: 16px;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+</style>
 <title>Edit Profile | HackItForward</title>
 {% endblock %}
 
@@ -114,4 +229,5 @@
   var simplemde = new SimpleMDE({ element: document.getElementById("id_description") });
   $('select[multiple]').chosen({ width: '100%', placeholder_text_multiple: ' ', placeholder_text_single: ' ' });
 </script>
+<script src="{{ static('js/taginput.js') }}"></script>
 {% endblock %}
