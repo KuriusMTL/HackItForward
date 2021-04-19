@@ -154,7 +154,7 @@
               <hr noshade size="1" style="border-color: #F2F2F2;">
               <div class="card-description" style="padding: 0;">
                 <div class="challenge-card-creators row">
-                  <a href="${window.location.href}profile/${challenge.first_creator}">
+                  <a href="/profile/${challenge.first_creator}">
                     <img class="profile-icon challenge-card-profile-icon" src="${challenge.first_creator_profile}"/>
                     <div class="u-text-left">
                       <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0">
@@ -174,7 +174,7 @@
     } else {
       for(var i = 0; i<challenges.length;i++) {
         let challenge = challenges[i];
-        challenge.image_url = challenge.image_url == 'false' ? `${window.location.href}static/img/fibonacci.png` : challenge.image_url;
+        challenge.image_url = challenge.image_url == 'false' ? `/static/img/fibonacci.png` : challenge.image_url;
         html_data += challengeHTML(challenge);
       };
     }
@@ -184,7 +184,7 @@
     const filterId = $(this).val();
     $.ajax({
       type: "POST",
-      url: `${window.location.href}get_challenges_ajax/`,
+      url: `/get_challenges_ajax/`,
       data: {
         'filter_id': filterId,
         'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),

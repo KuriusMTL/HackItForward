@@ -167,8 +167,19 @@ function searchUnsplash() {
       var img = document.createElement('img');
       img.src = urlArray[i]; // img[i] refers to the current URL.
       list_element.appendChild(img);
-      list_element.addEventListener("click", function(event) { //Detect when an image is being clicked
-        console.log(event.target.src)
+      list_element.addEventListener("click", function(event) { //Detect when an image is being clicked, and make AJAX request
+        container.innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>'
+        $.ajax({
+          type: "POST",
+          url: `/addUnsplashPicture/`,
+          data: {
+            'url': event.target.src,
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
+          },
+          success: function() {
+          location.reload()
+          }
+        })
       })
       container.appendChild(list_element);
     }

@@ -1,6 +1,7 @@
 from app.forms import ProfileUpdateForm, UserUpdateForm, SocialLinkFormSet, PasswordUpdateForm, OnboardingForm
 from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, User, UserFollowing
 
+from django.core import files
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
@@ -19,6 +20,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormMixin, FormView, UpdateView
 
 from django.http import JsonResponse
+import requests
+import tempfile
 
 
 class AboutView(TemplateView):
@@ -411,6 +414,7 @@ def get_challenges_ajax(request):
             return JsonResponse(data)
         return JsonResponse(final_list, safe=False)
 
+
 def add_comment(request):
     if request.method == "POST":
         comment = request.POST['comment']
@@ -420,6 +424,8 @@ def add_comment(request):
         initiative.comments.create(text=comment, profile=profile)
     
     return JsonResponse("Success", safe=False)
+
+
 def follow_user(request, pk):
     following_user_id = pk
     data = {}
@@ -451,3 +457,29 @@ def unfollow_user(request, pk):
         data['error_message'] = 'error'
         return redirect('index')
     return redirect('user', following_user.username)
+
+
+def addUnsplashPicture(request):
+    if request.method == "POST":
+        url = request.POST["url"]
+        url += ".jpg"
+        response = requests.get(url, stream=True)
+        # Get the filename from the url, used for saving later
+        file_name = url.split('/')[-1]
+        
+        # Create a temporary file
+        lf = tempfile.NamedTemporaryFile()
+
+        # Read the streamed image in sections
+        for block in response.iter_content(1024 * 8):
+            
+            # If no more file then stop
+            if not block:
+                break
+
+            # Write image block to temporary file
+            lf.write(block)
+
+        request.user.profile.image.save(file_name, files.File(lf))
+
+    return JsonResponse("Success", safe=False)

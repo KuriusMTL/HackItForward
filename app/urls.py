@@ -34,4 +34,5 @@ urlpatterns = [
     path("get_challenges_ajax/", views.get_challenges_ajax, name="get_challenges_ajax"),
     path("follow_user/<int:pk>/", views.follow_user, name="follow_user"),
     path("unfollow_user/<int:pk>/", views.unfollow_user, name="unfollow_user"),
+    path("addUnsplashPicture/", views.addUnsplashPicture, name="addUnsplashPicture")
 ]
