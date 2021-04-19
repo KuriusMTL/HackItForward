@@ -10,7 +10,9 @@ from django.urls import reverse
 from django.utils import timezone
 from PIL import Image, ImageOps
 import re
-
+import humanize
+from datetime import datetime
+from django.utils import timezone
 
 PROJECT_DESCRIPTION = """
 # Project Name
@@ -222,6 +224,18 @@ class Profile(models.Model):
             img = ImageOps.fit(img, output_size, Image.ANTIALIAS)
             img.save(self.image.path)
 
+class Comment(models.Model):
+    """Comment that users can leave on challenges and projects."""
+    profile = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL) #TODO: If the profile is deleted, the comment will display the profile as deleted but not delete the comment itself.
+    text = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+    upvoteCount = models.IntegerField(default=0)
+
+    @property
+    def humanized_date(self):
+        to_tz = timezone.get_default_timezone()
+        current_time = datetime.now().astimezone(to_tz)
+        return humanize.naturaltime(current_time - self.date_added)
 
 class Challenge(models.Model):
     '''Challenges are the problems presented by various nonprofit organizations for users to solve.
@@ -284,6 +298,10 @@ class Challenge(models.Model):
         upload_to="challenges/",
         verbose_name="Image",
         help_text="Cover image of this challenge.",
+    )
+    comments = models.ManyToManyField(
+        Comment,
+        blank=True
     )
 
     def clean(self):
@@ -382,6 +400,10 @@ class Project(models.Model):
         upload_to="challenges/",
         verbose_name="Image",
         help_text="Cover image of this project.",
+    )
+    comments = models.ManyToManyField(
+        Comment,
+        blank=True
     )
 
     @property

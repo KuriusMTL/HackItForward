@@ -155,55 +155,48 @@
 {% endblock %}
 
 {% block frames %}
-<div class="row">
-  <div class="col-8">
-    <div class="tab-container tabs-large" style="">
-      <ul>
-        <li class="selected"><a class="" style="background-color:transparent;">Submissions</a></li>
-        <!-- TODO: Implement comments -->
-        <!-- <li><a class=""style="background-color:transparent;">Comments</a></li> -->
-      </ul>
-    </div>
-    {% for project in projects %}
-    <div class="initiative-card">
-      <a href="#{{ project.name }}">
-        <div class="project-card-content row">
-          {% if project.image %}
-            <div class="project-card-image-preview col-3" style="background-image: url({{ project.image.url }});"></div>
-          {% else %}
-            <div class="project-card-image-preview col-3" style="background-image: url({{ static('img/polar-bear.png') }});"></div>
-          {% endif %}
-
-          <div class="col-7" style="padding-left: 32px;">
-            <h3 class="">{{ project.name }}</h3>
-            <p class="grey">{{ project.description|truncatechars(100) }}</p>
-
-              <a href="{{ url('user', username=project.creators.first().username) }}">
-                <div class="row">
-                  <img class="profile-icon vertical-align" src="{{ project.creators.first().image.url }}"/>
-                  <p style="font-weight: 500; margin:0" class="grey">{{ project.short_creators }}</p>
-                </div>
-              </a>
-          </div>
-        </div>
-      </a>
-    </div>
-  {% else %}
+<div class="row tabcontent" id="submissions" style="display: block;">
+  {% for project in projects %}
   <div class="initiative-card">
-    <div class="project-card-content u-text-center">
-      <div class="no-projects-logo">
-        <i id="plane" class="far fa-paper-plane fa-4x"></i>
-        <span id="circle" class="circle" style="background-color: #ECF3FD;"></span>
+    <a href="#{{ project.name }}">
+      <div class="project-card-content row">
+        {% if project.image %}
+          <div class="project-card-image-preview col-3" style="background-image: url({{ project.image.url }});"></div>
+        {% else %}
+          <div class="project-card-image-preview col-3" style="background-image: url({{ static('img/polar-bear.png') }});"></div>
+        {% endif %}
+
+        <div class="col-7" style="padding-left: 32px;">
+          <h3 class="">{{ project.name }}</h3>
+          <p class="grey">{{ project.description|truncatechars(100) }}</p>
+
+            <a href="{{ url('user', username=project.creators.first().username) }}">
+              <div class="row">
+                <img class="profile-icon vertical-align" src="{{ project.creators.first().image.url }}"/>
+                <p style="font-weight: 500; margin:0" class="grey">{{ project.short_creators }}</p>
+              </div>
+            </a>
+        </div>
       </div>
-      <p class="grey">No projects have been posted to this challenge yet, be the first!</p>
-      <a href="{{ url('project_challenge_create', pk=initiative.pk) }}" class="u-center">
-        <button class="btn-primary btn--pilled">Submit Project</button>
-      </a>
-      <a href="#share-modal" class="font-bold" style="margin-top: 12px;">Share Challenge &nbsp;<i class="fas fa-share"></i></a>
+    </a>
+  </div>
+{% else %}
+<div class="initiative-card">
+  <div class="project-card-content u-text-center">
+    <div class="no-projects-logo">
+      <i id="plane" class="far fa-paper-plane fa-4x"></i>
+      <span id="circle" class="circle" style="background-color: #ECF3FD;"></span>
     </div>
+    <p class="grey">No projects have been posted to this challenge yet, be the first!</p>
+    <a href="{{ url('project_challenge_create', pk=initiative.pk) }}" class="u-center">
+      <button class="btn-primary btn--pilled">Submit Project</button>
+    </a>
+    <a href="#share-modal" class="font-bold" style="margin-top: 12px;">Share Challenge &nbsp;<i class="fas fa-share"></i></a>
   </div>
-  {% endfor %}
-  </div>
+</div>
+{% endfor %}
+</div>
+   
 </div>
 
 <!-- <h4 style="text-align: center;">Challenge Contributions by Region</h4>

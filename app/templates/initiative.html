@@ -117,7 +117,66 @@
       </div>
     </div>
   <br>
-  {% block frames %}
-  {% endblock %}
+
+  <div class="row">
+    <div class="col-8">
+      <div class="tab-container tabs-large">
+        <ul>
+          <li class="tablevel selected" onclick="openTab(event, 'submissions')"><a class="" style="background-color:transparent;">Submissions</a></li>
+          <li class="tablevel" onclick="openTab(event, 'comments')"><a class="" style="background-color:transparent;">Comments</a></li>
+        </ul>
+      </div>
+      <div class="row tabcontent" id="comments">
+        <div class="initiative-card">
+          <div class="project-card-content">
+            <h5>Give Feedback</h5>
+            <textarea type="text" name="comment" id="id_comment" class="comment-input" placeholder="Share your thoughts"></textarea>
+            <div>
+              <button id="submit-comment" class="u-pull-right btn--pilled btn-primary">Submit</button>
+            </div>
+            
+            {% csrf_token %}
+            {% for comment in initiative.comments.all() %}
+            <div style="display:flex; align-items:center">
+              <!-- <a href="{{ url('user', username=comment.profile.username) }}"></a> -->
+                <div>
+                  <img class="comment-profile-image" src="{{ profile.image.url }}"/>
+                </div>
+                <div>
+                  <h6 style="margin: 0">{{ comment.profile.user.username}}</h6>
+                </div>
+            </div>
+            <p style="margin-left: 40px">{{ comment.text }}</p>
+            <p>{{ comment.humanized_date }}</p>
+            {% endfor %}
+  
+          </div>
+        </div>
+      </div>
+      {% block frames %}
+      {% endblock %}
+
+  </div>
+
 </div>
+
+<script>
+  $("#submit-comment").on('click', function (e) {
+    var comment = $("#id_comment").val();
+    if (comment != "") {
+      $.ajax({
+        type: "POST",
+        url: `/add_comment/`,
+        data: {
+          'comment': comment,
+          'initiative_pk': {{ initiative.pk }},
+          'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
+        },
+        success: function() {
+        location.reload()
+        }
+      })
+    }
+  });
+  </script>
 {% endblock %}

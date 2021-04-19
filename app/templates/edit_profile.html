@@ -44,6 +44,7 @@
               <span class="text-primary info">{{ error }}</span>
               {% endfor %}
             </div>
+            <a href="#unsplash-modal">Search Images</a>
           </div>
         </div>
 
@@ -94,6 +95,32 @@
   </div>
 </div>
 
+<div class="modal modal-large modal-animated--zoom-in" id="unsplash-modal">
+  <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
+  <div class="modal-content" role="document" style="min-width: 50%">
+
+    <div class="modal-body">    
+        <!-- Search bar -->
+      <form action="." style="margin-top: 0.5rem;">
+        <input type="hidden" name="type" value="challenge">
+        <div class="row">
+          <div class="col-12">
+            <div class="input-control">
+              <input id="searchWord" type="text" name="q" class="input-contains-icon" placeholder="Search for images on Unsplash"
+                onchange="searchUnsplash()" style="border: none; border-radius: 100px; outline: none; font-family: Poppins;">
+              <span class="icon"><i class="fas fa-search" aria-hidden="true"></i></span>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <ul id="imageContainer"></ul>
+    </div>
+
+  </div>
+</div>
+
+
 <script type="text/javascript">
   function alterForm() {
     const sections = document.getElementsByClassName("file-buttons");
@@ -111,7 +138,14 @@
 {% block scripts %}
 <script src="{{ static('js/map.js') }}"></script>
 <script>
-  var simplemde = new SimpleMDE({ element: document.getElementById("id_description") });
-  $('select[multiple]').chosen({ width: '100%', placeholder_text_multiple: ' ', placeholder_text_single: ' ' });
+  var simplemde = new SimpleMDE({
+    element: document.getElementById("id_description")
+  });
+  $('select[multiple]').chosen({
+    width: '100%',
+    placeholder_text_multiple: ' ',
+    placeholder_text_single: ' '
+  });
 </script>
 {% endblock %}
+
