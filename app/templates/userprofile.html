@@ -16,6 +16,7 @@
       <h3 style="margin-bottom: 4px;">{{ user.first_name }} {{ user.last_name }} @{{ user.username }}</h3>
       <p style="margin: 0">{{ user.profile.location }}</p>
       <p style="margin:0">{{ user.profile.headline }}</p>
+      <p style="margin:0"><a href="#followers" style="color: var(--cirrus-dark);"><b>{{ followers.count() }}</b> follower{{ followers.count()|pluralize }}</a>  <a href="#following" style="color: var(--cirrus-dark);"><b>{{ following.count() }}</b> following</a></p>
 
       {% if user.profile.badges.exists() %}
       <div>
@@ -56,6 +57,16 @@
     <a href="{{ url('edit_profile') }}" style="position: absolute; right: 50px; margin-top: 80px">
       <button class="btn--pilled btn-white btn-primary" style="color: #4f4f4f;">Edit Profile</button>
     </a>
+    {% else %}
+      {% if is_following_user %}
+      <a href="{{ url ('unfollow_user', pk=user.id) }}" style="position: absolute; right: 50px; margin-top: 80px">
+        <button class="btn--pilled btn-white btn-primary" style="color: #4f4f4f;">Unfollow</button>
+      </a>
+      {% else %}
+        <a href="{{ url ('follow_user', pk=user.id) }}" style="position: absolute; right: 50px; margin-top: 80px">
+          <button class="btn--pilled btn-white btn-primary" style="color: #4f4f4f;">Follow</button>
+        </a>
+      {% endif %}
     {% endif %}
 
   </div>
@@ -232,6 +243,58 @@
   <div class="tabcontent" id="bookmarks">
     <div class="row">
 
+    </div>
+  </div>
+</div>
+<div class="modal modal-large modal-animated--zoom-in" id="followers">
+  <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
+  <div class="modal-content" style="border-radius: 8px; background-color: #F6F8FB; min-height: 80%; min-width: 60%;">
+    <div class="modal-body" style="padding: 2rem 2rem; max-height: 85vh;">
+      <div class="col">
+        <h3 style="margin-bottom:1rem;">Followers ({{ followers.count() }})</h3>
+        {% if followers.count() == 0 %}
+        <div class="row">
+          No followers for now!
+        </div>
+        {% else %}
+        {% for follower in followers %}
+        <div class="row user-follow" style="background-color:white;">
+          <div class="avatar" style="position: relative;">
+            <img class="avatar-image" src="{{ follower.user_id.profile.image.url }}">
+          </div>
+          <p><a href="{{ url('user', username=follower.user_id.username) }}" style="color: var(--cirrus-dark);">{{ follower.user_id.username }}</a></p>
+        </div>
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal modal-large modal-animated--zoom-in" id="following">
+  <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
+  <div class="modal-content" style="border-radius: 8px; background-color: #F6F8FB; min-height: 80%; min-width: 60%;">
+    <div class="modal-body" style="padding: 2rem 2rem; max-height: 85vh;">
+      <div class="col">
+        <h3 style="margin-bottom:1rem;">Following ({{ following.count() }})</h3>
+        {% if following.count() == 0 %}
+        <div class="row">
+          Not following anyone right now!
+        </div>
+        {% else %}
+        {% for following_user in following %}
+        <div class="row user-follow">
+          <div class="avatar" style="position: relative;">
+            <img class="avatar-image" src="{{ following_user.following_user_id.profile.image.url }}">
+          </div>
+          <p><a href="{{ url('user', username=following_user.following_user_id.username) }}" style="color: var(--cirrus-dark); font-weight:700;">{{ following_user.following_user_id.username }}</a></p>
+          <a href="{{ url ('unfollow_user', pk=following_user.following_user_id.id) }}" class="btn-follow">
+            <button class="btn--pilled btn-white btn-primary" style="color: #4f4f4f;">Unfollow</button>
+          </a>
+        </div>
+        
+        {% endfor %}
+        {% endif %}
+      </div>
     </div>
   </div>
 </div>

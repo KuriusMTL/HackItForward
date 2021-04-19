@@ -59,27 +59,37 @@ regex: "regular expression to match this link"
 fa: "Font Awesome CSS class to use" (optional; defaults to "fab")
 """
 SOCIAL_LINKS = [
-    {"name": "Twitter", "icon": "twitter", "regex": r"(^(https?:\/\/)?)twitter\.com\/.*"},
-    {"name": "Facebook", "icon": "facebook", "regex": r"(^(https?:\/\/)?)facebook\.com\/.*"},
-    {"name": "Github", "icon": "github", "regex": r"(^(https?:\/\/)?)github\.com\/.*"},
-    {"name": "Reddit", "icon": "reddit", "regex": r"(^(https?:\/\/)?)reddit\.com\/.*"},
-    {"name": "Steam", "icon": "steam", "regex": r"(^(https?:\/\/)?)steamcommunity\.com\/.*"},
-    {"name": "YouTube", "icon": "youtube", "regex": r"(^(https?:\/\/)?)youtube\.com\/.*"},
+    {"name": "Twitter", "icon": "twitter",
+        "regex": r"(^(https?:\/\/)?)twitter\.com\/.*"},
+    {"name": "Facebook", "icon": "facebook",
+        "regex": r"(^(https?:\/\/)?)facebook\.com\/.*"},
+    {"name": "Github", "icon": "github",
+        "regex": r"(^(https?:\/\/)?)github\.com\/.*"},
+    {"name": "Reddit", "icon": "reddit",
+        "regex": r"(^(https?:\/\/)?)reddit\.com\/.*"},
+    {"name": "Steam", "icon": "steam",
+        "regex": r"(^(https?:\/\/)?)steamcommunity\.com\/.*"},
+    {"name": "YouTube", "icon": "youtube",
+        "regex": r"(^(https?:\/\/)?)youtube\.com\/.*"},
     {
         "name": "Stack Overflow",
         "icon": "stack-overflow",
         "regex": r"(^(https?:\/\/)?)stackoverflow\.com\/.*",
     },
-    {"name": "Vimeo", "icon": "vimeo-v", "regex": r"(^(https?:\/\/)?)vimeo\.com\/.*"},
-    {"name": "SoundCloud", "icon": "soundcloud", "regex": r"(^(https?:\/\/)?)soundcloud\.com\/.*"},
-    {"name": "Instagram", "icon": "instagram", "regex": r"(^(https?:\/\/)?)instagram\.com\/.*"},
+    {"name": "Vimeo", "icon": "vimeo-v",
+        "regex": r"(^(https?:\/\/)?)vimeo\.com\/.*"},
+    {"name": "SoundCloud", "icon": "soundcloud",
+        "regex": r"(^(https?:\/\/)?)soundcloud\.com\/.*"},
+    {"name": "Instagram", "icon": "instagram",
+        "regex": r"(^(https?:\/\/)?)instagram\.com\/.*"},
     {
         "name": "Email",
         "icon": "envelope",
         "fa": "fas",
         "regex": r"^mailto:(.+@[a-z0-9\.-]+)$",
     },
-    {"name": "Phone Number", "icon": "phone", "fa": "fas", "regex": r"^tel:[0-9]+$"},
+    {"name": "Phone Number", "icon": "phone",
+        "fa": "fas", "regex": r"^tel:[0-9]+$"},
 ]
 
 
@@ -126,15 +136,18 @@ class Badge(models.Model):
     These badges are then displayed on a user's profile.
     '''
 
-    name = models.CharField(max_length=48, verbose_name="name", help_text="Name of this badge.")
+    name = models.CharField(
+        max_length=48, verbose_name="name", help_text="Name of this badge.")
     description = models.TextField(
         blank=True, verbose_name="Description", help_text="Description of this badge."
     )
-    color = ColorField(help_text="Color", verbose_name="The color of this tag.")
+    color = ColorField(help_text="Color",
+                       verbose_name="The color of this tag.")
     points = models.PositiveSmallIntegerField(
         verbose_name="Points", help_text="Points awarded for this badge."
     )
-    icon = models.ImageField(upload_to="badges/", verbose_name="Image", help_text="Icon of badge.")
+    icon = models.ImageField(
+        upload_to="badges/", verbose_name="Image", help_text="Icon of badge.")
 
     def __str__(self):
         return self.name
@@ -145,7 +158,8 @@ class Tag(models.Model):
     used in search.
     '''
 
-    name = models.CharField(max_length=24, verbose_name="Name", help_text="Name of this tag.")
+    name = models.CharField(
+        max_length=24, verbose_name="Name", help_text="Name of this tag.")
     color = ColorField(help_text="Color", verbose_name="Color of this tag.")
 
     def __str__(self):
@@ -158,9 +172,12 @@ class Profile(models.Model):
      such as headlines, banner images, and location, we need to create this separate Profile model.
     '''
 
-    user = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
-    image = models.ImageField(default="default_profile.jpg", upload_to="profile_pics") # the profile image
-    banner_image = models.ImageField(default="default_profile_bg.jpg", upload_to="profile_background_pics")
+    user = models.OneToOneField(
+        User, related_name="profile", on_delete=models.CASCADE)
+    image = models.ImageField(
+        default="default_profile.jpg", upload_to="profile_pics")  # the profile image
+    banner_image = models.ImageField(
+        default="default_profile_bg.jpg", upload_to="profile_background_pics")
     headline = models.CharField(
         default="",
         verbose_name="Headline",
@@ -170,7 +187,8 @@ class Profile(models.Model):
     description = models.TextField(
         blank=True, verbose_name="Description", help_text="User description."
     )
-    location = models.CharField(blank=True, verbose_name="Location", max_length=50)
+    location = models.CharField(
+        blank=True, verbose_name="Location", max_length=50)
     badges = models.ManyToManyField(
         Badge,
         blank=True,
@@ -194,7 +212,7 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
-    #Function that ensures that the image stored on the database does not exceed 300 by 300 pixels
+    # Function that ensures that the image stored on the database does not exceed 300 by 300 pixels
     def save(self, *args, **kwargs):
         super(Profile, self).save(*args, **kwargs)
         img = Image.open(self.image.path)
@@ -270,9 +288,11 @@ class Challenge(models.Model):
 
     def clean(self):
         if self.start and not self.end:
-            raise ValidationError("An end date must be provided if you have a start date.")
+            raise ValidationError(
+                "An end date must be provided if you have a start date.")
         if not self.start and self.end:
-            raise ValidationError("A start date must be provided if you have an end date.")
+            raise ValidationError(
+                "A start date must be provided if you have an end date.")
         if self.start and self.end and self.start >= self.end:
             raise ValidationError("The end date must be after the start date.")
 
@@ -306,11 +326,21 @@ class Challenge(models.Model):
         return self.name
 
 
+class UserFollowing(models.Model):
+    user_id = models.ForeignKey(
+        User, related_name="following", on_delete=models.CASCADE)
+    following_user_id = models.ForeignKey(
+        User, related_name="followers", on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+
+
 class Project(models.Model):
     '''A project is a submission to specific challenge.
     '''
-    challenge = models.ForeignKey(Challenge, null=True, on_delete=models.SET_NULL)
-    name = models.CharField(max_length=100, verbose_name="Name", help_text="Name of this project.")
+    challenge = models.ForeignKey(
+        Challenge, null=True, on_delete=models.SET_NULL)
+    name = models.CharField(
+        max_length=100, verbose_name="Name", help_text="Name of this project.")
     description = models.TextField(
         blank=True,
         default=PROJECT_DESCRIPTION,
