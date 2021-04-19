@@ -1,5 +1,5 @@
 from app.forms import ProfileUpdateForm, UserUpdateForm, SocialLinkFormSet, PasswordUpdateForm, OnboardingForm
-from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, User
+from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, User, UserFollowing
 
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login, update_session_auth_hash
@@ -122,6 +122,9 @@ class UserView(DetailView):
             object_id=self.object.pk,
             content_type=ContentType.objects.get_for_model(Profile),
         )
+        context["following"] = self.get_object().following.all()
+        context["followers"] = self.get_object().followers.all()
+        context["is_following_user"] = UserFollowing.objects.filter(user_id=self.request.user.id, following_user_id=self.get_object().id).count() > 0
         return context
 
 
@@ -407,3 +410,35 @@ def get_challenges_ajax(request):
             data['error_message'] = 'error'
             return JsonResponse(data)
         return JsonResponse(final_list, safe=False)
+
+def follow_user(request, pk):
+    following_user_id = pk
+    data = {}
+    try:
+        following_user = User.objects.get(id=following_user_id)
+        current_user = request.user
+        if not current_user.following.all().filter(following_user_id=following_user.id):
+            UserFollowing.objects.create(user_id=current_user, following_user_id=following_user)
+            data['success_message'] = 'successful'
+        else:
+            data['error_message'] = 'already followed'
+    except Exception:
+        data['error_message'] = 'error'
+        return redirect('index')
+    return redirect('user', following_user.username)
+
+def unfollow_user(request, pk):
+    following_user_id = pk
+    data = {}
+    try:
+        following_user = User.objects.get(id=following_user_id)
+        current_user = request.user
+        if current_user.following.all().filter(following_user_id=following_user.id):
+            UserFollowing.objects.filter(user_id=current_user.id, following_user_id=following_user.id).delete()
+            data['success_message'] = 'successful'
+        else:
+            data['error_message'] = following_user.id
+    except Exception:
+        data['error_message'] = 'error'
+        return redirect('index')
+    return redirect('user', following_user.username)
