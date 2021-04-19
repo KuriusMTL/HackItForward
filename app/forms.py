@@ -1,4 +1,4 @@
-from app.models import Profile, Tag, SocialLinkAttachement, User
+from app.models import Profile, Tag, SocialLinkAttachement, User, Comment
 
 from django.contrib.contenttypes.models import ContentType
 from django.core.validators import RegexValidator, URLValidator, validate_email
@@ -8,6 +8,15 @@ from django.forms.models import ModelForm
 from django.forms.widgets import CheckboxSelectMultiple
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from django.utils.html import escape
+
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["text"]
+
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
 
 
 # TODO: Make this form functional. The form fails to update the password currently

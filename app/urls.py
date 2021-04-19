@@ -47,4 +47,6 @@ urlpatterns = [
          views.ProjectUpdateView.as_view(), name="project_edit"),
     path("get_challenges_ajax/", views.get_challenges_ajax,
          name="get_challenges_ajax"),
+    path("add_comment/", views.add_comment,
+         name="add_comment"),
 ]

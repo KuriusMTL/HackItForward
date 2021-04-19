@@ -407,3 +407,13 @@ def get_challenges_ajax(request):
             data['error_message'] = 'error'
             return JsonResponse(data)
         return JsonResponse(final_list, safe=False)
+
+def add_comment(request):
+    if request.method == "POST":
+        comment = request.POST['comment']
+        profile = request.user.profile
+        pk = request.POST["initiative_pk"]
+        initiative = Challenge.objects.get(pk=pk)
+        initiative.comments.create(text=comment, profile=profile)
+    
+    return JsonResponse("Success", safe=False)

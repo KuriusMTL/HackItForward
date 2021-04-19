@@ -74,6 +74,10 @@ input::placeholder {
   font-family: Poppins;
 }
 
+input:focus {
+  outline: none;
+}
+
 .input-contains-icon:focus {
   outline: none;
 }
@@ -748,6 +752,20 @@ a > .fa-reddit:hover {
   cursor: not-allowed;
   background-color: #f3f3f6;
   border: #f3f3f6;
+}
+
+/**
+ * Comments
+ */
+
+ .comment-input {
+  height: 100px; 
+  background-color: var(--grey-light);
+ }
+.comment-profile-image {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
 }
 
 /**
