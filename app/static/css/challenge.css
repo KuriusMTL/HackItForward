@@ -6,18 +6,18 @@
   display: none;
 }
 
-.initiative-card {
+.challenge-card {
   border-radius: 16px;
   background-color: #ffffff;
   padding: 0px;
   margin-bottom: 1rem;
 }
 
-.initiative-card-content {
+.challenge-card-content {
   padding: 32px 26px;
 }
 
-.initiative-card-content .row:after {
+.challenge-card-content .row:after {
   display: none;
 }
 
@@ -32,7 +32,7 @@
   cursor: pointer;
 }
 
-.initiative-card-image {
+.challenge-card-image {
   border-radius: 8px;
   background-repeat: no-repeat;
   background-size: cover;
@@ -41,12 +41,12 @@
   width: 100%;
 }
 
-#initiative-name {
+#challenge-name {
   font-size: 2rem;
   margin-top: 30px;
 }
 
-.initiative-tag {
+.challenge-tag {
   padding: 6px 8px;
   border-radius: 100px;
 }
@@ -171,14 +171,14 @@
 }
 
 @media screen and (max-width: 769px) {
-  .initiative-card-content #initiative-info {
+  .challenge-card-content #challenge-info {
     display: flex;
     width: 100%;
   }
-  .initiative-card-content #initiative-info .initiative-creator {
+  .challenge-card-content #challenge-info .challenge-creator {
     width: 50%;
   }
-  .initiative-card-content #initiative-info .level {
+  .challenge-card-content #challenge-info .level {
     display: flex;
     justify-content: flex-end;
   }
@@ -188,7 +188,7 @@
     position: relative !important;
     top: 0px !important;
   }
-  #social-float .initiative-card .row {
+  #social-float .challenge-card .row {
     display: flex;
   }
   #social-float .related-challenge .col-8 {
@@ -196,7 +196,7 @@
     width: 85%;
     max-width: 100%;
   }
-  .initiative-card-content {
+  .challenge-card-content {
     width: 100vw;
     position: relative;
     left: -32px;
@@ -204,13 +204,13 @@
     background-color: white;
     padding-top: 0;
   }
-  .initiative-card-content .initiative-card-image {
+  .challenge-card-content .challenge-card-image {
     width: 100vw;
     position: relative;
     left: -27px;
     border-radius: 0;
   }
-  #social-float .initiative-card-content {
+  #social-float .challenge-card-content {
     left: 0px;
     background-color: transparent;
     padding-top: 32px;
@@ -320,7 +320,7 @@
 }
 
 @media screen and (max-width: 550px) {
-  .initiative-card-content {
+  .challenge-card-content {
     left: -20px;
   }
 }

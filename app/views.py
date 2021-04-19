@@ -264,23 +264,6 @@ class RegisterView(FormView):
         return super().form_valid(form)
 
 
-class InitiativeViewMixin(ContextMixin):
-    classname = None
-    initiative = None
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        pk = self.kwargs["pk"]
-        self.initiative = self.classname.objects.get(pk=pk)
-
-        context["initiative"] = self.initiative
-        context["links"] = SocialLinkAttachement.objects.filter(
-            object_id=pk, content_type=ContentType.objects.get_for_model(
-                self.classname)
-        )
-        return context
-
-
 class GenericFormMixin(LoginRequiredMixin, ContextMixin):
     template_name = "base_form.html"
 
@@ -320,19 +303,45 @@ class ChallengeUpdateView(ChallengeFormView, UpdateView):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
-
-class ChallengeView(InitiativeViewMixin, TemplateView):
-    template_name = "challenge.html"
-    classname = Challenge
+# TO DELETE LATER
+class InitiativeViewMixin(ContextMixin):
+    classname = None
+    initiative = None
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.initiative.start and self.initiative.end:
+        pk = self.kwargs["pk"]
+        self.initiative = self.classname.objects.get(pk=pk)
+
+        context["initiative"] = self.initiative
+        context["links"] = SocialLinkAttachement.objects.filter(
+            object_id=pk, content_type=ContentType.objects.get_for_model(
+                self.classname)
+        )
+        return context
+
+class ChallengeView(TemplateView, ContextMixin):
+    template_name = "challenge.html"
+    classname = Challenge
+    challenge = None
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs["pk"]
+        self.challenge = self.classname.objects.get(pk=pk)
+        context["challenge"] = self.challenge
+
+        context["links"] = SocialLinkAttachement.objects.filter(
+            object_id=pk, content_type=ContentType.objects.get_for_model(
+                self.classname)
+        )
+
+        if self.challenge.start and self.challenge.end:
             context["time_labels"] = [
-                {"label": "Start Time", "time": self.initiative.start},
-                {"label": "End Time", "time": self.initiative.end},
+                {"label": "Start Time", "time": self.challenge.start},
+                {"label": "End Time", "time": self.challenge.end},
             ]
-        context["projects"] = Project.objects.filter(challenge=self.initiative)
+        context["projects"] = Project.objects.filter(challenge=self.challenge)
         context["related_challenges"] = Challenge.objects.all()[:3]
         return context
 
@@ -373,6 +382,7 @@ class ProjectUpdateView(ProjectFormView, UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
 
+# TO DELETE LATER
 class ProjectView(InitiativeViewMixin, TemplateView):
     template_name = "project.html"
     classname = Project
