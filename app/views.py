@@ -381,6 +381,9 @@ class ProjectUpdateView(ProjectFormView, UpdateView):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
+    def get_success_url(self):
+        return "/challenge/" + str(self.get_object().challenge.pk) + "/#" + str(self.get_object().name)
+        
 
 # TO DELETE LATER
 class ProjectView(InitiativeViewMixin, TemplateView):

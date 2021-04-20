@@ -2,8 +2,14 @@
   {% for project in projects %}
     <div class="modal modal-large modal-animated--zoom-in" id="{{ project.name }}">
       <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
-      <div class="modal-content" style="border-radius: 8px; background-color: #F6F8FB; min-height: 80%; min-width: 60%;">
-        <div class="modal-body" style="padding: 1rem 1rem; max-height: 85vh;">
+      <div class="modal-content" style="border-radius: 8px; background-color: #F6F8FB; min-height: 100%; min-width: 100%; margin-top: 5%">
+        <div class="modal-body" style="padding: 4rem 4rem; max-height: 85vh;">
+          <div class="row">
+            <div style="padding: 0 0.5rem">
+              <h2>{{ project.name }}</h2>
+
+            </div>
+          </div>
           <div class="row">
             <div class="col-6">
               {% if project.image %}
@@ -38,7 +44,7 @@
             <div class="col-6">
               <div class="challenge-card">
                 <div class="challenge-card-content">
-                  <h1 style="font-size: 20px; margin-top: 0px;">{{ project.name }}</h1>
+                  <h1 style="font-size: 20px; margin-top: 0px;">Project Description</h1>
                   <p class="grey" style="font-weight: 400;">{{ project.description }}</p>
 
                   {% if project.can_edit(request.user) %}
