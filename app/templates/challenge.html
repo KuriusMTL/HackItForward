@@ -247,10 +247,14 @@
             <i id="plane" class="far fa-paper-plane fa-4x"></i>
             <span id="circle" class="circle" style="background-color: #ECF3FD;"></span>
           </div>
+          {% if challenge.is_open() %}
           <p class="grey">No projects have been posted to this challenge yet, be the first!</p>
           <a href="{{ url('project_challenge_create', pk=challenge.pk) }}" class="u-center">
             <button class="btn-primary btn--pilled">Submit Project</button>
           </a>
+        {% else %}
+        <p class="grey">No projects have been posted to this challenge.</p>
+        {% endif %}
           <a href="#share-modal" class="font-bold" style="margin-top: 12px;">Share Challenge &nbsp;<i class="fas fa-share"></i></a>
         </div>
       </div>
