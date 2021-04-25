@@ -88,9 +88,9 @@
                 {% endif %}
 
                 <!-- TODO: Implement bookmarking -->
-                <!-- <a class="share-social-icon level-content level-item">
+                <a id="bookmark" class="share-social-icon level-content level-item">
                   <i class="fas fa-bookmark fa-lg" style="color: #4F4F4F;"></i>
-                </a> -->
+                </a>
               </div>
             </div>
 
@@ -290,6 +290,17 @@
         }
       })
     }
+  });
+  $("#bookmark").on('click', function (e) {
+    $.ajax({
+      type: "POST",
+      url: `/add_bookmark/`,
+      data: {
+        'challenge_pk': {{ challenge.pk }},
+        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
+      }
+    })
+    
   });
   </script>
 {% endblock %}
