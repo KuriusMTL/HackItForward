@@ -19,7 +19,8 @@
     "creators": [
       2
     ],
-    "rewards": []
+    "rewards": [],
+    "comments": []
   }
 },
 {
@@ -43,7 +44,8 @@
       1,
       2
     ],
-    "rewards": []
+    "rewards": [],
+    "comments": []
   }
 },
 {
@@ -67,7 +69,8 @@
       2
     ],
     "rewards": []
-  }
+  },
+  "comments": []
 },
 {
   "model": "app.challenge",
@@ -84,7 +87,8 @@
     "creators": [
       1
     ],
-    "rewards": []
+    "rewards": [],
+    "comments": []
   }
 }
 ]
