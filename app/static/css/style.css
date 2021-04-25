@@ -2,6 +2,7 @@
 
 :root {
   --grid-grey: #f0eeee;
+  --grey-white: #F6F8FB;
   --grey-light: #f1efef;
   --grey-mid: #828282;
   --grey-dark: #242424;
@@ -764,8 +765,11 @@ a > .fa-reddit:hover {
 
  .comment-input {
   height: 100px; 
-  background-color: var(--grey-light);
+  background-color: var(--grey-white);
+  border-radius: 16px !important;
+  border: 0px !important;
  }
+
 .comment-profile-image {
   height: 40px;
   width: 40px;
