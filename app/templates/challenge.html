@@ -184,7 +184,7 @@
       <div class="tab-container tabs-large">
         <ul>
           <li class="tablevel selected" onclick="openTab(event, 'submissions')"><a class="" style="background-color:transparent;">Submissions</a></li>
-          <li class="tablevel" onclick="openTab(event, 'comments')"><a class="" style="background-color:transparent;">Comments</a></li>
+          <li class="tablevel" id="tab-comments" onclick="openTab(event, 'comments')"><a class="" style="background-color:transparent;">Comments</a></li>
         </ul>
       </div>
       <div class="row tabcontent" id="comments">
@@ -286,7 +286,8 @@
           'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
         },
         success: function() {
-        location.reload()
+          location.href += "#comments"
+          location.reload()
         }
       })
     }

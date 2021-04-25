@@ -128,6 +128,9 @@ class UserView(DetailView):
         context["following"] = self.get_object().following.all()
         context["followers"] = self.get_object().followers.all()
         context["is_following_user"] = UserFollowing.objects.filter(user_id=self.request.user.id, following_user_id=self.get_object().id).count() > 0
+        context["bookmarks"] = BookmarkChallenge.objects.filter(
+             Q(user__in=[self.object.pk])
+        )
         return context
 
 
@@ -502,7 +505,7 @@ def add_bookmark(request):
     if request.method == "POST":
         user = request.user
         pk = request.POST["challenge_pk"]
-        bookmark, created = BookmarkChallenge.get_or_create(user=user, obj_id=pk)
+        bookmark, created = BookmarkChallenge.objects.get_or_create(user=user, obj_id=pk)
         # If no new bookmark has been created, then the request is to delete the bookmark
         if not created:
             bookmark.delete()

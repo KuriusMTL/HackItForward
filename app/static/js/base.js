@@ -1,6 +1,12 @@
 var url = document.location.href;
 
 $(document).ready(() => {
+  if(window.location.href.indexOf('#bookmarks') != -1) {
+    openTabWithURL('bookmarks')
+  }
+  if(window.location.href.indexOf('#comments') != -1) {
+    openTabWithURL('comments')
+  }
   new Clipboard('.clipboard-btn', {
     text: function () {
       return url
@@ -80,6 +86,26 @@ function openTab(evt, level) {
   // Show the current tab, and add an "selected" class to the button that opened the tab
   document.getElementById(level).style.display = "block";
   evt.currentTarget.classList.add("selected");
+}
+
+function openTabWithURL(level) {
+  var i, tabcontent, tablevel;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablevel" and remove the class "selected"
+  tablevel = document.getElementsByClassName("tablevel");
+  for (i = 0; i < tablevel.length; i++) {
+    tablevel[i].classList.remove("selected");
+  }
+
+  // Show the current tab, and add an "selected" class to the button that opened the tab
+  document.getElementById(level).style.display = "block";
+  document.getElementById("tab-".concat(level)).currentTarget.classList.add("selected");
 }
 
 function displayLinkCopied(id = 0) {
