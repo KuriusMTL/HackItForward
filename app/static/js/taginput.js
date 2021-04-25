@@ -2,7 +2,8 @@
 generateTagInputs();
 
 //Common choices for guessing
-var commonChoices = []
+var commonChoices;
+var dictionary;
 
 //Renders custom field based on input[data-custom-type='tag']
 function generateTagInputs() {
@@ -18,6 +19,15 @@ function generateTagInputs() {
         const className = field.className;
         const name = field.name;
         const required = field.required;
+
+        commonChoices = [];
+        [...field.options].map(opt => {
+            if (!commonChoices.includes(opt.innerHTML)) {
+                commonChoices.push(opt.innerHTML);
+            }
+        });
+
+        console.log(dictionary)
 
         Array.from(field.options).map(opt => commonChoices.push(opt.value));
 

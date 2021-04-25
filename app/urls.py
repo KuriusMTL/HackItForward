@@ -21,6 +21,7 @@ urlpatterns = [
     #Enables to visit any user's profile by inserting their username
     path("profile/<str:username>", views.UserView.as_view(), name="user"),
     path("edit/profile", views.EditProfileView.as_view(), name="edit_profile"),
+    path("edit/update_profile", views.update_user, name="edit_profile"),
     path("settings/", views.SettingsView.as_view(), name="settings"),
     path("password/", views.PasswordChangeView.as_view(), name="password"),
     path("challenge/create/", views.ChallengeCreateView.as_view(), name="challenge_create"),

@@ -17,6 +17,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormMixin, FormView, UpdateView
+from django.http import JsonResponse
 
 
 class AboutView(TemplateView):
@@ -223,6 +224,7 @@ class EditProfileView(LoginRequiredMixin, SocialLinkFormMixin, UpdateView):
         return self.request.user.profile
 
 
+
 class OnboardingView(LoginRequiredMixin, SocialLinkFormMixin, UpdateView):
     template_name = "onboarding.html"
     form_class = ProfileUpdateForm
@@ -383,3 +385,8 @@ class ProjectView(InitiativeViewMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context["time_labels"] = [{"label": "Creation Time", "time": self.initiative.created}]
         return context
+
+def update_user(request):
+    if request.method == "POST":
+        tags = request.POST['tags']
+        return JsonResponse(request.POST)
