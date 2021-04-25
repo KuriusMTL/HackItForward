@@ -6,6 +6,7 @@ from app.models import (
     Profile,
     Challenge,
     Project,
+    Comment
 )
 
 admin.site.register(SocialLinkAttachement)
@@ -14,3 +15,4 @@ admin.site.register(Tag)
 admin.site.register(Profile)
 admin.site.register(Challenge)
 admin.site.register(Project)
+admin.site.register(Comment)

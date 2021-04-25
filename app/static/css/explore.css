@@ -1,11 +1,11 @@
 .challenge-of-the-week {
-border-radius: 16px;
-width: 100%;
-background-repeat: no-repeat;
-background-size: cover;
-min-height: 340px;
-padding: 5% 5%;
-margin-top: 50px;
+  border-radius: 16px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 340px;
+  padding: 5% 5%;
+  margin-top: 50px;
 }
 
 .wide-challenge-card {
@@ -16,7 +16,7 @@ margin-top: 50px;
   min-height: 240px;
   padding: 5% 5%;
   margin-top: 50px;
-  }
+}
 
 .input-contains-icon {
   font-family: "Poppins";
@@ -33,10 +33,9 @@ margin-top: 50px;
   font-family: "Poppins";
 }
 
-
-
 /* Override chosen css and cirrus transition */
-.chosen-container-multi .chosen-choices:focus, .chosen-container-multi.chosen-container-active .chosen-choices {
+.chosen-container-multi .chosen-choices:focus,
+.chosen-container-multi.chosen-container-active .chosen-choices {
   border-color: #3dabf0;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -45,7 +44,7 @@ margin-top: 50px;
 .chosen-container-multi .chosen-choices {
   background-image: none;
   border: 1px solid #ddd;
-  padding: .6rem 1.1rem;
+  padding: 0.6rem 1.1rem;
   border-radius: 3px;
   transition: var(--animation-duration);
 }
@@ -53,8 +52,10 @@ margin-top: 50px;
 select[multiple].input-contains-icon + .chosen-container > .chosen-choices {
   padding-left: 2.75rem;
 }
-.chosen-container-multi .chosen-choices li.search-field input[type=text] {
-  font-family: "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+.chosen-container-multi .chosen-choices li.search-field input[type="text"] {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
   transition: none;
 }
 .chosen-container .chosen-choices li.search-choice {
@@ -63,7 +64,7 @@ select[multiple].input-contains-icon + .chosen-container > .chosen-choices {
   box-shadow: none;
   border-color: transparent;
   border-radius: 100px;
-  background-color: #E3EEFC;
+  background-color: #e3eefc;
 }
 .chosen-container-multi .chosen-choices li.search-choice a.search-choice-close {
   transition: none;
@@ -71,4 +72,24 @@ select[multiple].input-contains-icon + .chosen-container > .chosen-choices {
 .chosen-container ul.chosen-results li.highlighted {
   background-image: none;
   background-color: var(--cirrus-primary);
+}
+
+#challenges #challenges-filter .row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+#challenges #challenges-filter .select {
+  flex: 0;
+  margin-right: 16px;
+  padding: 6px 16px;
+  padding-right: 60px;
+  width: auto;
+  font-style: normal;
+  font-weight: normal;
+  font-family: "Poppins";
+  font-size: 16px;
+  background-color: white;
+  border-radius: 100px;
+  border: 1px solid #d7dde6;
 }

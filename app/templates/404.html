@@ -1,3 +1,51 @@
-<h1>404</h1>
-<h2>Looks like Something Went Wrong</h2>
-<a>Go Back</a>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="shortcut icon" href="{{ static('img/favicon.ico') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ static('img/favicon/favicon-16x16.png') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ static('img/favicon/favicon-32x32.png') }}">
+  <link rel="icon" type="image/png" sizes="192x192" href="{{ static('img/favicon/favicon-192x192.png') }}">
+  <link rel="icon" type="image/png" sizes="512x512" href="{{ static('img/favicon/favicon-512x512.png') }}">
+  <link rel="apple-touch-icon" type="image/png" href="{{ static('img/favicon/apple-touch-icon.png') }}">
+
+  <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.4.0/clipboard.min.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/2a8ca409bf.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cirrus-ui@0.5.5/dist/cirrus.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+  <script src="https://kit.fontawesome.com/2a8ca409bf.js" crossorigin="anonymous"></script>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.0.1/mapbox-gl.css" rel="stylesheet"/>
+
+  {% block head %}
+  {% endblock %}
+
+  <link href="{{ static('css/style.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ static('css/challenge.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ static('css/explore.css') }}" rel="stylesheet" type="text/css">
+  <link href="{{ static('css/profile.css') }}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div class="content">
+        <div class="u-center" style="max-width: 500px;">
+            <h1 class="vertical-align" style="color: white; font-size: 288px !important; text-shadow: 2px 2px 4px #dbd8d8;">404</h1>
+            <h2 class="vertical-align u-text-center">Looks like Something Went Wrong</h2>
+            <a onclick="goBack()" class="vertical-align"><h4 class="blue" style="margin-top: 0;">Go Back</h4></a>
+        </div>
+
+    </div>
+
+
+</body>
+</html>
+
+<script>
+    function goBack() {
+      window.history.back();
+    }
+</script>

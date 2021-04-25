@@ -39,6 +39,7 @@
           {% endfor %}
           </div>
         {% endfor %}
+        {% if type == 'Login' %}<a class="blue u-text-right" href="{{ url('password_reset')}}"><b>Forgot Password?</b></a>{% endif %}
         {% if type == 'Register' %}<input type="submit" class="btn-primary" value="Create An Account" style="width: 100%; border-radius: 100px; margin-top: 50px;">{% endif %}
         {% if type == 'Login' %}<input type="submit" class="btn-primary" value="Sign In" style="width: 100%; border-radius: 100px; margin-top: 50px;">{% endif %}
 
