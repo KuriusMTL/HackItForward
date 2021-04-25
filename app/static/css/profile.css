@@ -138,3 +138,121 @@
     margin-left: 0;
   }
 }
+
+/*==================================================
+Entire Custom Tag
+==================================================*/
+.tag-container {
+position: relative;
+width: 100%;
+display: inline-grid;
+grid-template-rows: auto 10px;
+grid-template-areas: "input" "dropdown";
+}
+
+/*==================================================
+Custom Tag Input + Chosen Item Display
+==================================================*/
+.tag-field {
+border: 1px solid #eeeeee;
+border-radius: 4px;
+display: flex;
+flex-wrap: wrap;
+padding: .25rem 0.75rem;
+min-height: 1rem;
+overflow-x: hidden;
+flex-grow: 1;
+
+transition: 0.25s;
+}
+
+.tag-field-focus {
+border: #5aa3cf solid 1px;
+box-shadow: 0px 0px 0px 3px #b1ddf8;
+}
+
+.tag-input {
+width: 2rem !important;
+max-width: 100% !important;
+flex-grow: 1 !important;
+border: none !important;
+box-shadow: none !important;
+color: #505050 !important;
+font-weight: 700 !important;
+font-family: Poppins, sans-serif !important;
+font-size: 1em !important;
+}
+
+.tag-input:focus {
+outline: none !important;
+}
+
+/*==================================================
+Custom Tag Input Prediction Dropdown
+==================================================*/
+.tag-dropdown {
+position: absolute;
+min-height: 1.5rem;
+box-sizing: border-box;
+width: 100%;
+margin-top: -4px;
+z-index: 2;
+display: none;
+grid-area: dropdown;
+
+transition: box-shadow 0.25s;
+}
+
+.tag-field-focus+.tag-dropdown-focus {
+background-color: white;
+border: #5aa3cf solid 1px;
+border-top: 1px solid #eeeeee;
+box-shadow: 0px 3px 0px 0px #b1ddf8, 1px 2px 0 2px #b1ddf8, -1px 2px 0 2px #b1ddf8;
+border-radius: 0 0 4px 4px;
+display: block;
+}
+
+.dropdown-item {
+line-height: 3rem;
+padding-left: 0.5rem;
+background-color: white;
+cursor: pointer;
+color: #505050;
+font-weight: 700;
+font-family: Poppins, sans-serif;
+font-size: 1em;
+}
+
+.dropdown-item:last-child {
+border-radius: 0 0 2.5px 2.5px;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+outline: none;
+background-color: #5aa3cf;
+color: white;
+}
+
+/*==================================================
+Custom Tag Input Chosen Items
+==================================================*/
+.chosen-item {
+margin: 0.2rem 0.2rem;
+padding: 0 0.75rem;
+background-color: #e2eefc;
+border-radius: 2rem;
+display: inline-flex;
+align-items: center;
+color: #505050;
+font-weight: 700;
+font-family: Poppins, sans-serif;
+font-size: 1em;
+}
+
+.delete-button {
+height: 16px;
+width: 16px;
+margin-left: 0.5rem;
+cursor: pointer;
+}
