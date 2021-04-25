@@ -35,4 +35,7 @@ urlpatterns = [
     path("follow_user/<int:pk>/", views.follow_user, name="follow_user"),
     path("unfollow_user/<int:pk>/", views.unfollow_user, name="unfollow_user"),
     path("addUnsplashPicture/", views.addUnsplashPicture, name="addUnsplashPicture")
+    path("challenge/<int:pk>/upvote/", views.upvote_challenge, name="upvote_challenge")
+    path("comment/<int:pk>/upvote/", views.upvote_comment, name="upvote_comment")
+    path("project/<int:pk>/upvote/", views.upvote_project, name="upvote_project")
 ]

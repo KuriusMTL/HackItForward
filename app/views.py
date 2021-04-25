@@ -1,5 +1,5 @@
 from app.forms import ProfileUpdateForm, UserUpdateForm, SocialLinkFormSet, PasswordUpdateForm, OnboardingForm
-from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, User, UserFollowing
+from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, User, UserFollowing, UpvoteChallenge, UpvoteComment, UpvoteProject
 
 from django.core import files
 from django.core.exceptions import PermissionDenied
@@ -496,3 +496,21 @@ def addUnsplashPicture(request):
         request.user.profile.image.save(file_name, files.File(lf))
 
     return JsonResponse("Success", safe=False)
+
+
+def upvote_challenge(request, challenge_id):
+    challenge = Challenge.objects.get(pk=challenge_id)
+    user = request.user
+    try:
+        voted = ChallengeUpvote.objects.get(challenge=challenge, user=user)
+        voted.delete()
+        challenge.upvote -= 1
+        return redirect("challenge", challenge.id)
+    except:
+        challengeUpvote = UpvoteChallenge()
+        challengeUpvote.obj = challenge
+        challengeUpvote.user = user
+        challengeUpvote.save()
+        challenge.upvote += 1
+        challenge.save()
+        return redirect("challenge", challenge.id)

@@ -229,7 +229,7 @@ class Comment(models.Model):
     profile = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL) #TODO: If the profile is deleted, the comment will display the profile as deleted but not delete the comment itself.
     text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
-    upvoteCount = models.IntegerField(default=0)
+    upvotes = models.IntegerField(default=0)
 
     @property
     def humanized_date(self):
@@ -303,6 +303,7 @@ class Challenge(models.Model):
         Comment,
         blank=True
     )
+    upvotes = models.IntegerField(default=0)
 
     def clean(self):
         if self.start and not self.end:
@@ -405,6 +406,7 @@ class Project(models.Model):
         Comment,
         blank=True
     )
+    upvotes = models.IntegerField(default=0)
 
     @property
     def short_creators(self):
@@ -431,3 +433,25 @@ class Project(models.Model):
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+
+class Upvote(models.Model):
+    class Meta:
+        abstract = True
+    user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE, null=True)
+    def __str__(self):
+        return self.user.username
+
+class UpvoteChallenge(Upvote):
+    class Meta:
+        db_table = "upvote_challenge"
+    obj = models.ForeignKey(Challenge, verbose_name="Challenge" on_delete=models.CASCADE, null=True)
+
+class UpvoteProject(Upvote):
+    class Meta:
+        db_table = "upvote_project"
+    obj = models.ForeignKey(Project, verbose_name="Project" on_delete=models.CASCADE, null=True)
+
+class UpvoteComment(Upvote):
+    class Meta:
+        db_table = "upvote_comment"
+    obj = models.ForeignKey(Comment, verbose_name="Comment" on_delete=models.CASCADE, null=True)
