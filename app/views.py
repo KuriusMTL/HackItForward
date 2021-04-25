@@ -385,8 +385,3 @@ class ProjectView(InitiativeViewMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context["time_labels"] = [{"label": "Creation Time", "time": self.initiative.created}]
         return context
-
-def update_user(request):
-    if request.method == "POST":
-        tags = request.POST['tags']
-        return JsonResponse(request.POST)
