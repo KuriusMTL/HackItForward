@@ -1,5 +1,5 @@
 from app.forms import ProfileUpdateForm, UserUpdateForm, SocialLinkFormSet, PasswordUpdateForm, OnboardingForm
-from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, User, UserFollowing, UpvoteChallenge, UpvoteComment, UpvoteProject
+from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, User, UserFollowing, BookmarkChallenge, UpvoteChallenge, UpvoteComment, UpvoteProject
 
 from django.core import files
 from django.core.exceptions import PermissionDenied
@@ -514,3 +514,12 @@ def upvote_challenge(request, challenge_id):
         challenge.upvote += 1
         challenge.save()
         return redirect("challenge", challenge.id)
+def add_bookmark(request):
+    #Inspired from https://evileg.com/en/post/244/
+    if request.method == "POST":
+        user = request.user
+        pk = request.POST["challenge_pk"]
+        bookmark, created = BookmarkChallenge.get_or_create(user=user, obj_id=pk)
+        # If no new bookmark has been created, then the request is to delete the bookmark
+        if not created:
+            bookmark.delete()

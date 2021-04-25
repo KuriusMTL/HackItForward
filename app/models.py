@@ -166,7 +166,7 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
-
+ 
 
 class Profile(models.Model):
     '''Django comes with a user authentication system. It provides us with the User object, which has attributes such as
@@ -344,6 +344,22 @@ class Challenge(models.Model):
     def __str__(self):
         return self.name
 
+
+class Bookmark(models.Model):
+    class Meta:
+        abstract = True
+ 
+    user = models.ForeignKey(User, verbose_name="User", on_delete=models.CASCADE)
+ 
+    def __str__(self):
+        return self.user.username
+
+
+class BookmarkChallenge(Bookmark):
+    class Meta:
+        db_table = "bookmark_challenge"
+ 
+    obj = models.ForeignKey(Challenge, verbose_name="Challenge", on_delete=models.CASCADE)
 
 class UserFollowing(models.Model):
     user_id = models.ForeignKey(

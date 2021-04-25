@@ -38,4 +38,6 @@ urlpatterns = [
     path("challenge/<int:pk>/upvote/", views.upvote_challenge, name="upvote_challenge")
     path("comment/<int:pk>/upvote/", views.upvote_comment, name="upvote_comment")
     path("project/<int:pk>/upvote/", views.upvote_project, name="upvote_project")
+    path("addUnsplashPicture/", views.addUnsplashPicture, name="addUnsplashPicture"),
+    path("add_bookmark/", views.add_bookmark, name="add_bookmark")
 ]
