@@ -38,6 +38,4 @@ urlpatterns = [
     path("addUnsplashPicture/", views.addUnsplashPicture, name="addUnsplashPicture"),
     path("add_bookmark/", views.add_bookmark, name="add_bookmark"),
     path("upvote/<str:obj_type>/<int:pk>/", views.upvote, name="upvote"),
-    path("upvote/<str:obj_type>/challenge/<int:challenge_id>/<int:pk>/", views.upvote, name="upvote"),
-    path("upvote/<str:obj_type>/project/<int:project_id>/<int:pk>/", views.upvote, name="upvote"),
 ]
