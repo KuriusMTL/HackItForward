@@ -497,23 +497,49 @@ def addUnsplashPicture(request):
 
     return JsonResponse("Success", safe=False)
 
-
-def upvote_challenge(request, challenge_id):
-    challenge = Challenge.objects.get(pk=challenge_id)
+def upvote(request, obj_type, pk, challenge_id=null, project_id=null):
+    obj = ""
+    if obj_type == "challenge":
+        obj = Challenge.objects.get(pk=pk)
+    elif obj_type == "project":
+        obj = Project.objects.get(pk=pk)
+    elif obj_type == "comment":
+        obj = comment.objects.get(pk=pk)
     user = request.user
     try:
-        voted = ChallengeUpvote.objects.get(challenge=challenge, user=user)
+        voted = ""
+        if obj_type == "challenge":
+            voted = UpvoteChallenge.objects.get(challenge=obj, user=user)
+        elif obj_type == "project":
+            voted = UpvoteProject.objects.get(project=obj, user=user)
+        elif obj_type == "comment":
+            voted = UpvoteComment.objects.get(comment=obj, user=user)
         voted.delete()
-        challenge.upvote -= 1
-        return redirect("challenge", challenge.id)
+        obj.upvote -= 1
     except:
-        challengeUpvote = UpvoteChallenge()
-        challengeUpvote.obj = challenge
-        challengeUpvote.user = user
-        challengeUpvote.save()
-        challenge.upvote += 1
-        challenge.save()
-        return redirect("challenge", challenge.id)
+        objVote = ""
+        if obj_type == "challenge":
+            objVote = UpvoteChallenge()
+        elif obj_type == "project":
+            objVote = UpvoteProject()
+        elif obj_type == "comment":
+            objVote = UpvoteComment()
+        objVote = UpvoteChallenge()
+        objVote.obj = obj
+        objVote.user = user
+        objVote.save()
+        obj.upvote += 1
+        obj.save()
+    if obj_type == "challenge":
+        return redirect("challenge", obj.id)
+    elif obj_type == "project":
+        return redirect("project", obj.id)
+    elif obj_type == "comment":
+        if challenge_id:
+            return redirect("challenge", obj.id)
+        elif project_id:
+            return redirect("project", obj.id)
+
 def add_bookmark(request):
     #Inspired from https://evileg.com/en/post/244/
     if request.method == "POST":
