@@ -1,5 +1,5 @@
 from app.forms import ProfileUpdateForm, UserUpdateForm, SocialLinkFormSet, PasswordUpdateForm, OnboardingForm
-from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, User, UserFollowing
+from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, User, UserFollowing, BookmarkChallenge
 
 from django.core import files
 from django.core.exceptions import PermissionDenied
@@ -129,6 +129,9 @@ class UserView(DetailView):
         context["following"] = self.get_object().following.all()
         context["followers"] = self.get_object().followers.all()
         context["is_following_user"] = UserFollowing.objects.filter(user_id=self.request.user.id, following_user_id=self.get_object().id).count() > 0
+        context["bookmarks"] = BookmarkChallenge.objects.filter(
+             Q(user__in=[self.object.pk])
+        )
         return context
 
 
@@ -337,6 +340,10 @@ class ChallengeView(TemplateView, ContextMixin):
             object_id=pk, content_type=ContentType.objects.get_for_model(
                 self.classname)
         )
+        try:
+            context["bookmarked"] = BookmarkChallenge.objects.get(user=self.request.user, obj_id=pk)
+        except:
+            context["bookmarked"] = None
 
         if self.challenge.start and self.challenge.end:
             context["time_labels"] = [
@@ -496,5 +503,17 @@ def addUnsplashPicture(request):
             lf.write(block)
 
         request.user.profile.image.save(file_name, files.File(lf))
+
+    return JsonResponse("Success", safe=False)
+
+def add_bookmark(request):
+    #Inspired from https://evileg.com/en/post/244/
+    if request.method == "POST":
+        user = request.user
+        pk = request.POST["challenge_pk"]
+        bookmark, created = BookmarkChallenge.objects.get_or_create(user=user, obj_id=pk)
+        # If no new bookmark has been created, then the request is to delete the bookmark
+        if not created:
+            bookmark.delete()
 
     return JsonResponse("Success", safe=False)
