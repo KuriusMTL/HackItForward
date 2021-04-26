@@ -128,6 +128,9 @@ class UserView(DetailView):
         context["following"] = self.get_object().following.all()
         context["followers"] = self.get_object().followers.all()
         context["is_following_user"] = UserFollowing.objects.filter(user_id=self.request.user.id, following_user_id=self.get_object().id).count() > 0
+        context["bookmarks"] = BookmarkChallenge.objects.filter(
+             Q(user__in=[self.object.pk])
+        )
         return context
 
 
@@ -335,6 +338,10 @@ class ChallengeView(TemplateView, ContextMixin):
             object_id=pk, content_type=ContentType.objects.get_for_model(
                 self.classname)
         )
+        try:
+            context["bookmarked"] = BookmarkChallenge.objects.get(user=self.request.user, obj_id=pk)
+        except:
+            context["bookmarked"] = None
 
         if self.challenge.start and self.challenge.end:
             context["time_labels"] = [
@@ -545,7 +552,12 @@ def add_bookmark(request):
     if request.method == "POST":
         user = request.user
         pk = request.POST["challenge_pk"]
-        bookmark, created = BookmarkChallenge.get_or_create(user=user, obj_id=pk)
+        bookmark, created = BookmarkChallenge.objects.get_or_create(user=user, obj_id=pk)
         # If no new bookmark has been created, then the request is to delete the bookmark
         if not created:
             bookmark.delete()
+<<<<<<< HEAD
+=======
+
+    return JsonResponse("Success", safe=False)
+>>>>>>> 66a22befea151a385d667c19912a0a9fda86b9c3
