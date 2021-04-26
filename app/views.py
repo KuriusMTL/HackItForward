@@ -18,7 +18,6 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormMixin, FormView, UpdateView
-from django.http import JsonResponse
 
 from django.http import JsonResponse
 import requests
