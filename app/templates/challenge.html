@@ -72,6 +72,18 @@
                 <a onclick="shareOnReddit(window.location.href.toString())" class="share-social-icon level-content level-item">
                   <i class="fab fa-reddit fa-lg"></i>
                 </a>
+                {% if bookmarked %}
+                <a id="bookmark" class="popup share-social-icon level-content level-item" onclick="displayLinkCopied('2')">
+                  <i class="fas fa-bookmark fa-lg" style="color: #4F4F4F;"></i>
+                  <span class="popuptext" id="copy-popup-2">Bookmark removed!</span>
+                </a>
+                {% else %}
+                <a id="bookmark" class="popup share-social-icon level-content level-item" onclick="displayLinkCopied('3')">
+                  <i class="far fa-bookmark fa-lg" style="color: #4F4F4F;"></i>
+                  <span class="popuptext" id="copy-popup-3">Bookmarked!</span>
+                </a>
+                {% endif %}
+              </a>
                 {% if challenge.can_edit(request.user) %}
                   <div class="nav-item has-sub" style="margin-right: -6px;">
                     <a class="nav-dropdown-link" style="color: #4F4F4F;" id="expand">
@@ -86,18 +98,6 @@
                     </ul>
                 </div>
                 {% endif %}
-                  {% if bookmarked %}
-                  <a id="bookmark" class="popup share-social-icon level-content level-item" onclick="displayLinkCopied('2')">
-                    <i class="fas fa-bookmark fa-lg" style="color: #4F4F4F;"></i>
-                    <span class="popuptext" id="copy-popup-2">Bookmark removed!</span>
-                  </a>
-                  {% else %}
-                  <a id="bookmark" class="popup share-social-icon level-content level-item" onclick="displayLinkCopied('3')">
-                    <i class="far fa-bookmark fa-lg" style="color: #4F4F4F;"></i>
-                    <span class="popuptext" id="copy-popup-3">Bookmarked!</span>
-                  </a>
-                  {% endif %}
-                </a>
               </div>
             </div>
 
