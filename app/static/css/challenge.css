@@ -21,14 +21,55 @@
   display: none;
 }
 
+.challenge-card-content:hover {
+  cursor: auto;
+}
+
 .project-card-content {
   padding: 32px 32px;
   margin-left: 0px;
   margin-top: 24px;
   margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
 }
 
 .project-card-content:hover {
+  cursor: auto;
+}
+
+#submit-comment {
+  align-self: flex-end;
+}
+
+.comment {
+  display: grid;
+  grid-template-columns: 40px 1fr 20px;
+  grid-template-rows: 40px auto;
+  grid-template-areas: "image username blank-1" "blank-2 content like";
+  align-items: center;
+  column-gap: 16px;
+}
+
+.comment:not(:last-child) {
+  margin-bottom: 16px;
+}
+
+.comment-date {
+  font-size: 12px;
+  font-weight: 500;
+  margin: 0;
+  margin-left: 16px;
+}
+
+.comment-like {
+  align-self: flex-start;
+  grid-area: like;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.comment-actions:hover {
   cursor: pointer;
 }
 
