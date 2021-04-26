@@ -338,6 +338,10 @@ class ChallengeView(TemplateView, ContextMixin):
             object_id=pk, content_type=ContentType.objects.get_for_model(
                 self.classname)
         )
+        try:
+            context["bookmarked"] = BookmarkChallenge.objects.get(user=self.request.user, obj_id=pk)
+        except:
+            context["bookmarked"] = None
 
         if self.challenge.start and self.challenge.end:
             context["time_labels"] = [
@@ -509,3 +513,5 @@ def add_bookmark(request):
         # If no new bookmark has been created, then the request is to delete the bookmark
         if not created:
             bookmark.delete()
+
+    return JsonResponse("Success", safe=False)

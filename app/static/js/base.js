@@ -108,22 +108,13 @@ function openTabWithURL(level) {
   document.getElementById("tab-".concat(level)).currentTarget.classList.add("selected");
 }
 
-function displayLinkCopied(id = 0) {
-  if (id != 0) {
-    var popup = document.getElementById("copy-popup-1");
-    popup.classList.toggle("show");
-
-    setTimeout(function () {
-      $('#copy-popup-1').fadeOut('fast');
-    }, 2000);
-  } else {
-    var popup = document.getElementById("copy-popup");
+function displayLinkCopied(id = "0") {
+    var popup = document.getElementById("copy-popup-".concat(id));
     popup.classList.toggle("show");
     setTimeout(function () {
-      $('#copy-popup').fadeOut('fast');
+      $('#copy-popup-'.concat(id)).fadeOut('fast');
     }, 2000);
 
-  }
 }
 
 function shareOnFB(url) {

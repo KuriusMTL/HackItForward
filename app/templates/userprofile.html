@@ -155,7 +155,7 @@
 
     {% if not projects %}
       <div class="col-12">
-        {% if user != profile %}
+        {% if user.profile != profile %}
           <p>{{ user.username }} has not created or contributed to any projects yet.</p>
         {% else %}
         <p>No projects yet! Check out <a href="{{ url('index') }}">Explore</a> for some challenges to submit to and projects to contribute to.</p>
@@ -194,6 +194,15 @@
         </div>
       </div>
       {% endfor %}
+      {% if not bookmarks %}
+      <div class="col-12">
+        {% if user.profile != profile %}
+          <p>{{ user.username }} has no bookmarks.</p>
+        {% else %}
+        <p>No bookmarks yet! Check out <a href="{{ url('index') }}">Explore</a> for some challenges to bookmark.</p>
+        {% endif %}
+      </div>
+    {% endif %}
     </div>
   </div>
 

@@ -56,9 +56,9 @@
 
 
               <div class="level col-4 offset-2" style="max-width: 50%; margin: 0; width: auto;">
-                <a class="popup clipboard-btn share-social-icon level-content level-item" onclick="displayLinkCopied()">
+                <a class="popup clipboard-btn share-social-icon level-content level-item" onclick="displayLinkCopied('0')">
                   <i class="fas fa-link fa-lg" style="color: #868686;"></i>
-                  <span class="popuptext" id="copy-popup">Link copied!</span>
+                  <span class="popuptext" id="copy-popup-0">Link copied!</span>
                 </a>
                 <a onclick="shareOnFB(window.location.href.toString())" class="share-social-icon level-content level-item">
                   <i class="fab fa-facebook fa-lg" aria-hidden="true"></i>
@@ -86,10 +86,17 @@
                     </ul>
                 </div>
                 {% endif %}
-
-                <!-- TODO: Implement bookmarking -->
-                <a id="bookmark" class="share-social-icon level-content level-item">
-                  <i class="fas fa-bookmark fa-lg" style="color: #4F4F4F;"></i>
+                  {% if bookmarked %}
+                  <a id="bookmark" class="popup share-social-icon level-content level-item" onclick="displayLinkCopied('2')">
+                    <i class="far fa-bookmark fa-lg" style="color: #4F4F4F;"></i>
+                    <span class="popuptext" id="copy-popup-2">Bookmark removed!</span>
+                  </a>
+                  {% else %}
+                  <a id="bookmark" class="popup share-social-icon level-content level-item" onclick="displayLinkCopied('3')">
+                    <i class="fas fa-bookmark fa-lg" style="color: #4F4F4F;"></i>
+                    <span class="popuptext" id="copy-popup-3">Bookmarked!</span>
+                  </a>
+                  {% endif %}
                 </a>
               </div>
             </div>
@@ -115,7 +122,7 @@
               {% endif %}
               <h3 class="u-text-center">Share This Challenge</h3>
                 <div class="row">
-                  <a class="popup clipboard-btn share-social-icon level-content level-item" onclick="displayLinkCopied(1)">
+                  <a class="popup clipboard-btn share-social-icon level-content level-item" onclick="displayLinkCopied('1')">
                     <i class="fas fa-link fa-lg" style="color: #868686;"></i>
                     <span class="popuptext" id="copy-popup-1">Link copied!</span>
                   </a>
@@ -299,9 +306,14 @@
       data: {
         'challenge_pk': {{ challenge.pk }},
         'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
-      }
+      },
+        success: function() {
+          setTimeout(function () {
+            location.reload()
+          }, 2000);
+        }
     })
-    
+
   });
   </script>
 {% endblock %}
