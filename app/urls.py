@@ -34,10 +34,10 @@ urlpatterns = [
     path("get_challenges_ajax/", views.get_challenges_ajax, name="get_challenges_ajax"),
     path("follow_user/<int:pk>/", views.follow_user, name="follow_user"),
     path("unfollow_user/<int:pk>/", views.unfollow_user, name="unfollow_user"),
-    path("addUnsplashPicture/", views.addUnsplashPicture, name="addUnsplashPicture")
-    path("challenge/<int:pk>/upvote/", views.upvote_challenge, name="upvote_challenge")
-    path("comment/<int:pk>/upvote/", views.upvote_comment, name="upvote_comment")
-    path("project/<int:pk>/upvote/", views.upvote_project, name="upvote_project")
     path("addUnsplashPicture/", views.addUnsplashPicture, name="addUnsplashPicture"),
-    path("add_bookmark/", views.add_bookmark, name="add_bookmark")
+    path("addUnsplashPicture/", views.addUnsplashPicture, name="addUnsplashPicture"),
+    path("add_bookmark/", views.add_bookmark, name="add_bookmark"),
+    path("upvote/<str:obj_type>/<int:pk>/", views.upvote, name="upvote"),
+    path("upvote/<str:obj_type>/challenge/<int:challenge_id>/<int:pk>/", views.upvote, name="upvote"),
+    path("upvote/<str:obj_type>/project/<int:project_id>/<int:pk>/", views.upvote, name="upvote"),
 ]

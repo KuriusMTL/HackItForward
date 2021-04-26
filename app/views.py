@@ -556,8 +556,5 @@ def add_bookmark(request):
         # If no new bookmark has been created, then the request is to delete the bookmark
         if not created:
             bookmark.delete()
-<<<<<<< HEAD
-=======
 
     return JsonResponse("Success", safe=False)
->>>>>>> 66a22befea151a385d667c19912a0a9fda86b9c3

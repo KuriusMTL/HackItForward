@@ -460,14 +460,14 @@ class Upvote(models.Model):
 class UpvoteChallenge(Upvote):
     class Meta:
         db_table = "upvote_challenge"
-    obj = models.ForeignKey(Challenge, verbose_name="Challenge" on_delete=models.CASCADE, null=True)
+    obj = models.ForeignKey(Challenge, verbose_name="Challenge", on_delete=models.CASCADE, null=True)
 
 class UpvoteProject(Upvote):
     class Meta:
         db_table = "upvote_project"
-    obj = models.ForeignKey(Project, verbose_name="Project" on_delete=models.CASCADE, null=True)
+    obj = models.ForeignKey(Project, verbose_name="Project", on_delete=models.CASCADE, null=True)
 
 class UpvoteComment(Upvote):
     class Meta:
         db_table = "upvote_comment"
-    obj = models.ForeignKey(Comment, verbose_name="Comment" on_delete=models.CASCADE, null=True)
+    obj = models.ForeignKey(Comment, verbose_name="Comment", on_delete=models.CASCADE, null=True)
