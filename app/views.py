@@ -1,5 +1,5 @@
 from app.forms import ProfileUpdateForm, UserUpdateForm, SocialLinkFormSet, PasswordUpdateForm, OnboardingForm
-from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, User, UserFollowing, BookmarkChallenge
+from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, User, UserFollowing, BookmarkChallenge, UpvoteChallenge, UpvoteComment, UpvoteProject, Comment
 
 from django.core import files
 from django.core.exceptions import PermissionDenied
@@ -344,6 +344,14 @@ class ChallengeView(TemplateView, ContextMixin):
             context["bookmarked"] = BookmarkChallenge.objects.get(user=self.request.user, obj_id=pk)
         except:
             context["bookmarked"] = None
+        context["user_upvote_comments"] = []
+        for comment in self.challenge.comments.all():
+            try:
+                UpvoteComment.objects.get(obj=comment.id, user=self.request.user)
+                context["user_upvote_comments"].append(True)
+            except:
+                context["user_upvote_comments"].append(False)
+            
 
         if self.challenge.start and self.challenge.end:
             context["time_labels"] = [
@@ -504,6 +512,40 @@ def addUnsplashPicture(request):
 
         request.user.profile.image.save(file_name, files.File(lf))
 
+    return JsonResponse("Success", safe=False)
+
+def upvote(request, obj_type, pk):
+    obj = ""
+    if obj_type == "challenge":
+        obj = Challenge.objects.get(pk=pk)
+    elif obj_type == "project":
+        obj = Project.objects.get(pk=pk)
+    elif obj_type == "comment":
+        obj = Comment.objects.get(pk=pk)
+    user = request.user
+    try:
+        voted = ""
+        if obj_type == "challenge":
+            voted = UpvoteChallenge.objects.get(obj=obj, user=user)
+        elif obj_type == "project":
+            voted = UpvoteProject.objects.get(obj=obj, user=user)
+        elif obj_type == "comment":
+            voted = UpvoteComment.objects.get(obj=obj, user=user)
+        voted.delete()
+        obj.upvotes -= 1
+    except:
+        objVote = ""
+        if obj_type == "challenge":
+            objVote = UpvoteChallenge()
+        elif obj_type == "project":
+            objVote = UpvoteProject()
+        elif obj_type == "comment":
+            objVote = UpvoteComment()
+        objVote.obj = obj
+        objVote.user = user
+        objVote.save()
+        obj.upvotes += 1
+        obj.save()
     return JsonResponse("Success", safe=False)
 
 def add_bookmark(request):

@@ -111,98 +111,94 @@
         </div>
 
       </div>
-
+      <p style="margin-left: 20px;">Created on {{ challenge.created }}</p>
     </div>
-
-    <p style="margin-left: 20px;">Created on {{ challenge.created }}</p>
-  </div>
-  <div class="col-3" style="margin-left: 16px;">
-    <div style="position: absolute;" id="social-float">
-
-
-      <div class="modal modal-animated--zoom-in" id="share-modal">
-        <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
-        <div class="modal-content" style="min-width: 500px; border-radius: 16px;">
-          <div class="modal-body">
-            {% if challenge.image %}
-            <div class="share-image-preview" style="background-image: url({{ challenge.image.url }})"></div>
-            {% else %}
-            <div class="share-image-preview" style="background-image: url({{ static('img/polar-bear-2.png') }})">
-            </div>
-            {% endif %}
-            <h3 class="u-text-center">Share This Challenge</h3>
-            <div class="row">
-              <a class="popup clipboard-btn share-social-icon level-content level-item"
-                onclick="displayLinkCopied('1')">
-                <i class="fas fa-link fa-lg" style="color: #868686;"></i>
-                <span class="popuptext" id="copy-popup-1">Link copied!</span>
-              </a>
-              <a onclick="shareOnFB(window.location.href.toString())"
-                class="share-social-icon level-content level-item">
-                <i class="fab fa-facebook fa-lg" aria-hidden="true"></i>
-              </a>
-              <a onclick="shareOnTwitter(window.location.href.toString())"
-                class="share-social-icon level-content level-item">
-                <i class="fab fa-twitter fa-lg"></i>
-              </a>
-              <a onclick="shareOnLinkedIn(window.location.href.toString())"
-                class="share-social-icon level-content level-item">
-                <i class="fab fa-linkedin fa-lg"></i>
-              </a>
-              <a onclick="shareOnReddit(window.location.href.toString())"
-                class="share-social-icon level-content level-item">
-                <i class="fab fa-reddit fa-lg"></i>
-              </a>
+    <div class="col-3" style="margin-left: 16px;">
+      <div style="position: absolute;" id="social-float">
+        <div class="modal modal-animated--zoom-in" id="share-modal">
+          <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
+          <div class="modal-content" style="min-width: 500px; border-radius: 16px;">
+            <div class="modal-body">
+              {% if challenge.image %}
+              <div class="share-image-preview" style="background-image: url({{ challenge.image.url }})"></div>
+              {% else %}
+              <div class="share-image-preview" style="background-image: url({{ static('img/polar-bear-2.png') }})">
+              </div>
+              {% endif %}
+              <h3 class="u-text-center">Share This Challenge</h3>
+              <div class="row">
+                <a class="popup clipboard-btn share-social-icon level-content level-item"
+                  onclick="displayLinkCopied('1')">
+                  <i class="fas fa-link fa-lg" style="color: #868686;"></i>
+                  <span class="popuptext" id="copy-popup-1">Link copied!</span>
+                </a>
+                <a onclick="shareOnFB(window.location.href.toString())"
+                  class="share-social-icon level-content level-item">
+                  <i class="fab fa-facebook fa-lg" aria-hidden="true"></i>
+                </a>
+                <a onclick="shareOnTwitter(window.location.href.toString())"
+                  class="share-social-icon level-content level-item">
+                  <i class="fab fa-twitter fa-lg"></i>
+                </a>
+                <a onclick="shareOnLinkedIn(window.location.href.toString())"
+                  class="share-social-icon level-content level-item">
+                  <i class="fab fa-linkedin fa-lg"></i>
+                </a>
+                <a onclick="shareOnReddit(window.location.href.toString())"
+                  class="share-social-icon level-content level-item">
+                  <i class="fab fa-reddit fa-lg"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    {% if challenge.is_open() %}
-    <a href="{{ url('project_challenge_create', pk=challenge.pk) }}" class="u-center">
-      <button class="btn-primary btn--pilled" style="width: 100%;">Create Solution</button>
-    </a>
-    <a href="#share-modal" class="font-bold u-center" style="margin: 20px 0;">Share Challenge &nbsp;<i
-        class="fas fa-share"></i></a>
-    {% endif %}
+        {% if challenge.is_open() %}
+        <a href="{{ url('project_challenge_create', pk=challenge.pk) }}" class="u-center">
+          <button class="btn-primary btn--pilled" style="width: 100%;">Create Solution</button>
+        </a>
+        <a href="#share-modal" class="font-bold u-center" style="margin: 20px 0;">Share Challenge &nbsp;<i
+            class="fas fa-share"></i></a>
+        {% endif %}
 
 
-    <!-- Tags -->
-    {% if challenge.tags.exists() %}
-    <div class="challenge-card">
-      <div class="challenge-card-content">
-        <h5 style="margin-top: 0px;">Tags</h5>
-        <div class="row" style="padding: 0;">
-          {% for tag in challenge.tags.all() %}
-          <a class="challenge-tag" href="{{ url('gallery') }}?type={{ challenge|class_name|lower }}&tag={{ tag.name }}">
-            <button class="btn-tag btn--pilled btn-primary btn-small" style="font-weight: 500; font-size: 12px;">{{
-              tag.name }}</button>
-          </a>
-          {% endfor %}
+        <!-- Tags -->
+        {% if challenge.tags.exists() %}
+        <div class="challenge-card">
+          <div class="challenge-card-content">
+            <h5 style="margin-top: 0px;">Tags</h5>
+            <div class="row" style="padding: 0;">
+              {% for tag in challenge.tags.all() %}
+              <a class="challenge-tag"
+                href="{{ url('gallery') }}?type={{ challenge|class_name|lower }}&tag={{ tag.name }}">
+                <button class="btn-tag btn--pilled btn-primary btn-small" style="font-weight: 500; font-size: 12px;">{{
+                  tag.name }}</button>
+              </a>
+              {% endfor %}
+            </div>
+          </div>
         </div>
+        {% endif %}
+
+        <h4 style="margin-top: 32px;">Related Challenges</h4>
+        {% for challenge in related_challenges %}
+        <div class="related-challenge row" onclick="location.href=`{{ url('challenge', pk=challenge.pk) }}`">
+          {% if challenge.image %}
+          <img class="col-3 related-challenge-image-preview" style="background-image: url({{ challenge.image.url }})">
+          {% else %}
+          <div class="col-3 related-challenge-image-preview"
+            style="background-image: url({{ static('img/polar-bear.png')}})"></div>
+          {% endif %}
+
+          <div class="col-8" style="margin-left: 15px">
+            <h6 style="font-size: 16px; margin-bottom: 0; margin-top:0;">{{ challenge.name }}</h6>
+            <p style="font-size: 16px; margin-top: 5px; line-height: 20px;">{{ challenge.description|truncatechars(60)
+              }}</p>
+          </div>
+        </div>
+        {% endfor %}
       </div>
     </div>
-    {% endif %}
-
-    <h4 style="margin-top: 32px;">Related Challenges</h4>
-    {% for challenge in related_challenges %}
-    <div class="related-challenge row" onclick="location.href=`{{ url('challenge', pk=challenge.pk) }}`">
-      {% if challenge.image %}
-      <img class="col-3 related-challenge-image-preview" style="background-image: url({{ challenge.image.url }})">
-      {% else %}
-      <div class="col-3 related-challenge-image-preview"
-        style="background-image: url({{ static('img/polar-bear.png')}})"></div>
-      {% endif %}
-
-      <div class="col-8" style="margin-left: 15px">
-        <h6 style="font-size: 16px; margin-bottom: 0; margin-top:0;">{{ challenge.name }}</h6>
-        <p style="font-size: 16px; margin-top: 5px; line-height: 20px;">{{ challenge.description|truncatechars(60)
-          }}</p>
-      </div>
-    </div>
-    {% endfor %}
   </div>
-</div>
 </div>
 <br>
 
@@ -240,7 +236,7 @@
                 <p style="margin: 0">{{ comment.text }}</p>
                 <i class="fas fa-ellipsis-h comment-actions"></i>
               </div>
-                <i class="far fa-heart comment-like"></i>
+              <i class="far fa-heart comment-like"></i>
             </div>
             {% endfor %}
 
@@ -333,7 +329,7 @@
     displayLinkCopied('2');
     $("#bookmark-icon").toggleClass("far");
     $("#bookmark-icon").toggleClass("fas");
-      $("#bookmark-icon").hasClass("far")
+    $("#bookmark-icon").hasClass("far")
       ? $("#copy-popup-2").html("Bookmark removed!")
       : $("#copy-popup-2").html("Bookmarked!");
     $.ajax({
@@ -341,10 +337,10 @@
       url: `/add_bookmark/`,
       data: {
         'challenge_pk': {{ challenge.pk }},
-        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
+    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
       },
-      success: function () {
-      }
+    success: function () {
+    }
     });
   });
 
