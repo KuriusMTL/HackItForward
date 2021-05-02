@@ -53,9 +53,9 @@
       {% if not challenges %}
         <div class="col-12">
           {% if q or selected_tags %}
-            <p>No {{ name }}s matching your query have been found. Perhaps try {{ "selecting less tags" if selected_tags else "broadening your search" }}?</p>
+            <p>No challenges matching your query have been found. Perhaps try {{ "selecting less tags" if selected_tags else "broadening your search" }}?</p>
           {% else %}
-            <p>No {{ name }}s have been published yet.</p>
+            <p>No challenges have been published yet.</p>
           {% endif %}
         </div>
       {% endif %}
