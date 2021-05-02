@@ -1,10 +1,10 @@
 var url = document.location.href;
 
 $(document).ready(() => {
-  if(window.location.href.indexOf('#bookmarks') != -1) {
+  if (window.location.href.indexOf('#bookmarks') != -1) {
     openTabWithURL('bookmarks')
   }
-  if(window.location.href.indexOf('#comments') != -1) {
+  if (window.location.href.indexOf('#comments') != -1) {
     openTabWithURL('comments')
   }
   new Clipboard('.clipboard-btn', {
@@ -108,13 +108,19 @@ function openTabWithURL(level) {
   document.getElementById("tab-".concat(level)).currentTarget.classList.add("selected");
 }
 
-function displayLinkCopied(id = "0") {
-    var popup = document.getElementById("copy-popup-".concat(id));
-    popup.classList.toggle("show");
-    setTimeout(function () {
-      $('#copy-popup-'.concat(id)).fadeOut('fast');
-    }, 2000);
+var timeout = {};
 
+function displayLinkCopied(id = "0") {
+  if (timeout[id]) clearTimeout(timeout[id])
+  const popup = $(`#copy-popup-${id}`);
+  popup.addClass("show");
+  popup.show();
+  timeout[id] = setTimeout(()=>{
+    popup.fadeOut('fast');
+    setTimeout(()=>{
+      popup.removeClass("show");
+    }, 500)
+  }, 2000);
 }
 
 function shareOnFB(url) {
@@ -184,7 +190,7 @@ function searchUnsplash() {
       var img = document.createElement('img');
       img.src = urlArray[i]; // img[i] refers to the current URL.
       list_element.appendChild(img);
-      list_element.addEventListener("click", function(event) { //Detect when an image is being clicked, and make AJAX request
+      list_element.addEventListener("click", function (event) { //Detect when an image is being clicked, and make AJAX request
         container.innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>'
         $.ajax({
           type: "POST",
@@ -193,8 +199,8 @@ function searchUnsplash() {
             'url': event.target.src,
             'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
           },
-          success: function() {
-          location.reload()
+          success: function () {
+            location.reload()
           }
         })
       })
@@ -203,8 +209,8 @@ function searchUnsplash() {
   })
 }
 
-$("#challenge-level").change(function(){ 
+$("#challenge-level").change(function () {
   /* Be careful with SQL injections */
   var selectedLevel = $('#challenge-level').find(":selected").val();
-  
+
 });

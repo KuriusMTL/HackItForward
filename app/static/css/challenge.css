@@ -67,6 +67,11 @@
   grid-area: like;
   margin-top: 8px;
   cursor: pointer;
+  color: #4F4F4F;
+}
+
+.comment-like.fas {
+  color: #E25328;
 }
 
 .comment-actions:hover {

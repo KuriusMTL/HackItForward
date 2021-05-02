@@ -81,16 +81,14 @@
                 <i class="fab fa-reddit fa-lg"></i>
               </a>
               {% if bookmarked %}
-              <a id="bookmark" class="popup share-social-icon level-content level-item"
-                onclick="displayLinkCopied('2');">
+              <a id="bookmark" class="popup share-social-icon level-content level-item">
                 <i class="fas fa-bookmark fa-lg" id="bookmark-icon" style="color: #4F4F4F;"></i>
                 <span class="popuptext" id="copy-popup-2">Bookmark removed!</span>
               </a>
               {% else %}
-              <a id="bookmark" class="popup share-social-icon level-content level-item"
-                onclick="displayLinkCopied('3');">
+              <a id="bookmark" class="popup share-social-icon level-content level-item">
                 <i class="far fa-bookmark fa-lg" id="bookmark-icon" style="color: #4F4F4F;"></i>
-                <span class="popuptext" id="copy-popup-3">Bookmarked!</span>
+                <span class="popuptext" id="copy-popup-2">Bookmarked!</span>
               </a>
               {% endif %}
               </a>
@@ -242,7 +240,7 @@
                 <p style="margin: 0">{{ comment.text }}</p>
                 <i class="fas fa-ellipsis-h comment-actions"></i>
               </div>
-              <i class="far fa-heart comment-like"></i>
+                <i class="far fa-heart comment-like"></i>
             </div>
             {% endfor %}
 
@@ -330,23 +328,39 @@
       })
     }
   });
+
   $("#bookmark").on('click', function (e) {
+    displayLinkCopied('2');
     $("#bookmark-icon").toggleClass("far");
     $("#bookmark-icon").toggleClass("fas");
+      $("#bookmark-icon").hasClass("far")
+      ? $("#copy-popup-2").html("Bookmark removed!")
+      : $("#copy-popup-2").html("Bookmarked!");
     $.ajax({
       type: "POST",
       url: `/add_bookmark/`,
       data: {
         'challenge_pk': {{ challenge.pk }},
-    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
+        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
       },
-    success: function () {
-      setTimeout(function () {
-        location.reload()
-      }, 2000);
-    }
-    })
+      success: function () {
+      }
+    });
+  });
 
+  $(".comment-like").on('click', function (e) {
+    e.target.classList.toggle("far");
+    e.target.classList.toggle("fas");
+    /*$.ajax({
+      type: "POST",
+      url: `/add_like/`,
+      data: {
+        'challenge_pk': {{ challenge.pk }},
+        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
+      },
+      success: function () {
+      }
+    });*/
   });
 </script>
 {% endblock %}
