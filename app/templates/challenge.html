@@ -109,10 +109,12 @@
             </div>
           </div>
         </div>
-
       </div>
       <p style="margin-left: 20px;">Created on {{ challenge.created }}</p>
+<<<<<<< HEAD
     </div>
+=======
+>>>>>>> c3380236bbb036cc5784b8b6cdf23f6fb452ee72
     <div class="col-3" style="margin-left: 16px;">
       <div style="position: absolute;" id="social-float">
         <div class="modal modal-animated--zoom-in" id="share-modal">
@@ -168,8 +170,12 @@
             <h5 style="margin-top: 0px;">Tags</h5>
             <div class="row" style="padding: 0;">
               {% for tag in challenge.tags.all() %}
+<<<<<<< HEAD
               <a class="challenge-tag"
                 href="{{ url('gallery') }}?type={{ challenge|class_name|lower }}&tag={{ tag.name }}">
+=======
+              <a class="challenge-tag" href="{{ url('gallery') }}?type={{ challenge|class_name|lower }}&tag={{ tag.name }}">
+>>>>>>> c3380236bbb036cc5784b8b6cdf23f6fb452ee72
                 <button class="btn-tag btn--pilled btn-primary btn-small" style="font-weight: 500; font-size: 12px;">{{
                   tag.name }}</button>
               </a>
@@ -198,113 +204,119 @@
         {% endfor %}
       </div>
     </div>
+<<<<<<< HEAD
   </div>
 </div>
 <br>
+=======
+  
+  </div>
+  <br>
+>>>>>>> c3380236bbb036cc5784b8b6cdf23f6fb452ee72
 
-<div class="row">
-  <div class="col-8">
-    <div class="tab-container tabs-large">
-      <ul>
-        <li class="tablevel selected" onclick="openTab(event, 'submissions')"><a class=""
-            style="background-color:transparent;">Submissions</a></li>
-        <li class="tablevel" id="tab-comments" onclick="openTab(event, 'comments')"><a class=""
-            style="background-color:transparent;">Comments</a></li>
-      </ul>
-    </div>
-    <div class="row tabcontent" id="comments">
-      <div class="challenge-card">
-        <div class="project-card-content">
-          <h5>Give Feedback</h5>
-          <textarea type="text" name="comment" id="id_comment" class="comment-input"
-            placeholder="Share your thoughts"></textarea>
+  <div class="row">
+    <div class="col-8">
+      <div class="tab-container tabs-large">
+        <ul>
+          <li class="tablevel selected" onclick="openTab(event, 'submissions')"><a class=""
+              style="background-color:transparent;">Submissions</a></li>
+          <li class="tablevel" id="tab-comments" onclick="openTab(event, 'comments')"><a class=""
+              style="background-color:transparent;">Comments</a></li>
+        </ul>
+      </div>
+      <div class="row tabcontent" id="comments">
+        <div class="challenge-card">
+          <div class="project-card-content">
+            <h5>Give Feedback</h5>
+            <textarea type="text" name="comment" id="id_comment" class="comment-input"
+              placeholder="Share your thoughts"></textarea>
 
-          <button id="submit-comment" class="btn--pilled btn-primary">Submit</button>
+            <button id="submit-comment" class="btn--pilled btn-primary">Submit</button>
 
 
-          {% csrf_token %}
-          {% for comment in challenge.comments.all() %}
-          <div style="display:flex; flex-direction: column;">
-            <!-- <a href="{{ url('user', username=comment.profile.username) }}"></a> -->
-            <div class="comment">
-              <img class="comment-profile-image" src="{{ profile.image.url }}" style="grid-area: image;" />
-              <h6 style="margin: 0; grid-area: username;">
-                {{ comment.profile.user.username}}
-                <span class="comment-date">{{ comment.humanized_date }}</span>
-              </h6>
-              <div style="grid-area: content;">
-                <p style="margin: 0">{{ comment.text }}</p>
-                <i class="fas fa-ellipsis-h comment-actions"></i>
+            {% csrf_token %}
+            {% for comment in challenge.comments.all() %}
+            <div style="display:flex; flex-direction: column;">
+              <!-- <a href="{{ url('user', username=comment.profile.username) }}"></a> -->
+              <div class="comment">
+                <img class="comment-profile-image" src="{{ profile.image.url }}" style="grid-area: image;" />
+                <h6 style="margin: 0; grid-area: username;">
+                  {{ comment.profile.user.username}}
+                  <span class="comment-date">{{ comment.humanized_date }}</span>
+                </h6>
+                <div style="grid-area: content;">
+                  <p style="margin: 0">{{ comment.text }}</p>
+                  <i class="fas fa-ellipsis-h comment-actions"></i>
+                </div>
+                <i class="far fa-heart comment-like"></i>
               </div>
-              <i class="far fa-heart comment-like"></i>
-            </div>
-            {% endfor %}
+              {% endfor %}
 
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="row tabcontent" id="submissions" style="display: block;">
-        {% for project in projects %}
-        <div class="challenge-card">
-          <a href="#{{ project.name }}">
-            <div class="project-card-content row">
-              {% if project.image %}
-              <div class="project-card-image-preview col-3" style="background-image: url({{ project.image.url }});">
+        <div class="row tabcontent" id="submissions" style="display: block;">
+          {% for project in projects %}
+          <div class="challenge-card">
+            <a href="#{{ project.name }}">
+              <div class="project-card-content row">
+                {% if project.image %}
+                <div class="project-card-image-preview col-3" style="background-image: url({{ project.image.url }});">
+                </div>
+                {% else %}
+                <div class="project-card-image-preview col-3"
+                  style="background-image: url({{ static('img/polar-bear.png') }});"></div>
+                {% endif %}
+
+                <div class="col-7" style="padding-left: 32px;">
+                  <h3 class="">{{ project.name }}</h3>
+                  <p class="grey">{{ project.description|truncatechars(100) }}</p>
+
+                  <a href="{{ url('user', username=project.creators.first().username) }}">
+                    <div class="row">
+                      <img class="profile-icon vertical-align" src="{{ project.creators.first().image.url }}" />
+                      <p style="font-weight: 500; margin:0" class="grey">{{ project.short_creators }}</p>
+                    </div>
+                  </a>
+                </div>
               </div>
-              {% else %}
-              <div class="project-card-image-preview col-3"
-                style="background-image: url({{ static('img/polar-bear.png') }});"></div>
-              {% endif %}
-
-              <div class="col-7" style="padding-left: 32px;">
-                <h3 class="">{{ project.name }}</h3>
-                <p class="grey">{{ project.description|truncatechars(100) }}</p>
-
-                <a href="{{ url('user', username=project.creators.first().username) }}">
-                  <div class="row">
-                    <img class="profile-icon vertical-align" src="{{ project.creators.first().image.url }}" />
-                    <p style="font-weight: 500; margin:0" class="grey">{{ project.short_creators }}</p>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </a>
-        </div>
-        {% else %}
-        <div class="challenge-card">
-          <div class="project-card-content u-text-center">
-            <div class="no-projects-logo">
-              <i id="plane" class="far fa-paper-plane fa-4x"></i>
-              <span id="circle" class="circle" style="background-color: #ECF3FD;"></span>
-            </div>
-            {% if challenge.is_open() %}
-            <p class="grey">No projects have been posted to this challenge yet, be the first!</p>
-            <a href="{{ url('project_challenge_create', pk=challenge.pk) }}" class="u-center">
-              <button class="btn-primary btn--pilled">Submit Project</button>
             </a>
-            {% else %}
-            <p class="grey">No projects have been posted to this challenge.</p>
-            {% endif %}
-            <a href="#share-modal" class="font-bold" style="margin-top: 12px;">Share Challenge &nbsp;<i
-                class="fas fa-share"></i></a>
           </div>
+          {% else %}
+          <div class="challenge-card">
+            <div class="project-card-content u-text-center">
+              <div class="no-projects-logo">
+                <i id="plane" class="far fa-paper-plane fa-4x"></i>
+                <span id="circle" class="circle" style="background-color: #ECF3FD;"></span>
+              </div>
+              {% if challenge.is_open() %}
+              <p class="grey">No projects have been posted to this challenge yet, be the first!</p>
+              <a href="{{ url('project_challenge_create', pk=challenge.pk) }}" class="u-center">
+                <button class="btn-primary btn--pilled">Submit Project</button>
+              </a>
+              {% else %}
+              <p class="grey">No projects have been posted to this challenge.</p>
+              {% endif %}
+              <a href="#share-modal" class="font-bold" style="margin-top: 12px;">Share Challenge &nbsp;<i
+                  class="fas fa-share"></i></a>
+            </div>
+          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
+
       </div>
 
+      <!-- <h4 style="text-align: center;">Challenge Contributions by Region</h4>
+        <div class="map-container w-100 h-50">
+          <div id="map"></div>
+          <script src="{{ static('js/heatmap.js') }}"></script>
+        </div>
+        <br>
+        <br> -->
     </div>
-
-    <!-- <h4 style="text-align: center;">Challenge Contributions by Region</h4>
-      <div class="map-container w-100 h-50">
-        <div id="map"></div>
-        <script src="{{ static('js/heatmap.js') }}"></script>
-      </div>
-      <br>
-      <br> -->
   </div>
 </div>
-
 <script>
   $("#submit-comment").on('click', function (e) {
     var comment = $("#id_comment").val();

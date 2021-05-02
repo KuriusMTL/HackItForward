@@ -44,9 +44,9 @@ function checkOffset() {
       $('#social-float').css('position', 'absolute');
     // Calculate top of social float to not go over footer
     var footerOffset = $('#footer').offset().top;
-    var bottomSocialFloat = $('#social-float').offset().top + $('#social-float').height();
-    var diff = footerOffset - bottomSocialFloat;
     var topSocialFloat = $('#social-float').offset().top;
+    var bottomSocialFloat = topSocialFloat + $('#social-float').height();
+    var diff = footerOffset - bottomSocialFloat;
     var stringTop = '';
     if (diff < 0) {
       topSocialFloat += diff;
