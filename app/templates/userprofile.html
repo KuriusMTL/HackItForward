@@ -104,22 +104,37 @@
         </div>
       </div>
 
-
-      {% if links.exists() %}
+      
         <div class="col-3">
-          <div class="profile-card">
-            <h4 style="margin-top: 0;">Connect</h4>
-            <div class="level">
-              <!-- <a href="mailto:{{ request.user.email }}" target="_blank" class="share-social-icon level-content level-item">
-                <i class="fas fa-envelope fa-lg" aria-hidden="true" style="color: #4F4F4F;"></i>
-              </a> -->
-              {% for link in links.all() %}
-                <a class="share-social-icon level-content level-item" href="{{ link.content|e }}" target="_blank"><i class="fab fa-{{ link.icon }} fa-2x"></i></a>
-              {% endfor %}
+          {% if links.exists() %}
+          <div class="row">
+            <div class="profile-card">
+              <h4 style="margin-top: 0;">Connect</h4>
+              <div class="level">
+                <!-- <a href="mailto:{{ request.user.email }}" target="_blank" class="share-social-icon level-content level-item">
+                  <i class="fas fa-envelope fa-lg" aria-hidden="true" style="color: #4F4F4F;"></i>
+                </a> -->
+                {% for link in links.all() %}
+                  <a class="share-social-icon level-content level-item" href="{{ link.content|e }}" target="_blank"><i class="fab fa-{{ link.icon }} fa-2x"></i></a>
+                {% endfor %}
+              </div>
             </div>
           </div>
+          {% endif %}
+          {% if user.profile.badges.exists() %}
+          <div class="row">
+            <div class="profile-card">
+              <h4 style="margin-top: 0;">Achievements</h4>
+              <div class="level">
+                {% for badge in user.profile.badges.all() %}
+                  <div style="background-image: url({{ badge.image.url }})"></div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          {% endif %}
         </div>
-      {% endif %}
+      
 
     </div>
   </div>

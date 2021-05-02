@@ -215,18 +215,21 @@
         <div class="challenge-card">
           <div class="project-card-content">
             <h5>Give Feedback</h5>
+            {% if request.user.is_authenticated %}
             <textarea type="text" name="comment" id="id_comment" class="comment-input"
               placeholder="Share your thoughts"></textarea>
 
             <button id="submit-comment" class="btn--pilled btn-primary">Submit</button>
-
+            {% else %}
+            <a href="{{ url('login') }}">Log in</a> to comment!
+            {% endif %}
 
             {% csrf_token %}
             {% for comment in challenge.comments.all() %}
             <div style="display:flex; flex-direction: column;">
               <!-- <a href="{{ url('user', username=comment.profile.username) }}"></a> -->
               <div class="comment">
-                <img class="comment-profile-image" src="{{ profile.image.url }}" style="grid-area: image;" />
+                <img class="comment-profile-image" src="{{ comment.profile.image.url }}" style="grid-area: image;" />
                 <h6 style="margin: 0; grid-area: username;">
                   {{ comment.profile.user.username}}
                   <span class="comment-date">{{ comment.humanized_date }}</span>
