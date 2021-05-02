@@ -228,6 +228,7 @@ class EditProfileView(LoginRequiredMixin, SocialLinkFormMixin, UpdateView):
         return self.request.user.profile
 
 
+
 class OnboardingView(LoginRequiredMixin, SocialLinkFormMixin, UpdateView):
     template_name = "onboarding.html"
     form_class = ProfileUpdateForm
