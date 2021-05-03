@@ -226,11 +226,15 @@
             {% csrf_token %}
             {% for comment in challenge.comments.all().order_by('-date_added') %}
             <div style="display:flex; flex-direction: column;">
-              <!-- <a href="{{ url('user', username=comment.profile.username) }}"></a> -->
+
               <div class="comment">
-                <img class="comment-profile-image" src="{{ comment.profile.image.url }}" style="grid-area: image;" />
+                <a href="{{ url('user', username=comment.profile.username) }}">
+                  <img class="comment-profile-image" src="{{ comment.profile.image.url }}" style="grid-area: image;" />
+                </a>
                 <h6 style="margin: 0; grid-area: username;">
-                  {{ comment.profile.user.username}}
+                  <a style="color: inherit; text-decoration: none; font-weight: inherit;" href="{{ url('user', username=comment.profile.username) }}">
+                    {{ comment.profile.user.username}}
+                  </a>
                   <span class="comment-date">{{ comment.humanized_date }}</span>
                 </h6>
                 <div style="grid-area: content;">
