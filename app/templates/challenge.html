@@ -245,11 +245,10 @@
         </div>
       </div>
       <div class="row tabcontent" id="submissions" style="display: block;">
-        {% if projects %}
-          {% for project in projects %}
-            {% include 'project_preview_card.html' %}
-          {% endfor %}
-        {% else %}
+        {% for project in projects %}
+          {% include 'project_preview_card.html' %}
+        {% endfor %}
+        {% if not projects %}
         <div class="challenge-card">
           <div class="project-card-content u-text-center">
             <div class="no-projects-logo">

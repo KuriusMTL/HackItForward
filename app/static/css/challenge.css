@@ -30,8 +30,6 @@
   margin-left: 0px;
   margin-top: 24px;
   margin-bottom: 24px;
-  display: flex;
-  flex-direction: column;
 }
 
 .project-card-content:hover {
