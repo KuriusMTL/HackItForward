@@ -224,7 +224,7 @@
             {% endif %}
 
             {% csrf_token %}
-            {% for comment in challenge.comments.all() %}
+            {% for comment in challenge.comments.all().order_by('-date_added') %}
             <div style="display:flex; flex-direction: column;">
               <!-- <a href="{{ url('user', username=comment.profile.username) }}"></a> -->
               <div class="comment">
@@ -239,13 +239,13 @@
                 </div>
                 <i class="far fa-heart comment-like"></i>
               </div>
-              {% endfor %}
-
             </div>
+            {% endfor %}
           </div>
         </div>
-
-        <div class="row tabcontent" id="submissions" style="display: block;">
+      </div>
+      <div class="row tabcontent" id="submissions" style="display: block;">
+        {% if projects %}
           {% for project in projects %}
           <div class="challenge-card">
             <a href="#{{ project.name }}">
@@ -272,28 +272,28 @@
               </div>
             </a>
           </div>
-          {% else %}
-          <div class="challenge-card">
-            <div class="project-card-content u-text-center">
-              <div class="no-projects-logo">
-                <i id="plane" class="far fa-paper-plane fa-4x"></i>
-                <span id="circle" class="circle" style="background-color: #ECF3FD;"></span>
-              </div>
-              {% if challenge.is_open() %}
-              <p class="grey">No projects have been posted to this challenge yet, be the first!</p>
-              <a href="{{ url('project_challenge_create', pk=challenge.pk) }}" class="u-center">
-                <button class="btn-primary btn--pilled">Submit Project</button>
-              </a>
-              {% else %}
-              <p class="grey">No projects have been posted to this challenge.</p>
-              {% endif %}
-              <a href="#share-modal" class="font-bold" style="margin-top: 12px;">Share Challenge &nbsp;<i
-                  class="fas fa-share"></i></a>
-            </div>
-          </div>
           {% endfor %}
+        {% else %}
+        <div class="challenge-card">
+          <div class="project-card-content u-text-center">
+            <div class="no-projects-logo">
+              <i id="plane" class="far fa-paper-plane fa-4x"></i>
+              <span id="circle" class="circle" style="background-color: #ECF3FD;"></span>
+            </div>
+            {% if challenge.is_open() %}
+            <p class="grey">No projects have been posted to this challenge yet, be the first!</p>
+            <a href="{{ url('project_challenge_create', pk=challenge.pk) }}" class="u-center">
+              <button class="btn-primary btn--pilled">Submit Project</button>
+            </a>
+            {% else %}
+            <p class="grey">No projects have been posted to this challenge.</p>
+            {% endif %}
+            <a href="#share-modal" class="font-bold" style="margin-top: 12px;">Share Challenge &nbsp;<i
+                class="fas fa-share"></i>
+            </a>
+          </div>
         </div>
-
+      {% endif %}
       </div>
 
       <!-- <h4 style="text-align: center;">Challenge Contributions by Region</h4>
@@ -303,62 +303,62 @@
         </div>
         <br>
         <br> -->
-      </div>
     </div>
   </div>
-  <script>
-    $("#submit-comment").on('click', function (e) {
-      var comment = $("#id_comment").val();
-      if (comment != "") {
-        $.ajax({
-          type: "POST",
-          url: `/add_comment/`,
-          data: {
-            'comment': comment,
-            'challenge_pk': {{ challenge.pk }},
-      'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
-          },
-      success: function () {
-        location.href += "#comments"
-        location.reload()
-      }
-        })
-      }
-    });
+</div>
 
-    $("#bookmark").on('click', function (e) {
-      displayLinkCopied('2');
-      $("#bookmark-icon").toggleClass("far");
-      $("#bookmark-icon").toggleClass("fas");
-      $("#bookmark-icon").hasClass("far")
-        ? $("#copy-popup-2").html("Bookmark removed!")
-        : $("#copy-popup-2").html("Bookmarked!");
+<script>
+  $("#submit-comment").on('click', function (e) {
+    var comment = $("#id_comment").val();
+    if (comment != "") {
       $.ajax({
         type: "POST",
-        url: `/add_bookmark/`,
+        url: `/add_comment/`,
         data: {
+          'comment': comment,
           'challenge_pk': {{ challenge.pk }},
-      'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
+    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
         },
+    success: function () {
+      location.href += "#comments"
+      location.reload()
+    }
+      })
+    }
+  });
+
+  $("#bookmark").on('click', function (e) {
+    displayLinkCopied('2');
+    $("#bookmark-icon").toggleClass("far");
+    $("#bookmark-icon").toggleClass("fas");
+    $("#bookmark-icon").hasClass("far")
+      ? $("#copy-popup-2").html("Bookmark removed!")
+      : $("#copy-popup-2").html("Bookmarked!");
+    $.ajax({
+      type: "POST",
+      url: `/add_bookmark/`,
+      data: {
+        'challenge_pk': {{ challenge.pk }},
+    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
+      },
+    success: function () {
+    }
+    });
+  });
+
+  $(".comment-like").on('click', function (e) {
+    e.target.classList.toggle("far");
+    e.target.classList.toggle("fas");
+    /*$.ajax({
+      type: "POST",
+      url: `/add_like/`,
+      data: {
+        'challenge_pk': {{ challenge.pk }},
+        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
+      },
       success: function () {
       }
-      });
-    });
-
-    $(".comment-like").on('click', function (e) {
-      e.target.classList.toggle("far");
-      e.target.classList.toggle("fas");
-      /*$.ajax({
-        type: "POST",
-        url: `/add_like/`,
-        data: {
-          'challenge_pk': {{ challenge.pk }},
-          'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
-        },
-        success: function () {
-        }
-      });*/
-    });
-  </script>
-</div>
+    });*/
+  });
+</script>
 {% endblock %}
