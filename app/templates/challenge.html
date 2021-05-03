@@ -198,8 +198,7 @@
       </div>
     </div>
   </div>
-</div>
-<br>
+  <br>
 
   <div class="row">
     <div class="col-8">
@@ -304,61 +303,62 @@
         </div>
         <br>
         <br> -->
+      </div>
     </div>
   </div>
-</div>
-<script>
-  $("#submit-comment").on('click', function (e) {
-    var comment = $("#id_comment").val();
-    if (comment != "") {
+  <script>
+    $("#submit-comment").on('click', function (e) {
+      var comment = $("#id_comment").val();
+      if (comment != "") {
+        $.ajax({
+          type: "POST",
+          url: `/add_comment/`,
+          data: {
+            'comment': comment,
+            'challenge_pk': {{ challenge.pk }},
+      'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
+          },
+      success: function () {
+        location.href += "#comments"
+        location.reload()
+      }
+        })
+      }
+    });
+
+    $("#bookmark").on('click', function (e) {
+      displayLinkCopied('2');
+      $("#bookmark-icon").toggleClass("far");
+      $("#bookmark-icon").toggleClass("fas");
+      $("#bookmark-icon").hasClass("far")
+        ? $("#copy-popup-2").html("Bookmark removed!")
+        : $("#copy-popup-2").html("Bookmarked!");
       $.ajax({
         type: "POST",
-        url: `/add_comment/`,
+        url: `/add_bookmark/`,
         data: {
-          'comment': comment,
           'challenge_pk': {{ challenge.pk }},
-    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
+      'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
         },
-    success: function () {
-      location.href += "#comments"
-      location.reload()
-    }
-      })
-    }
-  });
-
-  $("#bookmark").on('click', function (e) {
-    displayLinkCopied('2');
-    $("#bookmark-icon").toggleClass("far");
-    $("#bookmark-icon").toggleClass("fas");
-    $("#bookmark-icon").hasClass("far")
-      ? $("#copy-popup-2").html("Bookmark removed!")
-      : $("#copy-popup-2").html("Bookmarked!");
-    $.ajax({
-      type: "POST",
-      url: `/add_bookmark/`,
-      data: {
-        'challenge_pk': {{ challenge.pk }},
-    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
-      },
-    success: function () {
-    }
-    });
-  });
-
-  $(".comment-like").on('click', function (e) {
-    e.target.classList.toggle("far");
-    e.target.classList.toggle("fas");
-    /*$.ajax({
-      type: "POST",
-      url: `/add_like/`,
-      data: {
-        'challenge_pk': {{ challenge.pk }},
-        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
-      },
       success: function () {
       }
-    });*/
-  });
-</script>
+      });
+    });
+
+    $(".comment-like").on('click', function (e) {
+      e.target.classList.toggle("far");
+      e.target.classList.toggle("fas");
+      /*$.ajax({
+        type: "POST",
+        url: `/add_like/`,
+        data: {
+          'challenge_pk': {{ challenge.pk }},
+          'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
+        },
+        success: function () {
+        }
+      });*/
+    });
+  </script>
+</div>
 {% endblock %}
