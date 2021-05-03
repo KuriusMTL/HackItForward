@@ -1,0 +1,24 @@
+<div class="col-4" style="padding: 0 0.75rem;">
+    <div class="challenge-card" onclick="location.href='{{ url("challenge", pk=challenge.pk) }}'">
+      {% if challenge.image %}
+        <div class="card-img" style="background-image: url({{ challenge.image.url }})"></div>
+      {% else %}
+        <div class="card-img" style="background-image: url({{ static('img/fibonacci.png') }})"></div>
+      {% endif %}
+      <div class="card-description">
+        <h1 class="challenge-card-title" style="min-height: 40px; margin-bottom: 5px; font-size: 20px;">{{ challenge.name|truncatechars(100)  }}</h1>
+        <p style="margin: 0; font-size: 16px;">{{ challenge.submission_count }} Submissions</p>
+      </div>
+      <hr noshade size="1" style="border-color: #F2F2F2;">
+      <div class="card-description" style="padding: 0;">
+        <div class="challenge-card-creators row">
+          <a href="{{ url('user', username=challenge.creators.first().username) }}" style="display: flex;">
+            <img class="profile-icon challenge-card-profile-icon" src="{{ challenge.creators.first().image.url }}"/>
+              <p class="challenge-card-profile-text u-text-left" style="font-size: 14px; margin-bottom: 0; display: inline;">
+              By&nbsp;<b class="">{{ challenge.short_creators }}</b>
+              </p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>

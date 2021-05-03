@@ -144,28 +144,7 @@
 
   <div class="tabcontent" id="submissions">
     {% for project in projects %}
-      <div class="challenge-card">
-        <a href="#{{ project.name }}">
-          <div class="project-card-content row">
-            {% if project.image %}
-              <div class="project-card-image-preview col-3" style="background-image: url({{ project.image.url }})"></div>
-            {% else %}
-              <div class="project-card-image-preview col-3" style="background-image: url({{ static('img/polar-bear.png') }})"></div>
-            {% endif %}
-
-            <div class="col-7" style="padding-left: 32px;">
-              <h3 class="">{{ project.name }}</h3>
-              <p class="grey">{{ project.description|truncatechars(100) }}</p>
-                <a href="{{ url('user', username=project.creators.first().username) }}">
-                  <div class="row">
-                    <img class="profile-icon" src="{{ project.creators.first().image.url }}"/>
-                    <p style="font-weight: 500; margin:0" class="grey">{{ project.short_creators }}</p>
-                  </div>
-                </a>
-            </div>
-          </div>
-        </a>
-      </div>
+      {% include 'project_preview_card.html' %}
     {% endfor %}
 
     {% if not projects %}
@@ -182,32 +161,8 @@
   <div class="tabcontent" id="bookmarks">
     <div class="row">
       {% for bookmark in bookmarks %}
-      <div class="col-4" style="padding: 0 0.75rem;">
-        <div class="challenge-card" onclick="location.href='{{ url("challenge", pk=bookmark.obj.pk) }}'">
-          {% if bookmark.obj.image %}
-            <div class="card-img" style="background-image: url({{ bookmark.obj.image.url }})"></div>
-          {% else %}
-            <div class="card-img" style="background-image: url({{ static('img/fibonacci.png') }})"></div>
-          {% endif %}
-          <div class="card-description">
-            <h1 class="challenge-card-title" style="min-height: 40px; margin-bottom: 5px; font-size: 20px;">{{ bookmark.obj.name|truncatechars(100)  }}</h1>
-            <p style="margin: 0; font-size: 16px;">{{ bookmark.obj.submission_count }} Submissions</p>
-          </div>
-          <hr noshade size="1" style="border-color: #F2F2F2;">
-          <div class="card-description" style="padding: 0;">
-            <div class="challenge-card-creators row">
-              <a href="{{ url('user', username=bookmark.obj.creators.first().username) }}">
-                <img class="profile-icon challenge-card-profile-icon" src="{{ bookmark.obj.creators.first().image.url }}"/>
-                <div class="u-text-left">
-                  <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0">
-                  By&nbsp;<b class="">{{ bookmark.obj.short_creators }}</b>
-                  </p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+        {% set challenge = bookmark.obj %}
+        {% include 'challenge_preview_card.html' %}
       {% endfor %}
       {% if not bookmarks %}
       <div class="col-12">

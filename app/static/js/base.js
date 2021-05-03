@@ -129,7 +129,7 @@ function shareOnFB(url) {
 }
 
 function shareOnTwitter(url) {
-  var link = "https://twitter.com/intent/tweet?url=" + url + "&text=" + document.querySelector('#initiative-name').textContent;
+  var link = "https://twitter.com/intent/tweet?url=" + url + "&text=" + document.querySelector('#challenge-name').textContent;
   TwitterWindow = window.open(link);
 }
 
@@ -139,7 +139,7 @@ function shareOnLinkedIn(url) {
 }
 
 function shareOnReddit(url) {
-  var link = "https://reddit.com/submit?url=" + url + "&title=" + document.querySelector('#initiative-name').textContent;
+  var link = "https://reddit.com/submit?url=" + url + "&title=" + document.querySelector('#challenge-name').textContent;
   window.open(link);
 }
 
