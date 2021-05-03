@@ -369,7 +369,8 @@ class ProjectFormView(InitiativeFormView):
 
 
 class ProjectCreateView(ProjectFormView, CreateView):
-    pass
+    def get_success_url(self):
+        return "/challenge/" + str(self.get_object().challenge.pk) + "/#" + str(self.get_object().name)
 
 
 class ProjectChallengeCreateView(ProjectCreateView):
