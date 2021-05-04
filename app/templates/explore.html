@@ -14,7 +14,7 @@
   <div class="challenge-of-the-week" style="background-image: url({{ static('img/polar-bear.png') }});">
     <h2 style="color: #225A62; font-size: 50px; margin-bottom: 0;">Challenge Of The Week</h2>
     <p class="" style="font-size: 24px; color:#40A0AE; margin-top: 0;">Canadian Polar Bear Habitat Challenge</p>
-    <a href="">
+    <a href="{{ url('challenge', pk=18) }}">
       <button class="btn--pilled btn-white btn-primary" style="color: #225A62">View Challenge</button>
     </a>
   </div>    
@@ -37,15 +37,37 @@
         </div>
       {% endif %}
     </div>
-
-  <!-- Secondary Spotlight challenge -->
-  <h5 style="margin-top: 80px;">Spotlight of the week</h5>
-  <div class="wide-challenge-card" style="background-image: url({{ static('img/stock-photo.png') }});">
-    <h2 class="white" style="font-size: 80px; margin-bottom: 0;">Better DMV</h2>
-    <div class="row">
-      <h6 class="grey" style="font-size: 40px; margin-top: 0;">Try Now &nbsp;</h6><i class="grey fas fa-arrow-right fa-3x"></i>
+  
+  <!-- Slideshow container -->
+  <h5 style="margin-top: 80px;">Spotlights of the week</h5>
+  <div class="slideshow-container">
+    {% for challenge in spotlight_challenges %}
+    {% if challenge.image %}
+      <div class="mySlides wide-challenge-card" style="background-image: url({{ challenge.image.url }});">
+    {% else %}
+      <div class="mySlides wide-challenge-card" style="background-image: url({{ static('img/polar-bear.png') }});">
+    {% endif %}
+      <h2 class="white" style="font-size: 60px; margin-bottom: 0;">{{ challenge.name }}</h2>
+      <a href="{{ url('challenge', pk=challenge.pk)}}">
+        <div class="row">
+            <h6 class="grey" style="font-size: 40px; margin-top: 0;">Try Now &nbsp;</h6><i class="grey fas fa-arrow-right fa-3x"></i>
+        </div>
+      </a>
     </div>
+    {% endfor %}
+    <!-- Next and previous buttons -->
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
   </div>
+  <br>
+
+  <!-- The dots/circles -->
+  <div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+  </div>
+
 
    <!-- Challenge search bar -->
    <form action="." style="margin-top: 0.5rem;">
