@@ -42,18 +42,18 @@
   <h5 style="margin-top: 80px;">Spotlights of the week</h5>
   <div class="slideshow-container">
     {% for challenge in spotlight_challenges %}
-    {% if challenge.image %}
-      <div class="mySlides wide-challenge-card" style="background-image: url({{ challenge.image.url }});">
-    {% else %}
-      <div class="mySlides wide-challenge-card" style="background-image: url({{ static('img/polar-bear.png') }});">
-    {% endif %}
-      <h2 class="white" style="font-size: 60px; margin-bottom: 0;">{{ challenge.name }}</h2>
-      <a href="{{ url('challenge', pk=challenge.pk)}}">
-        <div class="row">
-            <h6 class="grey" style="font-size: 40px; margin-top: 0;">Try Now &nbsp;</h6><i class="grey fas fa-arrow-right fa-3x"></i>
-        </div>
-      </a>
-    </div>
+      {% if challenge.image %}
+        <div class="mySlides wide-challenge-card" style="background-image: url({{ challenge.image.url }});">
+      {% else %}
+        <div class="mySlides wide-challenge-card" style="background-image: url({{ static('img/polar-bear.png') }});">
+      {% endif %}
+        <h2 class="white" style="font-size: 60px; margin-bottom: 0;">{{ challenge.name }}</h2>
+        <a href="{{ url('challenge', pk=challenge.pk)}}">
+          <div class="row">
+              <h6 class="grey" style="font-size: 40px; margin-top: 0;">Try Now &nbsp;</h6><i class="grey fas fa-arrow-right fa-3x"></i>
+          </div>
+        </a>
+      </div>
     {% endfor %}
     <!-- Next and previous buttons -->
     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -125,10 +125,10 @@
               <hr noshade size="1" style="border-color: #F2F2F2;">
               <div class="card-description" style="padding: 0;">
                 <div class="challenge-card-creators row">
-                  <a href="/profile/${challenge.first_creator}">
+                  <a href="/profile/${challenge.first_creator}" style="display: flex;">
                     <img class="profile-icon challenge-card-profile-icon" src="${challenge.first_creator_profile}"/>
                     <div class="u-text-left">
-                      <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0">
+                      <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0; display: inline;">
                       By&nbsp;<b class="">${challenge.first_creator}</b>
                       </p>
                     </div>
