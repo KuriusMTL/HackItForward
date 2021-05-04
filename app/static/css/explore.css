@@ -156,6 +156,6 @@ select[multiple].input-contains-icon + .chosen-container > .chosen-choices {
   display: inline-block;
 }
 
-.active, .dot:hover {
+.active-dot, .dot:hover {
   background-color: #717171;
 }

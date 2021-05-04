@@ -64,12 +64,13 @@
           <div class="nav-item has-sub btn-container" id="dropdown">
             <a class="nav-dropdown-link"><img src="{{ request.user.profile.image.url }}" style="border-radius: 50%; width: 50px; height: 50px"></a>
             <ul class="dropdown-menu" role="menu">
-              <li role="menu-item"><a href="/profile/#bookmarks" style="font-weight: bold;color: #4f4f4f; font-size: 16px;">My Bookmarks</a></li>
-              <li role="menu-item"><a href="{{ url('profile') }}" style="font-weight: bold;color: #4f4f4f; font-size: 16px;">Profile</a></li>
-              <li role="menu-item"><a href="{{ url('edit_profile') }}" style="font-weight: bold;color: #4f4f4f; font-size: 16px;">Edit Profile</a></li>
-              <li role="menu-item"><a href="{{ url('settings') }}" style="font-weight: bold;color: #4f4f4f; font-size: 16px;">Account Settings</a></li>
+              <li role="menu-item"><a href="{{ url('profile') }}" style="color: #4f4f4f; font-size: 16px;">Profile</a></li>
+              <li role="menu-item"><a href="/profile/#bookmarks" style="color: #4f4f4f; font-size: 16px;">Bookmarks</a></li>
               <hr noshade size="1" style="border-color: #F2F2F2;">
-              <li role="menu-item"><a href="{{ url('logout') }}"style="font-weight: bold;color: #4f4f4f; font-size: 16px;">Logout</a></li>
+              <li role="menu-item"><a href="{{ url('edit_profile') }}" style="color: #4f4f4f; font-size: 16px;">Edit Profile</a></li>
+              <li role="menu-item"><a href="{{ url('settings') }}" style="color: #4f4f4f; font-size: 16px;">Account Settings</a></li>
+              <hr noshade size="1" style="border-color: #F2F2F2;">
+              <li role="menu-item"><a href="{{ url('logout') }}"style="color: #4f4f4f; font-size: 16px;">Logout</a></li>
             </ul>
           </div>
         {% else %}
