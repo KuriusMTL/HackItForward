@@ -359,7 +359,7 @@ class ChallengeView(TemplateView, ContextMixin):
                 {"label": "End Time", "time": self.challenge.end},
             ]
         context["projects"] = Project.objects.filter(challenge=self.challenge)
-        context["related_challenges"] = Challenge.objects.filter(tags__pk__in=self.challenge.tags.all()).distinct()[:3] #Take top 3 related challenges
+        context["related_challenges"] = Challenge.objects.filter(tags__pk__in=self.challenge.tags.all()).distinct().exclude(pk=self.challenge.pk)[:3] #Take top 3 related challenges
         if len(context["related_challenges"]) == 0: #If it can't find any challenges, recommend
             context["related_challenges"] = Challenge.objects.all()[:3]
         return context
