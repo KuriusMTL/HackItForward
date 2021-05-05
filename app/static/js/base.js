@@ -214,3 +214,13 @@ $("#challenge-level").change(function () {
   var selectedLevel = $('#challenge-level').find(":selected").val();
 
 });
+
+$("#login-prompt").hide();
+
+function promptLogin() {
+  $("#login-prompt").fadeIn("fast");
+}
+
+function dissolveLogin() {
+  $("#login-prompt").fadeOut("fast");
+}

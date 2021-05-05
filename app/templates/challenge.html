@@ -8,6 +8,7 @@
 {% block body %}
 <div class="content">
   {% include 'project_modal.html' %}
+  {% include 'login_prompt.html' %}
   <!-- TODO: Implement upvoting system in backend -->
   <!-- <i class="fa fa-caret-up" aria-hidden="true" style="font-size: x-large;"></i>
     <p>12</p>
@@ -80,10 +81,13 @@
                 class="share-social-icon level-content level-item">
                 <i class="fab fa-reddit fa-lg"></i>
               </a>
-              {% if bookmarked %}
+              {% if not request.user.is_authenticated %}
+              <a onclick="promptLogin()" class="popup share-social-icon level-content level-item">
+                <i class="fas fa-bookmark fa-lg" id="bookmark-icon" style="color: #4F4F4F;"></i>
+              </a>
+              {% elif bookmarked %}
               <a id="bookmark" class="popup share-social-icon level-content level-item">
                 <i class="fas fa-bookmark fa-lg" id="bookmark-icon" style="color: #4F4F4F;"></i>
-                <span class="popuptext" id="copy-popup-2">Bookmark removed!</span>
               </a>
               {% else %}
               <a id="bookmark" class="popup share-social-icon level-content level-item">
@@ -212,7 +216,7 @@
       </div>
       <div class="row tabcontent" id="comments">
         <div class="challenge-card">
-          <div class="project-card-content">
+          <div class="project-comment-content">
             <h5>Give Feedback</h5>
             {% if request.user.is_authenticated %}
             <textarea type="text" name="comment" id="id_comment" class="comment-input"
@@ -220,7 +224,7 @@
 
             <button id="submit-comment" class="btn--pilled btn-primary">Submit</button>
             {% else %}
-            <a href="{{ url('login') }}">Log in</a> to comment!
+            <p><a href="{{ url('login') }}">Log in</a> to comment!<p>
             {% endif %}
 
             {% csrf_token %}
@@ -232,16 +236,26 @@
                   <img class="comment-profile-image" src="{{ comment.profile.image.url }}" style="grid-area: image;" />
                 </a>
                 <h6 style="margin: 0; grid-area: username;">
-                  <a style="color: inherit; text-decoration: none; font-weight: inherit;" href="{{ url('user', username=comment.profile.username) }}">
-                    {{ comment.profile.user.username}}
+                  <a style="color: inherit; text-decoration: none; font-weight: inherit;"
+                    href="{{ url('user', username=comment.profile.username) }}">
+                    {{ comment.profile.user.username }}
                   </a>
                   <span class="comment-date">{{ comment.humanized_date }}</span>
                 </h6>
                 <div style="grid-area: content;">
                   <p style="margin: 0">{{ comment.text }}</p>
-                  <i class="fas fa-ellipsis-h comment-actions"></i>
+                  <!--<i class="fas fa-ellipsis-h comment-actions"></i>-->
                 </div>
-                <i class="far fa-heart comment-like"></i>
+                <div class="comment-like">
+                  {% if not request.user.is_authenticated %}
+                  <i class="far fa-heart comment-heart" onclick="promptLogin()"></i>
+                  {% elif user_upvote_comments[comment.pk] %}
+                  <i class="fas fa-heart comment-heart" onclick="like(event, {{comment.pk}})"></i>
+                  {% else %}
+                  <i class="far fa-heart comment-heart" onclick="like(event, {{comment.pk}})"></i>
+                  {% endif %}
+                  <span id="comment-like-count">{{ comment.upvotes }}</span>
+                </div>
               </div>
             </div>
             {% endfor %}
@@ -250,7 +264,7 @@
       </div>
       <div class="row tabcontent" id="submissions" style="display: block;">
         {% for project in projects %}
-          {% include 'project_preview_card.html' %}
+        {% include 'project_preview_card.html' %}
         {% endfor %}
         {% if not projects %}
         <div class="challenge-card">
@@ -272,7 +286,7 @@
             </a>
           </div>
         </div>
-      {% endif %}
+        {% endif %}
       </div>
 
       <!-- <h4 style="text-align: center;">Challenge Contributions by Region</h4>
@@ -296,7 +310,7 @@
         data: {
           'comment': comment,
           'challenge_pk': {{ challenge.pk }},
-    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
+    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
         },
     success: function () {
       location.href += "#comments"
@@ -318,26 +332,25 @@
       url: `/add_bookmark/`,
       data: {
         'challenge_pk': {{ challenge.pk }},
-    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
-      },
-    success: function () {
-    }
+    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+      }
     });
   });
 
-  $(".comment-like").on('click', function (e) {
+  function like(e, comment_pk) {
     e.target.classList.toggle("far");
     e.target.classList.toggle("fas");
-    /*$.ajax({
+    e.target.classList.contains("far")
+      ? e.target.parentElement.children[1].innerHTML = `${parseInt(e.target.parentElement.children[1].innerHTML) - 1}`
+      : e.target.parentElement.children[1].innerHTML = `${parseInt(e.target.parentElement.children[1].innerHTML) + 1}`
+    $.ajax({
       type: "POST",
-      url: `/add_like/`,
+      url: `/upvote/comment/${comment_pk}/`,
       data: {
         'challenge_pk': {{ challenge.pk }},
-        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
-      },
-      success: function () {
+        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
       }
-    });*/
-  });
+    });
+  };
 </script>
 {% endblock %}
