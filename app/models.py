@@ -37,20 +37,15 @@ You should explain how to install the project in this section.
 """
 
 CHALLENGE_DESCRIPTION = """
-# Challenge Name
+A description of the challenge in layman's terms.
 
-A longer description of the project compared to the one liner.
+### Features to Implement
+- A list of the different features you want to see on the submission
+- A list of the different features you want to see on the submission 
+- A list of the different features you want to see on the submission
 
-## Tasks
-
-Provide a simple, bulleted list of tasks that you would like project creators to accomplish:
- - Task 1
- - Task 2
- - Task 3
-
-## Extra Resources
-
-If there are extra tools that you think project makers could benefit them, include them here.
+### Extra Resources and Guidelines
+If there are extra tools that you think project makers could benefit from, include them here.
 """
 
 """

@@ -19,9 +19,13 @@
       <div class="challenge-card">
         <div class="challenge-card-content">
           {% if challenge.image %}
-          <div class="challenge-card-image" style="background-image: url({{ challenge.image.url }})"></div>
+          <div class="challenge-card-image">
+            <img src="{{ challenge.image.url }}" style="border-radius: 8px; width: 100%; height: 100%;">
+          </div>
           {% else %}
-          <div class="challenge-card-image" style="background-image: url({{ static('img/polar-bear-2.png') }})"></div>
+          <div class="challenge-card-image">
+            <img src="{{ static('img/polar-bear-2.png') }}" style="border-radius: 8px; width: 100%; height: 100%;">
+          </div>
           {% endif %}
 
           <h1 id="challenge-name">{{ challenge.name }}</h1>
