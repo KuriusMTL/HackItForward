@@ -223,10 +223,11 @@ function promptLogin() {
 
 function dissolveLogin() {
   $("#login-prompt").fadeOut("fast");
-  //Slideshow on the Explore Page
-  var slideIndex = 1;
-  showSlides(slideIndex);
 }
+
+//Slideshow on the Explore Page
+var slideIndex = 1;
+showSlides(slideIndex);
 
 // Next/previous controls
 function plusSlides(n) {
