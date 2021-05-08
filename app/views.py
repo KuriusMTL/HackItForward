@@ -496,24 +496,26 @@ def addUnsplashPicture(request):
     if request.method == "POST":
         url = request.POST["url"]
         url += ".jpg"
-        response = requests.get(url, stream=True)
-        # Get the filename from the url, used for saving later
-        file_name = url.split('/')[-1]
-        
-        # Create a temporary file
-        lf = tempfile.NamedTemporaryFile()
 
-        # Read the streamed image in sections
-        for block in response.iter_content(1024 * 8):
+        if url.startswith('https://images.unsplash.com/'): #Check that URL is from Unsplash
+            response = requests.get(url, stream=True, allow_redirects=False)
+            # Get the filename from the url, used for saving later
+            file_name = url.split('/')[-1]
             
-            # If no more file then stop
-            if not block:
-                break
+            # Create a temporary file
+            lf = tempfile.NamedTemporaryFile()
 
-            # Write image block to temporary file
-            lf.write(block)
+            # Read the streamed image in sections
+            for block in response.iter_content(1024 * 8):
+                
+                # If no more file then stop
+                if not block:
+                    break
 
-        request.user.profile.image.save(file_name, files.File(lf))
+                # Write image block to temporary file
+                lf.write(block)
+
+            request.user.profile.image.save(file_name, files.File(lf))
 
     return JsonResponse("Success", safe=False)
 

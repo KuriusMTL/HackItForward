@@ -40,9 +40,10 @@ CHALLENGE_DESCRIPTION = """
 A description of the challenge in layman's terms.
 
 ### Features to Implement
-- A list of the different features you want to see on the submission
-- A list of the different features you want to see on the submission 
-- A list of the different features you want to see on the submission
+- User interface (UI) to interact with ...
+- Algorithm that ...
+- Backend database to ...
+- Server to host the application for users to test out online 
 
 ### Extra Resources and Guidelines
 If there are extra tools that you think project makers could benefit from, include them here.
