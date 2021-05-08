@@ -115,9 +115,9 @@ function displayLinkCopied(id = "0") {
   const popup = $(`#copy-popup-${id}`);
   popup.addClass("show");
   popup.show();
-  timeout[id] = setTimeout(()=>{
+  timeout[id] = setTimeout(() => {
     popup.fadeOut('fast');
-    setTimeout(()=>{
+    setTimeout(() => {
       popup.removeClass("show");
     }, 500)
   }, 2000);
@@ -215,32 +215,74 @@ $("#challenge-level").change(function () {
 
 });
 
-//Slideshow on the Explore Page
-var slideIndex = 1;
-showSlides(slideIndex);
+$("#login-prompt").hide();
 
-// Next/previous controls
-function plusSlides(n) {
-  showSlides(slideIndex += n);
+function promptLogin() {
+  $("#login-prompt").fadeIn("fast");
 }
 
-// Thumbnail image controls
-function currentSlide(n) {
-  showSlides(slideIndex = n);
+function dissolveLogin() {
+  $("#login-prompt").fadeOut("fast");
 }
 
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
+const slideshow = document.getElementById("slideshow-slides");
+if (slideshow) {
+  const slides = slideshow.children;
+  slideshow.innerHTML = slides[slides.length - 1].outerHTML + slideshow.innerHTML + slides[0].outerHTML;
+  
+  const nextBtn = document.getElementById("nextBtn");
+  const prevBtn = document.getElementById("prevBtn");
+  const slideDots = document.getElementsByClassName("dot");
+  
+  var slideNum = 1;
+  var size = slides[0].clientWidth;
+  slideDots[0].classList.add("active-dot");
+  slideshow.style.transform = `translateX(${-size * slideNum}px)`;
+  
+  window.addEventListener("resize", function() {
+    slideshow.style.transition = "none";
+    size = slides[0].clientWidth;
+    slideshow.style.transform = `translateX(${-size * slideNum}px)`;
+  })
+  
+  nextBtn.addEventListener("click", function() {
+    if (slideNum >= slides.length - 1) return;
+    slideshow.style.transition = "transform 0.4s ease-in-out";
+    slideNum++;
+    slideshow.style.transform = `translateX(${-size * slideNum}px)`;
+  });
+  
+  prevBtn.addEventListener("click", function() {
+    if (slideNum <= 0) return;
+    slideshow.style.transition = "transform 0.4s ease-in-out";
+    slideNum--;
+    slideshow.style.transform = `translateX(${-size * slideNum}px)`;
+  });
+  
+  slideshow.addEventListener("transitionend", function() {
+    if (slideNum == 0) {
+      slideshow.style.transition = "none";
+      slideNum = slides.length - 2;
+      slideshow.style.transform = `translateX(${-size * slideNum}px)`;
+    }
+    else if (slideNum == slides.length - 1) {
+      slideshow.style.transition = "none";
+      slideNum = 1;
+      slideshow.style.transform = `translateX(${-size * slideNum}px)`;
+    }
+    for (let i = 0; i < slideDots.length; i++) {
+      slideDots[i].classList.remove("active-dot");
+    }
+    slideDots[slideNum - 1].classList.add("active-dot");
+  })
+  
+  function currentSlide(index) {
+    slideshow.style.transition = "transform 0.4s ease-in-out";
+    slideNum = index;
+    slideshow.style.transform = `translateX(${-size * slideNum}px)`;
+    for (let i = 0; i < slideDots.length; i++) {
+      slideDots[i].classList.remove("active-dot");
+    }
+    slideDots[slideNum - 1].classList.add("active-dot");
   }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active-dot", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active-dot";
 }
