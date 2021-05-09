@@ -46,7 +46,7 @@ class IndexView(TemplateView):
             "q" not in self.request.GET and "tag" not in self.request.GET
         ):
             context["challenges"] = Challenge.objects.all()
-            context["spotlight_challenges"] = Challenge.objects.all()[:3]
+            context["spotlight_challenges"] = Challenge.objects.all().order_by('-upvotes')[:3]
             return context
 
         queryset = Challenge.objects.all()
