@@ -15,11 +15,9 @@ from datetime import datetime
 from django.utils import timezone
 
 PROJECT_DESCRIPTION = """
-# Project Name
-
 A longer description of the project compared to the one liner.
 
-## Features
+##### Features
 
 Talk about some cool things your project does here. You can use a:
  - Bulleted
@@ -27,24 +25,21 @@ Talk about some cool things your project does here. You can use a:
  - Like
  - This
 
-## Installation
-
-You should explain how to install the project in this section.
- 1. Numbered
- 2. Lists
- 3. Are
- 4. Useful
+##### How It's Built
+Talk about how you built this project in technical terms. Talk about the languages, frameworks, and tools you used
+to create this project. 
 """
 
 CHALLENGE_DESCRIPTION = """
 A description of the challenge in layman's terms.
 
-### Features to Implement
-- A list of the different features you want to see on the submission
-- A list of the different features you want to see on the submission 
-- A list of the different features you want to see on the submission
+##### Features to Implement
+- User interface (UI) to interact with ...
+- Algorithm that ...
+- Backend database to ...
+- Server to host the application for users to test out online 
 
-### Extra Resources and Guidelines
+##### Extra Resources and Guidelines
 If there are extra tools that you think project makers could benefit from, include them here.
 """
 
@@ -176,7 +171,7 @@ class Profile(models.Model):
     banner_image = models.ImageField(
         default="default_profile_bg.jpg", upload_to="profile_background_pics")
     headline = models.CharField(
-        default="",
+        blank=True,
         verbose_name="Headline",
         help_text="A headline for your profile",
         max_length=40,
