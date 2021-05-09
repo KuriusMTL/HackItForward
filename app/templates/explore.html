@@ -9,7 +9,6 @@
 
 {% block body %}
 <div class="content" id="challenges">
-
   <!-- Challenge of the Week: Puts a particular challenge on the spotlight for HackItForward users to tackle -->
   <div class="challenge-of-the-week" style="background-image: url({{ static('img/polar-bear.png') }});">
     <h2 style="color: #225A62; font-size: 50px; margin-bottom: 0;">Challenge Of The Week</h2>
@@ -24,19 +23,9 @@
     <h5 class="header-margin">Featured Challenges</h5>
   </div>
   <div class="row">
-    {% for challenge in challenges[:3] %}
+    {% for challenge in featured_challenges %}
     {% include 'challenge_preview_card.html' %}
     {% endfor %}
-    {% if not challenges %}
-    <div class="col-12">
-      {% if q or selected_tags %}
-      <p>No challenges matching your query have been found. Perhaps try {{ "selecting less tags" if selected_tags else
-        "broadening your search" }}?</p>
-      {% else %}
-      <p>No challenges have been published yet.</p>
-      {% endif %}
-    </div>
-    {% endif %}
   </div>
 
   <!-- Slideshow container -->
@@ -75,6 +64,7 @@
 
 
   <!-- Challenge search bar -->
+  <a id="search-results"></a>
   <form action="." style="margin-top: 0.5rem;">
     <input type="hidden" name="type" value="challenge">
     <div class="row">
@@ -116,6 +106,16 @@
     {% for challenge in challenges %}
     {% include 'challenge_preview_card.html' %}
     {% endfor %}
+    {% if not challenges %}
+    <div class="col-12">
+      {% if q or selected_tags %}
+      <p>No challenges matching your query have been found. Perhaps try {{ "selecting less tags" if selected_tags else
+        "broadening your search" }}?</p>
+      {% else %}
+      <p>No challenges have been published yet.</p>
+      {% endif %}
+    </div>
+    {% endif %}
   </div>
 
 </div>

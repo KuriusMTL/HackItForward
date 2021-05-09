@@ -28,25 +28,33 @@ class AboutView(TemplateView):
     template_name = "about.html"
 
 
+redirected = False # Not an elegant solution, but prevents infinite redirects
 class IndexView(TemplateView):
     '''Default page. Allows site visitors to see challenges.'''
     template_name = "explore.html"
-
+    
     def dispatch(self, request, *args, **kwargs):
+        global redirected
         if request.GET.get("type") not in ["challenge", None]:
             return redirect("index")
+        if request.GET.get("type") != None and redirected == False:
+            redirected = True
+            return redirect(request.get_full_path() + "#search-results") #Make page snap to the #search-results anchor link
         return super(IndexView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
+        global redirected
+        redirected = False
         context = super().get_context_data(**kwargs)
 
         context["tags"] = Tag.objects.all()
+        context["featured_challenges"] = Challenge.objects.all()[:3]
+        context["spotlight_challenges"] = Challenge.objects.all().order_by('-upvotes')[:3]
 
         if "type" not in self.request.GET or (
             "q" not in self.request.GET and "tag" not in self.request.GET
         ):
             context["challenges"] = Challenge.objects.all()
-            context["spotlight_challenges"] = Challenge.objects.all().order_by('-upvotes')[:3]
             return context
 
         queryset = Challenge.objects.all()
@@ -62,7 +70,7 @@ class IndexView(TemplateView):
 
         context["challenges"] = queryset.distinct()
         return context
-
+        
 
 class GalleryView(TemplateView):
     '''Gallery view displays projects rather than challenges.'''
