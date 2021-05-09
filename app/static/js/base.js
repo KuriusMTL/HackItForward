@@ -105,7 +105,8 @@ function openTabWithURL(level) {
 
   // Show the current tab, and add an "selected" class to the button that opened the tab
   document.getElementById(level).style.display = "block";
-  document.getElementById("tab-".concat(level)).currentTarget.classList.add("selected");
+  document.getElementById("tab-".concat(level)).classList.add("selected");
+  console.log("tab-".concat(level))
 }
 
 var timeout = {};
