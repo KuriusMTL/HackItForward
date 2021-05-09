@@ -14,148 +14,127 @@
   <div class="challenge-of-the-week" style="background-image: url({{ static('img/polar-bear.png') }});">
     <h2 style="color: #225A62; font-size: 50px; margin-bottom: 0;">Challenge Of The Week</h2>
     <p class="" style="font-size: 24px; color:#40A0AE; margin-top: 0;">Canadian Polar Bear Habitat Challenge</p>
-    <a href="">
+    <a href="{{ url('challenge', pk=18) }}">
       <button class="btn--pilled btn-white btn-primary" style="color: #225A62">View Challenge</button>
     </a>
-  </div>    
-
-    <!-- Display 3 featured challenges -->
-    <div class="row">
-      <h5 class="header-margin">Featured Challenges</h5>
-    </div>
-    <div class="row">
-      {% for challenge in challenges[:3] %}
-        <div class="col-4" style="padding: 0 0.75rem;">
-          <div class="challenge-card" onclick="location.href='{{ url("challenge", pk=challenge.pk) }}'">
-            {% if challenge.image %}
-              <div class="card-img" style="background-image: url({{ challenge.image.url }})"></div>
-            {% else %}
-              <div class="card-img" style="background-image: url({{ static('img/fibonacci.png') }})"></div>
-            {% endif %}
-            <div class="card-description">
-              <h1 class="challenge-card-title" style="min-height: 40px; margin-bottom: 5px; font-size: 20px;">{{ challenge.name|truncatechars(100)  }}</h1>
-              <p style="margin: 0; font-size: 16px;">{{ challenge.submission_count }} Submissions</p>
-            </div>
-            <hr noshade size="1" style="border-color: #F2F2F2;">
-            <div class="card-description" style="padding: 0;">
-              <div class="challenge-card-creators row">
-                <a href="{{ url('user', username=challenge.creators.first().username) }}" style="display: flex;">
-                  <img class="profile-icon challenge-card-profile-icon" src="{{ challenge.creators.first().image.url }}"/>
-                    <p class="challenge-card-profile-text u-text-left" style="font-size: 14px; margin-bottom: 0; display: inline;">
-                    By&nbsp;<b class="">{{ challenge.short_creators }}</b>
-                    </p>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      {% endfor %}
-      {% if not challenges %}
-        <div class="col-12">
-          {% if q or selected_tags %}
-            <p>No {{ name }}s matching your query have been found. Perhaps try {{ "selecting less tags" if selected_tags else "broadening your search" }}?</p>
-          {% else %}
-            <p>No {{ name }}s have been published yet.</p>
-          {% endif %}
-        </div>
-      {% endif %}
-    </div>
-
-  <!-- Secondary Spotlight challenge -->
-  <h5 style="margin-top: 80px;">Spotlight of the week</h5>
-  <div class="wide-challenge-card" style="background-image: url({{ static('img/stock-photo.png') }});">
-    <h2 class="white" style="font-size: 80px; margin-bottom: 0;">Better DMV</h2>
-    <div class="row">
-      <h6 class="grey" style="font-size: 40px; margin-top: 0;">Try Now &nbsp;</h6><i class="grey fas fa-arrow-right fa-3x"></i>
-    </div>
   </div>
 
-   <!-- Challenge search bar -->
-   <form action="." style="margin-top: 0.5rem;">
-      <input type="hidden" name="type" value="challenge">
-      <div class="row">
-        <div class="col-12">
-          <div class="input-control">
-            <input type="text" name="q" class="input-contains-icon" placeholder="Search challenges, tutorials, and tags"
-              value="{{ q|default('') }}" style="border: none; border-radius: 100px; outline: none; font-family: Poppins;">
-            <span class="icon"><i class="fas fa-search" aria-hidden="true"></i></span>
+  <!-- Display 3 featured challenges -->
+  <div class="row">
+    <h5 class="header-margin">Featured Challenges</h5>
+  </div>
+  <div class="row">
+    {% for challenge in challenges[:3] %}
+    {% include 'challenge_preview_card.html' %}
+    {% endfor %}
+    {% if not challenges %}
+    <div class="col-12">
+      {% if q or selected_tags %}
+      <p>No challenges matching your query have been found. Perhaps try {{ "selecting less tags" if selected_tags else
+        "broadening your search" }}?</p>
+      {% else %}
+      <p>No challenges have been published yet.</p>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Slideshow container -->
+  <h5 style="margin-top: 80px;">Spotlights of the week</h5>
+  <section class="slideshow-container">
+    <div id="slideshow-slides">
+      {% for challenge in spotlight_challenges %}
+      {% if challenge.image %}
+      <div class="mySlides wide-challenge-card" style="background-image: url({{ challenge.image.url }});">
+      {% else %}
+      <div class="mySlides wide-challenge-card" style="background-image: url({{ static('img/polar-bear.png') }});">
+        {% endif %}
+        <h2 class="white" style="font-size: 60px; margin-bottom: 0;">{{ challenge.name }}</h2>
+        <a href="{{ url('challenge', pk=challenge.pk)}}">
+          <div class="row">
+            <h6 class="grey" style="font-size: 40px; margin-top: 0;">Try Now &nbsp;</h6><i
+              class="grey fas fa-arrow-right fa-3x"></i>
           </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Next and previous buttons -->
+    <a class="prev" id="prevBtn">&#10094;</a>
+    <a class="next" id="nextBtn">&#10095;</a>
+
+    <!-- The dots/circles -->
+    <div class="dot-nav">
+      {% for challenge in spotlight_challenges %}
+      <span class="dot" onclick="currentSlide({{loop.index}})"></span>
+      {% endfor %}
+    </div>
+  </section>
+  <br>
+
+
+  <!-- Challenge search bar -->
+  <form action="." style="margin-top: 0.5rem;">
+    <input type="hidden" name="type" value="challenge">
+    <div class="row">
+      <div class="col-12">
+        <div class="input-control">
+          <input type="text" name="q" class="input-contains-icon" placeholder="Search challenges, tutorials, and tags"
+            value="{{ q|default('') }}"
+            style="border: none; border-radius: 100px; outline: none; font-family: Poppins;">
+          <span class="icon"><i class="fas fa-search" aria-hidden="true"></i></span>
         </div>
       </div>
-    </form>
-
-    <!-- Challenge Filter -->
-    <div id="challenges-filter" class="form-control">
-      {% csrf_token %}
-      <div class="row">
-        <select id="challenge-level" class="select form-group-input" placeholder="All Levels">
-            <option value="default" selected>All Levels</option>
-            <option  value="1">Beginner</option>
-            <option value="2">Intermediate</option>
-            <option value="3">Advanced</option>
-        </select>
-        <select id="challenge-category" class="select form-group-input" placeholder="All Categories">
-            <option value="default" selected>All Categories</option>
-            <option value="31">Python</option>
-            <option value="14">Design</option>
-            <option value="21">JS</option>
-        </select>
-        <select id="challenge-sorted-by" class="select form-group-input" placeholder="Sort by">
-            <option value="default" selected>Recent</option>
-            <option value="most_submissions">Most Submissions</option>
-        </select>
-      </div>
     </div>
+  </form>
+
+  <!-- Challenge Filter -->
+  <div id="challenges-filter" class="form-control">
+    {% csrf_token %}
+    <div class="row">
+      <select id="challenge-level" class="select form-group-input" placeholder="All Levels">
+        <option value="default" selected>All Levels</option>
+        <option value="1">Beginner</option>
+        <option value="2">Intermediate</option>
+        <option value="3">Advanced</option>
+      </select>
+      <select id="challenge-category" class="select form-group-input" placeholder="All Categories">
+        <option value="default" selected>All Categories</option>
+        <option value="31">Python</option>
+        <option value="14">Design</option>
+        <option value="21">JS</option>
+      </select>
+      <select id="challenge-sorted-by" class="select form-group-input" placeholder="Sort by">
+        <option value="default" selected>Recent</option>
+        <option value="most_submissions">Most Submissions</option>
+      </select>
+    </div>
+  </div>
 
   <div class="row" id="challenges-list">
     {% for challenge in challenges %}
-    <div class="col-4" style="padding: 0 0.75rem;">
-      <div class="challenge-card" onclick="location.href='{{ url("challenge", pk=challenge.pk) }}'">
-        {% if challenge.image %}
-          <div class="card-img" style="background-image: url({{ challenge.image.url }})"></div>
-        {% else %}
-          <div class="card-img" style="background-image: url({{ static('img/fibonacci.png') }})"></div>
-        {% endif %}
-        <div class="card-description">
-          <h1 class="challenge-card-title" style="min-height: 40px; margin-bottom: 5px; font-size: 20px;">{{ challenge.name|truncatechars(100)  }}</h1>
-          <p style="margin: 0; font-size: 16px;">{{ challenge.submission_count }} Submissions</p>
-        </div>
-        <hr noshade size="1" style="border-color: #F2F2F2;">
-
-        <div class="card-description" style="padding: 0;">
-          <div class="challenge-card-creators row">
-            <a href="{{ url('user', username=challenge.creators.first().username) }}">
-              <img class="profile-icon challenge-card-profile-icon" src="{{ challenge.creators.first().image.url }}"/>
-              <div class="u-text-left">
-                <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0">
-                By&nbsp;<b class="">{{ challenge.short_creators }}</b>
-                </p>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  {% endfor %}
+    {% include 'challenge_preview_card.html' %}
+    {% endfor %}
   </div>
-  
+
 </div>
 <script>
-  function challengeHTML (challenge) {
+  function challengeHTML(challenge) {
     return `<div class="col-4" style="padding: 0 0.75rem;">
             <div class="challenge-card" onclick="location.href='/challenge/${challenge.id}/'">
               <div class="card-img" style="background-image: url(${challenge.image_url})"></div>
               <div class="card-description">
-                <h1 class="challenge-card-title" style="min-height: 40px; margin-bottom: 5px; font-size: 20px;">${ challenge.name }</h1>
+                <h1 class="challenge-card-title" style="min-height: 40px; margin-bottom: 5px; font-size: 20px;">${challenge.name}</h1>
                 <p style="margin: 0; font-size: 16px;">${challenge.submission_count} Submissions</p>
               </div>
               <hr noshade size="1" style="border-color: #F2F2F2;">
               <div class="card-description" style="padding: 0;">
                 <div class="challenge-card-creators row">
-                  <a href="/profile/${challenge.first_creator}">
+                  <a href="/profile/${challenge.first_creator}" style="display: flex;">
                     <img class="profile-icon challenge-card-profile-icon" src="${challenge.first_creator_profile}"/>
                     <div class="u-text-left">
-                      <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0">
+                      <p class="challenge-card-profile-text" style="font-size: 14px; margin-bottom: 0; display: inline;">
                       By&nbsp;<b class="">${challenge.first_creator}</b>
                       </p>
                     </div>
@@ -170,7 +149,7 @@
     if (challenges.length == 0) {
       html_data += `No challenges in this category :(`
     } else {
-      for(var i = 0; i<challenges.length;i++) {
+      for (var i = 0; i < challenges.length; i++) {
         let challenge = challenges[i];
         challenge.image_url = challenge.image_url == 'false' ? `/static/img/fibonacci.png` : challenge.image_url;
         html_data += challengeHTML(challenge);
@@ -187,7 +166,7 @@
         'filter_id': filterId,
         'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
       },
-      success: function(challenges) {
+      success: function (challenges) {
         renderChallenges(challenges);
       }
     })

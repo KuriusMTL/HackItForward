@@ -1,10 +1,10 @@
 var url = document.location.href;
 
 $(document).ready(() => {
-  if(window.location.href.indexOf('#bookmarks') != -1) {
+  if (window.location.href.indexOf('#bookmarks') != -1) {
     openTabWithURL('bookmarks')
   }
-  if(window.location.href.indexOf('#comments') != -1) {
+  if (window.location.href.indexOf('#comments') != -1) {
     openTabWithURL('comments')
   }
   new Clipboard('.clipboard-btn', {
@@ -108,13 +108,19 @@ function openTabWithURL(level) {
   document.getElementById("tab-".concat(level)).currentTarget.classList.add("selected");
 }
 
-function displayLinkCopied(id = "0") {
-    var popup = document.getElementById("copy-popup-".concat(id));
-    popup.classList.toggle("show");
-    setTimeout(function () {
-      $('#copy-popup-'.concat(id)).fadeOut('fast');
-    }, 2000);
+var timeout = {};
 
+function displayLinkCopied(id = "0") {
+  if (timeout[id]) clearTimeout(timeout[id])
+  const popup = $(`#copy-popup-${id}`);
+  popup.addClass("show");
+  popup.show();
+  timeout[id] = setTimeout(() => {
+    popup.fadeOut('fast');
+    setTimeout(() => {
+      popup.removeClass("show");
+    }, 500)
+  }, 2000);
 }
 
 function shareOnFB(url) {
@@ -123,7 +129,7 @@ function shareOnFB(url) {
 }
 
 function shareOnTwitter(url) {
-  var link = "https://twitter.com/intent/tweet?url=" + url + "&text=" + document.querySelector('#initiative-name').textContent;
+  var link = "https://twitter.com/intent/tweet?url=" + url + "&text=" + document.querySelector('#challenge-name').textContent;
   TwitterWindow = window.open(link);
 }
 
@@ -133,7 +139,7 @@ function shareOnLinkedIn(url) {
 }
 
 function shareOnReddit(url) {
-  var link = "https://reddit.com/submit?url=" + url + "&title=" + document.querySelector('#initiative-name').textContent;
+  var link = "https://reddit.com/submit?url=" + url + "&title=" + document.querySelector('#challenge-name').textContent;
   window.open(link);
 }
 
@@ -184,7 +190,7 @@ function searchUnsplash() {
       var img = document.createElement('img');
       img.src = urlArray[i]; // img[i] refers to the current URL.
       list_element.appendChild(img);
-      list_element.addEventListener("click", function(event) { //Detect when an image is being clicked, and make AJAX request
+      list_element.addEventListener("click", function (event) { //Detect when an image is being clicked, and make AJAX request
         container.innerHTML = '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>'
         $.ajax({
           type: "POST",
@@ -193,8 +199,8 @@ function searchUnsplash() {
             'url': event.target.src,
             'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
           },
-          success: function() {
-          location.reload()
+          success: function () {
+            location.reload()
           }
         })
       })
@@ -203,8 +209,80 @@ function searchUnsplash() {
   })
 }
 
-$("#challenge-level").change(function(){ 
+$("#challenge-level").change(function () {
   /* Be careful with SQL injections */
   var selectedLevel = $('#challenge-level').find(":selected").val();
-  
+
 });
+
+$("#login-prompt").hide();
+
+function promptLogin() {
+  $("#login-prompt").fadeIn("fast");
+}
+
+function dissolveLogin() {
+  $("#login-prompt").fadeOut("fast");
+}
+
+const slideshow = document.getElementById("slideshow-slides");
+if (slideshow) {
+  const slides = slideshow.children;
+  slideshow.innerHTML = slides[slides.length - 1].outerHTML + slideshow.innerHTML + slides[0].outerHTML;
+  
+  const nextBtn = document.getElementById("nextBtn");
+  const prevBtn = document.getElementById("prevBtn");
+  const slideDots = document.getElementsByClassName("dot");
+  
+  var slideNum = 1;
+  var size = slides[0].clientWidth;
+  slideDots[0].classList.add("active-dot");
+  slideshow.style.transform = `translateX(${-size * slideNum}px)`;
+  
+  window.addEventListener("resize", function() {
+    slideshow.style.transition = "none";
+    size = slides[0].clientWidth;
+    slideshow.style.transform = `translateX(${-size * slideNum}px)`;
+  })
+  
+  nextBtn.addEventListener("click", function() {
+    if (slideNum >= slides.length - 1) return;
+    slideshow.style.transition = "transform 0.4s ease-in-out";
+    slideNum++;
+    slideshow.style.transform = `translateX(${-size * slideNum}px)`;
+  });
+  
+  prevBtn.addEventListener("click", function() {
+    if (slideNum <= 0) return;
+    slideshow.style.transition = "transform 0.4s ease-in-out";
+    slideNum--;
+    slideshow.style.transform = `translateX(${-size * slideNum}px)`;
+  });
+  
+  slideshow.addEventListener("transitionend", function() {
+    if (slideNum == 0) {
+      slideshow.style.transition = "none";
+      slideNum = slides.length - 2;
+      slideshow.style.transform = `translateX(${-size * slideNum}px)`;
+    }
+    else if (slideNum == slides.length - 1) {
+      slideshow.style.transition = "none";
+      slideNum = 1;
+      slideshow.style.transform = `translateX(${-size * slideNum}px)`;
+    }
+    for (let i = 0; i < slideDots.length; i++) {
+      slideDots[i].classList.remove("active-dot");
+    }
+    slideDots[slideNum - 1].classList.add("active-dot");
+  })
+  
+  function currentSlide(index) {
+    slideshow.style.transition = "transform 0.4s ease-in-out";
+    slideNum = index;
+    slideshow.style.transform = `translateX(${-size * slideNum}px)`;
+    for (let i = 0; i < slideDots.length; i++) {
+      slideDots[i].classList.remove("active-dot");
+    }
+    slideDots[slideNum - 1].classList.add("active-dot");
+  }
+}

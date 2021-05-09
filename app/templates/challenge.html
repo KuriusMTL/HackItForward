@@ -8,6 +8,7 @@
 {% block body %}
 <div class="content">
   {% include 'project_modal.html' %}
+  {% include 'login_prompt.html' %}
   <!-- TODO: Implement upvoting system in backend -->
   <!-- <i class="fa fa-caret-up" aria-hidden="true" style="font-size: x-large;"></i>
     <p>12</p>
@@ -18,9 +19,13 @@
       <div class="challenge-card">
         <div class="challenge-card-content">
           {% if challenge.image %}
-          <div class="challenge-card-image" style="background-image: url({{ challenge.image.url }})"></div>
+          <div class="challenge-card-image">
+            <img src="{{ challenge.image.url }}" style="border-radius: 8px; width: 100%; height: 100%;">
+          </div>
           {% else %}
-          <div class="challenge-card-image" style="background-image: url({{ static('img/polar-bear-2.png') }})"></div>
+          <div class="challenge-card-image">
+            <img src="{{ static('img/polar-bear-2.png') }}" style="border-radius: 8px; width: 100%; height: 100%;">
+          </div>
           {% endif %}
 
           <h1 id="challenge-name">{{ challenge.name }}</h1>
@@ -80,17 +85,18 @@
                 class="share-social-icon level-content level-item">
                 <i class="fab fa-reddit fa-lg"></i>
               </a>
-              {% if bookmarked %}
-              <a id="bookmark" class="popup share-social-icon level-content level-item"
-                onclick="displayLinkCopied('2');">
+              {% if not request.user.is_authenticated %}
+              <a onclick="promptLogin()" class="popup share-social-icon level-content level-item">
                 <i class="fas fa-bookmark fa-lg" id="bookmark-icon" style="color: #4F4F4F;"></i>
-                <span class="popuptext" id="copy-popup-2">Bookmark removed!</span>
+              </a>
+              {% elif bookmarked %}
+              <a id="bookmark" class="popup share-social-icon level-content level-item">
+                <i class="fas fa-bookmark fa-lg" id="bookmark-icon" style="color: #4F4F4F;"></i>
               </a>
               {% else %}
-              <a id="bookmark" class="popup share-social-icon level-content level-item"
-                onclick="displayLinkCopied('3');">
+              <a id="bookmark" class="popup share-social-icon level-content level-item">
                 <i class="far fa-bookmark fa-lg" id="bookmark-icon" style="color: #4F4F4F;"></i>
-                <span class="popuptext" id="copy-popup-3">Bookmarked!</span>
+                <span class="popuptext" id="copy-popup-2">Bookmarked!</span>
               </a>
               {% endif %}
               </a>
@@ -169,7 +175,8 @@
             <h5 style="margin-top: 0px;">Tags</h5>
             <div class="row" style="padding: 0;">
               {% for tag in challenge.tags.all() %}
-              <a class="challenge-tag" href="{{ url('gallery') }}?type={{ challenge|class_name|lower }}&tag={{ tag.name }}">
+              <a class="challenge-tag"
+                href="{{ url('gallery') }}?type={{ challenge|class_name|lower }}&tag={{ tag.name }}">
                 <button class="btn-tag btn--pilled btn-primary btn-small" style="font-weight: 500; font-size: 12px;">{{
                   tag.name }}</button>
               </a>
@@ -198,7 +205,6 @@
         {% endfor %}
       </div>
     </div>
-  
   </div>
   <br>
 
@@ -214,85 +220,77 @@
       </div>
       <div class="row tabcontent" id="comments">
         <div class="challenge-card">
-          <div class="project-card-content">
+          <div class="project-comment-content">
             <h5>Give Feedback</h5>
+            {% if request.user.is_authenticated %}
             <textarea type="text" name="comment" id="id_comment" class="comment-input"
               placeholder="Share your thoughts"></textarea>
 
             <button id="submit-comment" class="btn--pilled btn-primary">Submit</button>
-
+            {% else %}
+            <p><a href="{{ url('login') }}">Log in</a> to comment!<p>
+            {% endif %}
 
             {% csrf_token %}
-            {% for comment in challenge.comments.all() %}
+            {% for comment in challenge.comments.all().order_by('-date_added') %}
             <div style="display:flex; flex-direction: column;">
-              <!-- <a href="{{ url('user', username=comment.profile.username) }}"></a> -->
+
               <div class="comment">
-                <img class="comment-profile-image" src="{{ profile.image.url }}" style="grid-area: image;" />
+                <a href="{{ url('user', username=comment.profile.username) }}">
+                  <img class="comment-profile-image" src="{{ comment.profile.image.url }}" style="grid-area: image;" />
+                </a>
                 <h6 style="margin: 0; grid-area: username;">
-                  {{ comment.profile.user.username}}
+                  <a style="color: inherit; text-decoration: none; font-weight: inherit;"
+                    href="{{ url('user', username=comment.profile.username) }}">
+                    {{ comment.profile.user.username }}
+                  </a>
                   <span class="comment-date">{{ comment.humanized_date }}</span>
                 </h6>
                 <div style="grid-area: content;">
                   <p style="margin: 0">{{ comment.text }}</p>
-                  <i class="fas fa-ellipsis-h comment-actions"></i>
+                  <!--<i class="fas fa-ellipsis-h comment-actions"></i>-->
                 </div>
-                <i class="far fa-heart comment-like"></i>
+                <div class="comment-like">
+                  {% if not request.user.is_authenticated %}
+                  <i class="far fa-heart comment-heart" onclick="promptLogin()"></i>
+                  {% elif user_upvote_comments[comment.pk] %}
+                  <i class="fas fa-heart comment-heart" onclick="like(event, {{comment.pk}})"></i>
+                  {% else %}
+                  <i class="far fa-heart comment-heart" onclick="like(event, {{comment.pk}})"></i>
+                  {% endif %}
+                  <span id="comment-like-count">{{ comment.upvotes }}</span>
+                </div>
               </div>
-              {% endfor %}
-
             </div>
+            {% endfor %}
           </div>
         </div>
-
-        <div class="row tabcontent" id="submissions" style="display: block;">
-          {% for project in projects %}
-          <div class="challenge-card">
-            <a href="#{{ project.name }}">
-              <div class="project-card-content row">
-                {% if project.image %}
-                <div class="project-card-image-preview col-3" style="background-image: url({{ project.image.url }});">
-                </div>
-                {% else %}
-                <div class="project-card-image-preview col-3"
-                  style="background-image: url({{ static('img/polar-bear.png') }});"></div>
-                {% endif %}
-
-                <div class="col-7" style="padding-left: 32px;">
-                  <h3 class="">{{ project.name }}</h3>
-                  <p class="grey">{{ project.description|truncatechars(100) }}</p>
-
-                  <a href="{{ url('user', username=project.creators.first().username) }}">
-                    <div class="row">
-                      <img class="profile-icon vertical-align" src="{{ project.creators.first().image.url }}" />
-                      <p style="font-weight: 500; margin:0" class="grey">{{ project.short_creators }}</p>
-                    </div>
-                  </a>
-                </div>
-              </div>
+      </div>
+      <div class="row tabcontent" id="submissions" style="display: block;">
+        {% for project in projects %}
+        {% include 'project_preview_card.html' %}
+        {% endfor %}
+        {% if not projects %}
+        <div class="challenge-card">
+          <div class="project-card-content u-text-center">
+            <div class="no-projects-logo">
+              <i id="plane" class="far fa-paper-plane fa-4x"></i>
+              <span id="circle" class="circle" style="background-color: #ECF3FD;"></span>
+            </div>
+            {% if challenge.is_open() %}
+            <p class="grey">No projects have been posted to this challenge yet, be the first!</p>
+            <a href="{{ url('project_challenge_create', pk=challenge.pk) }}" class="u-center">
+              <button class="btn-primary btn--pilled">Submit Project</button>
+            </a>
+            {% else %}
+            <p class="grey">No projects have been posted to this challenge.</p>
+            {% endif %}
+            <a href="#share-modal" class="font-bold" style="margin-top: 12px;">Share Challenge &nbsp;<i
+                class="fas fa-share"></i>
             </a>
           </div>
-          {% else %}
-          <div class="challenge-card">
-            <div class="project-card-content u-text-center">
-              <div class="no-projects-logo">
-                <i id="plane" class="far fa-paper-plane fa-4x"></i>
-                <span id="circle" class="circle" style="background-color: #ECF3FD;"></span>
-              </div>
-              {% if challenge.is_open() %}
-              <p class="grey">No projects have been posted to this challenge yet, be the first!</p>
-              <a href="{{ url('project_challenge_create', pk=challenge.pk) }}" class="u-center">
-                <button class="btn-primary btn--pilled">Submit Project</button>
-              </a>
-              {% else %}
-              <p class="grey">No projects have been posted to this challenge.</p>
-              {% endif %}
-              <a href="#share-modal" class="font-bold" style="margin-top: 12px;">Share Challenge &nbsp;<i
-                  class="fas fa-share"></i></a>
-            </div>
-          </div>
-          {% endfor %}
         </div>
-
+        {% endif %}
       </div>
 
       <!-- <h4 style="text-align: center;">Challenge Contributions by Region</h4>
@@ -305,6 +303,7 @@
     </div>
   </div>
 </div>
+
 <script>
   $("#submit-comment").on('click', function (e) {
     var comment = $("#id_comment").val();
@@ -315,7 +314,7 @@
         data: {
           'comment': comment,
           'challenge_pk': {{ challenge.pk }},
-    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
+    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
         },
     success: function () {
       location.href += "#comments"
@@ -324,23 +323,38 @@
       })
     }
   });
+
   $("#bookmark").on('click', function (e) {
+    displayLinkCopied('2');
     $("#bookmark-icon").toggleClass("far");
     $("#bookmark-icon").toggleClass("fas");
+    $("#bookmark-icon").hasClass("far")
+      ? $("#copy-popup-2").html("Bookmark removed!")
+      : $("#copy-popup-2").html("Bookmarked!");
     $.ajax({
       type: "POST",
       url: `/add_bookmark/`,
       data: {
         'challenge_pk': {{ challenge.pk }},
-    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken').val(),
-      },
-    success: function () {
-      setTimeout(function () {
-        location.reload()
-      }, 2000);
-    }
-    })
-
+    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+      }
+    });
   });
+
+  function like(e, comment_pk) {
+    e.target.classList.toggle("far");
+    e.target.classList.toggle("fas");
+    e.target.classList.contains("far")
+      ? e.target.parentElement.children[1].innerHTML = `${parseInt(e.target.parentElement.children[1].innerHTML) - 1}`
+      : e.target.parentElement.children[1].innerHTML = `${parseInt(e.target.parentElement.children[1].innerHTML) + 1}`
+    $.ajax({
+      type: "POST",
+      url: `/upvote/comment/${comment_pk}/`,
+      data: {
+        'challenge_pk': {{ challenge.pk }},
+        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+      }
+    });
+  };
 </script>
 {% endblock %}

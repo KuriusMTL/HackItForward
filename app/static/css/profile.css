@@ -39,10 +39,12 @@
   -webkit-box-flex: 0;
   margin-left: 10px;
   margin-right: 20px;
+  background-color: #ffffff;
 }
 
 .avatar-image {
   border: 5px solid #ffffff;
+  border-radius: 50%;
   min-width: 100%;
   position: absolute;
   left: 50%;
