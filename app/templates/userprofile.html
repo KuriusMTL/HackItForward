@@ -13,7 +13,14 @@
       <img class="avatar-image" src="{{ user.profile.image.url }}">
     </div>
     <div class="profile-details">
-      <h3 style="margin-bottom: 4px;">{{ user.first_name }} {{ user.last_name }} @{{ user.username }}</h3>
+      <h3 style="margin-bottom: 4px;">
+        {{ user.first_name }} {{ user.last_name }} @{{ user.username }}
+        {% if user.profile.badges.exists() and user.profile.badges.get(name="Verified") %}
+        <a style="margin-left:5px;" href="#badge-{{ user.profile.badges.get(name='Verified').pk }}" class="tooltip" data-tooltip="{{ user.profile.badges.get(name='Verified') }}">
+          <img style="width:25px;height:auto;" src="{{ user.profile.badges.get(name='Verified').icon.url }}">
+        </a>
+        {% endif %}
+      </h3>
       <p style="margin: 0">{{ user.profile.location }}</p>
       <p style="margin:0">{{ user.profile.headline }}</p>
       <p style="margin:0"><a href="#followers" style="color: var(--cirrus-dark);"><b>{{ followers.count() }}</b> follower{{ followers.count()|pluralize }}</a>  <a href="#following" style="color: var(--cirrus-dark);"><b>{{ following.count() }}</b> following</a></p>
@@ -23,6 +30,7 @@
         <div>
           <span class="tile__title badges">Badges:
             {% for badge in user.profile.badges.all() %}
+              {% if not badge.name=='Verified' %}
               <a href="#badge-{{ badge.pk }}" class="tooltip" data-tooltip="{{ badge.name }}">
                 <img src="{{ badge.icon.url }}">
               </a>
@@ -46,6 +54,7 @@
                   </div>
                 </div>
               </div>
+              {% endif %}
             {% endfor %}
           </span>
         </div>
