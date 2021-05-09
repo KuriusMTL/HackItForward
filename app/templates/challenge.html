@@ -190,10 +190,10 @@
         {% for challenge in related_challenges %}
         <div class="related-challenge row" onclick="location.href=`{{ url('challenge', pk=challenge.pk) }}`">
           {% if challenge.image %}
-          <img class="col-3 related-challenge-image-preview" style="background-image: url({{ challenge.image.url }})">
+          <img class="col-3 related-challenge-image-preview" src="{{ challenge.image.url }}">
           {% else %}
-          <div class="col-3 related-challenge-image-preview"
-            style="background-image: url({{ static('img/polar-bear.png')}})"></div>
+          <img class="col-3 related-challenge-image-preview"
+            src="{{ static('img/polar-bear.png')}}">
           {% endif %}
 
           <div class="col-8" style="margin-left: 15px">

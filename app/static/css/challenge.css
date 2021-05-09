@@ -115,8 +115,8 @@
 
 .related-challenge-image-preview {
   border-radius: 8px;
-  background-repeat: no-repeat;
-  background-size: cover;
+  padding: 0 !important;
+  object-fit: cover;
   max-width: 80px;
   min-width: 80px;
   min-height: 80px;
