@@ -39,13 +39,13 @@ You should explain how to install the project in this section.
 CHALLENGE_DESCRIPTION = """
 A description of the challenge in layman's terms.
 
-### Features to Implement
+##### Features to Implement
 - User interface (UI) to interact with ...
 - Algorithm that ...
 - Backend database to ...
 - Server to host the application for users to test out online 
 
-### Extra Resources and Guidelines
+##### Extra Resources and Guidelines
 If there are extra tools that you think project makers could benefit from, include them here.
 """
 
