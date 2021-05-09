@@ -45,15 +45,15 @@
     <div id="slideshow-slides">
       {% for challenge in spotlight_challenges %}
       {% if challenge.image %}
-      <div class="mySlides wide-challenge-card" style="background-image: url({{ challenge.image.url }});">
+      <div class="mySlides wide-challenge-card" style="background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)), url({{ challenge.image.url }});">
       {% else %}
-      <div class="mySlides wide-challenge-card" style="background-image: url({{ static('img/polar-bear.png') }});">
+      <div class="mySlides wide-challenge-card" style="background-image: linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)), url({{ static('img/polar-bear.png') }});">
         {% endif %}
         <h2 class="white" style="font-size: 60px; margin-bottom: 0;">{{ challenge.name }}</h2>
         <a href="{{ url('challenge', pk=challenge.pk)}}">
           <div class="row">
-            <h6 class="grey" style="font-size: 40px; margin-top: 0;">Try Now &nbsp;</h6><i
-              class="grey fas fa-arrow-right fa-3x"></i>
+            <h6 class="light-grey" style="font-size: 40px; margin-top: 0;">Try Now &nbsp;</h6><i
+              class="light-grey fas fa-arrow-right fa-3x"></i>
           </div>
         </a>
       </div>
