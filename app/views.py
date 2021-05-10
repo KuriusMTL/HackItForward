@@ -59,7 +59,7 @@ class IndexView(TemplateView):
         if "type" not in self.request.GET or (
             "q" not in self.request.GET and "tag" not in self.request.GET
         ):
-            context["challenges"] = Challenge.objects.all()
+            context["challenges"] = Challenge.objects.all().order_by('-created')
             return context
 
         queryset = Challenge.objects.all()
