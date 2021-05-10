@@ -136,7 +136,7 @@
               <h4 style="margin-top: 0;">Achievements</h4>
               <div class="level">
                 {% for badge in user.profile.badges.all() %}
-                  <div style="background-image: url({{ badge.image.url }})"></div>
+                  <div style="background-image: url({{ badge.icon.url }})"></div>
                 {% endfor %}
               </div>
             </div>
