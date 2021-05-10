@@ -367,12 +367,7 @@ class ProjectFormView(InitiativeFormView):
               "description", "creators", "contributors", "tags"]
 
 
-class ProjectCreateView(ProjectFormView, CreateView):
-    def get_success_url(self):
-        return "/challenge/" + str(self.get_object().challenge.pk) + "/#" + str(self.get_object().name)
-
-
-class ProjectChallengeCreateView(ProjectCreateView):
+class ProjectChallengeCreateView(ProjectFormView, CreateView):
     def dispatch(self, *args, **kwargs):
         self.challenge = get_object_or_404(Challenge, pk=kwargs["pk"])
         if not self.challenge.is_open():
@@ -389,6 +384,9 @@ class ProjectChallengeCreateView(ProjectCreateView):
         self.object.challenge = self.challenge
         self.object.save()
         return super().form_valid(form)
+    
+    def get_success_url(self):
+        return "/challenge/" + str(self.object.challenge.pk) + "/#" + str(self.object.name)
 
 
 class ProjectUpdateView(ProjectFormView, UpdateView):
@@ -458,6 +456,7 @@ def follow_user(request, pk):
         data['error_message'] = 'error'
         return redirect('index')
     return redirect('user', following_user.username)
+
 
 def unfollow_user(request, pk):
     following_user_id = pk
