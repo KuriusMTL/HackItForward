@@ -678,6 +678,14 @@ a > .fa-reddit:hover {
   color: rgb(246, 67, 2);
 }
 
+a > .fa-envelope {
+  color: rgb(119, 119, 119);
+}
+
+a > .fa-envelope:hover {
+  color: rgb(97, 97, 97);
+}
+
 .profile-icon {
   border-radius: 50%;
   max-height: 30px;
