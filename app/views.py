@@ -365,7 +365,6 @@ class ChallengeView(TemplateView, ContextMixin):
             except:
                 context["user_upvote_comments"][comment.pk] = False
             
-
         if self.challenge.start and self.challenge.end:
             context["time_labels"] = [
                 {"label": "Start Time", "time": self.challenge.start},
