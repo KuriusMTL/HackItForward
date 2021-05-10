@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+{% include 'login_prompt.html' %}
 <div class="content">
   <div class="profile-bg" style="background-image: url({{ user.profile.banner_image.url }}); background-repeat: no-repeat;">
   </div>
@@ -63,10 +64,14 @@
         <button class="btn--pilled btn-white btn-primary" style="color: #4f4f4f;">Unfollow</button>
       </a>
       {% else %}
-        <a href="{{ url ('follow_user', pk=user.id) }}" style="position: absolute; right: 50px; margin-top: 80px">
+        <a href="{{ url ('follow_user', pk=user.id) }}" onclick="promptLogin()" style="position: absolute; right: 50px; margin-top: 80px">
           <button class="btn--pilled btn-white btn-primary" style="color: #4f4f4f;">Follow</button>
         </a>
       {% endif %}
+    {% else %}
+      <a onclick="promptLogin()" style="position: absolute; right: 50px; margin-top: 80px">
+        <button class="btn--pilled btn-white btn-primary" style="color: #4f4f4f;">Follow</button>
+      </a>
     {% endif %}
 
   </div>
