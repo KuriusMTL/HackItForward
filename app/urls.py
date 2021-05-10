@@ -28,7 +28,6 @@ urlpatterns = [
     path("challenge/<int:pk>/edit/", views.ChallengeUpdateView.as_view(), name="challenge_edit"),
     path("project/create/", views.ProjectCreateView.as_view(), name="project_create"),
     path( "project/create/<int:pk>/", views.ProjectChallengeCreateView.as_view(), name="project_challenge_create",),
-    path("project/<int:pk>/", views.ProjectView.as_view(), name="project"),
     path("add_comment/", views.add_comment, name="add_comment"),
     path("project/<int:pk>/edit/", views.ProjectUpdateView.as_view(), name="project_edit"),
     path("get_challenges_ajax/", views.get_challenges_ajax, name="get_challenges_ajax"),

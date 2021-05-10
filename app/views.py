@@ -321,22 +321,6 @@ class ChallengeUpdateView(ChallengeFormView, UpdateView):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
-# TO DELETE LATER
-class InitiativeViewMixin(ContextMixin):
-    classname = None
-    initiative = None
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        pk = self.kwargs["pk"]
-        self.initiative = self.classname.objects.get(pk=pk)
-
-        context["initiative"] = self.initiative
-        context["links"] = SocialLinkAttachement.objects.filter(
-            object_id=pk, content_type=ContentType.objects.get_for_model(
-                self.classname)
-        )
-        return context
 
 class ChallengeView(TemplateView, ContextMixin):
     template_name = "challenge.html"
@@ -416,18 +400,6 @@ class ProjectUpdateView(ProjectFormView, UpdateView):
     def get_success_url(self):
         return "/challenge/" + str(self.get_object().challenge.pk) + "/#" + str(self.get_object().name)
         
-
-# TO DELETE LATER
-class ProjectView(InitiativeViewMixin, TemplateView):
-    template_name = "project.html"
-    classname = Project
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["time_labels"] = [
-            {"label": "Creation Time", "time": self.initiative.created}]
-        return context
-
 
 def get_challenges_ajax(request):
     if request.method == "POST":
