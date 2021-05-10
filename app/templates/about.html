@@ -32,9 +32,9 @@
       <p>HackItForward is an initiative started by <a href="https://www.kurius.ca/" target="_blank" rel="noopener">Kurius</a> which brings together
         beginner and expert programmers alike looking to contribute to society in meaningful ways.
       </p>
-      <a href="/about">
+      <!-- <a href="/about">
         <button class="btn-dark btn--pilled" style="max-width: 350px; margin-top: 35px">Learn more about our mission</button>
-      </a>
+      </a> -->
     </div>
     <div class="col-6 level-item level-content animate-bl-tr">
       <img src="{{ static('img/humaans/humanwalking.svg') }}" width="300">
@@ -47,40 +47,43 @@
 
 <div class="strip strip-color">
   <div class="row level" style="margin-right: 0">
-    <div class="col-6 white level-items" style="margin-bottom: 10%;">
-      <h3>Work on Real-World Challenges</h3>
-      <p>We work closely with many nonprofit organizations to publish detailed challenges on this platform for the coding community
+    <div class="col-6 level-items" style="margin-bottom: 10%;">
+      <h3 class="white">Work on Real-World Challenges</h3>
+      <p class="white">We work closely with many nonprofit organizations to publish detailed challenges on this platform for the coding community
         to tackle together. Take a look by clicking on the button below. </p>
       <a href="{{ url('explore') }}">
         <button class="btn-light btn--pilled" href="" style="max-width: 300px; margin-top: 35px;">Discover More Challenges</button>
       </a>
     </div>
-    <div class="col-6 level-items">
-      <div class="card slide-up pointer-cursor w-80"  onclick="location.href=`{{ url('challenge', 1)}}`">
-        <div class="card-container">
-          <div class="card-image" style="background-image: url({{ static('img/fundraising.jpg') }})"></div>
-        </div>
-        <div class="mobile-title">
-          <div class="content">
-            <div class="tile">
-              <div class="tile__container">
-                <p class="tile__title">Fundraising Challenge</p>
-                <p class="tile__subtitle">By TechAide</p>
-              </div>
+    <div class="row">
+      <div style="padding: 0 0.75rem; min-width: 500px;">
+        <div class="challenge-card" onclick="location.href='{{ url("challenge", pk=challenge.pk) }}'">
+          {% if challenge.image %}
+            <div class="card-img" style="background-image: url({{ challenge.image.url }})"></div>
+          {% else %}
+            <div class="card-img" style="background-image: url({{ static('img/fibonacci.png') }})"></div>
+          {% endif %}
+          <div class="card-description">
+            <h1 class="challenge-card-title" style="min-height: 40px; margin-bottom: 5px; font-size: 20px;">{{ challenge.name|truncatechars(100)  }}</h1>
+            <p style="margin: 0; font-size: 16px;">{{ challenge.submission_count }} Submissions</p>
+          </div>
+          <hr noshade size="1" style="border-color: #F2F2F2;">
+          <div class="card-description" style="padding: 0;">
+            <div class="challenge-card-creators row">
+              <a href="{{ url('user', username=challenge.creators.first().username) }}" style="display: flex;">
+                <img class="profile-icon challenge-card-profile-icon" src="{{ challenge.creators.first().image.url }}"/>
+                  <p class="challenge-card-profile-text u-text-left" style="font-size: 14px; margin-bottom: 0; display: inline;">
+                  By&nbsp;<b class="">{{ challenge.short_creators }}</b>
+                  </p>
+              </a>
             </div>
           </div>
-        </div>
-        <div class="card-body content">
-          <p style="font-size: 14px;">Centraide is one of the largest investors in the community sector. Each year, Centraide organizes a fundraising...</p>
-        </div>
-        <div class="card-footer content">
-          Intermediate Level
         </div>
       </div>
     </div>
   </div>
 </div>
-<div class="strip">
+<!-- <div class="strip">
   <div class="row level">
     <div class="col-6 level-content level-item animate-br-tl">
       <img src="{{ static('img/humaans/humansitting.svg') }}" width="350">
@@ -323,7 +326,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
 <div class="strip bg-white">
   <div class="row">
@@ -332,7 +335,7 @@
       <p>By choosing a challenge to tackle, you will be given the option to connect with other individuals directly on this platform. You can either
         start your own project, or simply join another one!
       </p>
-      <a href="{{ url('explore') }}">
+      <a href="{{ url('gallery') }}">
         <button class="btn-primary btn--pilled" style="margin-top: 35px;">Discover projects made by the community</button>
       </a>
     </div>
@@ -385,12 +388,12 @@
     <div class="col-6 animate-l-r" style="padding: 0px">
       <img src="{{ static('img/humaans/humanlookingright.svg') }}" width="300">
     </div>
-    <div class="col-6 white" style="padding-bottom: 50px;">
-      <h3>Join our community</h3>
-      <p>Be the first to know the latest news about upcoming challenges or updates!</p>
+    <div class="col-6" style="padding-bottom: 50px;">
+      <h3 class="white">Join our community</h3>
+      <p class="white">Be the first to know the latest news about upcoming challenges or updates!</p>
       <div class="u-pull-left row level ignore-screen">
         <a href="https://www.facebook.com/KuriusMtl/" target="_blank" rel="noopener" class="social-icon level-content level-item">
-          <i class="fa fa-facebook-square fa-lg" aria-hidden="true" style="color: black"></i>
+          <i class="fab fa-facebook-f fa-lg" aria-hidden="true" style="color: black"></i>
         </a>
         <a href="https://discord.com/invite/pU7XCG6" target="_blank" rel="noopener" class="social-icon level-content level-item">
           <i class="fab fa-discord fa-lg" style="color: black"></i>

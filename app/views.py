@@ -27,6 +27,11 @@ import tempfile
 class AboutView(TemplateView):
     template_name = "about.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["challenge"] = Challenge.objects.filter(name__icontains="Centraide")[0]
+        return context
+
 
 redirected = False # Not an elegant solution, but prevents infinite redirects
 class IndexView(TemplateView):
