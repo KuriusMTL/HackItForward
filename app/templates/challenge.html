@@ -176,7 +176,7 @@
             <div class="row" style="padding: 0;">
               {% for tag in challenge.tags.all() %}
               <a class="challenge-tag"
-                href="{{ url('gallery') }}?type={{ challenge|class_name|lower }}&tag={{ tag.name }}">
+                href="{{ url('index') }}?type=challenge&tag={{ tag.name }}">
                 <button class="btn-tag btn--pilled btn-primary btn-small" style="font-weight: 500; font-size: 12px;">{{
                   tag.name }}</button>
               </a>

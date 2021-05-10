@@ -6,6 +6,7 @@
   --grey-light: #f1efef;
   --grey-mid: #828282;
   --grey-dark: #242424;
+  --white: #ffffff;
 
   --cirrus-fg: #4f4f4f;
   --cirrus-primary: #3c8cc9;
@@ -92,6 +93,9 @@ input:focus {
   font-family: Poppins !important;
 }
 
+.white {
+  color: var(--white) !important;
+}
 .blue {
   color: var(--cirrus-primary);
 }
@@ -194,14 +198,14 @@ button {
 }
 
 .btn-white {
-  background-color: #ffffff;
-  border-color: #ffffff;
+  background-color: var(--white);
+  border-color: var(--white);
   color: var(--cirrus-link);
 }
 
 .btn-white:hover {
-  background-color: #ffffff;
-  border-color: #ffffff;
+  background-color: var(--white);
+  border-color: var(--white);
   color: var(--cirrus-link);
 }
 
@@ -555,7 +559,7 @@ footer {
  */
 
 .challenge-card {
-  background-color: #ffffff;
+  background-color: var(--white);
   border-radius: 16px;
   margin: 0.5rem 0;
   padding: 0;
@@ -672,6 +676,14 @@ a > .fa-reddit {
 
 a > .fa-reddit:hover {
   color: rgb(246, 67, 2);
+}
+
+a > .fa-envelope {
+  color: rgb(119, 119, 119);
+}
+
+a > .fa-envelope:hover {
+  color: rgb(97, 97, 97);
 }
 
 .profile-icon {

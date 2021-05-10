@@ -129,7 +129,7 @@
                   <i class="fas fa-envelope fa-lg" aria-hidden="true" style="color: #4F4F4F;"></i>
                 </a> -->
                 {% for link in links.all() %}
-                  <a class="share-social-icon level-content level-item" href="{{ link.content|e }}" target="_blank" style="margin: 0 0.5rem;"><i class="{% if link.icon == 'link' %} fas {% else %} fab {% endif %} fa-{{ link.icon }} fa-2x"></i></a>
+                  <a class="share-social-icon level-content level-item" href="{{ link.content|e }}" target="_blank" style="margin: 0.5rem 1rem;"><i class="{% if link.icon == 'link' or link.icon == 'envelope' %} fas {% else %} fab {% endif %} fa-{{ link.icon }} fa-2x"></i></a>
                 {% endfor %}
               </div>
             </div>
