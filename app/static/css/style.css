@@ -22,6 +22,7 @@
   font-family: "Poppins" !important;
   box-sizing: border-box;
   word-wrap: break-word;
+  cursor: pointer;
 }
 
 body {
@@ -97,6 +98,10 @@ input:focus {
 
 .dark-blue {
   color: var(--cirrus-link-dark);
+}
+
+.light-grey {
+  color: var(--grid-grey);
 }
 
 .grey {
