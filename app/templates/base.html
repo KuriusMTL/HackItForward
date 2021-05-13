@@ -30,8 +30,8 @@
   <link href="{{ static('css/profile.css') }}" rel="stylesheet" type="text/css">
 </head>
 
-<body>
-
+<body onload="betaLaunch('{{request.user.is_authenticated}}', 'True')">
+  {% include 'launch_modal.html' %}
   <!-- Header -->
   <div class="header unselectable header-animated header-clear" id="header">
     <div class="header-brand">

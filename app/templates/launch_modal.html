@@ -1,0 +1,118 @@
+<!--Welcome to HackItForward-->
+<div class="modal modal-animated--zoom-in" id="launch-modal-0">
+    <a href="#" class="modal-overlay close-btn" aria-label="Close"></a>
+    <div class="modal-content" role="document">
+        <div class="modal-header"><a href="#" class="u-pull-right" aria-label="Close"><span class="icon"><svg
+                        aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times"
+                        class="svg-inline--fa fa-times fa-w-11 fa-wrapper" role="img" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 352 512">
+                        <path fill="currentColor"
+                            d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z">
+                        </path>
+                    </svg></span></a>
+            <div class="modal-title">HackItForward Beta Launch</div>
+        </div>
+        <div class="modal-body">
+            <div class="r">
+                <h3 class="font-alt font-light u-text-center">Welcome to HackItForward!</h3>
+            </div>
+            <div class="divider"></div>
+            <div>
+                <img src="{{ static('img/logo-with-name-horizontal.png') }}"/>
+                <p>Hi! Are you an avid programmer looking for a way to code for the greater good? Are you a curious philanthropist eager to help out a community?</p>
+                <p>Well look no further! Welcome to Kurius' beta launch of our open-source platform <a href="https://www.kurius.ca/hackitforward" target="_blank"><b>HackItForward</b></a>!</p>
+            </div>
+        </div>
+        <div class="space"></div>
+        <div class="modal-footer">
+            <div class="form-section u-text-center">
+                <a href="https://www.kurius.ca/hackitforward" target="_blank" class="u-inline-block">
+                    <button class="btn--pilled btn-transparent u-inline-block">Read More</button>
+                </a>
+                <a href="#launch-modal-1" class="u-inline-block">
+                    <button class="btn--pilled btn-primary u-inline-block">Next</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Bug Reports + Thank You-->
+<div class="modal modal-animated--zoom-in" id="launch-modal-1">
+    <a href="#" class="modal-overlay close-btn" aria-label="Close"></a>
+    <div class="modal-content" role="document">
+        <div class="modal-header"><a href="#" class="u-pull-right" aria-label="Close"><span class="icon"><svg
+                        aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times"
+                        class="svg-inline--fa fa-times fa-w-11 fa-wrapper" role="img" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 352 512">
+                        <path fill="currentColor"
+                            d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z">
+                        </path>
+                    </svg></span></a>
+            <div class="modal-title">HackItForward Beta Launch</div>
+        </div>
+        <div class="modal-body">
+            <div class="r">
+                <h3 class="font-alt font-light u-text-center">Bug Reporting</h3>
+                <h5 class="font-alt font-light u-text-center">& A Thank You Gift</h5>
+            </div>
+            <div class="divider"></div>
+            <div>
+                <p>As this is only the beta version of our platform, we are expecting there to be some bugs that we unfortunately could not catch during production. If you happen to notice anything wrong, please let us know in our <a href="https://discord.com/invite/pU7XCG6" target="_blank">discord server</a>, or submit an issue notice on our github repo.</p>
+                <p>For being among our very first users, you will recieve a very special badge as a token of thanks when you sign up! We hope you enjoy using HackItForward!</p>
+                <p>-Kurius Team</p>
+            </div>
+        </div>
+        <div class="space"></div>
+        <div class="modal-footer">
+            <div class="form-section u-text-center">
+                {% if request.user.is_authenticated %}
+                <a href="#launch-modal-2" class="u-inline-block">
+                    <button class="btn--pilled btn-primary u-inline-block">View Badge</button>
+                </a>
+                {% else %}
+                <a href="{{ url('register') }}" class="u-inline-block">
+                    <button class="btn--pilled btn-primary u-inline-block">Sign Up</button>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% if request.user.is_authenticated %}
+<!--Badge Section-->
+<div class="modal modal-animated--zoom-in" id="launch-modal-2">
+    <a href="#" class="modal-overlay close-btn" aria-label="Close"></a>
+    <div class="modal-content" role="document">
+        <div class="modal-header"><a href="#" class="u-pull-right" aria-label="Close"><span class="icon"><svg
+                        aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times"
+                        class="svg-inline--fa fa-times fa-w-11 fa-wrapper" role="img" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 352 512">
+                        <path fill="currentColor"
+                            d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z">
+                        </path>
+                    </svg></span></a>
+            <div class="modal-title">HackItForward Beta Launch</div>
+        </div>
+        <div class="modal-body">
+            <div class="u-flex u-center">
+                <img src="{{ static('img/launch-badge.png') }}" style="height: 200px;"/>
+            </div>
+            <div class="r">
+                <h3 class="font-alt font-light u-text-center">HackItForward Launch Badge</h3>
+                <h5 class="font-alt font-light u-text-center">Obtained!</h5>
+            </div>
+        </div>
+        <div class="space"></div>
+        <div class="modal-footer">
+            <div class="form-section u-text-center">
+                <a href="#" class="u-inline-block">
+                    <button class="btn--pilled btn-transparent u-inline-block">Close</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
