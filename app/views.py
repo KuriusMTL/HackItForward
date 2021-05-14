@@ -1,5 +1,5 @@
 from app.forms import ProfileUpdateForm, UserUpdateForm, SocialLinkFormSet, PasswordUpdateForm, OnboardingForm
-from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, User, UserFollowing, BookmarkChallenge, UpvoteChallenge, UpvoteComment, UpvoteProject, Comment
+from app.models import Badge, Challenge, Profile, Project, SocialLinkAttachement, Tag, User, UserFollowing, BookmarkChallenge, UpvoteChallenge, UpvoteComment, UpvoteProject, Comment
 
 from django.core import files
 from django.core.exceptions import PermissionDenied
@@ -145,6 +145,10 @@ class UserView(DetailView):
         context["bookmarks"] = BookmarkChallenge.objects.filter(
              Q(user__in=[self.object.pk])
         )
+        try:
+            context["verified"] = self.request.user.profile.badges.get(name="Verified")
+        except Badge.DoesNotExist: #Catch get exception
+            context["verified"] = False
         return context
 
 
@@ -249,6 +253,9 @@ class OnboardingView(LoginRequiredMixin, SocialLinkFormMixin, UpdateView):
     success_url = reverse_lazy("index")
 
     def get_object(self, queryset=None):
+        #Assign Launch badge
+        launch_badge = Badge.objects.get(name="Launch Badge")
+        self.request.user.profile.badges.add(launch_badge)
         return self.request.user.profile
 
 
@@ -273,7 +280,7 @@ class PasswordResetConfirmationView(TemplateView):
 class RegisterView(FormView):
     template_name = "register.html"
     form_class = UserCreationForm
-    success_url = reverse_lazy("edit_profile")
+    success_url = reverse_lazy("onboarding")
 
     def form_valid(self, form):
         form.save()
