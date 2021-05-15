@@ -294,15 +294,11 @@ function betaLaunch(login) {
   if (!localstore.getItem("launch-modal") && new Date() <= Date.parse('22 May 2021 00:00:00 EST')) {
     window.location.hash = "launch-modal-0";
     localstore.setItem("launch-modal", true);
-    if (login === "True") {
-      localstore.setItem("launch-badge", true);
-    }
   } else {
     document.getElementById("launch-modal-0").outerHTML = "";
     document.getElementById("launch-modal-1").outerHTML = "";
     if (login === "True" && !localstore.getItem("launch-badge")) {
       window.location.hash = "launch-modal-2";
-      localstore.setItem("launch-badge", true);
     } else {
       document.getElementById("launch-modal-2").outerHTML = "";
     }

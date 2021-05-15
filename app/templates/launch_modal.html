@@ -90,9 +90,9 @@
 {% if request.user.is_authenticated and true %}
 <!--Badge Section-->
 <div class="modal modal-animated--zoom-in" id="launch-modal-2">
-    <a href="#" class="modal-overlay close-btn" aria-label="Close"></a>
+    <a href="#" class="modal-overlay close-btn" aria-label="Close" onclick="localstore.setItem('launch-badge', true);"></a>
     <div class="modal-content" role="document">
-        <div class="modal-header"><a href="#" class="u-pull-right" aria-label="Close"><span class="icon"><svg
+        <div class="modal-header"><a href="#" class="u-pull-right" aria-label="Close" onclick="localstore.setItem('launch-badge', true);"><span class="icon"><svg
                         aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times"
                         class="svg-inline--fa fa-times fa-w-11 fa-wrapper" role="img" xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 352 512">
@@ -114,7 +114,7 @@
         <div class="space"></div>
         <div class="modal-footer">
             <div class="form-section u-text-center">
-                <a href="#" class="u-inline-block">
+                <a href="#" class="u-inline-block" onclick="localstore.setItem('launch-badge', true);">
                     <button class="btn--pilled btn-transparent u-inline-block">Close</button>
                 </a>
             </div>
