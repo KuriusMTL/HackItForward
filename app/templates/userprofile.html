@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+{% include 'login_modal.html' %}
 <div class="content">
   <div class="profile-bg" style="background-image: url({{ user.profile.banner_image.url }}); background-repeat: no-repeat;">
   </div>
@@ -66,7 +67,7 @@
     <a href="{{ url('edit_profile') }}" style="position: absolute; right: 50px; margin-top: 80px">
       <button class="btn--pilled btn-white btn-primary" style="color: #4f4f4f;">Edit Profile</button>
     </a>
-    {% else %}
+    {% elif request.user.is_authenticated %}
       {% if is_following_user %}
       <a href="{{ url ('unfollow_user', pk=user.id) }}" style="position: absolute; right: 50px; margin-top: 80px">
         <button class="btn--pilled btn-white btn-primary" style="color: #4f4f4f;">Unfollow</button>
@@ -76,6 +77,10 @@
           <button class="btn--pilled btn-white btn-primary" style="color: #4f4f4f;">Follow</button>
         </a>
       {% endif %}
+    {% else %}
+      <a href="#login-modal" style="position: absolute; right: 50px; margin-top: 80px">
+        <button class="btn--pilled btn-white btn-primary" style="color: #4f4f4f;">Follow</button>
+      </a>
     {% endif %}
 
   </div>

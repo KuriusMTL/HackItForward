@@ -230,37 +230,37 @@ const slideshow = document.getElementById("slideshow-slides");
 if (slideshow) {
   const slides = slideshow.children;
   slideshow.innerHTML = slides[slides.length - 1].outerHTML + slideshow.innerHTML + slides[0].outerHTML;
-  
+
   const nextBtn = document.getElementById("nextBtn");
   const prevBtn = document.getElementById("prevBtn");
   const slideDots = document.getElementsByClassName("dot");
-  
+
   var slideNum = 1;
   var size = slides[0].clientWidth;
   slideDots[0].classList.add("active-dot");
   slideshow.style.transform = `translateX(${-size * slideNum}px)`;
-  
-  window.addEventListener("resize", function() {
+
+  window.addEventListener("resize", function () {
     slideshow.style.transition = "none";
     size = slides[0].clientWidth;
     slideshow.style.transform = `translateX(${-size * slideNum}px)`;
   })
-  
-  nextBtn.addEventListener("click", function() {
+
+  nextBtn.addEventListener("click", function () {
     if (slideNum >= slides.length - 1) return;
     slideshow.style.transition = "transform 0.4s ease-in-out";
     slideNum++;
     slideshow.style.transform = `translateX(${-size * slideNum}px)`;
   });
-  
-  prevBtn.addEventListener("click", function() {
+
+  prevBtn.addEventListener("click", function () {
     if (slideNum <= 0) return;
     slideshow.style.transition = "transform 0.4s ease-in-out";
     slideNum--;
     slideshow.style.transform = `translateX(${-size * slideNum}px)`;
   });
-  
-  slideshow.addEventListener("transitionend", function() {
+
+  slideshow.addEventListener("transitionend", function () {
     if (slideNum == 0) {
       slideshow.style.transition = "none";
       slideNum = slides.length - 2;
@@ -276,7 +276,7 @@ if (slideshow) {
     }
     slideDots[slideNum - 1].classList.add("active-dot");
   })
-  
+
   function currentSlide(index) {
     slideshow.style.transition = "transform 0.4s ease-in-out";
     slideNum = index;
@@ -285,5 +285,22 @@ if (slideshow) {
       slideDots[i].classList.remove("active-dot");
     }
     slideDots[slideNum - 1].classList.add("active-dot");
+  }
+}
+
+const localstore = window.localStorage;
+
+function betaLaunch(login) {
+  if (!localstore.getItem("launch-modal") && new Date() <= Date.parse('22 May 2021 00:00:00 EST')) {
+    window.location.hash = "launch-modal-0";
+    localstore.setItem("launch-modal", true);
+  } else {
+    document.getElementById("launch-modal-0").outerHTML = "";
+    document.getElementById("launch-modal-1").outerHTML = "";
+    if (login === "True" && !localstore.getItem("launch-badge")) {
+      window.location.hash = "launch-modal-2";
+    } else {
+      document.getElementById("launch-modal-2").outerHTML = "";
+    }
   }
 }

@@ -8,7 +8,7 @@
 {% block body %}
 <div class="content">
   {% include 'project_modal.html' %}
-  {% include 'login_prompt.html' %}
+  {% include 'login_modal.html' %}
   <!-- TODO: Implement upvoting system in backend -->
   <!-- <i class="fa fa-caret-up" aria-hidden="true" style="font-size: x-large;"></i>
     <p>12</p>
@@ -86,7 +86,7 @@
                 <i class="fab fa-reddit fa-lg"></i>
               </a>
               {% if not request.user.is_authenticated %}
-              <a onclick="promptLogin()" class="popup share-social-icon level-content level-item">
+              <a href="#login-modal" class="popup share-social-icon level-content level-item">
                 <i class="fas fa-bookmark fa-lg" id="bookmark-icon" style="color: #4F4F4F;"></i>
               </a>
               {% elif bookmarked %}
@@ -252,7 +252,7 @@
                 </div>
                 <div class="comment-like">
                   {% if not request.user.is_authenticated %}
-                  <i class="far fa-heart comment-heart" onclick="promptLogin()"></i>
+                  <i class="far fa-heart comment-heart" href="#login-modal"></i>
                   {% elif user_upvote_comments[comment.pk] %}
                   <i class="fas fa-heart comment-heart" onclick="like(event, {{comment.pk}})"></i>
                   {% else %}
