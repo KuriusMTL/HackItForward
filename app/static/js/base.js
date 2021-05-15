@@ -290,29 +290,21 @@ if (slideshow) {
 
 const localstore = window.localStorage;
 
-function betaLaunch(login, badge) {
+function betaLaunch(login) {
   if (!localstore.getItem("launch-modal") && new Date() <= Date.parse('22 May 2021 00:00:00 EST')) {
     window.location.hash = "launch-modal-0";
     localstore.setItem("launch-modal", true);
+    if (login === "True") {
+      localstore.setItem("launch-badge", true);
+    }
   } else {
     document.getElementById("launch-modal-0").outerHTML = "";
     document.getElementById("launch-modal-1").outerHTML = "";
-    if (login === "True" && badge !== "True") {
+    if (login === "True" && !localstore.getItem("launch-badge")) {
       window.location.hash = "launch-modal-2";
+      localstore.setItem("launch-badge", true);
     } else {
       document.getElementById("launch-modal-2").outerHTML = "";
     }
-  }
-
-  if (login === "True" && badge !== "True") {
-    /*$.ajax({
-      type: "POST",
-      url: ``,
-      data: {
-        'comment': comment,
-        'challenge_pk': {{ challenge.pk }},
-        'csrfmiddlewaretoken ': $('input[name=csrfmiddlewaretoken]').val(),
-      }
-    })*/
   }
 }
