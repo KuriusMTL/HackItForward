@@ -16,7 +16,7 @@
     <div class="profile-details">
       <h3 style="margin-bottom: 4px;">
         {{ user.first_name }} {{ user.last_name }} @{{ user.username }}
-        {% if user.profile.badges.exists() and user.profile.badges.get(name="Verified") %}
+        {% if user.profile.badges.exists() and verified %}
         <a style="margin-left:5px;" href="#badge-{{ user.profile.badges.get(name='Verified').pk }}" class="tooltip" data-tooltip="{{ user.profile.badges.get(name='Verified') }}">
           <img style="width:25px;height:auto;" src="{{ user.profile.badges.get(name='Verified').icon.url }}">
         </a>
@@ -141,7 +141,7 @@
               <h4 style="margin-top: 0;">Achievements</h4>
               <div class="level">
                 {% for badge in user.profile.badges.all() %}
-                  <div style="background-image: url({{ badge.image.url }})"></div>
+                  <img src="{{ badge.icon.url }}" height="48" width="48"></img>
                 {% endfor %}
               </div>
             </div>

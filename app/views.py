@@ -1,5 +1,5 @@
 from app.forms import ProfileUpdateForm, UserUpdateForm, SocialLinkFormSet, PasswordUpdateForm, OnboardingForm
-from app.models import Challenge, Profile, Project, SocialLinkAttachement, Tag, User, UserFollowing, BookmarkChallenge, UpvoteChallenge, UpvoteComment, UpvoteProject, Comment
+from app.models import Badge, Challenge, Profile, Project, SocialLinkAttachement, Tag, User, UserFollowing, BookmarkChallenge, UpvoteChallenge, UpvoteComment, UpvoteProject, Comment
 
 from django.core import files
 from django.core.exceptions import PermissionDenied
@@ -59,7 +59,7 @@ class IndexView(TemplateView):
         if "type" not in self.request.GET or (
             "q" not in self.request.GET and "tag" not in self.request.GET
         ):
-            context["challenges"] = Challenge.objects.all()
+            context["challenges"] = Challenge.objects.all().order_by('-created')
             return context
 
         queryset = Challenge.objects.all()
@@ -145,6 +145,10 @@ class UserView(DetailView):
         context["bookmarks"] = BookmarkChallenge.objects.filter(
              Q(user__in=[self.object.pk])
         )
+        try:
+            context["verified"] = self.request.user.profile.badges.get(name="Verified")
+        except Badge.DoesNotExist: #Catch get exception
+            context["verified"] = False
         return context
 
 
@@ -249,6 +253,9 @@ class OnboardingView(LoginRequiredMixin, SocialLinkFormMixin, UpdateView):
     success_url = reverse_lazy("index")
 
     def get_object(self, queryset=None):
+        #Assign Launch badge
+        launch_badge = Badge.objects.get(name="Launch Badge")
+        self.request.user.profile.badges.add(launch_badge)
         return self.request.user.profile
 
 
@@ -273,7 +280,7 @@ class PasswordResetConfirmationView(TemplateView):
 class RegisterView(FormView):
     template_name = "register.html"
     form_class = UserCreationForm
-    success_url = reverse_lazy("edit_profile")
+    success_url = reverse_lazy("onboarding")
 
     def form_valid(self, form):
         form.save()
@@ -321,22 +328,6 @@ class ChallengeUpdateView(ChallengeFormView, UpdateView):
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
 
-# TO DELETE LATER
-class InitiativeViewMixin(ContextMixin):
-    classname = None
-    initiative = None
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        pk = self.kwargs["pk"]
-        self.initiative = self.classname.objects.get(pk=pk)
-
-        context["initiative"] = self.initiative
-        context["links"] = SocialLinkAttachement.objects.filter(
-            object_id=pk, content_type=ContentType.objects.get_for_model(
-                self.classname)
-        )
-        return context
 
 class ChallengeView(TemplateView, ContextMixin):
     template_name = "challenge.html"
@@ -383,12 +374,7 @@ class ProjectFormView(InitiativeFormView):
               "description", "creators", "contributors", "tags"]
 
 
-class ProjectCreateView(ProjectFormView, CreateView):
-    def get_success_url(self):
-        return "/challenge/" + str(self.get_object().challenge.pk) + "/#" + str(self.get_object().name)
-
-
-class ProjectChallengeCreateView(ProjectCreateView):
+class ProjectChallengeCreateView(ProjectFormView, CreateView):
     def dispatch(self, *args, **kwargs):
         self.challenge = get_object_or_404(Challenge, pk=kwargs["pk"])
         if not self.challenge.is_open():
@@ -405,6 +391,9 @@ class ProjectChallengeCreateView(ProjectCreateView):
         self.object.challenge = self.challenge
         self.object.save()
         return super().form_valid(form)
+    
+    def get_success_url(self):
+        return "/challenge/" + str(self.object.challenge.pk) + "/#" + str(self.object.name)
 
 
 class ProjectUpdateView(ProjectFormView, UpdateView):
@@ -416,18 +405,6 @@ class ProjectUpdateView(ProjectFormView, UpdateView):
     def get_success_url(self):
         return "/challenge/" + str(self.get_object().challenge.pk) + "/#" + str(self.get_object().name)
         
-
-# TO DELETE LATER
-class ProjectView(InitiativeViewMixin, TemplateView):
-    template_name = "project.html"
-    classname = Project
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["time_labels"] = [
-            {"label": "Creation Time", "time": self.initiative.created}]
-        return context
-
 
 def get_challenges_ajax(request):
     if request.method == "POST":
@@ -486,6 +463,7 @@ def follow_user(request, pk):
         data['error_message'] = 'error'
         return redirect('index')
     return redirect('user', following_user.username)
+
 
 def unfollow_user(request, pk):
     following_user_id = pk
