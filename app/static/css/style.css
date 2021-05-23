@@ -292,10 +292,31 @@ input:focus {
 footer {
   background-color: var(--grey-dark);
   margin-top: 0;
+  overflow-x: hidden;
 }
 
 .footer-title-par {
   font-size: 1.5rem;
+}
+
+.main-footer {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-areas: "brand navigation more";
+}
+
+@media (max-width: 600px) {
+  .main-footer {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    grid-template-areas: "navigation more" "brand brand";
+    margin-left: 1rem;
+  }
+
+  #footer-brand {
+    margin-top: 3rem;
+  }
 }
 
 .reverse {

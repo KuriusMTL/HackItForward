@@ -27,30 +27,31 @@ function generateTagInputs() {
             }
         });
 
-        console.log(dictionary)
-
-        Array.from(field.options).map(opt => commonChoices.push(opt.value));
+        const chosenChoices = [];
+        [...field.options].map(opt => {
+            if (!chosenChoices.includes(opt.innerHTML) && opt.selected) {
+                chosenChoices.push(opt.innerHTML);
+            }
+        });
 
         //Renders custom tag input with given props in place of input
         field.outerHTML = `
         <div class="tag-container ">
             <div class="tag-field ${className}" data-tags-display="${id}">
-                <input type="text" class="tag-input" data-tags-input="${id}" onfocus="inputFocus(event, 'focus')"
-                    onblur="inputFocus(event, 'blur')" autocomplete="off" max="24">
             </div>
             <div data-tags="${id}" data-focus-index="-1" class="tag-dropdown"></div>
             <select style="display: none;" name="${name}" id="${id}" ${required ? "required" : ""} multiple>
             </select>
         </div>
         `
+        renderList(chosenChoices, id);
+        document.querySelector(`[data-tags-display="${id}"]`).innerHTML += `
+        <input type="text" class="tag-input" data-tags-input="${id}" onfocus="inputFocus(event, 'focus')"
+            onblur="inputFocus(event, 'blur')" autocomplete="off" max="24">
+        `
+        changeSelectValue(chosenChoices, id);
     }
 }
-
-//Delete button for tags
-const deleteButton =
-    `<svg onclick="deleteItem(event)" class="delete-button" viewBox="0 0 20 20" fill="none">
-        <path d="M10 0C15.53 0 20 4.47 20 10C20 15.53 15.53 20 10 20C4.47 20 0 15.53 0 10C0 4.47 4.47 0 10 0ZM13.59 5L10 8.59L6.41 5L5 6.41L8.59 10L5 13.59L6.41 15L10 11.41L13.59 15L15 13.59L11.41 10L15 6.41L13.59 5Z" fill="#0071BC"/>
-    </svg>`
 
 //Implements field interactions
 const tagFields = document.getElementsByClassName("tag-field");
@@ -509,6 +510,12 @@ function inputFocus(e, state) {
 //Renders chosen items list into the tag field
 function renderList(list, tagId) {
 
+    //Delete button for tags
+    const deleteButton =
+        `<svg onclick="deleteItem(event)" class="delete-button" viewBox="0 0 20 20" fill="none">
+            <path d="M10 0C15.53 0 20 4.47 20 10C20 15.53 15.53 20 10 20C4.47 20 0 15.53 0 10C0 4.47 4.47 0 10 0ZM13.59 5L10 8.59L6.41 5L5 6.41L8.59 10L5 13.59L6.41 15L10 11.41L13.59 15L15 13.59L11.41 10L15 6.41L13.59 5Z" fill="#0071BC"/>
+        </svg>`
+
     //Records chosen items list
     const tagDisplay = document.querySelector(`[data-tags-display="${tagId}"]`);
 
@@ -532,15 +539,20 @@ function renderList(list, tagId) {
 function changeSelectValue(list, tagId) {
     //Records chosen items list
     const tagData = document.getElementById(tagId);
+    tagData.innerHTML = "";
 
     //Checks if list exists
     if (list && list.length) {
-        tagData.innerHTML = "";
+
+        //Add option to list
         for (let i = 0; i < list.length; i++) {
-            tagData.innerHTML += `<option value="${list[i]}" selected></option>`;
+            tagData.innerHTML += `<option value="${list[i]}"></option>`;
         }
-    } else {
-        tagData.innerHTML = "";
+
+        //Selects all options in list
+        for (var i = 0; i < tagData.options.length; i++) {
+            tagData.options[i].selected = true;
+        }
     }
 }
 
