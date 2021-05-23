@@ -64,7 +64,7 @@
     </div>
 
     {% if request.user == user %}
-    <a href="{{ url('edit_profile') }}" style="position: absolute; right: 50px; margin-top: 80px">
+    <a href="{{ url('edit_profile') }}" class="edit-follow-button">
       <button class="btn--pilled btn-white btn-primary" style="color: #4f4f4f;">Edit Profile</button>
     </a>
     {% elif request.user.is_authenticated %}

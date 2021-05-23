@@ -2,8 +2,8 @@
   {% for project in projects %}
     <div class="modal modal-large modal-animated--zoom-in" id="{{ project.name }}">
       <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
-      <div class="modal-content" style="border-radius: 8px; background-color: #F6F8FB; min-height: 100%; min-width: 100%; margin-top: 5%">
-        <div class="modal-body" style="padding: 4rem 4rem; max-height: 85vh;">
+      <div class="modal-content" style="border-radius: 8px; background-color: #F6F8FB; height: 85vh; width: 90vw; display: flex; flex-direction: column;">
+        <div class="modal-body" style="padding: 4rem 4rem; max-height: 100%; flex-grow: 1;">
           <div class="row">
             <div style="padding: 0 0.5rem">
               <h2>{{ project.name }}</h2>

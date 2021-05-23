@@ -91,13 +91,13 @@
   <!-- Footer -->
   <footer style="background-color: #FFFFFF;" id="footer">
     <div class="content">
-      <div class="u-flex u-justify-flex-start footer-content">
-        <div id="footer-brand" class="level-items u-text-left" style="margin-right: 200px;">
+      <div class="main-footer">
+        <div id="footer-brand" class="level-items u-text-left" style="margin-right: 200px; grid-area: brand;">
           <img src="{{ static('img/logo.png') }}" width="80">
           <p class="u-text-left black" style="margin-bottom: 0; font-weight: 500;"><span class="">&copy; 2021</span> HackItForward</p>
           <p class="u-text-left black" style="margin-top: 0; font-weight: 500;">Powered by <a class="u u-LR" href="https://kurius.ca" target="_blank" rel="noopener" style="color: #518BC4;">Kurius</a></p>
         </div>
-        <div id="footer-navigation" style="margin-right: 80px;">
+        <div id="footer-navigation" style="margin-right: 80px; grid-area: navigation;">
           <ul class="no-bullets u-text-left">
             <h5 class="blue">Navigation</h5>
             <a href="{{ url('index') }}">
@@ -111,7 +111,7 @@
             </a>
           </ul>
         </div>
-        <div>
+        <div style="grid-area: more;">
           <ul class="no-bullets u-text-left">
             <h5 class="blue">More</h5>
             <a href="https://github.com/KuriusMTL/HackItForward/issues/new?labels=bug&template=bug_report.md" target="_blank" rel="noopener">
