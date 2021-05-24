@@ -23,6 +23,8 @@ from django.http import JsonResponse
 import requests
 import tempfile
 
+import json
+
 
 class AboutView(TemplateView):
     template_name = "about.html"
@@ -563,12 +565,12 @@ def add_bookmark(request):
 def add_tags(request):
     listKeys = []
     if request.method == "POST":
-        tags = request.POST["tags"]
+        tags = json.loads(request.POST["tags"])
         print(tags)
         for tag in tags:
-            if not Tag.objects.filter(name=tag.name):
-                new_tag = Tag(name=tag.name)
-                listKeys.add(new_tag.pk)
-            else:
-                listKeys.add(tag.pk)
-    return JsonResponse(listKeys)
+            if not Tag.objects.filter(name=tag):
+                new_tag = Tag(name=tag)
+                new_tag.save()
+            existing_tag = Tag.objects.get(name=tag)
+            listKeys.append(existing_tag.pk)
+    return JsonResponse(listKeys, safe=False)

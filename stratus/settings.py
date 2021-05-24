@@ -44,7 +44,6 @@ INSTALLED_APPS = [
 
     'colorfield',
     'social_django',
-    'notifications',
 ]
 
 MIDDLEWARE = [
