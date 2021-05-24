@@ -1,6 +1,7 @@
 from django.urls import include, path
 from . import views
 from django.contrib.auth import views as auth_views
+import notifications.urls
 
 urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
@@ -36,4 +37,6 @@ urlpatterns = [
     path("addUnsplashPicture/", views.addUnsplashPicture, name="addUnsplashPicture"),
     path("add_bookmark/", views.add_bookmark, name="add_bookmark"),
     path("upvote/<str:obj_type>/<int:pk>/", views.upvote, name="upvote"),
+    path('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
+    path('add_tags', views.add_tags, name='add_tags'),
 ]
