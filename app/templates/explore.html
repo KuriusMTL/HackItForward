@@ -19,18 +19,18 @@
   </div>
 
   <!-- Display 3 featured challenges -->
-  <div class="row">
+  <div class="row" style="padding-top: 50px;padding-bottom: 32px;">
     <h5 class="header-margin">Featured Challenges</h5>
   </div>
-  <div class="row">
+  <div class="row" style="padding-top:0;">
     {% for challenge in featured_challenges %}
     {% include 'challenge_preview_card.html' %}
     {% endfor %}
   </div>
 
   <!-- Slideshow container -->
-  <h5 style="margin-top: 80px;">Spotlights of the week</h5>
-  <section class="slideshow-container">
+  <h5 style="margin-top: 80px;margin-bottom:32px;">Spotlights of the week</h5>
+  <section class="slideshow-container" style="margin-top:0;">
     <div id="slideshow-slides">
       {% for challenge in spotlight_challenges %}
       {% if challenge.image %}
@@ -125,7 +125,7 @@
             <div class="challenge-card" onclick="location.href='/challenge/${challenge.id}/'">
               <div class="card-img" style="background-image: url(${challenge.image_url})"></div>
               <div class="card-description">
-                <h1 class="challenge-card-title" style="min-height: 40px; margin-bottom: 5px; font-size: 20px;">${challenge.name}</h1>
+                <h1 class="challenge-card-title" style="min-height: 45px; margin-bottom: 5px; font-size: 20px;">${challenge.name}</h1>
                 <p style="margin: 0; font-size: 16px;">${challenge.submission_count} Submissions</p>
               </div>
               <hr noshade size="1" style="border-color: #F2F2F2;">

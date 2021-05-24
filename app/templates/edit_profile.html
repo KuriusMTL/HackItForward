@@ -8,7 +8,7 @@
 <div class="content" style="max-width: 800px;">
   <div class="profile-card">
     <h2>Edit Profile</h2>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form id="edit-prof-form" action="" method="POST" enctype="multipart/form-data">
       <div class="frame__body" style="position: relative;">
         {% csrf_token %}
         {% for error in form.non_field_errors() %}
@@ -89,7 +89,8 @@
           </div>
         </div> -->
         <br>
-        <input type="submit" id="edit-prof-submit" class="btn-primary btn--pilled u-pull-right animated" value="Save all">
+        <input type="submit" id="edit-prof-submit" class="btn-primary btn--pilled u-pull-right animated"
+          value="Save all">
       </div>
     </form>
   </div>
@@ -149,16 +150,25 @@
       if (docTags[i].selected) tags.push(docTags[i].value);
     }
 
-    console.log(tags)
-
-    /*$.ajax({
+    $.ajax({
       type: "POST",
       url: `/add_tags/`,
       data: {
-        'tags': tags,
+        'tags': JSON.stringify(tags),
         'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+      },
+      success: function (tagpk) {
+        const formTags = document.getElementById("id_tags");
+        formTags.innerHTML = "";
+        for (let i = 0; i < tagpk.length; i++) {
+          formTags.innerHTML += `<option value="${tagpk[i]}"></option>`;
+        }
+        for (let i = 0; i < formTags.options.length; i++) {
+          formTags.options[i].selected = true;
+        }
+        document.getElementById("edit-prof-form").submit();
       }
-    })*/
+    })
   });
 
   var simplemde = new SimpleMDE({

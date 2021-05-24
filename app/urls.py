@@ -36,4 +36,5 @@ urlpatterns = [
     path("addUnsplashPicture/", views.addUnsplashPicture, name="addUnsplashPicture"),
     path("add_bookmark/", views.add_bookmark, name="add_bookmark"),
     path("upvote/<str:obj_type>/<int:pk>/", views.upvote, name="upvote"),
+    path('add_tags/', views.add_tags, name='add_tags'),
 ]
