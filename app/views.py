@@ -559,3 +559,16 @@ def add_bookmark(request):
             bookmark.delete()
 
     return JsonResponse("Success", safe=False)
+
+def add_tags(request):
+    listKeys = []
+    if request.method == "POST":
+        tags = request.POST["tags"]
+        print(tags)
+        for tag in tags:
+            if not Tag.objects.filter(name=tag.name):
+                new_tag = Tag(name=tag.name)
+                listKeys.add(new_tag.pk)
+            else:
+                listKeys.add(tag.pk)
+    return JsonResponse(listKeys)
