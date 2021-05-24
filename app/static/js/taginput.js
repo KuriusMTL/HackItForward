@@ -40,6 +40,8 @@ function generateTagInputs() {
             <div class="tag-field ${className}" data-tags-display="${id}">
             </div>
             <div data-tags="${id}" data-focus-index="-1" class="tag-dropdown"></div>
+            <select style="display: none;" data-tags-value="${id}"} multiple>
+            </select>
             <select style="display: none;" name="${name}" id="${id}" ${required ? "required" : ""} multiple>
             </select>
         </div>
@@ -86,7 +88,7 @@ function parseTags(e) {
 
                 //Records chosen items list + hidden input where actual data is recorded
                 const tagDisplay = document.querySelector(`[data-tags-display="${e.target.dataset.tagsInput}"]`);
-                const tagData = document.getElementById(e.target.dataset.tagsInput);
+                const tagData = document.querySelector(`[data-tags-value="${e.target.dataset.tagsInput}"]`);
 
                 //Parses existing data from hidden select
                 const chosenTagsHTML = [...tagData.options]
@@ -131,7 +133,7 @@ function enterInput(e) {
 
         //Records chosen items list + hidden input where actual data is recorded
         const tagDisplay = document.querySelector(`[data-tags-display="${e.target.dataset.tagsInput}"]`);
-        const tagData = document.getElementById(e.target.dataset.tagsInput);
+        const tagData = document.querySelector(`[data-tags-value="${e.target.dataset.tagsInput}"]`);
 
         //Parses existing data from hidden select
         const chosenTagsHTML = [...tagData.options]
@@ -183,7 +185,7 @@ function enterInput(e) {
 
         //Records chosen items list + hidden input where actual data is recorded
         const tagDisplay = document.querySelector(`[data-tags-display="${e.target.dataset.tagsInput}"]`);
-        const tagData = document.getElementById(e.target.dataset.tagsInput);
+        const tagData = document.querySelector(`[data-tags-value="${e.target.dataset.tagsInput}"]`);
 
         //Parses existing data from hidden select
         const chosenTagsHTML = [...tagData.options]
@@ -229,7 +231,7 @@ function enterInput(e) {
 
             //Records chosen items list + hidden input where actual data is recorded
             const tagDisplay = document.querySelector(`[data-tags-display="${e.target.dataset.tagsInput}"]`);
-            const tagData = document.getElementById(e.target.dataset.tagsInput);
+            const tagData = document.querySelector(`[data-tags-value="${e.target.dataset.tagsInput}"]`);
 
             //Parses existing data from hidden select
             const chosenTagsHTML = [...tagData.options]
@@ -330,7 +332,7 @@ function navigateChoices(e) {
 
             //Records chosen items list + hidden input where actual data is recorded
             const tagDisplay = document.querySelector(`[data-tags-display="${tag}"]`);
-            const tagData = document.getElementById(tag);
+            const tagData = document.querySelector(`[data-tags-value="${tag}"]`);
 
             //Parses existing data from hidden select
             const chosenTagsHTML = [...tagData.options]
@@ -392,7 +394,7 @@ function cleanInput(e) {
 
     //Records chosen items list + hidden input where actual data is recorded
     const tagDisplay = document.querySelector(`[data-tags-display="${e.target.parentElement.dataset.tags}"]`);
-    const tagData = document.getElementById(e.target.parentElement.dataset.tags);
+    const tagData = document.querySelector(`[data-tags-value="${e.target.parentElement.dataset.tags}"]`);
 
     //Parses existing data from hidden select
     const chosenTagsHTML = [...tagData.options]
@@ -437,7 +439,7 @@ function deleteItem(e) {
 
     //Records chosen items list + hidden input where actual data is recorded
     const tagDisplay = document.querySelector(`[data-tags-display="${e.currentTarget.parentElement.dataset.tagOf}"]`);
-    const tagData = document.getElementById(e.currentTarget.parentElement.dataset.tagOf);
+    const tagData = document.querySelector(`[data-tags-value="${e.currentTarget.parentElement.dataset.tagOf}"]`);
 
     //Parses existing data from hidden select
     const chosenTagsHTML = [...tagData.options]
@@ -538,7 +540,7 @@ function renderList(list, tagId) {
 //Adds choices as selected to hidden slected
 function changeSelectValue(list, tagId) {
     //Records chosen items list
-    const tagData = document.getElementById(tagId);
+    const tagData = document.querySelector(`[data-tags-value="${tagId}"]`);
     tagData.innerHTML = "";
 
     //Checks if list exists

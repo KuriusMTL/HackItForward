@@ -89,7 +89,7 @@
           </div>
         </div> -->
         <br>
-        <input type="submit" class="btn-primary btn--pilled u-pull-right animated" value="Save all">
+        <input type="submit" id="edit-prof-submit" class="btn-primary btn--pilled u-pull-right animated" value="Save all">
       </div>
     </form>
   </div>
@@ -99,15 +99,16 @@
   <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
   <div class="modal-content" role="document" style="min-width: 50%">
 
-    <div class="modal-body">    
-        <!-- Search bar -->
+    <div class="modal-body">
+      <!-- Search bar -->
       <form action="." style="margin-top: 0.5rem;">
         <input type="hidden" name="type" value="challenge">
         <div class="row">
           <div class="col-12">
             <div class="input-control">
-              <input id="searchWord" type="text" name="q" class="input-contains-icon" placeholder="Search for images on Unsplash"
-                onchange="searchUnsplash()" style="border: none; border-radius: 100px; outline: none; font-family: Poppins;">
+              <input id="searchWord" type="text" name="q" class="input-contains-icon"
+                placeholder="Search for images on Unsplash" onchange="searchUnsplash()"
+                style="border: none; border-radius: 100px; outline: none; font-family: Poppins;">
               <span class="icon"><i class="fas fa-search" aria-hidden="true"></i></span>
             </div>
           </div>
@@ -138,6 +139,28 @@
 {% block scripts %}
 <script src="{{ static('js/map.js') }}"></script>
 <script>
+  $("#edit-prof-submit").on('click', function (e) {
+    e.preventDefault();
+
+    const docTags = document.querySelector(`[data-tags-value="id_tags"]`).options;
+    const tags = [];
+
+    for (let i = 0; i < docTags.length; i++) {
+      if (docTags[i].selected) tags.push(docTags[i].value);
+    }
+
+    console.log(tags)
+
+    /*$.ajax({
+      type: "POST",
+      url: `/add_tags/`,
+      data: {
+        'tags': tags,
+        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+      }
+    })*/
+  });
+
   var simplemde = new SimpleMDE({
     element: document.getElementById("id_description")
   });
