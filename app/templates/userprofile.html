@@ -86,7 +86,7 @@
   </div>
 
   <div class="tab-container">
-    <ul>
+    <ul style="border-bottom-color: rgba(197,197,197,.63);">
       <li class="tablevel selected" onclick="openTab(event, 'bio')"><a class="" style="background-color: transparent; font-size: large;">Bio</a></li>
       <li class="tablevel" onclick="openTab(event, 'submissions')"><a class="" style="background-color: transparent; font-size: large;">Submissions</a></li>
       <li class="tablevel" id="tab-bookmarks" onclick="openTab(event, 'bookmarks')" ><a class="" style="background-color: transparent; font-size: large;">Bookmarks</a></li>
@@ -141,7 +141,31 @@
               <h4 style="margin-top: 0;">Achievements</h4>
               <div class="level">
                 {% for badge in user.profile.badges.all() %}
-                  <img src="{{ badge.icon.url }}" height="48" width="48"></img>
+                  {% if not badge.name=='Verified' %}
+                  <a href="#a-badge-{{ badge.pk }}" class="tooltip" data-tooltip="{{ badge.name }}">
+                    <img src="{{ badge.icon.url }}" width="48" height="48">
+                  </a>
+                  <div class="modal modal-animated--zoom-in" id="a-badge-{{ badge.pk }}">
+                    <a href="#Profile" class="modal-overlay close-btn" aria-label="Close"></a>
+                    <div class="modal-content">
+                      <div class="modal-body">
+                        <br>
+                        <h4 class="modal-title">{{ badge.name }}</h4>
+                        <p>{{ badge.description }}</p>
+                        <img src="{{ badge.icon.url }}">
+                      </div>
+                      <div class="modal-footer">
+                        <div class="u-flex">
+                          <div class="level-right level-content">
+                            <a href="#Profile" style="display:inline-block">
+                              <button class="btn-small">Cancel</button>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% endif %}
                 {% endfor %}
               </div>
             </div>
