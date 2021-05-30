@@ -527,6 +527,10 @@ function renderList(list, tagId) {
         list.map(value => {
             value = value.split("\"");
             value = value.length > 1 ? value.join("&quot;") : value[0];
+            value = value.split("<");
+            value = value.length > 1 ? value.join("&lt;") : value[0];
+            value = value.split(">");
+            value = value.length > 1 ? value.join("&gt;") : value[0];
             return `<span data-tag-of="${tagId}" data-value="${value}" class="chosen-item">${value}${deleteButton}</span>`
         })
 
