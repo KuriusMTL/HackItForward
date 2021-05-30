@@ -19,6 +19,7 @@
 
 #challenges .row .challenge-card{
   margin-bottom:0;
+  margin-top: 24px !important;
 }
 
 #challenges-list .challenge-card {
