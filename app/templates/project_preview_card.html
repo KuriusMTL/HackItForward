@@ -1,20 +1,18 @@
 <div class="challenge-card">
-    <a href="#{{ project.name }}">
-      <div class="project-card-content row">
+    <a href="#{{ project.name }}" style="white-space: nowrap;">
+      <div class="project-card-content row" style="display: flex;">
         {% if project.image %}
-        <div class="project-card-image-preview col-3" style="background-image: url({{ project.image.url }});">
-        </div>
+        <div class="project-card-image-preview col-3" style="background-image: url({{ project.image.url }});"></div>
         {% else %}
-        <div class="project-card-image-preview col-3"
-          style="background-image: url({{ static('img/polar-bear.png') }});"></div>
+        <div class="project-card-image-preview col-3" style="background-image: url({{ static('img/polar-bear.png') }});"></div>
         {% endif %}
 
-        <div class="col-7" style="padding-left: 32px;">
+        <div class="col-7" style="padding-left: 32px;float:none;">
           <h3 class="">{{ project.name }}</h3>
           <p class="grey">{{ project.description|truncatechars(100) }}</p>
 
           <a href="{{ url('user', username=project.creators.first().username) }}">
-            <div class="row">
+            <div class="row" style="display: flex !important;">
               <img class="profile-icon vertical-align" src="{{ project.creators.first().image.url }}" />
               <p style="font-weight: 500; margin:0" class="grey">{{ project.short_creators }}</p>
             </div>

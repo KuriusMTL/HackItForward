@@ -574,3 +574,13 @@ def add_tags(request):
             existing_tag = Tag.objects.get(name=tag)
             listKeys.append(existing_tag.pk)
     return JsonResponse(listKeys, safe=False)
+
+def delete_project(request, pk):
+    if request.method == "POST":
+        project = get_object_or_404(Project, pk=pk)
+        if project.creators.all()[0] == request.user.profile:
+            project.delete()
+        # Unauthorized Access
+        return JsonResponse("Success", safe=False)
+    # Unauthorized Access
+    return JsonResponse("Success", safe=False)
