@@ -291,7 +291,7 @@ if (slideshow) {
 const localstore = window.localStorage;
 
 function betaLaunch(login) {
-  if (!localstore.getItem("launch-modal") && new Date() <= Date.parse('18 June 2021 00:00:00 EST')) {
+  if (!localstore.getItem("launch-modal") && new Date() <= Date.parse('18 July 2021 00:00:00 EST')) {
     window.location.hash = "launch-modal-0";
     localstore.setItem("launch-modal", true);
   } else {
