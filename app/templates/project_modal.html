@@ -1,8 +1,13 @@
 {% block project_modal %}
   {% for project in projects %}
-    <div class="modal modal-large modal-animated--zoom-in" id="{{ project.name }}">
-      <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
-      <div class="modal-content" style="border-radius: 8px; background-color: #F6F8FB; height: 85vh; max-width: 90vw; width:90vw; display: flex; flex-direction: column;">
+    <div class="modal modal-large modal-animated--zoom-in" id="{{ project.name }}" style="padding-left: 0; padding-right: 0; padding-bottom: 0;">
+      <a href="#searchModalDialog" class="modal-overlay close-btn" style="z-index:1;" aria-label="Close"></a>
+      <a href="#searchModalDialog" class="close-btn modal-close-btn" aria-label="Close">
+        <span class="icon">
+            <i class="fa-wrapper fa fa-times"></i>
+        </span>
+      </a>
+      <div class="modal-content" style="border-radius: 8px; background-color: #F6F8FB; height: 85vh; max-width: 100vw; width:100vw; display: flex; flex-direction: column; z-index:2; position: absolute; bottom: 2em;">
         <div class="modal-body" style="padding: 4rem 4rem; max-height: 100%; flex-grow: 1;">
           <div class="row">
             <div style="padding: 0 0.5rem">
@@ -41,8 +46,8 @@
                 </div>
               </div>
             </div>
-            <div class="col-6" style="margin-top: -24px;">
-              <div class="challenge-card">
+            <div class="col-6">
+              <div class="challenge-card" style="margin-top:0;">
                 <div class="challenge-card-content">
                   <h1 style="font-size: 20px; margin-top: 0px;">Project Description</h1>
                   <p class="grey" style="font-weight: 400;">{{ project.description|mistune }}</p>

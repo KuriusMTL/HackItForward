@@ -206,6 +206,26 @@
   background-color: #e22f2f;
 }
 
+.modal-close-btn {
+  position:absolute; 
+  top: 2.5vw;
+  left: 2.5vw;
+  width: 4vw;
+  height: 4vw;
+  border-radius: 50%;
+  color: var(--cirrus-fg-);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--cirrus-light);
+  z-index: 4;
+}
+
+.modal-close-btn i {
+  font-size: 1.5em !important;
+}
+
 @media screen and (max-width: 1150px) {
   #social-float {
     max-width: 325px;
