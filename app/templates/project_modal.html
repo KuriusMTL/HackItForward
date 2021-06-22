@@ -8,7 +8,7 @@
         </span>
       </a>
       <div class="modal-content" style="border-radius: 8px; background-color: #F6F8FB; height: 85vh; max-width: 100vw; width:100vw; display: flex; flex-direction: column; z-index:2; position: absolute; bottom: 2em;">
-        <div class="modal-body" style="padding: 4rem 4rem; max-height: 100%; flex-grow: 1;">
+        <div class="modal-body" style="padding: 3rem 3rem; max-height: 100%; flex-grow: 1;">
           <div class="row">
             <div style="padding: 0 0.5rem">
               <h2>{{ project.name }}</h2>
@@ -75,6 +75,9 @@
               {% if project.tags.exists() %}
               <div class="challenge-card">
                 <div class="challenge-card-content">
+                  <div class='row'>
+                    <h4 style="margin-top: 0;">Tags</h4>
+                  </div>
                   <div class="row">
                     {% for tag in project.tags.all() %}
                     <a class="challenge-tag" href="{{ url('explore') }}?type={{ challenge|class_name|lower }}&tag={{ tag.name }}">
@@ -88,22 +91,30 @@
               {% if project_links|length > 0 %}
               <div class="challenge-card">
                 <div class="challenge-card-content">
+                  <div class='row'>
+                    <h4 style="margin-top: 0;">Links</h4>
+                  </div>
                   <div class="row">
-                    <div class="tile level r">
-                      <div class="tile-avatar">
-                        <span class="icon">
-                          <i class="fas fa-link" aria-hidden="true"></i>
-                        </span>
+                    {% for link in project_links %}
+                    <a href="{{ link.content|e }}" target="_blank" class="tooltip" data-tooltip="{{ link.name }}">
+                      <div class="tile level r">
+                        <div class="tile-avatar">
+                          <span class="icon">
+                            {% if link.name == 'Generic Link' %}
+                              <i class="fas fa-link" aria-hidden="true" style="color: #4f4f4f;"></i>
+                            {% else %}
+                              <i class="fab fa-{{ link.icon }}" aria-hidden="true"></i>
+                            {% endif %}
+                          </span>
+                        </div>
+                        <div class="tile__container">
+                          <p class="tile__title">
+                            {{ link.content }}
+                          </p>
+                        </div>
                       </div>
-                      <div class="tile__container">
-                        <p class="tile__title">Links:
-                          {% for link in project_links %}
-                          <a href="{{ link.content|e }}" target="_blank" class="tooltip" data-tooltip="{{ link.name }}"><i
-                              class="fab fa-{{ link.icon }}"></i></a>
-                          {% endfor %}
-                        </p>
-                      </div>
-                    </div>
+                    </a>
+                    {% endfor %}
                   </div>
                 </div>
               </div>

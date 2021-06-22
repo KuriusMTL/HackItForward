@@ -6,12 +6,12 @@
 }
 
 .profile-bg {
-  height: 200px;
+  height: 208px;
   margin-top: -30px;
   margin-right: -30px;
   margin-left: -30px;
   border-radius: 16px;
-  background-position: 50% 50%;
+  background-position: center;
 }
 
 .skills-tag {
@@ -70,7 +70,6 @@
 .edit-follow-button {
   align-self: center;
   margin-left: auto;
-  margin-top: 10px
 }
 
 @media (max-width: 600px) {

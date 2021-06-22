@@ -413,7 +413,7 @@ class ProjectChallengeCreateView(ProjectFormView, CreateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context["header"] = "Create Project for '%s'" % self.challenge.name
+        context["header"] = 'Submit Solution to "%s"' % self.challenge.name
         return context
 
     def form_valid(self, form):

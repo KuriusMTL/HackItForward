@@ -941,3 +941,7 @@ a > .fa-envelope:hover {
 .editor-toolbar .fa {
   font-weight: 900 !important;
 }
+
+.account-settings .frame__body a {
+  display: inline;
+}

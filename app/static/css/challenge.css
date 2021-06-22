@@ -226,6 +226,11 @@
   font-size: 1.5em !important;
 }
 
+.modal-body .col-6 {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
 @media screen and (max-width: 1150px) {
   #social-float {
     max-width: 325px;
