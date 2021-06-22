@@ -72,6 +72,7 @@ TEMPLATES = [
             "lstrip_blocks": True,
             "filters": {
                 'mistune': 'app.templatetags.mistune.mistune_html_no_highlight',
+                'html_strip': 'app.templatetags.html_parse.strip_tags',
                 'class_name': 'app.templatetags.class_name.get_class_name',
             },
             "context_processors": [
