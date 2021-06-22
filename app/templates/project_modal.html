@@ -45,7 +45,7 @@
               <div class="challenge-card">
                 <div class="challenge-card-content">
                   <h1 style="font-size: 20px; margin-top: 0px;">Project Description</h1>
-                  <p class="grey" style="font-weight: 400;">{{ project.description }}</p>
+                  <p class="grey" style="font-weight: 400;">{{ project.description|mistune }}</p>
                   <div class="project-actions">
                     {% if project.can_edit(request.user) %}
                       <a href="{{ project.get_edit_url() }}">
