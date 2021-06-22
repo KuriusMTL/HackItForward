@@ -143,12 +143,12 @@ class UserView(DetailView):
         )
         context["following"] = self.get_object().following.all()
         context["followers"] = self.get_object().followers.all()
-        context["is_following_user"] = UserFollowing.objects.filter(user_id=self.request.user.id, following_user_id=self.get_object().id).count() > 0
+        context["is_following_user"] = UserFollowing.objects.filter(user_id=self.get_object().id, following_user_id=self.get_object().id).count() > 0
         context["bookmarks"] = BookmarkChallenge.objects.filter(
              Q(user__in=[self.object.pk])
         )
         try:
-            context["verified"] = self.request.user.profile.badges.get(name="Verified")
+            context["verified"] = self.get_object().profile.badges.get(name="Verified")
         except Badge.DoesNotExist: #Catch get exception
             context["verified"] = False
         return context
