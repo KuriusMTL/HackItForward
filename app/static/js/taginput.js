@@ -46,7 +46,7 @@ function generateTagInputs() {
             </select>
         </div>
         `
-        renderList(chosenChoices, id);
+        renderList(chosenChoices, id, false);
         document.querySelector(`[data-tags-display="${id}"]`).innerHTML += `
         <input type="text" class="tag-input" data-tags-input="${id}" onfocus="inputFocus(event, 'focus')"
             onblur="inputFocus(event, 'blur')" autocomplete="off" max="24">
@@ -510,7 +510,7 @@ function inputFocus(e, state) {
 }
 
 //Renders chosen items list into the tag field
-function renderList(list, tagId) {
+function renderList(list, tagId, ampEsc = true) {
 
     //Delete button for tags
     const deleteButton =
@@ -525,9 +525,21 @@ function renderList(list, tagId) {
     if (list && list.length) {
         //Changes all " into &quot; to ensure HTML can read it + renders it into an HTML element
         list.map(value => {
+            dataValue = value.split("\"");
+            dataValue = dataValue.length > 1 ? dataValue.join("&quot;") : dataValue[0];
+            if (ampEsc) {
+                value = value.split("&");
+                value = value.length > 1 ? value.join("&amp;") : value[0];
+            }
             value = value.split("\"");
             value = value.length > 1 ? value.join("&quot;") : value[0];
-            return `<span data-tag-of="${tagId}" data-value="${value}" class="chosen-item">${value}${deleteButton}</span>`
+            value = value.split("'");
+            value = value.length > 1 ? value.join("&#39;") : value[0];
+            value = value.split("<");
+            value = value.length > 1 ? value.join("&lt;") : value[0];
+            value = value.split(">");
+            value = value.length > 1 ? value.join("&gt;") : value[0];
+            return `<span data-tag-of="${tagId}" data-value="${dataValue}" class="chosen-item">${value}${deleteButton}</span>`
         })
 
             //Adds rendered item to chosen list
@@ -546,10 +558,12 @@ function changeSelectValue(list, tagId) {
     //Checks if list exists
     if (list && list.length) {
 
-        //Add option to list
-        for (let i = 0; i < list.length; i++) {
-            tagData.innerHTML += `<option value="${list[i]}"></option>`;
-        }
+        //Adds rendered item to chosen list
+        list.forEach(value => {
+            value = value.split("\"");
+            value = value.length > 1 ? value.join("&quot;") : value[0];
+            tagData.innerHTML += `<option value="${value}"></option>`;
+        });
 
         //Selects all options in list
         for (var i = 0; i < tagData.options.length; i++) {
