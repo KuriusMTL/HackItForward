@@ -1,5 +1,5 @@
 {% block project_modal %}
-  {% for project in projects %}
+  {% for project, project_links in projects_info %}
     <div class="modal modal-large modal-animated--zoom-in" id="{{ project.name }}" style="padding-left: 0; padding-right: 0; padding-bottom: 0;">
       <a href="#searchModalDialog" class="modal-overlay close-btn" style="z-index:1;" aria-label="Close"></a>
       <a href="#searchModalDialog" class="close-btn modal-close-btn" aria-label="Close">
@@ -47,7 +47,7 @@
               </div>
             </div>
             <div class="col-6">
-              <div class="challenge-card" style="margin-top:0;">
+              <div class="challenge-card" style="margin-top:0 !important;">
                 <div class="challenge-card-content">
                   <h1 style="font-size: 20px; margin-top: 0px;">Project Description</h1>
                   <p class="grey" style="font-weight: 400;">{{ project.description|mistune }}</p>
@@ -85,13 +85,36 @@
                 </div>
               </div>
               {% endif %}
+              {% if project_links|length > 0 %}
+              <div class="challenge-card">
+                <div class="challenge-card-content">
+                  <div class="row">
+                    <div class="tile level r">
+                      <div class="tile-avatar">
+                        <span class="icon">
+                          <i class="fas fa-link" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                      <div class="tile__container">
+                        <p class="tile__title">Links:
+                          {% for link in project_links %}
+                          <a href="{{ link.content|e }}" target="_blank" class="tooltip" data-tooltip="{{ link.name }}"><i
+                              class="fab fa-{{ link.icon }}"></i></a>
+                          {% endfor %}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="modal modal-large modal-animated--zoom-in" id="confirm-delete-{{ project.name }}">
-      <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
+      <a href="#{{ project.name }}" class="modal-overlay close-btn" aria-label="Close"></a>
         <div class="modal-content" style="border-radius: 8px; background-color: #F6F8FB; height: 30vh; max-width: 50vw; width:50vw; display: flex; flex-direction: column;">
           <div class="modal-body" style="padding: 4rem 4rem; max-height: 100%; flex-grow: 1;">
             <div class="row">
@@ -105,7 +128,7 @@
                 <button class="btn--pilled btn-primary btn-danger">Delete Project</button>
               </a>
             </form>
-            <a href="#searchModalDialog">
+            <a href="#{{ project.name }}">
               <button class="btn--pilled">Cancel</button>
             </a>
           </div>

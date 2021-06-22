@@ -97,6 +97,13 @@ class GalleryView(TemplateView):
             "q" not in self.request.GET and "tag" not in self.request.GET
         ):
             context["projects"] = Project.objects.all()
+            context["project__links"] = []
+            for p in context["projects"]:
+                context["project__links"].append(SocialLinkAttachement.objects.filter(
+                    object_id=p.pk,
+                    content_type=ContentType.objects.get_for_model(Project),
+                ))
+            context["projects_info"] = zip(context["projects"],context["project__links"])
             return context
 
         queryset = Project.objects.all()
@@ -111,6 +118,13 @@ class GalleryView(TemplateView):
             Q(name__icontains=search) | Q(description__icontains=search))
 
         context["projects"] = queryset.distinct()
+        context["project__links"] = []
+        for p in context["projects"]:
+            context["project__links"].append(SocialLinkAttachement.objects.filter(
+                object_id=p.pk,
+                content_type=ContentType.objects.get_for_model(Project),
+            ))
+        context["projects_info"] = zip(context["projects"],context["project__links"])
         return context
 
 
@@ -137,6 +151,13 @@ class UserView(DetailView):
             .distinct()
             .order_by("-created")
         )
+        context["project__links"] = []
+        for p in context["projects"]:
+            context["project__links"].append(SocialLinkAttachement.objects.filter(
+                object_id=p.pk,
+                content_type=ContentType.objects.get_for_model(Project),
+            ))
+        context["projects_info"] = zip(context["projects"],context["project__links"])
         context["links"] = SocialLinkAttachement.objects.filter(
             object_id=self.object.pk,
             content_type=ContentType.objects.get_for_model(Profile),
@@ -364,6 +385,13 @@ class ChallengeView(TemplateView, ContextMixin):
                 {"label": "End Time", "time": self.challenge.end},
             ]
         context["projects"] = Project.objects.filter(challenge=self.challenge)
+        context["project__links"] = []
+        for p in context["projects"]:
+            context["project__links"].append(SocialLinkAttachement.objects.filter(
+                object_id=p.pk,
+                content_type=ContentType.objects.get_for_model(Project),
+            ))
+        context["projects_info"] = zip(context["projects"],context["project__links"])
         context["related_challenges"] = Challenge.objects.filter(tags__pk__in=self.challenge.tags.all()).distinct().exclude(pk=self.challenge.pk)[:3] #Take top 3 related challenges
         if len(context["related_challenges"]) == 0: #If it can't find any challenges, recommend
             context["related_challenges"] = Challenge.objects.all()[:3]

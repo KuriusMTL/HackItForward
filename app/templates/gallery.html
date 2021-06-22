@@ -9,6 +9,7 @@
 
 {% block body %}
 <div class="content" id="challenges">
+  {% include 'project_modal.html' %}
   <div style="background-color: white; min-height: 300px;display: flex; justify-content: center; align-items: center;" class="u-text-center">
     <h1>Explore The Community</h1>
   </div>
@@ -26,8 +27,6 @@
       </div>
     </div>
   </form>
-
-  {% include 'project_modal.html' %}
     {# submission display #}
     <div class="row" style="margin-top: -24px;padding-top:0;">
       {% for project in projects %}
