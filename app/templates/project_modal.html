@@ -2,7 +2,7 @@
   {% for project in projects %}
     <div class="modal modal-large modal-animated--zoom-in" id="{{ project.name }}">
       <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
-      <div class="modal-content" style="border-radius: 8px; background-color: #F6F8FB; height: 85vh; width: 90vw; display: flex; flex-direction: column;">
+      <div class="modal-content" style="border-radius: 8px; background-color: #F6F8FB; height: 85vh; max-width: 90vw; width:90vw; display: flex; flex-direction: column;">
         <div class="modal-body" style="padding: 4rem 4rem; max-height: 100%; flex-grow: 1;">
           <div class="row">
             <div style="padding: 0 0.5rem">
@@ -46,12 +46,17 @@
                 <div class="challenge-card-content">
                   <h1 style="font-size: 20px; margin-top: 0px;">Project Description</h1>
                   <p class="grey" style="font-weight: 400;">{{ project.description }}</p>
-
-                  {% if project.can_edit(request.user) %}
-                    <a href="{{ project.get_edit_url() }}">
-                      <button class="btn--pilled btn-primary">Edit Project</button>
-                    </a>
-                  {% endif %}
+                  <div class="project-actions">
+                    {% if project.can_edit(request.user) %}
+                      <a href="{{ project.get_edit_url() }}">
+                        <button class="btn--pilled btn-primary">Edit Project</button>
+                      </a>
+                      <a href="#confirm-delete-{{ project.name }}">
+                        <button class="btn--pilled btn-primary btn-danger">Delete Project</button>
+                      </a>
+                    {% endif %}
+                  </div>
+                  
                 </div>
               </div>
 
@@ -80,5 +85,33 @@
         </div>
       </div>
     </div>
+    <div class="modal modal-large modal-animated--zoom-in" id="confirm-delete-{{ project.name }}">
+      <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
+        <div class="modal-content" style="border-radius: 8px; background-color: #F6F8FB; height: 30vh; max-width: 50vw; width:50vw; display: flex; flex-direction: column;">
+          <div class="modal-body" style="padding: 4rem 4rem; max-height: 100%; flex-grow: 1;">
+            <div class="row">
+              <h3>Are you certain that you want to delete this project?</h3>
+            </div>
+          </div>
+          <div class="modal-footer" style="display:flex; flex-direction:row;">
+            <form name="delete-project" action="{{ project.get_delete_url() }}" method="post">
+              {% csrf_token %}
+              <a href="{{ project.get_delete_url() }}" style='margin-right: 0.5em;'>
+                <button class="btn--pilled btn-primary btn-danger">Delete Project</button>
+              </a>
+            </form>
+            <a href="#searchModalDialog">
+              <button class="btn--pilled">Cancel</button>
+            </a>
+          </div>
+        </div>
+    </div>
+    <script>
+      var button = $("form[name='delete-project'] > button")
+      button.on('click', (e) => {
+        e.preventDefault();
+        $('form[name="delete-project"]').submit()
+      })
+    </script>
   {% endfor %}
 {% endblock %}

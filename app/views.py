@@ -19,7 +19,7 @@ from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormMixin, FormView, UpdateView
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponseNotAllowed
 import requests
 import tempfile
 
@@ -580,7 +580,8 @@ def delete_project(request, pk):
         project = get_object_or_404(Project, pk=pk)
         if project.creators.all()[0] == request.user.profile:
             project.delete()
+            return HttpResponseRedirect('/')
         # Unauthorized Access
-        return JsonResponse("Success", safe=False)
+        raise Http404
     # Unauthorized Access
-    return JsonResponse("Success", safe=False)
+    raise Http404

@@ -433,6 +433,9 @@ class Project(models.Model):
     def get_edit_url(self):
         return reverse("project_edit", args=[self.pk])
 
+    def get_delete_url(self):
+        return reverse("project_delete", args=[self.pk])
+
     def __str__(self):
         return self.name
 

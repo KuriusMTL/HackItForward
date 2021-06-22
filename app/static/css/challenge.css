@@ -106,11 +106,16 @@
 .challenge-card-image {
   margin: 0 0 0.5rem 0;
   width: 100%;
-  max-height: 60vh;
+  max-height: 80vh;
+  min-height: 60vh;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   border-radius: 16px;
+}
+
+.challenge-card a {
+  white-space: normal !important;
 }
 
 #challenge-name {
@@ -186,6 +191,19 @@
 
 #social-float {
   max-width: 350px;
+}
+
+.project-actions {
+  display: flex;
+  flex-direction: row;
+}
+
+.btn-danger {
+  margin-left: 0.5em;
+}
+
+.btn-danger:hover {
+  background-color: #e22f2f;
 }
 
 @media screen and (max-width: 1150px) {
