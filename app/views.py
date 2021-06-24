@@ -19,7 +19,7 @@ from django.views.generic.base import TemplateView, ContextMixin
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, FormMixin, FormView, UpdateView
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponseNotAllowed
 import requests
 import tempfile
 
@@ -97,6 +97,13 @@ class GalleryView(TemplateView):
             "q" not in self.request.GET and "tag" not in self.request.GET
         ):
             context["projects"] = Project.objects.all()
+            context["project__links"] = []
+            for p in context["projects"]:
+                context["project__links"].append(SocialLinkAttachement.objects.filter(
+                    object_id=p.pk,
+                    content_type=ContentType.objects.get_for_model(Project),
+                ))
+            context["projects_info"] = zip(context["projects"],context["project__links"])
             return context
 
         queryset = Project.objects.all()
@@ -111,6 +118,13 @@ class GalleryView(TemplateView):
             Q(name__icontains=search) | Q(description__icontains=search))
 
         context["projects"] = queryset.distinct()
+        context["project__links"] = []
+        for p in context["projects"]:
+            context["project__links"].append(SocialLinkAttachement.objects.filter(
+                object_id=p.pk,
+                content_type=ContentType.objects.get_for_model(Project),
+            ))
+        context["projects_info"] = zip(context["projects"],context["project__links"])
         return context
 
 
@@ -137,18 +151,25 @@ class UserView(DetailView):
             .distinct()
             .order_by("-created")
         )
+        context["project__links"] = []
+        for p in context["projects"]:
+            context["project__links"].append(SocialLinkAttachement.objects.filter(
+                object_id=p.pk,
+                content_type=ContentType.objects.get_for_model(Project),
+            ))
+        context["projects_info"] = zip(context["projects"],context["project__links"])
         context["links"] = SocialLinkAttachement.objects.filter(
             object_id=self.object.pk,
             content_type=ContentType.objects.get_for_model(Profile),
         )
         context["following"] = self.get_object().following.all()
         context["followers"] = self.get_object().followers.all()
-        context["is_following_user"] = UserFollowing.objects.filter(user_id=self.request.user.id, following_user_id=self.get_object().id).count() > 0
+        context["is_following_user"] = UserFollowing.objects.filter(user_id=self.get_object().id, following_user_id=self.get_object().id).count() > 0
         context["bookmarks"] = BookmarkChallenge.objects.filter(
              Q(user__in=[self.object.pk])
         )
         try:
-            context["verified"] = self.request.user.profile.badges.get(name="Verified")
+            context["verified"] = self.get_object().profile.badges.get(name="Verified")
         except Badge.DoesNotExist: #Catch get exception
             context["verified"] = False
         return context
@@ -364,6 +385,13 @@ class ChallengeView(TemplateView, ContextMixin):
                 {"label": "End Time", "time": self.challenge.end},
             ]
         context["projects"] = Project.objects.filter(challenge=self.challenge)
+        context["project__links"] = []
+        for p in context["projects"]:
+            context["project__links"].append(SocialLinkAttachement.objects.filter(
+                object_id=p.pk,
+                content_type=ContentType.objects.get_for_model(Project),
+            ))
+        context["projects_info"] = zip(context["projects"],context["project__links"])
         context["related_challenges"] = Challenge.objects.filter(tags__pk__in=self.challenge.tags.all()).distinct().exclude(pk=self.challenge.pk)[:3] #Take top 3 related challenges
         if len(context["related_challenges"]) == 0: #If it can't find any challenges, recommend
             context["related_challenges"] = Challenge.objects.all()[:3]
@@ -385,7 +413,7 @@ class ProjectChallengeCreateView(ProjectFormView, CreateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context["header"] = "Create Project for '%s'" % self.challenge.name
+        context["header"] = 'Submit Solution to "%s"' % self.challenge.name
         return context
 
     def form_valid(self, form):
@@ -574,3 +602,14 @@ def add_tags(request):
             existing_tag = Tag.objects.get(name=tag)
             listKeys.append(existing_tag.pk)
     return JsonResponse(listKeys, safe=False)
+
+def delete_project(request, pk):
+    if request.method == "POST":
+        project = get_object_or_404(Project, pk=pk)
+        if project.creators.all()[0] == request.user.profile:
+            project.delete()
+            return HttpResponseRedirect('/')
+        # Unauthorized Access
+        raise Http404
+    # Unauthorized Access
+    raise Http404

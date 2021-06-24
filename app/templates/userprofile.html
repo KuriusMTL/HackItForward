@@ -14,7 +14,7 @@
       <img class="avatar-image" src="{{ user.profile.image.url }}">
     </div>
     <div class="profile-details">
-      <h3 style="margin-bottom: 4px;">
+      <h3 style="margin-bottom: 4px; margin-top: 0.5rem;">
         {{ user.first_name }} {{ user.last_name }} @{{ user.username }}
         {% if user.profile.badges.exists() and verified %}
         <a style="margin-left:5px;" href="#badge-{{ user.profile.badges.get(name='Verified').pk }}" class="tooltip" data-tooltip="{{ user.profile.badges.get(name='Verified') }}">
@@ -227,7 +227,7 @@
         {% else %}
         {% for follower in followers %}
         <div class="row user-follow" style="background-color:white;">
-          <div class="avatar" style="position: relative;">
+          <div class="avatar" style="position: relative; margin-top: -1.5em; width: 160px; height: 160px;">
             <img class="avatar-image" src="{{ follower.user_id.profile.image.url }}">
           </div>
           <p><a href="{{ url('user', username=follower.user_id.username) }}" style="color: var(--cirrus-dark);">{{ follower.user_id.username }}</a></p>

@@ -937,3 +937,11 @@ a > .fa-envelope:hover {
     transform: translate(24px, 0);
   }
 }
+
+.editor-toolbar .fa {
+  font-weight: 900 !important;
+}
+
+.account-settings .frame__body a {
+  display: inline;
+}
