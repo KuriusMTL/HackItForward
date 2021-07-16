@@ -7,7 +7,7 @@
             <i class="fa-wrapper fa fa-times"></i>
         </span>
       </a>
-      <div class="modal-content" style="border-radius: 8px; background-color: #F6F8FB; height: 85vh; max-width: 100vw; width:100vw; display: flex; flex-direction: column; z-index:2; position: absolute; bottom: 2em;">
+      <div class="modal-content" style="border-radius: 24px; background-color: #F6F8FB; height: 85vh; max-width: 99%; width:100vw; display: flex; flex-direction: column; z-index:2; position: absolute; bottom: 2em;">
         <div class="modal-body" style="padding: 3rem 3rem; max-height: 100%; flex-grow: 1;">
           <div class="row">
             <div style="padding: 0 0.5rem">
@@ -47,6 +47,19 @@
               </div>
             </div>
             <div class="col-6">
+              <div class="row">
+                <div class="col-12">
+                  <a class="u-center" style="margin-bottom: 31px;">
+                    <button id="upvote-{{ project.pk }}" class="btn-primary btn--pilled" style="width: 100%;"><i class="fas fa-angle-double-up"></i>&nbsp; Upvote {{ project.upvotes }} </button>
+                  </a>
+                </div>
+                <!-- <div class="col-4">
+                  <a href="{{ url('project_challenge_create', pk=challenge.pk) }}" class="u-center" style="margin-bottom: 31px;">
+                    <button class="btn-primary btn--pilled" style="width: 100%;">Create Project</button>
+                  </a>
+                </div> -->
+
+              </div>
               <div class="challenge-card" style="margin-top:0 !important;">
                 <div class="challenge-card-content">
                   <h1 style="font-size: 20px; margin-top: 0px;">Project Description</h1>
@@ -151,6 +164,18 @@
         e.preventDefault();
         $('form[name="delete-project"]').submit()
       })
+    </script>
+    <script>
+        $(`#upvote-{{ project.pk }}`).on('click', function (e) {
+          console.log("Hello world")
+        $.ajax({
+          type: "POST",
+          url: `/upvote/project/{{ project.pk }}/`,
+          data: {
+        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+          }
+        }).then(location.reload());
+      });
     </script>
   {% endfor %}
 {% endblock %}

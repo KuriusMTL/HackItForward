@@ -10,10 +10,10 @@
 {% block body %}
 <div class="content" id="challenges">
   <!-- Challenge of the Week: Puts a particular challenge on the spotlight for HackItForward users to tackle -->
-  <div class="challenge-of-the-week" style="background-image: url({{ static('img/polar-bear.png') }});">
+  <div class="challenge-of-the-week" style="background-image: url({{ featured_challenges[0].image.url }});">
     <h2 style="color: #225A62; font-size: 50px; margin-bottom: 0;">Challenge Of The Week</h2>
-    <p class="" style="font-size: 24px; color:#40A0AE; margin-top: 0;">Canadian Polar Bear Habitat Challenge</p>
-    <a href="{{ url('challenge', pk=18) }}">
+    <p class="" style="font-size: 24px; color:#40A0AE; margin-top: 0;">{{ featured_challenges[0].name }}</p>
+    <a href="{{ url('challenge', pk=featured_challenges[0].pk) }}">
       <button class="btn--pilled btn-white btn-primary" style="color: #225A62">View Challenge</button>
     </a>
   </div>
