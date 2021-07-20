@@ -602,6 +602,7 @@ footer {
   height: 260px;
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
   overflow: hidden;
   border-radius: 16px 16px 0 0;
 }
