@@ -97,6 +97,10 @@ input:focus {
   font-family: Poppins !important;
 }
 
+.btn-active {
+  background-color: var(--cirrus-link-dark);
+}
+
 .white {
   color: var(--white) !important;
 }

@@ -97,12 +97,7 @@ class GalleryView(TemplateView):
             "q" not in self.request.GET and "tag" not in self.request.GET
         ):
             context["projects"] = Project.objects.all()
-            context["project__links"] = []
-            for p in context["projects"]:
-                context["project__links"].append(SocialLinkAttachement.objects.filter(
-                    object_id=p.pk,
-                    content_type=ContentType.objects.get_for_model(Project),
-                ))
+            context["user_upvote_projects"], context["project__links"] = get_project_upvotes_links(self.request.user, context["projects"])
             context["projects_info"] = zip(context["projects"],context["project__links"])
             return context
 
@@ -151,13 +146,9 @@ class UserView(DetailView):
             .distinct()
             .order_by("-created")
         )
-        context["project__links"] = []
-        for p in context["projects"]:
-            context["project__links"].append(SocialLinkAttachement.objects.filter(
-                object_id=p.pk,
-                content_type=ContentType.objects.get_for_model(Project),
-            ))
+        context["user_upvote_projects"], context["project__links"] = get_project_upvotes_links(self.request.user, context["projects"])
         context["projects_info"] = zip(context["projects"],context["project__links"])
+            
         context["links"] = SocialLinkAttachement.objects.filter(
             object_id=self.object.pk,
             content_type=ContentType.objects.get_for_model(Profile),
@@ -378,19 +369,14 @@ class ChallengeView(TemplateView, ContextMixin):
                 context["user_upvote_comments"][comment.pk] = True
             except:
                 context["user_upvote_comments"][comment.pk] = False
-            
+
         if self.challenge.start and self.challenge.end:
             context["time_labels"] = [
                 {"label": "Start Time", "time": self.challenge.start},
                 {"label": "End Time", "time": self.challenge.end},
             ]
         context["projects"] = Project.objects.filter(challenge=self.challenge)
-        context["project__links"] = []
-        for p in context["projects"]:
-            context["project__links"].append(SocialLinkAttachement.objects.filter(
-                object_id=p.pk,
-                content_type=ContentType.objects.get_for_model(Project),
-            ))
+        context["user_upvote_projects"], context["project__links"] = get_project_upvotes_links(self.request.user, context["projects"])
         context["projects_info"] = zip(context["projects"],context["project__links"])
         context["related_challenges"] = Challenge.objects.filter(tags__pk__in=self.challenge.tags.all()).distinct().exclude(pk=self.challenge.pk)[:3] #Take top 3 related challenges
         if len(context["related_challenges"]) == 0: #If it can't find any challenges, recommend
@@ -613,3 +599,18 @@ def delete_project(request, pk):
         raise Http404
     # Unauthorized Access
     raise Http404
+
+def get_project_upvotes_links(user, projects):
+    project__links = []
+    user_upvote_projects = {}
+    for project in projects:
+        project__links.append(SocialLinkAttachement.objects.filter(
+            object_id=project.pk,
+            content_type=ContentType.objects.get_for_model(Project),
+        ))
+        try:
+            UpvoteProject.objects.get(obj=project.pk, user=user)
+            user_upvote_projects[project.pk] = True
+        except:
+            user_upvote_projects[project.pk] = False
+    return user_upvote_projects, project__links

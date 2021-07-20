@@ -32,7 +32,7 @@
       {% for project in projects %}
         <div class="col-4" style="padding: 0 0.75rem;">
           <div class="challenge-card">
-            <a href="#{{ project.name }}">
+            <a href="#project-{{ project.pk }}">
               {% if project.image %}
               <div class="card-img" style="background-image: url({{ project.image.url }})"></div>
             {% else %}

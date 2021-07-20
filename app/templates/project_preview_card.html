@@ -1,5 +1,5 @@
 <div class="challenge-card">
-    <a href="#{{ project.name }}" style="white-space: nowrap;">
+    <a href="#project-{{ project.pk }}" style="white-space: nowrap;">
       <div class="project-card-content row" style="display: flex;">
         {% if project.image %}
         <div class="project-card-image-preview col-3" style="background-image: url({{ project.image.url }});"></div>

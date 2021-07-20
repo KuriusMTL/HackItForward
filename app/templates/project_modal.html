@@ -1,6 +1,6 @@
 {% block project_modal %}
   {% for project, project_links in projects_info %}
-    <div class="modal modal-large modal-animated--zoom-in" id="{{ project.name }}" style="padding-left: 0; padding-right: 0; padding-bottom: 0;">
+    <div class="modal modal-large modal-animated--zoom-in" id="project-{{ project.pk }}" style="padding-left: 0; padding-right: 0; padding-bottom: 0;">
       <a href="#searchModalDialog" class="modal-overlay close-btn" style="z-index:1;" aria-label="Close"></a>
       <a href="#searchModalDialog" class="close-btn modal-close-btn" aria-label="Close">
         <span class="icon">
@@ -50,14 +50,15 @@
               <div class="row">
                 <div class="col-12">
                   <a class="u-center" style="margin-bottom: 31px;">
-                    <button id="upvote-{{ project.pk }}" class="btn-primary btn--pilled" style="width: 100%;"><i class="fas fa-angle-double-up"></i>&nbsp; Upvote {{ project.upvotes }} </button>
+                    {% if not request.user.is_authenticated %}
+                    <button onclick="document.location='#login-modal';return false;" class="btn-primary btn--pilled" style="width: 100%;"><i class="fas fa-angle-double-up"></i>&nbsp; Upvote <span class="project-upvotes">{{ project.upvotes }}</span> </button>
+                    {% elif user_upvote_projects[project.pk] %}
+                    <button onclick="upvote(event, {{project.pk}})" class="btn-primary btn--pilled btn-active" style="width: 100%;"><i class="fas fa-angle-double-up"></i>&nbsp; Upvote <span class="project-upvotes">{{ project.upvotes }}</span> </button>
+                    {% else %}
+                    <button onclick="upvote(event, {{project.pk}})" class="btn-primary btn--pilled" style="width: 100%;"><i class="fas fa-angle-double-up"></i>&nbsp; Upvote <span class="project-upvotes">{{ project.upvotes }}</span> </button>
+                    {% endif %}
                   </a>
                 </div>
-                <!-- <div class="col-4">
-                  <a href="{{ url('project_challenge_create', pk=challenge.pk) }}" class="u-center" style="margin-bottom: 31px;">
-                    <button class="btn-primary btn--pilled" style="width: 100%;">Create Project</button>
-                  </a>
-                </div> -->
 
               </div>
               <div class="challenge-card" style="margin-top:0 !important;">
@@ -69,7 +70,7 @@
                       <a href="{{ project.get_edit_url() }}">
                         <button class="btn--pilled btn-primary">Edit Project</button>
                       </a>
-                      <a href="#confirm-delete-{{ project.name }}">
+                      <a href="#confirm-delete-{{ project.pk }}">
                         <button class="btn--pilled btn-primary btn-danger">Delete Project</button>
                       </a>
                     {% endif %}
@@ -137,8 +138,8 @@
         </div>
       </div>
     </div>
-    <div class="modal modal-large modal-animated--zoom-in" id="confirm-delete-{{ project.name }}">
-      <a href="#{{ project.name }}" class="modal-overlay close-btn" aria-label="Close"></a>
+    <div class="modal modal-large modal-animated--zoom-in" id="confirm-delete-{{ project.pk }}">
+      <a href="#project-{{ project.pk }}" class="modal-overlay close-btn" aria-label="Close"></a>
         <div class="modal-content" style="border-radius: 8px; background-color: #F6F8FB; height: 30vh; max-width: 50vw; width:50vw; display: flex; flex-direction: column;">
           <div class="modal-body" style="padding: 4rem 4rem; max-height: 100%; flex-grow: 1;">
             <div class="row">
@@ -152,7 +153,7 @@
                 <button class="btn--pilled btn-primary btn-danger">Delete Project</button>
               </a>
             </form>
-            <a href="#{{ project.name }}">
+            <a href="#project-{{ project.pk }}">
               <button class="btn--pilled">Cancel</button>
             </a>
           </div>
@@ -164,18 +165,23 @@
         e.preventDefault();
         $('form[name="delete-project"]').submit()
       })
-    </script>
-    <script>
-        $(`#upvote-{{ project.pk }}`).on('click', function (e) {
-          console.log("Hello world")
+      function upvote(e, project_pk) {
+        e.preventDefault();
+        e.target.classList.toggle("btn-active");
+        var span_project_upvotes = e.target.children[1];
+        console.log(span_project_upvotes)
+        e.target.classList.contains("btn-active") 
+        ? span_project_upvotes.innerHTML = `${parseInt(span_project_upvotes.innerHTML) + 1}`
+        : span_project_upvotes.innerHTML = `${parseInt(span_project_upvotes.innerHTML) - 1}` ;
         $.ajax({
-          type: "POST",
-          url: `/upvote/project/{{ project.pk }}/`,
+          url: `/upvote/project/${project_pk}/`,
+          type: 'POST',
           data: {
-        'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-          }
-        }).then(location.reload());
-      });
+            'project_pk': {{ project.pk }},
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+          },
+        });
+      }
     </script>
   {% endfor %}
 {% endblock %}
