@@ -9,7 +9,7 @@
 
         <div class="col-7" style="padding-left: 32px;float:none;">
           <h3 class="">{{ project.name }}</h3>
-          <p class="grey">{{ project.description|truncatechars(100)|mistune|html_strip }}</p>
+          <p class="grey">{{ project.one_liner|truncatechars(100)|mistune|html_strip }}</p>
 
           <a href="{{ url('user', username=project.creators.first().username) }}">
             <div class="row" style="display: flex !important;">

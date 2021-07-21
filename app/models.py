@@ -369,7 +369,6 @@ class Project(models.Model):
     name = models.CharField(
         max_length=100, verbose_name="Name", help_text="Name of this project.")
     description = models.TextField(
-        blank=True,
         default=PROJECT_DESCRIPTION,
         verbose_name="Description",
         help_text="Description of this project.",
@@ -382,7 +381,6 @@ class Project(models.Model):
         help_text="Tags associated with this project.",
     )
     one_liner = models.CharField(
-        blank=True,
         verbose_name="One Liner",
         help_text="A one line description of this project.",
         max_length=50,
