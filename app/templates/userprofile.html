@@ -227,10 +227,23 @@
         {% else %}
         {% for follower in followers %}
         <div class="row user-follow" style="background-color:white;">
-          <div class="avatar" style="position: relative; margin-top: -1.5em; width: 160px; height: 160px;">
+          <div class="avatar" style="position: relative; width: 160px; height: 160px;">
             <img class="avatar-image" src="{{ follower.user_id.profile.image.url }}">
           </div>
-          <p><a href="{{ url('user', username=follower.user_id.username) }}" style="color: var(--cirrus-dark);">{{ follower.user_id.username }}</a></p>
+          <p><a href="{{ url('user', username=follower.user_id.username) }}" style="color: var(--cirrus-dark); font-weight: 700;">{{ follower.user_id.username }}</a></p>
+          {% if request.user.is_authenticated %}
+          {% if not request.user == follower.user_id %}
+          {% if current_user_is_followers[follower.pk] %}
+          <a href="{{ url ('unfollow_user', pk=follower.user_id.id) }}" class="btn-follow">
+            <button class="btn--pilled btn-white btn-primary" style="color: #4f4f4f;">Unfollow</button>
+          </a>
+          {% else %}
+          <a href="{{ url ('follow_user', pk=follower.user_id.id) }}" class="btn-follow">
+            <button class="btn--pilled btn-primary" style="color: #fafafa;">Follow</button>
+          </a>
+          {% endif %}
+          {% endif %}
+          {% endif %}
         </div>
         {% endfor %}
         {% endif %}
@@ -255,9 +268,19 @@
             <img class="avatar-image" src="{{ following_user.following_user_id.profile.image.url }}">
           </div>
           <p><a href="{{ url('user', username=following_user.following_user_id.username) }}" style="color: var(--cirrus-dark); font-weight:700;">{{ following_user.following_user_id.username }}</a></p>
+          {% if request.user.is_authenticated %}
+          {% if not request.user == following_user.following_user_id %}
+          {% if current_user_is_following[following_user.pk] %}
           <a href="{{ url ('unfollow_user', pk=following_user.following_user_id.id) }}" class="btn-follow">
             <button class="btn--pilled btn-white btn-primary" style="color: #4f4f4f;">Unfollow</button>
           </a>
+          {% else %}
+          <a href="{{ url ('follow_user', pk=following_user.following_user_id.id) }}" class="btn-follow">
+            <button class="btn--pilled btn-primary" style="color: #fafafa;">Follow</button>
+          </a>
+          {% endif %}
+          {% endif %}
+          {% endif %}
         </div>
         {% endfor %}
         {% endif %}

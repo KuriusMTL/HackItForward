@@ -155,7 +155,13 @@ class UserView(DetailView):
         )
         context["following"] = self.get_object().following.all()
         context["followers"] = self.get_object().followers.all()
-        context["is_following_user"] = UserFollowing.objects.filter(user_id=self.get_object().id, following_user_id=self.get_object().id).count() > 0
+        context["current_user_is_following"] = {}
+        context["current_user_is_followers"] = {}
+        for relation in context["following"]:
+            context["current_user_is_following"][relation.pk] = UserFollowing.objects.filter(user_id=self.request.user.pk, following_user_id=relation.following_user_id).count() > 0
+        for relation in context["followers"]:
+            context["current_user_is_followers"][relation.pk] = UserFollowing.objects.filter(user_id=self.request.user.pk, following_user_id=relation.following_user_id).count() > 0
+        context["is_following_user"] = UserFollowing.objects.filter(user_id=self.request.user.pk, following_user_id=self.get_object().id).count() > 0
         context["bookmarks"] = BookmarkChallenge.objects.filter(
              Q(user__in=[self.object.pk])
         )
