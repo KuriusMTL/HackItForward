@@ -45,6 +45,52 @@
                   {% endfor %}
                 </div>
               </div>
+              <div class="challenge-card">
+                <div class="project-comment-content">
+                  <h5>Give Feedback</h5>
+                  {% if request.user.is_authenticated %}
+                  <textarea type="text" name="comment" class="comment-input"
+                    placeholder="Share your thoughts"></textarea>
+      
+                  <button id="send-comment-project-{{ project.pk }}" class="btn--pilled btn-primary send-comment-project">Submit</button>
+                  {% else %}
+                  <p><a href="{{ url('login') }}">Log in</a> to comment!<p>
+                  {% endif %}
+      
+                  {% csrf_token %}
+                  {% for comment in project.comments.all().order_by('-date_added') %}
+                  <div style="display:flex; flex-direction: column;">
+      
+                    <div class="comment">
+                      <a href="{{ url('user', username=comment.profile.username) }}">
+                        <img class="comment-profile-image" src="{{ comment.profile.image.url }}" style="grid-area: image;" />
+                      </a>
+                      <h6 style="margin: 0; grid-area: username;">
+                        <a style="color: inherit; text-decoration: none; font-weight: inherit;"
+                          href="{{ url('user', username=comment.profile.username) }}">
+                          {{ comment.profile.user.username }}
+                        </a>
+                        <span class="comment-date">{{ comment.humanized_date }}</span>
+                      </h6>
+                      <div style="grid-area: content;">
+                        <p style="margin: 0">{{ comment.text }}</p>
+                        <!--<i class="fas fa-ellipsis-h comment-actions"></i>-->
+                      </div>
+                      <div class="comment-like">
+                        {% if not request.user.is_authenticated %}
+                        <i class="far fa-heart comment-heart" href="#login-modal"></i>
+                        {% elif upvote_project_comments[project.pk][comment.pk] %}
+                        <i class="fas fa-heart comment-heart" onclick="like(event, {{comment.pk}})"></i>
+                        {% else %}
+                        <i class="far fa-heart comment-heart" onclick="like(event, {{comment.pk}})"></i>
+                        {% endif %}
+                        <span id="comment-like-count">{{ comment.upvotes }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
             </div>
             <div class="col-6">
               <div class="row">
@@ -182,6 +228,39 @@
           },
         });
       }
+      function like(e, comment_pk) {
+        e.target.classList.toggle("far");
+        e.target.classList.toggle("fas");
+        e.target.classList.contains("far")
+          ? e.target.parentElement.children[1].innerHTML = `${parseInt(e.target.parentElement.children[1].innerHTML) - 1}`
+          : e.target.parentElement.children[1].innerHTML = `${parseInt(e.target.parentElement.children[1].innerHTML) + 1}`
+        $.ajax({
+          type: "POST",
+          url: `/upvote/comment/${comment_pk}/`,
+          data: {
+            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+          }
+        });
+      };
+      $('#send-comment-project-{{ project.pk }}').on('click', function(e) {
+        e.preventDefault();
+        let comment = e.target.parentElement.children[1].value;
+        if (comment != "") {
+          $.ajax({
+            type: "POST",
+            url: `/add_comment/`,
+            data: {
+              'comment': comment,
+              'obj_type': 'project',
+              'obj_pk': {{  project.pk }},
+              'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function () {
+              location.reload()
+            }
+          })
+        }
+      })
     </script>
   {% endfor %}
 {% endblock %}

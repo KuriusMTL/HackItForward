@@ -309,7 +309,8 @@
         url: `/add_comment/`,
         data: {
           'comment': comment,
-          'challenge_pk': {{ challenge.pk }},
+          'obj_type': 'challenge',
+          'obj_pk': {{ challenge.pk }},
     'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
         },
     success: function () {
@@ -347,7 +348,6 @@
       type: "POST",
       url: `/upvote/comment/${comment_pk}/`,
       data: {
-        'challenge_pk': {{ challenge.pk }},
         'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
       }
     });

@@ -97,7 +97,7 @@ class GalleryView(TemplateView):
             "q" not in self.request.GET and "tag" not in self.request.GET
         ):
             context["projects"] = Project.objects.all()
-            context["user_upvote_projects"], context["project__links"] = get_project_upvotes_links(self.request.user, context["projects"])
+            context["user_upvote_projects"], context["project__links"], context["upvote_project_comments"] = get_project_upvotes_links(self.request.user, context["projects"])
             context["projects_info"] = zip(context["projects"],context["project__links"])
             return context
 
@@ -146,7 +146,7 @@ class UserView(DetailView):
             .distinct()
             .order_by("-created")
         )
-        context["user_upvote_projects"], context["project__links"] = get_project_upvotes_links(self.request.user, context["projects"])
+        context["user_upvote_projects"], context["project__links"], context["upvote_project_comments"] = get_project_upvotes_links(self.request.user, context["projects"])
         context["projects_info"] = zip(context["projects"],context["project__links"])
             
         context["links"] = SocialLinkAttachement.objects.filter(
@@ -382,7 +382,7 @@ class ChallengeView(TemplateView, ContextMixin):
                 {"label": "End Time", "time": self.challenge.end},
             ]
         context["projects"] = Project.objects.filter(challenge=self.challenge)
-        context["user_upvote_projects"], context["project__links"] = get_project_upvotes_links(self.request.user, context["projects"])
+        context["user_upvote_projects"], context["project__links"], context["upvote_project_comments"] = get_project_upvotes_links(self.request.user, context["projects"])
         context["projects_info"] = zip(context["projects"],context["project__links"])
         context["related_challenges"] = Challenge.objects.filter(tags__pk__in=self.challenge.tags.all()).distinct().exclude(pk=self.challenge.pk)[:3] #Take top 3 related challenges
         if len(context["related_challenges"]) == 0: #If it can't find any challenges, recommend
@@ -463,9 +463,14 @@ def add_comment(request):
     if request.method == "POST":
         comment = request.POST['comment']
         profile = request.user.profile
-        pk = request.POST["challenge_pk"]
-        challenge = Challenge.objects.get(pk=pk)
-        challenge.comments.create(text=comment, profile=profile)
+        obj_type = request.POST['obj_type']
+        pk = request.POST["obj_pk"]
+        if obj_type == 'challenge':
+            challenge = Challenge.objects.get(pk=pk)
+            challenge.comments.create(text=comment, profile=profile)
+        elif obj_type == 'project':
+            project = Project.objects.get(pk=pk)
+            project.comments.create(text=comment, profile=profile)
     
     return JsonResponse("Success", safe=False)
 
@@ -606,9 +611,11 @@ def delete_project(request, pk):
     # Unauthorized Access
     raise Http404
 
+# For each project, return social link, upvotes, and comment upvotes
 def get_project_upvotes_links(user, projects):
     project__links = []
     user_upvote_projects = {}
+    upvote_project_comments = {}
     for project in projects:
         project__links.append(SocialLinkAttachement.objects.filter(
             object_id=project.pk,
@@ -619,4 +626,11 @@ def get_project_upvotes_links(user, projects):
             user_upvote_projects[project.pk] = True
         except:
             user_upvote_projects[project.pk] = False
-    return user_upvote_projects, project__links
+        upvote_project_comments[project.pk] = {}
+        for comment in project.comments.all():
+            try:
+                UpvoteComment.objects.get(obj=comment.pk, user=user)
+                upvote_project_comments[project.pk][comment.pk] = True
+            except:
+                upvote_project_comments[project.pk][comment.pk] = False
+    return user_upvote_projects, project__links, upvote_project_comments
