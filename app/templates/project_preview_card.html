@@ -7,16 +7,33 @@
         <div class="project-card-image-preview col-3" style="background-image: url({{ static('img/polar-bear.png') }});"></div>
         {% endif %}
 
-        <div class="col-7" style="padding-left: 32px;float:none;">
-          <h3 class="">{{ project.name }}</h3>
-          <p class="grey">{{ project.one_liner|truncatechars(100)|mistune|html_strip }}</p>
+        <div class="col-7 project-main-content" style="float:none; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h3 class="">{{ project.name }}</h3>
+            <p class="grey">{{ project.one_liner|truncatechars(100)|mistune|html_strip }}</p>
+          </div>
+          <div style="display: flex; flex-direction: row; align-items: flex-end;">
+            <button class="outline btn-comments"><i class="fas fa-comments"></i>&nbsp;{{ project.comments.count() }}</button>
+            <a class="creators" href="{{ url('user', username=project.creators.first().username) }}">
+              <div class="row" style="display: flex !important; padding-bottom: 0;">
+                <div style="display: flex; flex-direction: column;justify-content: center;">
+                  <img class="profile-icon vertical-align" src="{{ project.creators.first().image.url }}" />
+                </div>
+                <p style="font-weight: 500; margin:0" class="grey">{{ project.short_creators }}</p>
+              </div>
+            </a>
+          </div>
+        </div>
 
-          <a href="{{ url('user', username=project.creators.first().username) }}">
-            <div class="row" style="display: flex !important;">
-              <img class="profile-icon vertical-align" src="{{ project.creators.first().image.url }}" />
-              <p style="font-weight: 500; margin:0" class="grey">{{ project.short_creators }}</p>
-            </div>
-          </a>
+        <div class="col-2">
+          <div class="row">
+            <a href="#project-{{ project.pk }}" style="white-space: nowrap;">
+              <button class="outline btn-upvotes"><i class="fas fa-angle-double-up"></i>{{ project.upvotes }}</button>
+            </a>
+          </div>
+          <div class="row project-date">
+            {{ project.humanized_date }}
+          </div>
         </div>
       </div>
     </a>

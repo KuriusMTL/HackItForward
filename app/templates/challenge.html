@@ -55,7 +55,7 @@
               href="{{ url('user', username=challenge.creators.first().username) }}">
               <img class="profile-icon vertical-align" src="{{ challenge.creators.first().image.url }}" />
               <p class="vertical-align" style="margin: 0; color:#4F4F4F;">By <b>{{ challenge.creators.first().username
-                  }}</b></p>
+                  }}</b> <span class="challenge-date grey">{{ challenge.humanized_date }}</span></p>
             </a>
 
 
@@ -114,7 +114,6 @@
           </div>
         </div>
       </div>
-      <p style="margin-left: 20px;">Created on {{ challenge.created }}</p>
     </div>
     <div class="col-3" style="margin-left: 16px;">
       <div style="position: absolute;" id="social-float">

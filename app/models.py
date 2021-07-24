@@ -11,7 +11,7 @@ from django.utils import timezone
 from PIL import Image, ImageOps
 import re
 import humanize
-from datetime import datetime
+from datetime import datetime, date
 from django.utils import timezone
 
 PROJECT_DESCRIPTION = """
@@ -317,6 +317,11 @@ class Challenge(models.Model):
     def submission_count(self):
         return self.project_set.count()
 
+    @property
+    def humanized_date(self):
+        current_date = date.today()
+        return humanize.naturaltime(current_date - self.created)
+
     def can_edit(self, user):
         if not user.is_authenticated:
             return False
@@ -433,6 +438,11 @@ class Project(models.Model):
 
     def get_delete_url(self):
         return reverse("project_delete", args=[self.pk])
+    
+    @property
+    def humanized_date(self):
+        current_date = date.today()
+        return humanize.naturaltime(current_date - self.created)
 
     def __str__(self):
         return self.name
