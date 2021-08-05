@@ -97,6 +97,10 @@ input:focus {
   font-family: Poppins !important;
 }
 
+.btn-active {
+  background-color: var(--cirrus-link-dark);
+}
+
 .white {
   color: var(--white) !important;
 }
@@ -598,6 +602,7 @@ footer {
   height: 260px;
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
   overflow: hidden;
   border-radius: 16px 16px 0 0;
 }
@@ -714,7 +719,7 @@ a > .fa-envelope:hover {
 .profile-icon {
   border-radius: 50%;
   max-height: 30px;
-  margin-right: 5px;
+  margin-right: 8px;
 }
 
 .subheading {
@@ -852,6 +857,71 @@ a > .fa-envelope:hover {
   overflow-y: hidden;
 }
 
+.project-card-content .col-2 {
+  flex: 1 1 auto;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  padding-right: 0;
+  align-items: flex-end;
+  width: 10%;
+}
+
+.project-card-content .col-7 {
+  padding-left: 32px;
+}
+
+.project-card-content .col-7 .creators {
+  margin-left: 16px;
+}
+
+.btn-comments {
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 3px 25px;
+  color: var(--cirrus-primary) !important;
+  border-color: 1px solid var(--cirrus-primary);
+}
+
+.btn-upvotes {
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 20px 25px;
+  color: #4f4f4f !important;
+  border: 1px solid var(--cirrus-gray);
+}
+
+.btn-upvotes i {
+  display: block;
+}
+
+.project-date {
+  font-size: 12px;
+  font-weight: 400;
+  text-align: right;
+  color: var(--grey-mid);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-left: 0;
+  padding-bottom: 0;
+}
+
+@media screen and (max-width: 1192px) {
+  .project-card-content .col-2 {
+    width: 8%;
+  }
+}
+
+@media screen and (max-width: 1130px) {
+  .project-card-content .col-2 {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 770px) {
   .header {
     background-color: #fff;
@@ -883,6 +953,9 @@ a > .fa-envelope:hover {
   }
   #footer #footer-navigation {
     margin-right: 50px !important;
+  }
+  .project-card-content .col-7 {
+    flex: 1;
   }
 }
 
